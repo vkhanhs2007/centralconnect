@@ -810,12 +810,13 @@
   }
   .modal-close {
     position: absolute; top: 16px; right: 16px;
-    background: #FFFFFF; border: none;
+    background: rgba(74,144,217,0.08); border: 1px solid rgba(74,144,217,0.2);
     width: 32px; height: 32px; border-radius: 50%;
-    color: var(--muted); cursor: pointer; font-size: 14px;
+    color: #F5F0E8; cursor: pointer; font-size: 14px;
     transition: all 0.2s; font-family: inherit;
+    display: flex; align-items: center; justify-content: center;
   }
-  .modal-close:hover { background: rgba(26,79,140,0.12); color: var(--cream); }
+  .modal-close:hover { background: rgba(74,144,217,0.18); border-color: rgba(74,144,217,0.4); color: #fff; }
   .modal-logo {
     text-align: center; margin-bottom: 28px;
   }
@@ -831,14 +832,15 @@
   .form-group { margin-bottom: 16px; }
   .form-group label { display: block; font-size: 12px; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 7px; text-transform: uppercase; }
   .form-group input {
-    width: 100%; background: #FFFFFF;
+    width: 100%; background: rgba(255,255,255,0.06);
     border: 1px solid rgba(74,144,217,0.2);
     border-radius: 8px; padding: 11px 14px;
-    color: var(--cream); font-size: 14px; font-family: inherit; outline: none;
-    transition: border-color 0.2s;
+    color: #F5F0E8; font-size: 14px; font-family: inherit; outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    box-sizing: border-box;
   }
-  .form-group input:focus { border-color: var(--ocean-light); background: rgba(74,144,217,0.04); }
-  .form-group input::placeholder { color: rgba(138,125,110,0.5); }
+  .form-group input:focus { border-color: var(--ocean-light); background: rgba(74,144,217,0.1); }
+  .form-group input::placeholder { color: rgba(245,240,232,0.35); }
   .input-wrap { position: relative; }
   .input-wrap input { padding-right: 40px; }
   .toggle-pw {
@@ -896,7 +898,7 @@
   /* Preference checkboxes */
   .pref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
   .pref-item {
-    background: #FFFFFF;
+    background: rgba(74,144,217,0.05);
     border: 1px solid rgba(74,144,217,0.15);
     border-radius: 8px; padding: 12px 14px;
     cursor: pointer; transition: all 0.2s;

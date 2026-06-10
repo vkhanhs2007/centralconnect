@@ -8,9 +8,10 @@
   const hasExistingLoginModal = !!document.getElementById('loginModal');
   const shouldInjectModal = !hasExistingLoginModal;
 
-  // ─── Inject CSS ───
-  if (shouldInjectModal) {
+  // ─── Inject CSS (always — needed for toast even on pages with own modal) ───
+  if (!document.getElementById('cc-auth-style')) {
     const style = document.createElement('style');
+    style.id = 'cc-auth-style';
     style.textContent = `
   .cc-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;
     display:flex;align-items:center;justify-content:center;
@@ -97,6 +98,14 @@
   .cc-toast-auth.show{transform:translateX(-50%) translateY(0);}
   `;
     document.head.appendChild(style);
+  }
+
+  // ─── Always inject toast (even on pages with own modal like index.html) ───
+  if (!document.getElementById('ccAuthToast')) {
+    const toastEl = document.createElement('div');
+    toastEl.className = 'cc-toast-auth';
+    toastEl.id = 'ccAuthToast';
+    document.body.appendChild(toastEl);
   }
 
   // ─── Inject HTML ───
@@ -305,8 +314,6 @@
     </div>
   </div>
 
-  <!-- Toast -->
-  <div class="cc-toast-auth" id="ccAuthToast"></div>
   `;
 
   const wrapper = document.createElement('div');
