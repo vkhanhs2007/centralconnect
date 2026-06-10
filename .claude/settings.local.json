@@ -5,7 +5,8 @@
       "Bash(Get-ChildItem -Path \"d:\\\\BWD-20260608T103320Z-3-001\" -Recurse -Force)",
       "Bash(Select-Object -Property FullName)",
       "Bash(ConvertTo-Csv -NoTypeInformation)",
-      "PowerShell(Stop-Process -Id 25724 -Force)"
+      "PowerShell(Stop-Process -Id 25724 -Force)",
+      "Bash(git rm *)"
     ]
   }
 }
