@@ -1,0 +1,2805 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central Connect – Di sản số Đà Nẵng</title>
+<meta name="description" content="Khám phá di sản văn hóa Đà Nẵng qua bản đồ tương tác, lịch trình AI, ẩm thực đặc sản và gây quỹ bảo tồn. Nền tảng số hóa di sản miền Trung Việt Nam.">
+<meta name="keywords" content="di sản Đà Nẵng, Hội An, Mỹ Sơn, Central Connect, du lịch văn hóa">
+<meta property="og:title" content="Central Connect – Di sản số Đà Nẵng">
+<meta property="og:description" content="Khám phá di sản văn hóa Đà Nẵng qua bản đồ tương tác, lịch trình AI và ẩm thực đặc sản.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1A4F8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/images.css">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #9A7A30;
+    --cream: #F5F0E8;
+    --ink: #1A1410;
+    --ink-soft: #3D3530;
+    --muted: #8A7D6E;
+    --surface: #FDFAF5;
+    --glass: rgba(245,240,232,0.05);
+    --glass-strong: rgba(245,240,232,0.10);
+    --overlay: rgba(15,10,5,0.55);
+    /* Màu mở rộng – Xanh biển Đà Nẵng */
+    --ocean: #1A4F8C;
+    --ocean-light: #4A90D9;
+    --ocean-soft: rgba(26,79,140,0.08);
+    /* Màu mở rộng – Cam đất Hội An */
+    --sunset: #B8532E;
+    --sunset-light: #D4744A;
+    --sunset-soft: rgba(184,83,46,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--ink);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 40px;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+  nav.scrolled {
+    background: rgba(10,13,20,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,144,217,0.15);
+  }
+
+ .nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-logo-img{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+    border-radius:50%;
+}
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+    margin-top: -2px;
+  }
+
+  .nav-menu {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none;
+  }
+  .nav-menu li { position: relative; }
+  .nav-menu a {
+    text-decoration: none;
+    color: rgba(245,240,232,0.72);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 4px;
+    cursor: pointer;
+  }
+  .nav-menu a:hover { color: var(--ocean-light); background: var(--ocean-soft); }
+  .nav-menu .fund-link { color: #E8A020; }
+  .nav-menu .fund-link:hover { color: #F0B840; background: rgba(232,160,32,0.1); }
+
+  /* Dropdown */
+  .dropdown-menu {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    background: rgba(10,13,20,0.95);
+    border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 10px;
+    padding: 8px;
+    min-width: 180px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(20px);
+  }
+  .nav-menu li:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown-menu a {
+    display: block; padding: 8px 12px;
+    font-size: 13px; color: var(--cream);
+    border-radius: 6px;
+  }
+  .dropdown-menu a:hover { background: rgba(74,144,217,0.12); color: var(--ocean-light); }
+
+  .nav-actions {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-notify {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 15px;
+    transition: all 0.2s;
+    color: var(--muted);
+    opacity: 0.5;
+    position: relative;
+  }
+  .nav-notify.active { opacity: 1; color: var(--ocean-light); }
+  .notif-dot {
+    position: absolute; top: 6px; right: 6px;
+    width: 7px; height: 7px;
+    background: #E8A020; border-radius: 50%;
+    border: 1.5px solid var(--ink);
+  }
+
+  .btn-login {
+    background: transparent;
+    border: 1px solid rgba(74,144,217,0.4);
+    color: var(--cream);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-login:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+  .btn-register {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    border: none;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.25s;
+  }
+  .btn-register:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-1px); }
+
+  /* User dropdown after login */
+  .user-pill {
+    display: none;
+    align-items: center; gap: 8px;
+    padding: 5px 12px 5px 5px;
+    background: var(--glass);
+    border: 1px solid rgba(74,144,217,0.35);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .user-pill:hover { border-color: var(--ocean-light); }
+  .user-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: #fff;
+  }
+  .user-points {
+    font-size: 12px; color: var(--ocean-light);
+    font-weight: 600;
+  }
+  .user-name { font-size: 13px; color: var(--cream); }
+
+  .user-dropdown {
+    position: absolute; top: calc(100% + 10px); right: 0;
+    background: rgba(10,13,20,0.97);
+    border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 10px; padding: 8px;
+    min-width: 200px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s;
+    backdrop-filter: blur(20px);
+  }
+  .user-pill:hover .user-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .user-dropdown a {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px;
+    text-decoration: none; font-size: 13.5px; color: var(--cream);
+    border-radius: 6px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .user-dropdown a:hover { background: rgba(74,144,217,0.1); color: var(--ocean-light); }
+  .user-dropdown .divider { height: 1px; background: rgba(74,144,217,0.12); margin: 6px 0; }
+  .user-dropdown .logout { color: #E05C5C !important; }
+  .user-dropdown .logout:hover { background: rgba(224,92,92,0.1) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh; min-height: 600px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0D0A06 0%, #1C1408 40%, #0A0D14 100%);
+  }
+
+  /* Animated background layers */
+  .hero-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 50%, rgba(26,79,140,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 30%, rgba(184,83,46,0.08) 0%, transparent 60%);
+    animation: heroFloat 8s ease-in-out infinite alternate;
+  }
+  @keyframes heroFloat {
+    from { transform: scale(1) translateY(0); }
+    to { transform: scale(1.05) translateY(-10px); }
+  }
+
+  /* Floating particles */
+  .particles {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--ocean-light);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleRise linear infinite;
+  }
+  @keyframes particleRise {
+    0% { opacity: 0; transform: translateY(0) scale(0); }
+    10% { opacity: 0.6; transform: translateY(-20px) scale(1); }
+    90% { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-300px) scale(0.3); }
+  }
+
+  /* Decorative lines */
+  .hero-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(74,144,217,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,116,74,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 10;
+    text-align: center; padding: 0 20px;
+    max-width: 900px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(74,144,217,0.45);
+    border-radius: 24px;
+    padding: 6px 16px;
+    font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--ocean-light);
+    margin-bottom: 32px;
+    animation: fadeSlideUp 0.8s ease forwards;
+    background: rgba(74,144,217,0.07);
+  }
+  .hero-badge span { width: 5px; height: 5px; background: var(--ocean-light); border-radius: 50%; }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 92px);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 24px;
+    animation: fadeSlideUp 0.8s 0.2s ease forwards;
+    opacity: 0;
+  }
+  .hero-title .line1 { display: block; color: var(--cream); }
+  .hero-title .line2 {
+    display: block;
+    background: linear-gradient(90deg, var(--ocean-light), var(--gold-light), var(--sunset-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 17px; font-weight: 300;
+    color: rgba(245,240,232,0.60);
+    letter-spacing: 0.03em;
+    margin-bottom: 44px;
+    animation: fadeSlideUp 0.8s 0.4s ease forwards;
+    opacity: 0;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    animation: fadeSlideUp 0.8s 0.6s ease forwards;
+    opacity: 0;
+    margin-bottom: 60px;
+  }
+
+  .cta-primary {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 15px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.3s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cta-primary:hover {
+    background: linear-gradient(135deg, var(--ocean-light), #6AAAE8);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(26,79,140,0.45);
+  }
+
+  .cta-ghost {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(74,144,217,0.35);
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 15px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.3s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cta-ghost:hover { border-color: var(--ocean-light); color: var(--ocean-light); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(26,79,140,0.22); }
+
+  /* Weather widget */
+  .weather-widget {
+    position: absolute; right: 40px; bottom: 40px; z-index: 10;
+    background: rgba(10,13,20,0.75);
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 12px; padding: 12px 18px;
+    backdrop-filter: blur(12px);
+    text-align: left;
+    animation: fadeSlideUp 0.8s 1s ease forwards; opacity: 0;
+  }
+  .weather-city { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .weather-temp { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--ocean-light); font-weight: 700; }
+  .weather-desc { font-size: 12px; color: rgba(245,240,232,0.60); }
+  .weather-suggest { font-size: 11px; color: #90D48A; margin-top: 4px; }
+
+  /* Scroll arrow */
+  .scroll-arrow {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    z-index: 10; animation: bounce 2s ease infinite;
+    cursor: pointer; color: rgba(245,240,232,0.4);
+    font-size: 22px; text-decoration: none;
+    z-index: 999; /* Đảm bảo nó luôn nằm trên lớp phủ */
+  pointer-events: auto; /* Cho phép nhận sự kiện click */
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Typed text cursor */
+  .typed-cursor {
+    display: inline-block;
+    color: var(--ocean-light);
+    animation: cursorBlink 0.8s ease-in-out infinite;
+    margin-left: 1px;
+    font-weight: 300;
+  }
+  @keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ── STATS SECTION ── */
+  #stats {
+    background: linear-gradient(90deg, rgba(26,79,140,0.05) 0%, rgba(26,20,16,0) 50%, rgba(184,83,46,0.05) 100%);
+    border-top: 2px solid rgba(74,144,217,0.25);
+    border-bottom: 2px solid rgba(212,116,74,0.2);
+    padding: 56px 40px;
+  }
+  .stats-grid {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 20px; text-align: center;
+  }
+  .stat-item { padding: 20px; }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px; font-weight: 900;
+    color: var(--ocean-light);
+    line-height: 1;
+  }
+  /* Stat accent colors – mỗi con số mang ý nghĩa màu riêng */
+  #stats .stats-grid > .stat-item:nth-child(1) .stat-number { color: var(--ocean-light); }
+  #stats .stats-grid > .stat-item:nth-child(3) .stat-number { color: var(--sunset-light); }
+  #stats .stats-grid > .stat-item:nth-child(5) .stat-number { color: var(--ocean-light); }
+  #stats .stats-grid > .stat-item:nth-child(7) .stat-number { color: var(--sunset-light); }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 8px; letter-spacing: 0.05em; }
+  .stat-divider {
+    width: 1px; background: rgba(74,144,217,0.15);
+    align-self: center; height: 60px;
+  }
+  @media (max-width: 700px) {
+    .stats-grid { grid-template-columns: repeat(2,1fr); }
+    .stat-divider { display: none; }
+    section { padding: 60px 20px; }
+    #stats { padding: 48px 20px; }
+  }
+  @media (max-width: 480px) {
+    section { padding: 48px 16px; }
+    .section-title { font-size: 26px; }
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 90px 40px; }
+  .section-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ocean-light); margin-bottom: 12px;
+  }
+  /* Section label accent colors theo chủ đề */
+  #places .section-label    { color: var(--ocean-light); }
+  #heritage .section-label  { color: var(--sunset-light); }
+  #food .section-label      { color: var(--sunset-light); }
+  #fundraising .section-label { color: var(--ocean-light); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 700; color: var(--cream);
+    line-height: 1.2; margin-bottom: 16px;
+  }
+  .section-desc { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 480px; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
+  .see-all {
+    font-size: 13px; color: var(--ocean-light); text-decoration: none;
+    border-bottom: 1px solid rgba(74,144,217,0.3);
+    padding-bottom: 2px; cursor: pointer;
+    transition: border-color 0.2s;
+    background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit; font-weight: 500;
+  }
+  .see-all:hover { border-color: var(--ocean-light); }
+
+  /* ── PLACES CARDS ── */
+  #places {
+    background: linear-gradient(180deg, var(--ink) 0%, rgba(26,79,140,0.05) 60%, #0D1018 100%);
+    border-top: 1px solid rgba(74,144,217,0.15);
+  }
+  .places-scroll {
+    display: flex; gap: 20px;
+    overflow-x: auto; padding-bottom: 16px;
+    scrollbar-width: thin; scrollbar-color: var(--ocean) transparent;
+    scroll-snap-type: x mandatory;
+  }
+  .place-card {
+    flex: 0 0 300px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(74,144,217,0.12);
+    border-radius: 14px; overflow: hidden;
+    cursor: pointer; scroll-snap-align: start;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .place-card:hover { transform: translateY(-6px); border-color: rgba(74,144,217,0.5); box-shadow: 0 8px 28px rgba(26,79,140,0.15); }
+  .place-card:hover .card-overlay { opacity: 1; }
+  .card-img {
+    height: 200px;
+    background-size: cover; background-position: center;
+    position: relative; overflow: hidden;
+  }
+  .card-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,10,5,0.85) 0%, transparent 50%);
+  }
+  .card-tag {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    background: rgba(74,144,217,0.9);
+    color: #fff; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+  }
+  /* Card tag variants theo thể loại */
+  .card-tag.ocean { background: rgba(74,144,217,0.92); color: #fff; }
+  .card-tag.sunset { background: rgba(212,116,74,0.92); color: #fff; }
+  .card-overlay {
+    position: absolute; inset: 0; z-index: 3;
+    background: rgba(26,79,140,0.12);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-overlay span {
+    background: var(--ocean-light); color: #fff;
+    padding: 8px 20px; border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+  }
+  .card-body { padding: 16px 18px; }
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: var(--cream);
+    margin-bottom: 6px;
+  }
+  .card-loc { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .card-rating { display: flex; align-items: center; gap: 6px; }
+  .stars { color: var(--gold); font-size: 13px; }
+  .rating-num { font-size: 12px; color: var(--muted); }
+
+  /* ── BEFORE/AFTER SECTION ── */
+  #heritage {
+    background: linear-gradient(180deg, var(--ink) 0%, rgba(184,83,46,0.05) 60%, #0D1018 100%);
+    border-top: 2px solid rgba(212,116,74,0.3);
+  }
+  .heritage-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  @media (max-width: 800px) { .heritage-inner { grid-template-columns: 1fr; } }
+
+  .slider-wrap {
+    position: relative; border-radius: 14px; overflow: hidden;
+    aspect-ratio: 4/3; cursor: col-resize;
+    border: 1px solid rgba(212,116,74,0.25);
+    user-select: none;
+  }
+  .slider-before, .slider-after {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+  }
+  .slider-before {
+    background-image: url('image/hoi-an-cu.jpg');
+    filter: grayscale(100%) sepia(20%);
+  }
+  .slider-after {
+    background-image: url('image/hoi-an-moi.jpg');
+    clip-path: inset(0 50% 0 0);
+    transition: clip-path 0.05s;
+  }
+  .slider-handle {
+    position: absolute; top: 0; bottom: 0;
+    left: 50%; transform: translateX(-50%);
+    width: 3px; background: var(--sunset-light);
+    cursor: col-resize; z-index: 5;
+  }
+  .slider-handle::before {
+    content: '◀ ▶';
+    position: absolute; top: 50%; transform: translateY(-50%);
+    left: 50%; transform: translate(-50%, -50%);
+    width: 40px; height: 40px;
+    background: var(--sunset-light); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: #fff; font-weight: 900;
+    box-shadow: 0 4px 16px rgba(184,83,46,0.5);
+  }
+  .label-before { left: 14px; background: rgba(0,0,0,0.6); color: rgba(255,255,255,0.7); }
+  .label-after { right: 14px; background: rgba(212,116,74,0.85); color: #fff; }
+  .slider-label {
+    position: absolute; bottom: 14px;
+    font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 600;
+    padding: 4px 10px; border-radius: 4px;
+    z-index: 6;
+  }
+
+  /* ── FUNDRAISING SECTION ── */
+  #fundraising {
+    background: linear-gradient(180deg, rgba(26,79,140,0.04) 0%, #0D1018 100%);
+    border-top: 2px solid rgba(74,144,217,0.2);
+  }
+  .fund-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .fund-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.14);
+    border-radius: 14px; overflow: hidden;
+    transition: all 0.3s;
+  }
+  .fund-card:hover { transform: translateY(-4px); border-color: rgba(74,144,217,0.35); }
+  .fund-img {
+    height: 160px;
+    background-size: cover; background-position: center;
+    position: relative;
+  }
+  .fund-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(15,10,5,0.9) 100%);
+  }
+  .fund-status {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+  }
+  .status-active { background: rgba(144,212,138,0.9); color: #1A4018; }
+  .status-urgent { background: rgba(232,160,32,0.9); color: #3D2200; }
+  .fund-body { padding: 18px; }
+  .fund-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--cream); margin-bottom: 8px; }
+  .fund-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+  .progress-wrap { margin-bottom: 12px; }
+  .progress-bar {
+    height: 6px; background: #FFFFFF;
+    border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--ocean), var(--ocean-light));
+    transition: width 1s ease;
+  }
+  .progress-info { display: flex; justify-content: space-between; margin-top: 6px; }
+  .progress-raised { font-size: 13px; color: var(--ocean-light); font-weight: 600; }
+  .progress-goal { font-size: 12px; color: var(--muted); }
+  .fund-btn {
+    width: 100%; background: var(--ocean-soft); border: 1px solid rgba(74,144,217,0.35);
+    color: var(--ocean-light); padding: 10px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+    transition: all 0.25s; letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .fund-btn:hover { background: var(--ocean-light); color: #fff; border-color: var(--ocean-light); }
+
+  /* ── FOOD SECTION ── */
+  #food {
+    background: linear-gradient(180deg, var(--ink) 0%, rgba(184,83,46,0.04) 100%);
+    border-top: 2px solid rgba(212,116,74,0.2);
+  }
+  .food-masonry {
+    columns: 3; column-gap: 16px;
+  }
+  @media (max-width: 800px) { .food-masonry { columns: 2; } }
+  @media (max-width: 500px) { .food-masonry { columns: 1; } }
+  .food-item {
+    break-inside: avoid; margin-bottom: 16px;
+    border-radius: 12px; overflow: hidden;
+    position: relative; cursor: pointer;
+    border: 1px solid rgba(74,144,217,0.08);
+    transition: all 0.3s;
+  }
+  .food-item:hover { transform: scale(1.02); border-color: rgba(212,116,74,0.45); box-shadow: 0 6px 24px rgba(184,83,46,0.18); }
+  .food-item img {
+    width: 100%; display: block;
+    filter: brightness(0.85);
+    transition: filter 0.3s;
+  }
+  .food-item:hover img { filter: brightness(1); }
+  .food-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(10,6,2,0.9));
+    padding: 30px 14px 14px;
+  }
+  .food-name { font-size: 14px; font-weight: 600; color: var(--cream); }
+  .food-place { font-size: 11px; color: rgba(245,240,232,0.65); }
+
+  /* ── VKU CORNER ── */
+  #vku {
+    background: linear-gradient(135deg, #0A0D14 0%, #0D1018 100%);
+    border-top: 1px solid rgba(74,144,217,0.12);
+  }
+  .vku-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  @media (max-width: 800px) { .vku-inner { grid-template-columns: 1fr; } }
+  .vku-banner {
+    background: rgba(26,79,140,0.07);
+    border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 16px; padding: 36px;
+    text-align: center;
+  }
+  .vku-logo { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; color: var(--ocean-light); margin-bottom: 8px; }
+  .vku-full { font-size: 13px; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 20px; }
+  .vku-map-btn {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); color: #fff;
+    border: none; padding: 11px 24px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+    transition: all 0.25s;
+  }
+  .vku-map-btn:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); }
+  .blog-list { display: flex; flex-direction: column; gap: 14px; }
+  .blog-item {
+    background: rgba(245,240,232,0.03);
+    border: 1px solid rgba(74,144,217,0.12);
+    border-radius: 10px; padding: 14px 16px;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .blog-item:hover { border-color: rgba(74,144,217,0.3); background: rgba(74,144,217,0.05); }
+  .blog-lang { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: var(--ocean-light); background: rgba(74,144,217,0.12); padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .blog-title { font-size: 14px; color: var(--cream); font-weight: 500; }
+  .blog-author { font-size: 12px; color: var(--muted); }
+
+  /* ── NEWSLETTER ── */
+  #newsletter {
+    background: linear-gradient(135deg, rgba(26,79,140,0.06) 0%, rgba(184,83,46,0.04) 100%);
+    border-top: 2px solid rgba(74,144,217,0.2);
+    border-bottom: 2px solid rgba(212,116,74,0.15);
+    text-align: center; padding: 70px 40px;
+  }
+  .newsletter-wrap { max-width: 520px; margin: 0 auto; }
+  .newsletter-title { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--cream); margin-bottom: 12px; }
+  .newsletter-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .newsletter-form { display: flex; gap: 10px; }
+  .newsletter-form input {
+    flex: 1; background: #FFFFFF; border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 8px; padding: 12px 16px; color: var(--cream);
+    font-size: 14px; font-family: inherit; outline: none;
+    transition: border-color 0.2s;
+  }
+  .newsletter-form input:focus { border-color: var(--ocean-light); }
+  .newsletter-form input::placeholder { color: var(--muted); }
+  .newsletter-submit {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); color: #fff;
+    border: none; padding: 12px 24px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+    white-space: nowrap; transition: all 0.25s;
+  }
+  .newsletter-submit:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(255,255,255,0.04);
+    border-top: 1px solid rgba(74,144,217,0.15);
+    padding: 52px 40px 28px;
+  }
+  .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  @media (max-width: 540px) { .footer-grid { grid-template-columns: 1fr; gap: 20px; } }
+  /* Explore cats responsive */
+  @media (max-width: 900px) { #explore-cats > div > div[style*="grid-template-columns:repeat(4"] { grid-template-columns: 1fr 1fr !important; } }
+  @media (max-width: 540px) { #explore-cats > div > div[style*="grid-template-columns:repeat(4"] { grid-template-columns: 1fr !important; } #explore-cats { padding: 40px 20px !important; } }
+  .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 12px 0 20px; max-width: 240px; }
+  .footer-social { display: flex; gap: 10px; }
+  .social-btn {
+    width: 34px; height: 34px;
+    border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.2s;
+    text-decoration: none;
+  }
+  .social-btn:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+  .footer-col h4 { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 16px; }
+  .footer-col a {
+    display: block; font-size: 13px; color: var(--muted);
+    text-decoration: none; margin-bottom: 10px; cursor: pointer;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-bottom {
+    max-width: 1100px; margin: 0 auto;
+    border-top: 1px solid rgba(74,144,217,0.12);
+    padding-top: 22px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+  }
+  .footer-copy { font-size: 12px; color: var(--muted); }
+
+  /* ── MODALS ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(5,3,2,0.85);
+    backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: #0D1018;
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 18px;
+    padding: 40px;
+    width: 100%; max-width: 440px;
+    position: relative;
+    animation: modalIn 0.3s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: #FFFFFF; border: none;
+    width: 32px; height: 32px; border-radius: 50%;
+    color: var(--muted); cursor: pointer; font-size: 14px;
+    transition: all 0.2s; font-family: inherit;
+  }
+  .modal-close:hover { background: rgba(26,79,140,0.12); color: var(--cream); }
+  .modal-logo {
+    text-align: center; margin-bottom: 28px;
+  }
+  .modal-logo-icon {
+    width: 52px; height: 52px; border: 2px solid var(--ocean-light);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 10px; font-size: 22px;
+  }
+  .modal-logo-name { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--ocean-light); font-weight: 700; }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--cream); text-align: center; margin-bottom: 6px; }
+  .modal-sub { text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 12px; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 7px; text-transform: uppercase; }
+  .form-group input {
+    width: 100%; background: #FFFFFF;
+    border: 1px solid rgba(74,144,217,0.2);
+    border-radius: 8px; padding: 11px 14px;
+    color: var(--cream); font-size: 14px; font-family: inherit; outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus { border-color: var(--ocean-light); background: rgba(74,144,217,0.04); }
+  .form-group input::placeholder { color: rgba(138,125,110,0.5); }
+  .input-wrap { position: relative; }
+  .input-wrap input { padding-right: 40px; }
+  .toggle-pw {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 15px; padding: 4px;
+  }
+  .toggle-pw:hover { color: var(--ocean-light); }
+
+  .form-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .remember { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; }
+  .remember input { width: auto; margin: 0; }
+  .forgot { font-size: 13px; color: var(--ocean-light); cursor: pointer; background: none; border: none; font-family: inherit; }
+
+  .btn-modal-primary {
+    width: 100%; background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); color: #fff;
+    border: none; padding: 13px; border-radius: 8px;
+    font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit;
+    transition: all 0.25s; margin-bottom: 20px; letter-spacing: 0.02em;
+  }
+  .btn-modal-primary:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); }
+
+  .divider-text { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .divider-text::before, .divider-text::after {
+    content: ''; flex: 1; height: 1px; background: rgba(74,144,217,0.15);
+  }
+  .divider-text span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+  .social-login { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px; }
+  .social-login-btn {
+    background: rgba(10,13,20,0.95); border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 8px; padding: 10px; cursor: pointer; font-family: inherit;
+    color: var(--cream); font-size: 13px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s;
+  }
+  .social-login-btn:hover { background: #FFFFFF; border-color: rgba(255,255,255,0.2); }
+
+  .modal-switch { text-align: center; font-size: 13px; color: var(--muted); }
+  .modal-switch button { background: none; border: none; color: var(--ocean-light); cursor: pointer; font-size: 13px; font-family: inherit; font-weight: 600; }
+
+  /* Step indicator */
+  .step-indicator { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 28px; }
+  .step-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 2px solid rgba(74,144,217,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--muted); font-weight: 600;
+    transition: all 0.3s;
+  }
+  .step-dot.active { border-color: var(--ocean-light); background: var(--ocean-light); color: #fff; }
+  .step-dot.done { border-color: rgba(74,144,217,0.5); background: rgba(74,144,217,0.15); color: var(--ocean-light); }
+  .step-line { width: 40px; height: 1px; background: rgba(74,144,217,0.2); }
+
+  /* Preference checkboxes */
+  .pref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+  .pref-item {
+    background: #FFFFFF;
+    border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 8px; padding: 12px 14px;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--muted);
+  }
+  .pref-item.selected { border-color: var(--ocean-light); background: rgba(74,144,217,0.1); color: var(--cream); }
+  .pref-icon { font-size: 18px; }
+
+  .btn-row { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+  .btn-back {
+    background: transparent; border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 8px; padding: 12px; color: var(--muted);
+    font-size: 14px; cursor: pointer; font-family: inherit; transition: all 0.2s;
+  }
+  .btn-back:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+  /* Welcome bonus */
+  .bonus-box {
+    background: rgba(74,144,217,0.07);
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 10px; padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .bonus-icon { font-size: 28px; }
+  .bonus-text strong { font-size: 14px; color: var(--ocean-light); display: block; margin-bottom: 2px; }
+  .bonus-text span { font-size: 12px; color: var(--muted); }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+    background: rgba(20,15,10,0.95);
+    border: 1px solid rgba(144,212,138,0.4);
+    border-radius: 10px; padding: 14px 20px;
+    font-size: 14px; color: #90D48A;
+    backdrop-filter: blur(12px);
+    transform: translateY(20px); opacity: 0;
+    transition: all 0.3s;
+    max-width: 300px;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* Chatbot */
+  .chatbot-btn {
+    position: fixed; bottom: 30px; right: 30px; z-index: 800;
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    border-radius: 50%; border: none;
+    cursor: pointer; font-size: 22px;
+    box-shadow: 0 6px 24px rgba(26,79,140,0.5);
+    transition: all 0.3s; font-family: inherit;
+  }
+  .chatbot-btn:hover { transform: scale(1.08); box-shadow: 0 8px 32px rgba(26,79,140,0.65); }
+  .chatbot-label {
+    position: absolute; right: 64px; top: 50%; transform: translateY(-50%);
+    background: rgba(10,13,20,0.9); color: var(--cream);
+    font-size: 12px; font-weight: 500; white-space: nowrap;
+    padding: 5px 10px; border-radius: 6px;
+    border: 1px solid rgba(74,144,217,0.2);
+    pointer-events: none;
+  }
+
+  /* Settings modal */
+  .settings-layout { display: grid; grid-template-columns: 160px 1fr; gap: 0; min-height: 360px; }
+  .settings-nav { border-right: 1px solid rgba(74,144,217,0.15); padding-right: 16px; display: flex; flex-direction: column; gap: 4px; }
+  .settings-nav-item {
+    background: none; border: none; text-align: left;
+    padding: 9px 12px; border-radius: 7px; cursor: pointer;
+    font-size: 13px; color: var(--muted); font-family: inherit;
+    display: flex; align-items: center; gap: 8px; transition: all 0.2s;
+  }
+  .settings-nav-item:hover { background: rgba(74,144,217,0.06); color: var(--cream); }
+  .settings-nav-item.active { background: rgba(74,144,217,0.1); color: var(--ocean-light); }
+  .settings-content { padding-left: 24px; }
+  .settings-panel { display: none; }
+  .settings-panel.active { display: block; }
+  .settings-panel h3 { font-size: 16px; color: var(--cream); margin-bottom: 20px; font-family: 'Playfair Display', serif; }
+  .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(74,144,217,0.08); }
+  .toggle-row:last-child { border-bottom: none; }
+  .toggle-label { font-size: 14px; color: var(--cream); }
+  .toggle-sub { font-size: 12px; color: var(--muted); }
+  .toggle-switch {
+    width: 42px; height: 24px; border-radius: 12px;
+    background: rgba(255,255,255,0.95); border: none; cursor: pointer;
+    position: relative; transition: background 0.3s; flex-shrink: 0;
+  }
+  .toggle-switch.on { background: var(--ocean-light); }
+  .toggle-switch::after {
+    content: ''; position: absolute;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: white; top: 3px; left: 3px; transition: left 0.3s;
+  }
+  .toggle-switch.on::after { left: 21px; }
+
+  .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .lang-btn {
+    background: #FFFFFF; border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 8px; padding: 10px 12px; cursor: pointer; font-family: inherit;
+    color: var(--muted); font-size: 13px; text-align: left; transition: all 0.2s;
+  }
+  .lang-btn.active { border-color: var(--ocean-light); background: rgba(74,144,217,0.1); color: var(--ocean-light); }
+
+  /* Scroll animation */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── LOCAL GUIDE SECTION ── */
+  #local-guide {
+    background: linear-gradient(180deg, #2A2018 0%, #1A1410 100%);
+    border-top: 1px solid rgba(74,144,217,0.12);
+  }
+  .guide-inner { max-width: 860px; margin: 0 auto; }
+  .guide-chat-window {
+    background: rgba(10,13,20,0.7);
+    border: 1px solid rgba(74,144,217,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    margin-top: 40px;
+  }
+  .guide-chat-header {
+    background: rgba(74,144,217,0.07);
+    border-bottom: 1px solid rgba(74,144,217,0.15);
+    padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .guide-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(26,79,140,0.4);
+  }
+  .guide-header-info { flex: 1; }
+  .guide-header-name { font-size: 15px; font-weight: 600; color: var(--cream); }
+  .guide-header-status { font-size: 12px; color: #90D48A; display: flex; align-items: center; gap: 5px; }
+  .guide-header-status::before { content: ''; display: inline-block; width: 6px; height: 6px; background: #90D48A; border-radius: 50%; animation: pulse-dot 2s infinite; }
+  @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .guide-quick-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .guide-chip {
+    font-size: 11px; padding: 4px 10px; border-radius: 20px;
+    border: 1px solid rgba(74,144,217,0.3); color: var(--muted);
+    background: transparent; cursor: pointer; font-family: inherit;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .guide-chip:hover { border-color: var(--ocean-light); color: var(--ocean-light); background: rgba(74,144,217,0.07); }
+  .guide-messages {
+    padding: 20px; height: 320px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 14px;
+    scrollbar-width: thin; scrollbar-color: var(--ocean) transparent;
+  }
+  .guide-msg { display: flex; gap: 10px; align-items: flex-start; }
+  .guide-msg.user { flex-direction: row-reverse; }
+  .guide-msg-avatar {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .guide-msg.user .guide-msg-avatar {
+    background: rgba(245,240,232,0.1);
+    border: 1px solid rgba(74,144,217,0.3);
+  }
+  .guide-bubble {
+    max-width: 75%; padding: 12px 15px; border-radius: 14px;
+    font-size: 13.5px; line-height: 1.6;
+    animation: bubbleIn 0.3s ease;
+  }
+  @keyframes bubbleIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  .guide-msg:not(.user) .guide-bubble {
+    background: rgba(74,144,217,0.07);
+    border: 1px solid rgba(74,144,217,0.15);
+    color: var(--cream); border-radius: 4px 14px 14px 14px;
+  }
+  .guide-msg.user .guide-bubble {
+    background: rgba(212,116,74,0.12);
+    border: 1px solid rgba(212,116,74,0.25);
+    color: var(--cream); border-radius: 14px 4px 14px 14px;
+  }
+  .guide-typing {
+    display: flex; align-items: center; gap: 5px; padding: 10px 14px;
+    background: rgba(74,144,217,0.07); border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 4px 14px 14px 14px; width: fit-content;
+  }
+  .typing-dot { width:7px; height:7px; background:var(--ocean-light); border-radius:50%; opacity:0.4; animation:typingAnim 1.2s infinite; }
+  .typing-dot:nth-child(2){animation-delay:0.2s}
+  .typing-dot:nth-child(3){animation-delay:0.4s}
+  @keyframes typingAnim{0%,80%,100%{opacity:0.4;transform:scale(1)}40%{opacity:1;transform:scale(1.2)}}
+  .guide-input-row {
+    border-top: 1px solid rgba(74,144,217,0.12);
+    padding: 14px 16px;
+    display: flex; gap: 10px; align-items: center;
+  }
+  .guide-input {
+    flex: 1; background: #FFFFFF;
+    border: 1px solid rgba(74,144,217,0.2); border-radius: 24px;
+    padding: 10px 18px; color: var(--cream); font-size: 13.5px;
+    font-family: inherit; outline: none; transition: border-color 0.2s;
+  }
+  .guide-input:focus { border-color: var(--ocean-light); }
+  .guide-input::placeholder { color: rgba(138,125,110,0.5); }
+  .guide-send-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); border: none; cursor: pointer;
+    font-size: 16px; transition: all 0.2s; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .guide-send-btn:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: scale(1.05); }
+
+  /* ── PROFILE MODAL ── */
+  .profile-hero {
+    text-align: center; padding: 10px 0 28px;
+  }
+  .profile-big-avatar {
+    width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 12px;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; font-weight: 700; color: #fff;
+    border: 3px solid rgba(74,144,217,0.5);
+    box-shadow: 0 0 32px rgba(26,79,140,0.4);
+  }
+  .profile-display-name { font-family:'Playfair Display',serif; font-size:22px; color:var(--cream); margin-bottom:4px; }
+  .profile-member-badge {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(74,144,217,0.1); border:1px solid rgba(74,144,217,0.3);
+    border-radius:20px; padding:4px 12px; font-size:11px;
+    color:var(--ocean-light); letter-spacing:0.1em; text-transform:uppercase;
+  }
+  .profile-stats-row {
+    display:grid; grid-template-columns: repeat(3,1fr);
+    gap:1px; background:rgba(74,144,217,0.1);
+    border:1px solid rgba(74,144,217,0.15); border-radius:12px;
+    overflow:hidden; margin-bottom:24px;
+  }
+  .profile-stat {
+    background:rgba(10,13,20,0.6); padding:16px 10px; text-align:center;
+  }
+  .profile-stat-num { font-family:'Playfair Display',serif; font-size:26px; color:var(--ocean-light); font-weight:700; }
+  .profile-stat-label { font-size:11px; color:var(--muted); margin-top:4px; }
+  .profile-section-title { font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ocean-light); margin-bottom:12px; }
+  .activity-list { display:flex; flex-direction:column; gap:8px; }
+  .activity-item {
+    display:flex; align-items:center; gap:12px;
+    background: rgba(245,240,232,0.04); border:1px solid rgba(74,144,217,0.1);
+    border-radius:8px; padding:10px 14px; font-size:13px; color:var(--muted);
+  }
+  .activity-icon { font-size:18px; flex-shrink:0; }
+  .activity-text { flex:1; color:var(--cream); }
+  .activity-time { font-size:11px; color:var(--muted); }
+  .profile-edit-btn {
+    width:100%; background:transparent; border:1px solid rgba(74,144,217,0.35);
+    color:var(--ocean-light); padding:11px; border-radius:8px; font-size:14px;
+    font-weight:600; cursor:pointer; font-family:inherit; margin-top:20px;
+    transition:all 0.2s;
+  }
+  .profile-edit-btn:hover { background:rgba(74,144,217,0.08); }
+
+  /* ── ITINERARY MODAL ── */
+  .modal-wide { max-width: 560px !important; }
+  .itin-tabs {
+    display:flex; gap:6px; margin-bottom:22px;
+    border-bottom:1px solid rgba(74,144,217,0.12); padding-bottom:14px;
+  }
+  .itin-tab {
+    background:none; border:1px solid rgba(74,144,217,0.2); border-radius:20px;
+    padding:6px 14px; font-size:12px; color:var(--muted); cursor:pointer;
+    font-family:inherit; transition:all 0.2s;
+  }
+  .itin-tab.active { background:rgba(74,144,217,0.12); border-color:var(--ocean-light); color:var(--ocean-light); }
+  .itin-list { display:flex; flex-direction:column; gap:12px; max-height:340px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--ocean) transparent; }
+  .itin-card {
+    background: rgba(245,240,232,0.04); border:1px solid rgba(74,144,217,0.12);
+    border-radius:12px; padding:14px 16px; cursor:pointer; transition:all 0.2s;
+  }
+  .itin-card:hover { border-color:rgba(74,144,217,0.35); background:rgba(74,144,217,0.04); }
+  .itin-card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
+  .itin-name { font-family:'Playfair Display',serif; font-size:16px; color:var(--cream); }
+  .itin-badge {
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    padding:3px 9px; border-radius:10px; white-space:nowrap;
+  }
+  .itin-badge.planned { background:rgba(144,212,138,0.15); color:#90D48A; border:1px solid rgba(144,212,138,0.3); }
+  .itin-badge.done { background:rgba(74,144,217,0.12); color:var(--ocean-light); border:1px solid rgba(74,144,217,0.25); }
+  .itin-badge.saved { background:rgba(100,149,237,0.12); color:#88AAFF; border:1px solid rgba(100,149,237,0.25); }
+  .itin-meta { display:flex; gap:14px; font-size:12px; color:var(--muted); }
+  .itin-places { font-size:12px; color:var(--muted); margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .itin-add-btn {
+    width:100%; background:linear-gradient(135deg, var(--ocean), var(--ocean-light)); color:#fff; border:none;
+    padding:12px; border-radius:8px; font-size:14px; font-weight:700;
+    cursor:pointer; font-family:inherit; margin-top:16px; transition:all 0.25s;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .itin-add-btn:hover { background:linear-gradient(135deg, var(--ocean-light), #6AAAE8); }
+
+  /* ── VOUCHERS MODAL ── */
+  .voucher-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; max-height:380px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--ocean) transparent; }
+  @media(max-width:480px){ .voucher-grid{grid-template-columns:1fr;} }
+  .voucher-card {
+    background: rgba(245,240,232,0.04); border:1px solid rgba(74,144,217,0.15);
+    border-radius:12px; overflow:hidden; transition:all 0.2s;
+  }
+  .voucher-card:hover { border-color:rgba(74,144,217,0.4); }
+  .voucher-card.expired { opacity:0.5; }
+  .voucher-top {
+    background:linear-gradient(135deg, rgba(74,144,217,0.15), rgba(74,144,217,0.05));
+    padding:14px 14px 12px; text-align:center;
+    border-bottom:1px dashed rgba(74,144,217,0.2);
+    position:relative;
+  }
+  .voucher-discount {
+    font-family:'Playfair Display',serif; font-size:28px; font-weight:900;
+    color:var(--ocean-light); line-height:1;
+  }
+  .voucher-type { font-size:11px; color:var(--muted); margin-top:2px; }
+  .voucher-circles {
+    position:absolute; top:50%; width:14px; height:14px; background: rgba(245,240,232,0.04);
+    border-radius:50%; transform:translateY(-50%);
+  }
+  .voucher-circles.left { left:-7px; }
+  .voucher-circles.right { right:-7px; }
+  .voucher-bottom { padding:10px 14px; }
+  .voucher-partner { font-size:13px; font-weight:600; color:var(--cream); margin-bottom:3px; }
+  .voucher-expiry { font-size:11px; color:var(--muted); margin-bottom:10px; }
+  .voucher-code {
+    font-family:monospace; font-size:12px; letter-spacing:0.12em;
+    background:rgba(74,144,217,0.08); border:1px solid rgba(74,144,217,0.2);
+    border-radius:5px; padding:4px 8px; color:var(--ocean-light); display:block; margin-bottom:8px;
+    text-align:center;
+  }
+  .voucher-use-btn {
+    width:100%; background:linear-gradient(135deg,var(--ocean),var(--ocean-light)); color:#fff; border:none;
+    padding:8px; border-radius:6px; font-size:12px; font-weight:700;
+    cursor:pointer; font-family:inherit; transition:all 0.2s;
+  }
+  .voucher-use-btn:hover { background:linear-gradient(135deg,var(--ocean-light),#6AAAE8); }
+  .voucher-use-btn.expired-btn { background: #FFFFFF; color:var(--muted); cursor:default; }
+  .voucher-points-banner {
+    display:flex; align-items:center; gap:12px;
+    background:rgba(74,144,217,0.07); border:1px solid rgba(74,144,217,0.2);
+    border-radius:10px; padding:12px 16px; margin-bottom:18px;
+    font-size:13px; color:var(--muted);
+  }
+  .voucher-points-banner strong { color:var(--ocean-light); font-size:15px; }
+
+  /* ── LEADERBOARD MODAL ── */
+  .lb-header-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+  .lb-period-btns { display:flex; gap:6px; }
+  .lb-period-btn {
+    background:none; border:1px solid rgba(74,144,217,0.2);
+    border-radius:16px; padding:5px 12px; font-size:11px; color:var(--muted);
+    cursor:pointer; font-family:inherit; transition:all 0.2s;
+  }
+  .lb-period-btn.active { background:rgba(74,144,217,0.1); border-color:var(--ocean-light); color:var(--ocean-light); }
+  .lb-podium { display:flex; justify-content:center; align-items:flex-end; gap:12px; margin-bottom:24px; }
+  .lb-podium-item { text-align:center; }
+  .lb-podium-avatar {
+    border-radius:50%; margin:0 auto 6px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; color:var(--cream);
+    font-family:'Playfair Display',serif;
+  }
+  .lb-podium-item:nth-child(1) .lb-podium-avatar { width:52px; height:52px; font-size:20px; background:linear-gradient(135deg,#C0C0C0,#E8E8E8); order:0; }
+  .lb-podium-item:nth-child(2) .lb-podium-avatar { width:64px; height:64px; font-size:24px; background:linear-gradient(135deg,var(--gold-dark),var(--gold)); order:0; }
+  .lb-podium-item:nth-child(3) .lb-podium-avatar { width:48px; height:48px; font-size:18px; background:linear-gradient(135deg,#CD7F32,#E8A060); order:0; }
+  .lb-podium-name { font-size:12px; color:var(--cream); margin-bottom:2px; }
+  .lb-podium-pts { font-size:11px; color:var(--ocean-light); }
+  .lb-podium-rank { font-size:18px; margin-bottom:4px; }
+  .lb-table { display:flex; flex-direction:column; gap:6px; max-height:240px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--ocean) transparent; }
+  .lb-row {
+    display:flex; align-items:center; gap:12px;
+    background: rgba(245,240,232,0.04); border:1px solid rgba(74,144,217,0.1);
+    border-radius:9px; padding:10px 14px; transition:all 0.2s;
+  }
+  .lb-row.me { background:rgba(74,144,217,0.08); border-color:rgba(74,144,217,0.35); }
+  .lb-row:hover { border-color:rgba(74,144,217,0.3); }
+  .lb-rank { font-size:13px; font-weight:700; color:var(--muted); width:22px; text-align:center; flex-shrink:0; }
+  .lb-rank.top3 { color:var(--ocean-light); }
+  .lb-user-mini { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; flex-shrink:0; }
+  .lb-user-name { flex:1; font-size:13px; color:var(--cream); }
+  .lb-user-sub { font-size:11px; color:var(--muted); }
+  .lb-pts { font-size:13px; font-weight:700; color:var(--ocean-light); white-space:nowrap; }
+  .lb-you-tag { font-size:10px; background:rgba(74,144,217,0.15); color:var(--ocean-light); padding:2px 7px; border-radius:10px; border:1px solid rgba(74,144,217,0.25); }
+
+  /* ── LIGHT THEME HERO FIXES ── */
+  #hero, #hero * { color: var(--cream); }
+  #hero .hero-badge { color: var(--ocean-light); }
+  #hero .hero-cta-primary { color: #fff; }
+  #hero .hero-cta-secondary { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- ─────────── NAVBAR ─────────── -->
+<nav id="navbar">
+
+  <a class="nav-logo" onclick="scrollTo(0,0)">
+
+    <!-- logo ảnh -->
+
+    <img src= "assets/images/logo.jpg"  class="nav-logo-img">
+
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+
+      <span class="nav-logo-sub">
+        Di sản số Đà Nẵng
+      </span>
+    </div>
+
+  </a>
+
+  <ul class="nav-menu">
+    <li>
+      <a href="pages/kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="pages/kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="pages/di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="pages/lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="pages/am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="pages/su-kien.html">Sự Kiện</a></li>
+    <li><a href="pages/blog.html">Blog</a></li>
+    <li><a href="pages/gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="pages/lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="pages/lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="pages/lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="pages/vku-corner.html">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="pages/doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="pages/doi-tac.html#transport">🚌 Đặt xe </a>
+        <a href="pages/doi-tac.html#hostels">🏡 Homestay/ Khách sạn</a>
+        <a href="pages/doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="nav-notify" id="notifyBtn" title="Thông báo">🔔</div>
+    
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+
+    <div class="user-pill" id="userPill" style="display:none; position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🪙 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="pages/profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ─────────── HERO ─────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-lines"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span></span>
+      Đà Nẵng · Di sản ngàn năm
+      <span></span>
+    </div>
+    <h1 class="hero-title">
+      <span class="line1">Chạm vào quá khứ</span>
+      <span class="line2">Kết nối tương lai</span>
+    </h1>
+    <p class="hero-sub">
+      <span id="typed-text"></span><span class="typed-cursor">|</span>
+    </p>
+    <div class="hero-cta">
+      <button class="cta-primary" onclick="window.location.href='pages/kham-pha.html'">🗺 Khám phá ngay</button>
+      <button class="cta-ghost" onclick="window.location.href='pages/lich-trinh.html'">📅 Lên lịch trình AI</button>
+    </div>
+  </div>
+
+  <div class="weather-widget">
+    <div class="weather-city">Đà Nẵng</div>
+    <div class="weather-temp">☀ 33°C</div>
+    <div class="weather-desc">Nắng đẹp, gió nhẹ</div>
+    <div class="weather-suggest">✓ Thích hợp tắm biển Mỹ Khê hôm nay</div>
+  </div>
+
+  <a class="scroll-arrow" href="#stats" style="text-decoration:none">▼</a>
+</section>
+
+<!-- ─────────── STATS ─────────── -->
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-number" data-target="127">0</div>
+      <div class="stat-label">Di sản & địa điểm</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal">
+      <div class="stat-number" data-target="340">0</div>
+      <div class="stat-label">Quán ẩm thực đặc sản</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal">
+      <div class="stat-number" id="statMembers" data-target="89">0</div>
+      <div class="stat-label">Thành viên cộng đồng</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal">
+      <div class="stat-number" id="statStories" data-target="12">0</div>
+      <div class="stat-label">Câu chuyện chia sẻ</div>
+    </div>
+  </div>
+    <a class="scroll-arrow" href="#explore-cats">▼</a>
+
+</div>
+
+<!-- ─────────── EXPLORE CATEGORIES ─────────── -->
+<section id="explore-cats" style="padding:64px 40px;background:linear-gradient(180deg,rgba(26,79,140,0.04) 0%,transparent 100%);border-top:1px solid rgba(74,144,217,0.1)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-header reveal">
+      <div class="left">
+        <div class="section-label">Khám phá theo chủ đề</div>
+        <h2 class="section-title">Di sản theo từng cảnh</h2>
+        <p class="section-desc">Chọn chủ đề bạn quan tâm để khám phá sâu hơn</p>
+      </div>
+    </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+      <!-- Di tích Lịch sử -->
+      <a href="pages/di-tich.html" style="text-decoration:none;display:block;background:linear-gradient(135deg,rgba(201,168,76,0.09),rgba(201,168,76,0.03));border:1px solid rgba(201,168,76,0.22);border-radius:20px;padding:30px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(201,168,76,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(201,168,76,0.22)'">
+        <div style="font-size:40px;margin-bottom:14px">🏛</div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">47 di tích</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3">Di Tích Lịch Sử</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Champa, Thành Điện Hải, Hội An — 1.800 năm qua công nghệ Xuưa–Nay</div>
+        <div style="font-size:12px;font-weight:700;color:var(--gold)">Khám phá →</div>
+        <div style="position:absolute;bottom:-10px;right:-10px;font-size:70px;opacity:0.05;pointer-events:none">🏛</div>
+      </a>
+      <!-- Bản đồ Di sản -->
+      <a href="pages/kham-pha.html" style="text-decoration:none;display:block;background:linear-gradient(135deg,rgba(74,144,217,0.09),rgba(74,144,217,0.03));border:1px solid rgba(74,144,217,0.22);border-radius:20px;padding:30px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(74,144,217,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(74,144,217,0.22)'">
+        <div style="font-size:40px;margin-bottom:14px">🗺</div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ocean-light);margin-bottom:8px">12 địa điểm</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3">Bản Đồ Di Sản</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Tương tác trực tiếp trên bản đồ, nghe audio thuyết minh và so sánh Ngày ấy – Bây giờ</div>
+        <div style="font-size:12px;font-weight:700;color:var(--ocean-light)">Xem bản đồ →</div>
+        <div style="position:absolute;bottom:-10px;right:-10px;font-size:70px;opacity:0.05;pointer-events:none">🗺</div>
+      </a>
+      <!-- Làng Nghề -->
+      <a href="pages/lang-nghe.html" style="text-decoration:none;display:block;background:linear-gradient(135deg,rgba(220,140,80,0.09),rgba(220,140,80,0.03));border:1px solid rgba(220,140,80,0.22);border-radius:20px;padding:30px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(220,140,80,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(220,140,80,0.22)'">
+        <div style="font-size:40px;margin-bottom:14px">🏺</div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#E8A040;margin-bottom:8px">8 làng nghề</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3">Làng Nghề Thủ Công</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Gốm Thanh Hà, Lụa Mã Châu, Rau Trà Quế — trải nghiệm làm nghề</div>
+        <div style="font-size:12px;font-weight:700;color:#E8A040">Khám phá →</div>
+        <div style="position:absolute;bottom:-10px;right:-10px;font-size:70px;opacity:0.05;pointer-events:none">🏺</div>
+      </a>
+      <!-- Ẩm Thực -->
+      <a href="pages/am-thuc.html" style="text-decoration:none;display:block;background:linear-gradient(135deg,rgba(184,83,46,0.09),rgba(184,83,46,0.03));border:1px solid rgba(184,83,46,0.22);border-radius:20px;padding:30px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(184,83,46,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(184,83,46,0.22)'">
+        <div style="font-size:40px;margin-bottom:14px">🍜</div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--sunset-light);margin-bottom:8px">340 quán ngon</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3">Ẩm Thực Địa Phương</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Mì Quảng, Cao Lầu, Bánh Mì Phượng — câu chuyện đằng sau mỗi món</div>
+        <div style="font-size:12px;font-weight:700;color:var(--sunset-light)">Khám phá →</div>
+        <div style="position:absolute;bottom:-10px;right:-10px;font-size:70px;opacity:0.05;pointer-events:none">🍜</div>
+      </a>
+    </div>
+  </div>
+    <a class="scroll-arrow" href="#places">▼</a>
+</section>
+<section id="places">
+  <div class="section-header reveal">
+    <div class="left">
+      <div class="section-label">Khám phá di sản</div>
+      <h2 class="section-title">Địa điểm nổi bật tuần này</h2>
+      <p class="section-desc">Những điểm đến được yêu thích nhất, được bình chọn bởi cộng đồng du khách</p>
+    </div>
+    <button class="see-all" onclick="window.location.href='pages/kham-pha.html'">Xem tất cả →</button>
+  </div>
+  <div class="places-scroll">
+    <div class="place-card" onclick="window.location.href='pages/di-tich.html'" style="cursor:pointer">
+      <div class="card-img" style="background-image:url('image/hoi-an-moi.jpg')">
+        <span class="card-tag sunset">Di tích</span>
+        <div class="card-overlay"><span>Khám phá</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Chùa Cầu Hội An</div>
+        <div class="card-loc">📍 Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)</div>
+        <div class="card-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (2.3k đánh giá)</span></div>
+      </div>
+    </div>
+    <div class="place-card" onclick="window.location.href='pages/kham-pha.html'" style="cursor:pointer">
+      <div class="card-img" style="background-image:url('image/cau-rong-moi.jpg')">
+        <span class="card-tag ocean">Biểu tượng</span>
+        <div class="card-overlay"><span>Khám phá</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Cầu Rồng Đà Nẵng</div>
+        <div class="card-loc">📍 Sơn Trà, Đà Nẵng</div>
+        <div class="card-rating"><span class="stars">★★★★★</span><span class="rating-num">4.8 (5.1k đánh giá)</span></div>
+      </div>
+    </div>
+    <div class="place-card" onclick="window.location.href='pages/di-tich.html'" style="cursor:pointer">
+      <div class="card-img" style="background-image:url('image/thanh-dia-moi.jpg')">
+        <span class="card-tag sunset">Di sản UNESCO</span>
+        <div class="card-overlay"><span>Khám phá</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Thánh địa Mỹ Sơn</div>
+        <div class="card-loc">📍 Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)</div>
+        <div class="card-rating"><span class="stars">★★★★☆</span><span class="rating-num">4.7 (3.8k đánh giá)</span></div>
+      </div>
+    </div>
+    <div class="place-card" onclick="window.location.href='pages/kham-pha.html'" style="cursor:pointer">
+      <div class="card-img" style="background-image:url('image/ban-dao-son-tra.jpg')">
+        <div class="card-overlay"><span>Khám phá</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Bán đảo Sơn Trà</div>
+        <div class="card-loc">📍 Sơn Trà, Đà Nẵng</div>
+        <div class="card-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (1.7k đánh giá)</span></div>
+      </div>
+    </div>
+    <div class="place-card" onclick="window.location.href='pages/kham-pha.html'" style="cursor:pointer">
+      <div class="card-img" style="background-image:url('image/my-khe-moi.jpg')">
+        <span class="card-tag ocean">Đảo</span>
+        <div class="card-overlay"><span>Khám phá</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Cù Lao Chàm</div>
+        <div class="card-loc">📍 Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)</div>
+        <div class="card-rating"><span class="stars">★★★★★</span><span class="rating-num">4.9 (2.9k đánh giá)</span></div>
+      </div>
+    </div>
+  </div>
+    <a class="scroll-arrow" href="#heritage">▼</a>
+
+</section>
+
+<!-- ─────────── HERITAGE SLIDER ─────────── -->
+<section id="heritage">
+  <div class="heritage-inner">
+    <div class="reveal">
+      <div class="section-label">Dấu ấn thời gian</div>
+      <h2 class="section-title">Ngày ấy &amp; Bây giờ</h2>
+      <p class="section-desc" style="margin-bottom:24px">
+        Kéo thanh trượt để cảm nhận sự thay đổi qua thời gian của những địa điểm huyền thoại. 
+        Mỗi hình ảnh là một câu chuyện đang chờ được kể lại.
+      </p>
+      <p style="font-size:13px; color:var(--ocean-light); margin-bottom:16px">← Kéo để so sánh →</p>
+      <button class="cta-primary" style="display:inline-flex" onclick="window.location.href='pages/kham-pha.html'">
+        🗺 Xem toàn bộ bản đồ di sản
+      </button>
+    </div>
+    <div class="slider-wrap reveal" id="sliderWrap">
+      <div class="slider-before"></div>
+      <div class="slider-after" id="sliderAfter"></div>
+      <div class="slider-handle" id="sliderHandle"></div>
+      <span class="slider-label label-before">Ngày ấy</span>
+      <span class="slider-label label-after">Bây giờ</span>
+    </div>
+  </div>
+
+    <a class="scroll-arrow" href="#fundraising">▼</a>
+
+</section>
+
+<!-- ─────────── FUNDRAISING ─────────── -->
+<section id="fundraising">
+  <div class="section-header reveal">
+    <div class="left">
+      <div class="section-label">🌱 Cùng nhau gây quỹ</div>
+      <h2 class="section-title">Hành trình bảo tồn di sản</h2>
+      <p class="section-desc">Check-in, chia sẻ và tích điểm Hạt Bàu — cùng nhau giữ gìn những giá trị văn hoá quê hương</p>
+    </div>
+    <button class="see-all" onclick="window.location.href='pages/gay-quy.html'">Xem tất cả dự án →</button>
+  </div>
+  <div class="fund-grid">
+    <div class="fund-card reveal">
+      <div class="fund-img" style="background-image:url('image/thanh-dia-moi.jpg')">
+        <span class="fund-status status-urgent">Cần hỗ trợ gấp</span>
+      </div>
+      <div class="fund-body">
+        <div class="fund-name">Trùng tu Thánh địa Mỹ Sơn</div>
+        <div class="fund-desc">Khu tháp Chăm cổ đại đang xuống cấp, cần nguồn lực để bảo tồn 2 tháp đang sạt lở nghiêm trọng.</div>
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:64%"></div></div>
+          <div class="progress-info">
+            <span class="progress-raised">32 triệu đ</span>
+            <span class="progress-goal">Mục tiêu: 50 triệu đ</span>
+          </div>
+        </div>
+        <button class="fund-btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
+      </div>
+    </div>
+    <div class="fund-card reveal">
+      <div class="fund-img" style="background-image:url('image/hoi-an-moi.jpg')">
+        <span class="fund-status status-active">Đang hoạt động</span>
+      </div>
+      <div class="fund-body">
+        <div class="fund-name">Phố cổ Hội An xanh hơn</div>
+        <div class="fund-desc">Dự án trồng cây, giảm rác thải nhựa và tô màu lại những góc phố cổ bị phai màu.</div>
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:81%"></div></div>
+          <div class="progress-info">
+            <span class="progress-raised">40.5 triệu đ</span>
+            <span class="progress-goal">Mục tiêu: 50 triệu đ</span>
+          </div>
+        </div>
+        <button class="fund-btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
+      </div>
+    </div>
+    <div class="fund-card reveal">
+      <div class="fund-img" style="background-image:url('image/my-khe-moi.jpg')">
+        <span class="fund-status status-active">Đang hoạt động</span>
+      </div>
+      <div class="fund-body">
+        <div class="fund-name">Làng chài Mân Thái — hồi sinh</div>
+        <div class="fund-desc">Khôi phục nghề đan lưới truyền thống và xây dựng không gian trưng bày văn hoá làng chài.</div>
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" style="width:38%"></div></div>
+          <div class="progress-info">
+            <span class="progress-raised">11.4 triệu đ</span>
+            <span class="progress-goal">Mục tiêu: 30 triệu đ</span>
+          </div>
+        </div>
+        <button class="fund-btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
+      </div>
+    </div>
+  </div>
+    <a class="scroll-arrow" href="#food">▼</a>
+
+</section>
+
+<!-- ─────────── FOOD ─────────── -->
+<section id="food">
+  <div class="section-header reveal">
+    <div class="left">
+      <div class="section-label">Ẩm thực địa phương</div>
+      <h2 class="section-title">Vị ngon vỉa hè</h2>
+      <p class="section-desc">Những món ăn mang hồn đất Quảng — được truyền qua nhiều thế hệ</p>
+    </div>
+    <button class="see-all">Xem bản đồ ẩm thực →</button>
+  </div>
+  <div class="food-masonry reveal">
+    <div class="food-item" style="height:220px">
+      <img src="image/My_quang.png" alt="Mì Quảng" class="food-thumb">
+      <div class="food-info"><div class="food-name">Mì Quảng</div><div class="food-place">Đặc sản Đà Nẵng</div></div>
+    </div>
+    <div class="food-item" style="height:160px">
+      <img src="image/cau_lau_hoi_an.png" alt="Cao Lầu" class="food-thumb">
+      <div class="food-info"><div class="food-name">Cao Lầu Hội An</div><div class="food-place">Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)</div></div>
+    </div>
+    <div class="food-item" style="height:190px">
+      <img src="image/banh_mi_phuong.png" alt="Bánh Mì Phượng" class="food-thumb">
+      <div class="food-info"><div class="food-name">Bánh Mì Phượng</div><div class="food-place">Hội An — nổi tiếng thế giới</div></div>
+    </div>
+    <div class="food-item" style="height:200px">
+      <img src="image/banh_xeo.png" alt="Bánh Xèo" class="food-thumb">
+      <div class="food-info"><div class="food-name">Bánh Xèo</div><div class="food-place">Đặc sản miền Trung</div></div>
+    </div>
+    <div class="food-item" style="height:170px">
+      <img src="image/com_ga.png" alt="Cơm Gà" class="food-thumb">
+      <div class="food-info"><div class="food-name">Cơm Gà Hội An</div><div class="food-place">Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)</div></div>
+    </div>
+    <div class="food-item" style="height:210px">
+      <img src="image/banh_trang_cuon.png" alt="Bánh Tráng Cuốn" class="food-thumb">
+      <div class="food-info"><div class="food-name">Bánh Tráng Cuốn Thịt Heo</div><div class="food-place">Đà Nẵng</div></div>
+    </div>
+  </div>
+    <a class="scroll-arrow" href="#vku">▼</a>
+
+</section>
+
+<!-- ─────────── VKU CORNER ─────────── -->
+<section id="vku">
+  <div class="vku-inner">
+    <div class="reveal">
+      <div class="section-label">VKU Corner</div>
+      <h2 class="section-title">Được xây dựng bởi sinh viên VKU</h2>
+      <p class="section-desc" style="margin-bottom:28px">
+         Trường Đại học Công Nghệ Thông Tin và Truyền Thông Việt-Hàn — nơi công nghệ gặp gỡ văn hoá. 
+        Dự án Central Connect là tâm huyết của chúng em trong việc dùng IT để bảo tồn di sản quê hương.
+      </p>
+      <div class="blog-list">
+        <div class="blog-item" onclick="window.location.href='pages/blog.html'" style="cursor:pointer">
+          <span class="blog-lang">🇬🇧 EN</span>
+          <div>
+            <div class="blog-title">5 Hidden Gems in Da Nang No Tourists Know</div>
+            <div class="blog-author">Nguyễn Minh Khoa · VKU K22</div>
+          </div>
+        </div>
+        <div class="blog-item" onclick="window.location.href='pages/blog.html'" style="cursor:pointer">
+          <span class="blog-lang">🇬🇧 EN</span>
+          <div>
+            <div class="blog-title">The Ancient Craft Villages of Quang Nam</div>
+            <div class="blog-author">Trần Thị Lan · VKU K23</div>
+          </div>
+        </div>
+        <div class="blog-item" onclick="window.location.href='pages/blog.html'" style="cursor:pointer">
+          <span class="blog-lang">🇰🇷 한국</span>
+          <div>
+            <div class="blog-title">다낭의 역사적 명소 탐방 가이드</div>
+            <div class="blog-author">Lê Văn Hùng · VKU K22</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vku-banner reveal">
+      <div class="vku-logo">VKU</div>
+      <div class="vku-full">Trường Đại học Việt-Hàn<br>Vietnam – Korea University</div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:20px; line-height:1.6">
+        Xem lộ trình du lịch xuất phát từ trường — khám phá Đà Nẵng & Hội An ngay từ cổng trường
+      </p>
+      <button class="vku-map-btn" onclick="window.location.href='pages/vku-corner.html'">🗺 Lộ trình từ VKU</button>
+    </div>
+  </div>
+
+    <a class="scroll-arrow" href="#local-guide">▼</a>
+
+</section>
+
+<!-- ─────────── LOCAL GUIDE ─────────── -->
+<section id="local-guide">
+  <div class="guide-inner">
+    <div class="section-header reveal">
+      <div class="left">
+        <div class="section-label">🤖 AI • Người dẫn đường bản địa</div>
+        <h2 class="section-title">Hỏi gì về miền Trung?</h2>
+        <p class="section-desc">Trợ lý thông minh của chúng tôi hiểu rõ từng con ngõ, từng quán ăn, từng lễ hội ở Đà Nẵng</p>
+      </div>
+    </div>
+    <div class="guide-chat-window reveal">
+      <div class="guide-chat-header">
+        <div class="guide-avatar">🌊</div>
+        <div class="guide-header-info">
+          <div class="guide-header-name">Trợ lý Central Connect</div>
+          <div class="guide-header-status">Đang hoạt động · Trả lời trong vài giây</div>
+        </div>
+        <div class="guide-quick-chips">
+          <button class="guide-chip" onclick="askGuide('Hội An nên đi lúc nào đẹp nhất?')">📅 Thời điểm lý tưởng</button>
+          <button class="guide-chip" onclick="askGuide('Ăn gì ngon ở Đà Nẵng?')">🍜 Ẩm thực gợi ý</button>
+          <button class="guide-chip" onclick="askGuide('Lịch trình 3 ngày ở Hội An')">🗺 Lịch trình 3 ngày</button>
+          <button class="guide-chip" onclick="askGuide('Phương tiện đi lại tốt nhất ở Đà Nẵng')">🛵 Di chuyển</button>
+        </div>
+      </div>
+      <div class="guide-messages" id="guideMessages">
+        <div class="guide-msg">
+          <div class="guide-msg-avatar">🌊</div>
+          <div class="guide-bubble">
+            Xin chào! Tôi là trợ lý du lịch của Central Connect 👋<br><br>
+            Tôi có thể giúp bạn về <strong style="color:var(--ocean-light)">địa điểm tham quan, ẩm thực, lịch trình, phương tiện di chuyển</strong> và mọi thứ về Đà Nẵng. Hỏi tôi bất cứ điều gì nhé!
+          </div>
+        </div>
+      </div>
+      <div class="guide-input-row">
+        <input class="guide-input" id="guideInput" placeholder="Hỏi về địa điểm, ẩm thực, lịch trình..." onkeydown="if(event.key==='Enter') sendGuideMsg()">
+        <button class="guide-send-btn" onclick="sendGuideMsg()">➤</button>
+      </div>
+    </div>
+  </div>
+    <a class="scroll-arrow" href="#newsletter">▼</a>
+
+</section>
+
+<!-- ─────────── NEWSLETTER ─────────── -->
+<section id="newsletter">
+  <div class="newsletter-wrap reveal">
+    <div class="section-label" style="text-align:center">Cộng đồng</div>
+    <h2 class="newsletter-title">Nhận gợi ý mỗi tuần</h2>
+    <p class="newsletter-sub">
+      Cập nhật địa điểm mới, voucher độc quyền từ đối tác và thông báo hành trình gây quỹ — 
+      tất cả trong một email mỗi thứ Hai
+    </p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Email của bạn..." id="newsletterEmail">
+      <button class="newsletter-submit" onclick="subscribeNewsletter()">Đăng ký ngay</button>
+    </div>
+  </div>
+    <a class="scroll-arrow" href="#footer-brand">▼</a>
+
+</section>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="display:flex; gap:10px; align-items:center; margin-bottom:12px">
+           <img src= "assets/images/logo.jpg"  class="nav-logo-img">
+        <div>
+          <span class="nav-logo-text">CENTRAL CONNECT</span>
+          <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+        </div>
+      </div>
+      <p>"Dùng công nghệ để bảo tồn những giá trị xưa cũ và mở ra cánh cửa kết nối hiện đại cho du lịch miền Trung."</p>
+      <div class="footer-social">
+        <a class="social-btn" title="Facebook">f</a>
+        <a class="social-btn" title="Instagram">ig</a>
+        <a class="social-btn" title="YouTube">yt</a>
+        <a class="social-btn" title="TikTok">tt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Khám phá</h4>
+      <a href="pages/di-tich.html">Di tích lịch sử</a>
+      <a href="pages/kham-pha.html">Bản đồ di sản</a>
+      <a href="pages/lang-nghe.html">Làng nghề</a>
+      <a href="pages/am-thuc.html">Ẩm thực</a>
+      <a href="pages/kham-pha.html">Bản đồ tương tác</a>
+    </div>
+    <div class="footer-col">
+      <h4>Dịch vụ</h4>
+      <a>Lịch trình thông minh</a>
+      <a>Đặt vé & Tour</a>
+      <a>Homestay xanh</a>
+      <a>Thuê xe máy</a>
+      <a>Gây quỹ di sản</a>
+    </div>
+    <div class="footer-col">
+      <h4>Về chúng tôi</h4>
+      <a>Giới thiệu dự án</a>
+      <a>VKU Corner</a>
+      <a>Trở thành Đại sứ</a>
+      <a>Hợp tác doanh nghiệp</a>
+      <a>Điều khoản & Chính sách</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Central Connect · Được xây dựng bởi sinh viên VKU · Đà Nẵng, Việt Nam</div>
+    <div class="footer-copy">📍 VKU, Nguyễn Lương Bằng, Đà Nẵng · 📧 contact@centralconnect.vn</div>
+  </div>
+</footer>
+
+<!-- ─────────── CHATBOT BTN ─────────── -->
+<button class="chatbot-btn" onclick="openLocalGuide()">
+  🤖
+  <span class="chatbot-label">Người dẫn đường bản địa</span>
+</button>
+
+<!-- ─────────── MODAL: ĐĂNG NHẬP ─────────── -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <div class="modal-logo">
+           <img src= "assets/images/logo.jpg"  class="nav-logo-img">
+      <div class="modal-logo-name">CENTRAL CONNECT</div>
+    </div>
+    <h2 class="modal-title">Chào mừng trở lại!</h2>
+    <p class="modal-sub">Đăng nhập để tích điểm Hạt Bàu và nhận ưu đãi</p>
+    <div class="form-group">
+      <label>Email hoặc Tên đăng nhập</label>
+      <input type="text" placeholder="example@email.com" id="loginEmail">
+    </div>
+    <div class="form-group">
+      <label>Mật khẩu</label>
+      <div class="input-wrap">
+        <input type="password" placeholder="••••••••" id="loginPw">
+        <button class="toggle-pw" onclick="togglePw('loginPw', this)">👁</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="remember"><input type="checkbox"> Ghi nhớ tôi</label>
+      <button class="forgot">Quên mật khẩu?</button>
+    </div>
+    <button class="btn-modal-primary" onclick="doLogin()">ĐĂNG NHẬP</button>
+    <div class="divider-text"><span>hoặc đăng nhập bằng</span></div>
+    <div class="social-login">
+      <button class="social-login-btn" onclick="doLogin()">🇬 Google</button>
+      <button class="social-login-btn" onclick="doLogin()">📘 Facebook</button>
+    </div>
+    <div class="modal-switch">
+      Chưa có tài khoản? <button onclick="switchToRegister()">Đăng ký ngay</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── MODAL: ĐĂNG KÝ ─────────── -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <div class="modal-logo">
+           <img src= "assets/images/logo.jpg"  class="nav-logo-img">
+      <div class="modal-logo-name">CENTRAL CONNECT</div>
+    </div>
+
+    <!-- Step indicator -->
+    <div class="step-indicator" id="stepIndicator">
+      <div class="step-dot active" id="dot1">1</div>
+      <div class="step-line"></div>
+      <div class="step-dot" id="dot2">2</div>
+      <div class="step-line"></div>
+      <div class="step-dot" id="dot3">3</div>
+    </div>
+
+    <!-- Step 1 -->
+    <div id="regStep1">
+      <h2 class="modal-title">Tạo tài khoản</h2>
+      <p class="modal-sub">Bước 1/3 · Thông tin cơ bản</p>
+      <div class="form-group">
+        <label>Họ và Tên</label>
+        <input type="text" placeholder="Nguyễn Văn A" id="regName">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="email@example.com" id="regEmail">
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <div class="input-wrap">
+          <input type="password" placeholder="Tối thiểu 8 ký tự" id="regPw">
+          <button class="toggle-pw" onclick="togglePw('regPw', this)">👁</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Nhập lại mật khẩu</label>
+        <input type="password" placeholder="••••••••" id="regPw2">
+      </div>
+      <button class="btn-modal-primary" onclick="goStep(2)">Tiếp theo →</button>
+      <div class="modal-switch">Đã có tài khoản? <button onclick="switchToLogin()">Đăng nhập</button></div>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="regStep2" style="display:none">
+      <h2 class="modal-title">Sở thích của bạn</h2>
+      <p class="modal-sub">Bước 2/3 · Cá nhân hoá hành trình</p>
+      <div class="pref-grid">
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏖</span>Biển & Nghỉ dưỡng</div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏛</span>Di tích lịch sử</div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🍜</span>Ẩm thực</div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🌿</span>Thiên nhiên</div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏺</span>Làng nghề</div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🎭</span>Lễ hội văn hoá</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(1)">← Quay lại</button>
+        <button class="btn-modal-primary" style="margin:0" onclick="goStep(3)">Tiếp theo →</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="regStep3" style="display:none">
+      <h2 class="modal-title">Gần xong rồi! 🎉</h2>
+      <p class="modal-sub">Bước 3/3 · Thêm thông tin (tuỳ chọn)</p>
+      <div class="bonus-box">
+        <span class="bonus-icon">🪙</span>
+        <div class="bonus-text">
+          <strong>Tặng ngay 50 Hạt Bàu khi đăng ký!</strong>
+          <span>Đổi lấy voucher từ các đối tác của chúng tôi</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Số điện thoại (tuỳ chọn)</label>
+        <input type="tel" placeholder="0901 234 567" id="regPhone">
+      </div>
+      <div class="form-group">
+        <label>Bạn đến từ đâu?</label>
+        <input type="text" placeholder="Hà Nội, TP.HCM, Nước ngoài..." id="regFrom">
+      </div>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:18px; line-height:1.6">
+        Bằng cách đăng ký, bạn đồng ý với 
+        <span style="color:var(--ocean-light); cursor:pointer">Điều khoản sử dụng</span> và 
+        <span style="color:var(--ocean-light); cursor:pointer">Chính sách bảo mật</span> của chúng tôi.
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(2)">← Quay lại</button>
+        <button class="btn-modal-primary" style="margin:0" onclick="doRegister()">Hoàn tất 🎉</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── MODAL: CÀI ĐẶT ─────────── -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal" style="max-width:580px">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <h2 class="modal-title" style="text-align:left; margin-bottom:24px; font-size:22px">⚙ Cài đặt tài khoản</h2>
+    <div class="settings-layout">
+      <div class="settings-nav">
+        <button class="settings-nav-item active" onclick="switchSetting(this,'profile')">👤 Hồ sơ</button>
+        <button class="settings-nav-item" onclick="switchSetting(this,'security')">🔐 Bảo mật</button>
+        <button class="settings-nav-item" onclick="switchSetting(this,'notify')">🔔 Thông báo</button>
+        <button class="settings-nav-item" onclick="switchSetting(this,'display')">🎨 Giao diện</button>
+        <button class="settings-nav-item" onclick="switchSetting(this,'lang')">🌐 Ngôn ngữ</button>
+        <button class="settings-nav-item" onclick="switchSetting(this,'social')">🔗 MXH</button>
+      </div>
+      <div class="settings-content">
+        <div class="settings-panel active" id="panel-profile">
+          <h3>Hồ sơ cá nhân</h3>
+          <div class="form-group"><label>Họ và Tên</label><input type="text" id="settingName" value="Tài khoản"></div>
+          <div class="form-group"><label>Bio ngắn</label><input type="text" placeholder="Mô tả về bản thân..."></div>
+          <div class="form-group"><label>Quê quán</label><input type="text" placeholder="Đà Nẵng..."></div>
+          <button class="btn-modal-primary" style="margin-top:8px" onclick="saveSettings()">Lưu thay đổi</button>
+        </div>
+        <div class="settings-panel" id="panel-security">
+          <h3>Bảo mật</h3>
+          <div class="form-group"><label>Mật khẩu mới</label><input type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label>Xác nhận mật khẩu</label><input type="password" placeholder="••••••••"></div>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Xác thực 2 lớp (2FA)</div><div class="toggle-sub">Bảo vệ tài khoản an toàn hơn</div></div>
+            <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <button class="btn-modal-primary" style="margin-top:16px" onclick="saveSettings()">Lưu thay đổi</button>
+        </div>
+        <div class="settings-panel" id="panel-notify">
+          <h3>Thông báo</h3>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Thông báo lịch trình</div></div>
+            <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Voucher sắp hết hạn</div></div>
+            <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Địa điểm mới</div></div>
+            <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Email newsletter</div></div>
+            <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+          </div>
+        </div>
+        <div class="settings-panel" id="panel-display">
+          <h3>Giao diện</h3>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Chế độ tối (Dark mode)</div><div class="toggle-sub">Mặc định đang bật</div></div>
+            <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Hiệu ứng chuyển động</div></div>
+            <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+          </div>
+        </div>
+        <div class="settings-panel" id="panel-lang">
+          <h3>Ngôn ngữ</h3>
+          <div class="lang-grid">
+            <button class="lang-btn active" onclick="setLang(this)">🇻🇳 Tiếng Việt</button>
+            <button class="lang-btn" onclick="setLang(this)">🇬🇧 English</button>
+            <button class="lang-btn" onclick="setLang(this)">🇰🇷 한국어</button>
+            <button class="lang-btn" onclick="setLang(this)">🇯🇵 日本語</button>
+          </div>
+        </div>
+        <div class="settings-panel" id="panel-social">
+          <h3>Liên kết mạng xã hội</h3>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Facebook</div><div class="toggle-sub">Chia sẻ checkin tự động</div></div>
+            <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="toggle-row">
+            <div><div class="toggle-label">Google</div><div class="toggle-sub">Đăng nhập nhanh</div></div>
+            <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="toggle-row">
+            <div><div class="toggle-label">TikTok</div><div class="toggle-sub">Đăng video hành trình</div></div>
+            <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── MODAL: HỒ SƠ CÁ NHÂN ─────────── -->
+<div class="modal-overlay" id="profileModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <div class="profile-hero">
+      <div class="profile-big-avatar" id="profileBigAvatar">TK</div>
+      <div class="profile-display-name" id="profileDisplayName">Tài khoản</div>
+      <div style="margin-top:8px">
+        <span class="profile-member-badge">⭐ Thành viên Bạc</span>
+      </div>
+    </div>
+    <div class="profile-stats-row">
+      <div class="profile-stat">
+        <div class="profile-stat-num">🪙 50</div>
+        <div class="profile-stat-label">Hạt Bàu</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-num">3</div>
+        <div class="profile-stat-label">Địa điểm đã ghé</div>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-num">1</div>
+        <div class="profile-stat-label">Hành trình đã lưu</div>
+      </div>
+    </div>
+    <div class="profile-section-title">Hoạt động gần đây</div>
+    <div class="activity-list">
+      <div class="activity-item">
+        <span class="activity-icon">📍</span>
+        <span class="activity-text">Check-in Chùa Cầu Hội An</span>
+        <span class="activity-time">2 ngày trước</span>
+      </div>
+      <div class="activity-item">
+        <span class="activity-icon">🪙</span>
+        <span class="activity-text">Nhận 50 Hạt Bàu khi đăng ký</span>
+        <span class="activity-time">Hôm nay</span>
+      </div>
+      <div class="activity-item">
+        <span class="activity-icon">🗺</span>
+        <span class="activity-text">Lưu lịch trình "Hội An 3 ngày"</span>
+        <span class="activity-time">1 tuần trước</span>
+      </div>
+    </div>
+    <button class="profile-edit-btn" onclick="closeModals(); openSettings()">✏ Chỉnh sửa hồ sơ</button>
+  </div>
+</div>
+
+<!-- ─────────── MODAL: LỊCH TRÌNH ─────────── -->
+<div class="modal-overlay" id="itineraryModal">
+  <div class="modal modal-wide">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <h2 class="modal-title" style="text-align:left; font-size:22px; margin-bottom:20px">🗺 Lịch trình của tôi</h2>
+    <div class="itin-tabs">
+      <button class="itin-tab active" onclick="filterItin(this,'all')">Tất cả</button>
+      <button class="itin-tab" onclick="filterItin(this,'planned')">Sắp tới</button>
+      <button class="itin-tab" onclick="filterItin(this,'done')">Đã hoàn thành</button>
+      <button class="itin-tab" onclick="filterItin(this,'saved')">Đã lưu</button>
+    </div>
+    <div class="itin-list" id="itinList">
+      <div class="itin-card" data-status="planned">
+        <div class="itin-card-header">
+          <div class="itin-name">Hành trình Hội An 3 ngày 2 đêm</div>
+          <span class="itin-badge planned">Sắp tới</span>
+        </div>
+        <div class="itin-meta">
+          <span>📅 20–22 tháng 5</span>
+          <span>⏱ 3 ngày</span>
+          <span>📍 6 địa điểm</span>
+        </div>
+        <div class="itin-places">Chùa Cầu · Phố cổ · Làng rau Trà Quế · Cẩm Phô · Bãi biển An Bàng</div>
+      </div>
+      <div class="itin-card" data-status="done">
+        <div class="itin-card-header">
+          <div class="itin-name">Cuối tuần ở Đà Nẵng</div>
+          <span class="itin-badge done">Đã đi</span>
+        </div>
+        <div class="itin-meta">
+          <span>📅 10–11 tháng 4</span>
+          <span>⏱ 2 ngày</span>
+          <span>📍 4 địa điểm</span>
+        </div>
+        <div class="itin-places">Cầu Rồng · Bán đảo Sơn Trà · Mỹ Khê · Bà Nà Hills</div>
+      </div>
+      <div class="itin-card" data-status="saved">
+        <div class="itin-card-header">
+          <div class="itin-name">Thánh địa Mỹ Sơn & Mỹ Khê</div>
+          <span class="itin-badge saved">Đã lưu</span>
+        </div>
+        <div class="itin-meta">
+          <span>📅 Chưa đặt ngày</span>
+          <span>⏱ 1 ngày</span>
+          <span>📍 3 địa điểm</span>
+        </div>
+        <div class="itin-places">Mỹ Sơn · Duy Xuyên · Mỹ Khê beach</div>
+      </div>
+      <div class="itin-card" data-status="saved">
+        <div class="itin-card-header">
+          <div class="itin-name">Cù Lao Chàm 1 ngày</div>
+          <span class="itin-badge saved">Đã lưu</span>
+        </div>
+        <div class="itin-meta">
+          <span>📅 Chưa đặt ngày</span>
+          <span>⏱ 1 ngày</span>
+          <span>📍 5 điểm snorkeling</span>
+        </div>
+        <div class="itin-places">Bãi Hương · Bãi Bắc · Rạn san hô · Làng chài · Lighthouse</div>
+      </div>
+    </div>
+    <button class="itin-add-btn" onclick="showToast('✅ Tính năng tạo lịch trình mới đang phát triển!')">
+      + Tạo lịch trình mới
+    </button>
+  </div>
+</div>
+
+<!-- ─────────── MODAL: VOUCHER ─────────── -->
+<div class="modal-overlay" id="vouchersModal">
+  <div class="modal modal-wide">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <h2 class="modal-title" style="text-align:left; font-size:22px; margin-bottom:18px">🎟 Voucher của tôi</h2>
+    <div class="voucher-points-banner">
+      <span style="font-size:22px">🪙</span>
+      <div>Bạn có <strong>50 Hạt Bàu</strong> · Đổi lấy voucher hoặc ưu đãi từ đối tác của chúng tôi</div>
+    </div>
+    <div class="voucher-grid">
+      <div class="voucher-card">
+        <div class="voucher-top">
+          <div class="voucher-circles left"></div>
+          <div class="voucher-discount">20%</div>
+          <div class="voucher-type">Giảm giá ăn uống</div>
+          <div class="voucher-circles right"></div>
+        </div>
+        <div class="voucher-bottom">
+          <div class="voucher-partner">Mì Quảng Bà Mua</div>
+          <div class="voucher-expiry">⏰ Hết hạn: 31/05/2025</div>
+          <code class="voucher-code">CC-MQB20</code>
+          <button class="voucher-use-btn" onclick="showToast('🎟 Đã sao chép mã CC-MQB20!')">Dùng ngay</button>
+        </div>
+      </div>
+      <div class="voucher-card">
+        <div class="voucher-top">
+          <div class="voucher-circles left"></div>
+          <div class="voucher-discount">15%</div>
+          <div class="voucher-type">Giảm giá lưu trú</div>
+          <div class="voucher-circles right"></div>
+        </div>
+        <div class="voucher-bottom">
+          <div class="voucher-partner">Hội An Eco Lodge</div>
+          <div class="voucher-expiry">⏰ Hết hạn: 15/06/2025</div>
+          <code class="voucher-code">CC-HOE15</code>
+          <button class="voucher-use-btn" onclick="showToast('🎟 Đã sao chép mã CC-HOE15!')">Dùng ngay</button>
+        </div>
+      </div>
+      <div class="voucher-card">
+        <div class="voucher-top">
+          <div class="voucher-circles left"></div>
+          <div class="voucher-discount">50K</div>
+          <div class="voucher-type">Giảm tour boat</div>
+          <div class="voucher-circles right"></div>
+        </div>
+        <div class="voucher-bottom">
+          <div class="voucher-partner">Cù Lao Chàm Tour</div>
+          <div class="voucher-expiry">⏰ Hết hạn: 30/05/2025</div>
+          <code class="voucher-code">CC-CLC50</code>
+          <button class="voucher-use-btn" onclick="showToast('🎟 Đã sao chép mã CC-CLC50!')">Dùng ngay</button>
+        </div>
+      </div>
+      <div class="voucher-card expired">
+        <div class="voucher-top">
+          <div class="voucher-circles left"></div>
+          <div class="voucher-discount">10%</div>
+          <div class="voucher-type">Giảm xe máy thuê</div>
+          <div class="voucher-circles right"></div>
+        </div>
+        <div class="voucher-bottom">
+          <div class="voucher-partner">Đà Nẵng Bike Rental</div>
+          <div class="voucher-expiry">✗ Đã hết hạn: 01/04/2025</div>
+          <code class="voucher-code">CC-DBR10</code>
+          <button class="voucher-use-btn expired-btn">Đã hết hạn</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── MODAL: BẢNG XẾP HẠNG ─────────── -->
+<div class="modal-overlay" id="leaderboardModal">
+  <div class="modal modal-wide">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <div class="lb-header-row">
+      <h2 class="modal-title" style="font-size:22px; margin:0">🏅 Bảng xếp hạng</h2>
+      <div class="lb-period-btns">
+        <button class="lb-period-btn active" onclick="setLbPeriod(this)">Tuần này</button>
+        <button class="lb-period-btn" onclick="setLbPeriod(this)">Tháng này</button>
+        <button class="lb-period-btn" onclick="setLbPeriod(this)">Mọi thời đại</button>
+      </div>
+    </div>
+    <div class="lb-podium">
+      <div class="lb-podium-item">
+        <div class="lb-podium-rank">🥈</div>
+        <div class="lb-podium-avatar">LH</div>
+        <div class="lb-podium-name">Lê Hùng</div>
+        <div class="lb-podium-pts">🪙 840</div>
+      </div>
+      <div class="lb-podium-item">
+        <div class="lb-podium-rank">🥇</div>
+        <div class="lb-podium-avatar">MK</div>
+        <div class="lb-podium-name">Minh Khoa</div>
+        <div class="lb-podium-pts">🪙 1,250</div>
+      </div>
+      <div class="lb-podium-item">
+        <div class="lb-podium-rank">🥉</div>
+        <div class="lb-podium-avatar">TL</div>
+        <div class="lb-podium-name">Thị Lan</div>
+        <div class="lb-podium-pts">🪙 620</div>
+      </div>
+    </div>
+    <div class="lb-table" id="lbTable">
+      <div class="lb-row"><span class="lb-rank top3">4</span><div class="lb-user-mini" style="background:linear-gradient(135deg,#4A8,#8C4)">PH</div><div><div class="lb-user-name">Phạm Hương</div><div class="lb-user-sub">Hội An Explorer</div></div><span class="lb-pts">🪙 510</span></div>
+      <div class="lb-row"><span class="lb-rank top3">5</span><div class="lb-user-mini" style="background:linear-gradient(135deg,#48A,#84C)">DT</div><div><div class="lb-user-name">Đặng Tuấn</div><div class="lb-user-sub">Heritage Hunter</div></div><span class="lb-pts">🪙 490</span></div>
+      <div class="lb-row"><span class="lb-rank">6</span><div class="lb-user-mini" style="background:linear-gradient(135deg,#A84,#C48)">NA</div><div><div class="lb-user-name">Ngọc Anh</div><div class="lb-user-sub">Food Lover</div></div><span class="lb-pts">🪙 445</span></div>
+      <div class="lb-row"><span class="lb-rank">7</span><div class="lb-user-mini" style="background:linear-gradient(135deg,#88A,#AA8)">BN</div><div><div class="lb-user-name">Bảo Nam</div><div class="lb-user-sub">Beach Chaser</div></div><span class="lb-pts">🪙 380</span></div>
+      <div class="lb-row"><span class="lb-rank">8</span><div class="lb-user-mini" style="background:linear-gradient(135deg,#A48,#4A8)">VQ</div><div><div class="lb-user-name">Văn Quang</div><div class="lb-user-sub">Craft Village Fan</div></div><span class="lb-pts">🪙 310</span></div>
+      <div class="lb-row me" id="myLbRow"><span class="lb-rank">–</span><div class="lb-user-mini" id="lbMyAvatar" style="background:linear-gradient(135deg,var(--ocean),var(--ocean-light))">TK</div><div><div class="lb-user-name" id="lbMyName">Bạn</div><div class="lb-user-sub">Thành viên mới</div></div><span class="lb-pts">🪙 50</span><span class="lb-you-tag">Bạn</span></div>
+    </div>
+    <div style="text-align:center; margin-top:16px; font-size:12px; color:var(--muted)">
+      💡 Check-in địa điểm và chia sẻ hành trình để tăng điểm Hạt Bàu!
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Particles ──
+  (function(){
+    const c = document.getElementById('particles');
+    for(let i=0;i<30;i++){
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${4+Math.random()*6}s;animation-delay:${Math.random()*6}s;opacity:0;width:${1+Math.random()*2}px;height:${1+Math.random()*2}px`;
+      c.appendChild(p);
+    }
+  })();
+
+  // ── Navbar scroll ──
+  window.addEventListener('scroll', ()=>{
+    document.getElementById('navbar').classList.toggle('scrolled', scrollY > 80);
+  });
+
+  // ── Stats counter ──
+  const counters = document.querySelectorAll('[data-target]');
+  const countObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target, target = +el.dataset.target;
+        let cur = 0; const step = target/60;
+        const t = setInterval(()=>{ cur=Math.min(cur+step,target); el.textContent=Math.floor(cur)+(cur>=target?'+':''); if(cur>=target) clearInterval(t); },25);
+        countObs.unobserve(el);
+      }
+    });
+  },{threshold:0.5});
+  counters.forEach(c=>countObs.observe(c));
+
+  // Cập nhật stats từ API
+  (async () => {
+    if (!window.ccDB) return;
+    try {
+      const apiBase = (typeof CC_API_URL !== 'undefined' ? CC_API_URL : 'http://localhost:3000');
+      const res = await fetch(apiBase + '/api/stats');
+      if (!res.ok) return;
+      const s = await res.json();
+      const animate = (el, target) => {
+        if (!el) return;
+        el.dataset.target = target;
+        let cur = 0; const step = Math.max(1, target / 60);
+        const t = setInterval(() => { cur = Math.min(cur + step, target); el.textContent = Math.floor(cur) + (cur >= target ? '+' : ''); if (cur >= target) clearInterval(t); }, 25);
+      };
+      if (s.members > 0)  animate(document.getElementById('statMembers'), s.members);
+      if (s.stories > 0)  animate(document.getElementById('statStories'), s.stories);
+    } catch { }
+  })();
+
+  // ── Typed text hero ──
+  (function(){
+    const el = document.getElementById('typed-text');
+    if (!el) return;
+    const phrases = [
+      'Khám phá di sản văn hóa miền Trung',
+      'Trải nghiệm ẩm thực đặc sắc Hội An',
+      'Lên lịch trình thông minh với AI',
+      'Kết nối cộng đồng yêu di sản',
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    function type() {
+      const phrase = phrases[pi];
+      if (!deleting) {
+        el.textContent = phrase.slice(0, ++ci);
+        if (ci === phrase.length) { deleting = true; setTimeout(type, 2000); return; }
+        setTimeout(type, 55);
+      } else {
+        el.textContent = phrase.slice(0, --ci);
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); return; }
+        setTimeout(type, 28);
+      }
+    }
+    setTimeout(type, 1200);
+  })();
+
+  // ── Reveal on scroll ──
+  const revObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+  // ── Before/After Slider ──
+  (function(){
+    const wrap = document.getElementById('sliderWrap');
+    const after = document.getElementById('sliderAfter');
+    const handle = document.getElementById('sliderHandle');
+    let dragging = false;
+    function setPos(x){
+      const r = wrap.getBoundingClientRect();
+      const pct = Math.min(Math.max((x-r.left)/r.width*100,2),98);
+      after.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
+      handle.style.left = pct+'%';
+    }
+    wrap.addEventListener('mousedown', e=>{ dragging=true; setPos(e.clientX); });
+    wrap.addEventListener('touchstart', e=>{ dragging=true; setPos(e.touches[0].clientX); });
+    window.addEventListener('mousemove', e=>{ if(dragging) setPos(e.clientX); });
+    window.addEventListener('touchmove', e=>{ if(dragging) setPos(e.touches[0].clientX); });
+    window.addEventListener('mouseup', ()=>dragging=false);
+    window.addEventListener('touchend', ()=>dragging=false);
+  })();
+
+  // ── Toast ──
+  function showToast(msg, duration=3000){
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), duration);
+  }
+
+  // ── Modal helpers ──
+  function closeModals(){
+    document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('open'));
+  }
+  document.querySelectorAll('.modal-overlay').forEach(m=>{
+    m.addEventListener('click', e=>{ if(e.target===m) closeModals(); });
+  });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModals(); });
+
+  document.getElementById('openLogin').onclick = ()=> document.getElementById('loginModal').classList.add('open');
+  document.getElementById('openRegister').onclick = ()=> document.getElementById('registerModal').classList.add('open');
+
+  function switchToRegister(){ closeModals(); document.getElementById('registerModal').classList.add('open'); }
+  function switchToLogin(){ closeModals(); document.getElementById('loginModal').classList.add('open'); }
+
+  // ── Toggle password ──
+  function togglePw(id, btn){ const i=document.getElementById(id); i.type=i.type==='password'?'text':'password'; }
+
+  // ── Register steps ──
+  let curStep = 1;
+  function goStep(n){
+    [1,2,3].forEach(i=>{
+      document.getElementById('regStep'+i).style.display = i===n?'block':'none';
+      const dot=document.getElementById('dot'+i);
+      dot.className='step-dot'+(i<n?' done':i===n?' active':'');
+    });
+    curStep=n;
+  }
+
+  function togglePref(el){ el.classList.toggle('selected'); }
+
+  // ── Shared helpers ──
+  function _idxMakeInit(n){ return window.ccMakeInitials ? ccMakeInitials(n) : (n||'TK').substring(0,2).toUpperCase(); }
+  function _idxStore(user){
+    localStorage.setItem('cc_user', JSON.stringify(user));
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userName', user.displayName);
+  }
+  function _idxApply(){
+    if (typeof applyNavigationState === 'function') applyNavigationState();
+    else checkAuth();
+  }
+
+  // ── Do Login ──
+  async function doLogin(){
+    const emailVal = (document.getElementById('loginEmail')?.value || '').trim();
+    const pwVal    = (document.getElementById('loginPw')?.value   || '').trim();
+    if (typeof CC_USE_FIREBASE !== 'undefined' && CC_USE_FIREBASE && typeof firebase !== 'undefined') {
+      if (!emailVal) { showToast('⚠ Vui lòng nhập email'); return; }
+      try {
+        const cred = await firebase.auth().signInWithEmailAndPassword(emailVal, pwVal || 'dummy');
+        const fb = cred.user;
+        let profile = null;
+        if (window.ccDB) { try { profile = await ccDB.getUser(fb.uid); } catch{} }
+        const dname = profile?.displayName || fb.displayName || emailVal.split('@')[0];
+        const user = { uid: fb.uid, email: fb.email, displayName: dname,
+          initials: _idxMakeInit(dname), points: profile?.points ?? 50,
+          prefs: profile?.prefs || [], from: profile?.from || '', createdAt: Date.now() };
+        _idxStore(user);
+        if (window.ccDB) await ccDB.saveUser(user);
+        closeModals(); _idxApply();
+        showToast('✅ Đăng nhập thành công! Bạn có ' + user.points + ' Hạt Bàu 🌾');
+        return;
+      } catch(err) {
+        const msgs = {'auth/user-not-found':'❌ Email chưa đăng ký','auth/wrong-password':'❌ Mật khẩu không đúng','auth/invalid-credential':'❌ Email hoặc mật khẩu không đúng'};
+        showToast(msgs[err.code] || '❌ Lỗi: ' + err.message); return;
+      }
+    }
+    const email = emailVal || 'du_khach@example.com';
+    const name = email.split('@')[0].replace(/[._]/g,' ');
+    const display = name.length>12 ? name.substring(0,12)+'...' : name;
+    const existing = (function(){ try{ return JSON.parse(localStorage.getItem('cc_user')); }catch{return null;} })();
+    const user = { uid: existing?.uid || ('local-' + Date.now()), email, displayName: display, initials: _idxMakeInit(display),
+      points: existing?.points ?? 50, prefs: existing?.prefs || [], createdAt: Date.now() };
+    _idxStore(user);
+    if (window.ccDB) await ccDB.saveUser(user);
+    closeModals(); _idxApply();
+    document.getElementById('notifyBtn')?.classList.add('active');
+    showToast('✅ Đăng nhập thành công! Bạn có ' + user.points + ' Hạt Bàu 🌾');
+  }
+
+  // ── Do Register ──
+  async function doRegister(){
+    const name  = (document.getElementById('regName')?.value  || '').trim() || 'Thành viên mới';
+    const email = (document.getElementById('regEmail')?.value || '').trim() || 'member@example.com';
+    const pw    = (document.getElementById('regPw')?.value    || '').trim();
+    const prefs = [...document.querySelectorAll('#regStep2 .pref-item.selected')].map(el=>el.textContent.trim());
+    if (typeof CC_USE_FIREBASE !== 'undefined' && CC_USE_FIREBASE && typeof firebase !== 'undefined') {
+      if (!pw || pw.length < 6) { showToast('⚠ Mật khẩu tối thiểu 6 ký tự'); return; }
+      try {
+        const cred = await firebase.auth().createUserWithEmailAndPassword(email, pw);
+        await cred.user.updateProfile({ displayName: name });
+        const user = { uid: cred.user.uid, email, displayName: name, initials: _idxMakeInit(name),
+          points: 100, prefs, from: '', createdAt: Date.now() };
+        _idxStore(user);
+        if (window.ccDB) await ccDB.saveUser(user);
+        closeModals(); _idxApply(); goStep(1);
+        showToast('🎉 Chào mừng ' + name + '! Bạn nhận được 100 Hạt Bàu 🌾');
+        return;
+      } catch(err) {
+        const msgs = {'auth/email-already-in-use':'❌ Email đã được dùng. Hãy đăng nhập.','auth/weak-password':'❌ Mật khẩu quá yếu'};
+        showToast(msgs[err.code] || '❌ Lỗi: ' + err.message); return;
+      }
+    }
+    const user = { uid: 'local-' + Date.now(), email, displayName: name, initials: _idxMakeInit(name), points: 100, prefs, from: '', createdAt: Date.now() };
+    _idxStore(user);
+    if (window.ccDB) await ccDB.saveUser(user);
+    closeModals(); _idxApply(); goStep(1);
+    showToast('🎉 Chào mừng '+name+'! Bạn nhận được 100 Hạt Bàu khởi đầu 🌾');
+  }
+
+  // ── Logout ──
+  async function logout(){
+    if (typeof CC_USE_FIREBASE !== 'undefined' && CC_USE_FIREBASE && typeof firebase !== 'undefined') {
+      try { await firebase.auth().signOut(); } catch{}
+    }
+    localStorage.removeItem('cc_user'); localStorage.removeItem('isLoggedIn'); localStorage.removeItem('userName');
+    _idxApply();
+    showToast('👋 Đã đăng xuất. Hẹn gặp lại!');
+  }
+
+
+  // ── Require login ──
+  function requireLogin(){
+    if(document.getElementById('userPill').style.display==='none'||document.getElementById('userPill').style.display===''){
+      showToast('🔐 Vui lòng đăng nhập để tham gia hành trình');
+      setTimeout(()=>document.getElementById('loginModal').classList.add('open'), 500);
+    } else {
+      showToast('✅ Đã thêm vào danh sách hành trình của bạn!');
+    }
+  }
+
+  // ── Settings ──
+  function openSettings(){
+    document.getElementById('settingsModal').classList.add('open');
+    const n = document.getElementById('userName').textContent;
+    document.getElementById('settingName').value = n;
+  }
+  function switchSetting(btn, panel){
+    document.querySelectorAll('.settings-nav-item').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.settings-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+panel).classList.add('active');
+  }
+  function saveSettings(){
+    const n = document.getElementById('settingName').value;
+    if(n){
+      const display = n.length>10 ? n.substring(0,10)+'...' : n;
+      document.getElementById('userName').textContent = display;
+    }
+
+    // Persist to localStorage and backend if available
+    try {
+      const stored = JSON.parse(localStorage.getItem('cc_user') || 'null');
+      const updated = Object.assign(stored || {}, { displayName: n });
+      localStorage.setItem('cc_user', JSON.stringify(updated));
+      localStorage.setItem('userName', updated.displayName || '');
+      if (window.ccDB && updated.uid) {
+        // call saveUser but do not await to keep UI responsive
+        try { ccDB.saveUser(updated); } catch (e) { console.warn('saveSettings: ccDB.saveUser failed', e); }
+      }
+    } catch (e) { console.warn('saveSettings: could not persist user', e); }
+
+    closeModals();
+    showToast('✅ Đã lưu cài đặt thành công!');
+  }
+  function setLang(btn){
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    showToast('🌐 Đã đổi ngôn ngữ: '+btn.textContent);
+  }
+
+  // ── Newsletter ──
+  function subscribeNewsletter(){
+    const e = document.getElementById('newsletterEmail');
+    if(e.value && e.value.includes('@')){ showToast('📩 Đăng ký thành công! Kiểm tra email của bạn'); e.value=''; }
+    else { showToast('⚠ Vui lòng nhập email hợp lệ'); }
+  }
+
+  // ── Open Profile ──
+  function openProfile(){
+    if(document.getElementById('userPill').style.display==='none'||!document.getElementById('userPill').style.display){ requireLogin(); return; }
+    document.getElementById('profileBigAvatar').textContent = document.getElementById('userAvatar').textContent;
+    document.getElementById('profileDisplayName').textContent = document.getElementById('userName').textContent;
+    document.getElementById('profileModal').classList.add('open');
+  }
+
+  // ── Open Itinerary ──
+  function openItinerary(){
+    if(document.getElementById('userPill').style.display==='none'||!document.getElementById('userPill').style.display){ requireLogin(); return; }
+    document.getElementById('itineraryModal').classList.add('open');
+  }
+  function filterItin(btn, status){
+    document.querySelectorAll('.itin-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.itin-card').forEach(card=>{
+      card.style.display = (status==='all'||card.dataset.status===status) ? '' : 'none';
+    });
+  }
+
+  // ── Open Vouchers ──
+  function openVouchers(){
+    if(document.getElementById('userPill').style.display==='none'||!document.getElementById('userPill').style.display){ requireLogin(); return; }
+    document.getElementById('vouchersModal').classList.add('open');
+  }
+
+  // ── Open Leaderboard ──
+  async function openLeaderboard() {
+    const name   = document.getElementById('userName')?.textContent  || 'Bạn';
+    const avatar = document.getElementById('userAvatar')?.textContent || 'TK';
+    document.getElementById('lbMyName').textContent  = name;
+    document.getElementById('lbMyAvatar').textContent = avatar;
+    document.getElementById('leaderboardModal').classList.add('open');
+
+    if (!window.ccDB) return;
+    try {
+      const lb = await ccDB.getLeaderboard(10);
+      if (!lb || lb.length === 0) return;
+
+      // Podium: vị trí 2 (bạc), 1 (vàng), 3 (đồng)
+      const podiumOrder = [lb[1], lb[0], lb[2]].filter(Boolean);
+      const medals      = ['🥈', '🥇', '🥉'];
+      document.querySelectorAll('.lb-podium-item').forEach((el, i) => {
+        const u = podiumOrder[i]; if (!u) return;
+        el.querySelector('.lb-podium-rank').textContent = medals[i];
+        el.querySelector('.lb-podium-avatar').textContent = u.initials || (u.displayName||'??').slice(0,2).toUpperCase();
+        el.querySelector('.lb-podium-name').textContent  = u.displayName || 'Ẩn danh';
+        el.querySelector('.lb-podium-pts').textContent   = '🪙 ' + (u.points||0).toLocaleString('vi-VN');
+      });
+
+      // Bảng xếp hạng từ vị trí 4 trở xuống
+      const myPts = (() => { try { return JSON.parse(localStorage.getItem('cc_user')||'null')?.points || 50; } catch { return 50; } })();
+      let html = '';
+      lb.slice(3).forEach((u, i) => {
+        const ini = u.initials || (u.displayName||'').slice(0,2).toUpperCase();
+        html += `<div class="lb-row">
+          <span class="lb-rank">${i+4}</span>
+          <div class="lb-user-mini">${ini}</div>
+          <div><div class="lb-user-name">${u.displayName||'Ẩn danh'}</div></div>
+          <span class="lb-pts">🪙 ${(u.points||0).toLocaleString('vi-VN')}</span></div>`;
+      });
+      html += `<div class="lb-row me" id="myLbRow">
+        <span class="lb-rank">–</span>
+        <div class="lb-user-mini" id="lbMyAvatar" style="background:linear-gradient(135deg,var(--ocean),var(--ocean-light))">${avatar}</div>
+        <div><div class="lb-user-name" id="lbMyName">${name}</div><div class="lb-user-sub">Thành viên của bạn</div></div>
+        <span class="lb-pts">🪙 ${myPts.toLocaleString('vi-VN')}</span>
+        <span class="lb-you-tag">Bạn</span></div>`;
+      document.getElementById('lbTable').innerHTML = html;
+    } catch (e) {
+      console.warn('[Leaderboard] load failed:', e.message);
+    }
+  }
+  function setLbPeriod(btn){
+    document.querySelectorAll('.lb-period-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ── Open Local Guide modal (from chatbot button) ──
+  function openLocalGuide(){
+    document.querySelector('#local-guide').scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>document.getElementById('guideInput').focus(), 600);
+  }
+
+  // ── Local Guide Chat ──
+  const guideKB = [
+    { keys:['hội an','hoian','hoi an'], answer: '🏮 <strong>Hội An</strong> là phố cổ tuyệt đẹp, tốt nhất nên đến vào <strong>tháng 2–4</strong> (tránh mưa lũ tháng 10–11). Buổi tối phố đèn lồng rực rỡ nhất. Đừng bỏ qua Chùa Cầu, làng rau Trà Quế và bánh mì Phượng!' },
+    { keys:['đà nẵng','da nang','danang'], answer: '🌊 <strong>Đà Nẵng</strong> lý tưởng nhất từ <strong>tháng 3–8</strong>. Phải đến: Cầu Rồng (thứ 7 & CN có phun lửa lúc 21h), Bà Nà Hills, bán đảo Sơn Trà và bãi biển Mỹ Khê dài 30km!' },
+    { keys:['ăn gì','món gì','ẩm thực','quán','nhà hàng'], answer: '🍜 Nhất định phải thử: <br>• <strong>Mì Quảng</strong> – đặc sản Đà Nẵng<br>• <strong>Cao Lầu</strong> – chỉ có ở Hội An<br>• <strong>Bánh Mì Phượng</strong> – nổi tiếng thế giới<br>• <strong>Cơm Gà</strong> – Hội An<br>• <strong>Bún Chả Cá</strong> – đặc sản Đà Nẵng' },
+    { keys:['lịch trình','3 ngày','2 ngày','1 ngày','tour'], answer: '📅 Gợi ý <strong>3 ngày 2 đêm Đà Nẵng – Hội An</strong>:<br>• <strong>Ngày 1</strong>: Cầu Rồng, Mỹ Khê, Bà Nà Hills<br>• <strong>Ngày 2</strong>: Hội An phố cổ, Chùa Cầu, làng nghề<br>• <strong>Ngày 3</strong>: Thánh địa Mỹ Sơn hoặc Cù Lao Chàm<br><br>Muốn chi tiết hơn hãy dùng tính năng <em>Lên lịch trình</em> của chúng tôi!' },
+    { keys:['phương tiện','xe','đi lại','di chuyển','taxi'], answer: '🛵 Di chuyển tại Đà Nẵng – Hội An:<br>• <strong>Xe máy thuê</strong>: 100–150k/ngày – tự do nhất<br>• <strong>GrabBike/Car</strong>: tiện trong thành phố<br>• <strong>Xe đạp</strong>: lý tưởng cho phố cổ Hội An<br>• <strong>Xe buýt</strong>: tuyến Đà Nẵng–Hội An ~40 phút, 30k/chiều' },
+    { keys:['mỹ sơn','my son','thánh địa'], answer: '🏛 <strong>Thánh địa Mỹ Sơn</strong> – Di sản UNESCO cách Hội An ~40km. Mở cửa 6h–17h, vé 150k/người. Đi buổi sáng sớm để tránh nắng. Có biểu diễn múa Chăm lúc 9h30 & 14h30!' },
+    { keys:['cù lao chàm','cham island'], answer: '🏝 <strong>Cù Lao Chàm</strong> cách Hội An 18km, đi tàu cao tốc 20 phút. Nổi tiếng với lặn biển, san hô đẹp. Mùa tốt nhất: tháng 3–8. Vé tàu + vé vào đảo khoảng 350–400k/người.' },
+    { keys:['thời tiết','mưa','nắng','mùa'], answer: '☀ <strong>Thời điểm lý tưởng</strong> là <strong>tháng 2–8</strong> (trời nắng, ít mưa). Tránh tháng 9–11 vì mùa bão và lũ. Tháng 5–8 nóng nhất (~36°C) nhưng biển đẹp nhất. Mang kem chống nắng và áo mỏng là đủ!' },
+    { keys:['khách sạn','homestay','ở đâu','lưu trú','ngủ'], answer: '🏡 Gợi ý lưu trú:<br>• <strong>Phố cổ Hội An</strong>: nhiều homestay đẹp 300–600k/đêm<br>• <strong>Mỹ Khê / An Bàng</strong>: resort biển 500k–2tr/đêm<br>• <strong>Trung tâm Đà Nẵng</strong>: khách sạn 4–5 sao 800k–3tr/đêm<br>Đặt trước ít nhất 2 tuần vào mùa cao điểm!' },
+    { keys:['bà nà','ba na','bana hills'], answer: '🚡 <strong>Bà Nà Hills</strong> nằm ở độ cao 1,500m, cách Đà Nẵng 30km. Nổi tiếng với <strong>Cầu Vàng</strong> (Golden Bridge). Vé tàu cáp treo + công viên ~750k. Nên đi ngày thường để tránh đông!' },
+  ];
+  const defaultAnswer = '🤔 Câu hỏi hay! Tôi đang cập nhật thêm thông tin về chủ đề này. Thử hỏi về <strong>địa điểm, ẩm thực, lịch trình, thời tiết, di chuyển</strong> ở Đà Nẵng hoặc Hội An nhé!';
+
+  function getGuideAnswer(q){
+    const low = q.toLowerCase();
+    for(const entry of guideKB){
+      if(entry.keys.some(k=>low.includes(k))) return entry.answer;
+    }
+    return defaultAnswer;
+  }
+
+  function addGuideMsg(html, isUser){
+    const msgs = document.getElementById('guideMessages');
+    const div = document.createElement('div');
+    div.className = 'guide-msg' + (isUser?' user':'');
+    div.innerHTML = `<div class="guide-msg-avatar">${isUser?'👤':'🌊'}</div><div class="guide-bubble">${html}</div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping(){
+    const msgs = document.getElementById('guideMessages');
+    const div = document.createElement('div');
+    div.className = 'guide-msg';
+    div.id = 'typingIndicator';
+    div.innerHTML = `<div class="guide-msg-avatar">🌊</div><div class="guide-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping(){
+    const t = document.getElementById('typingIndicator');
+    if(t) t.remove();
+  }
+
+  function sendGuideMsg(){
+    const inp = document.getElementById('guideInput');
+    const q = inp.value.trim();
+    if(!q) return;
+    inp.value = '';
+    addGuideMsg(q, true);
+    showTyping();
+    const delay = 800 + Math.random()*600;
+    setTimeout(()=>{
+      removeTyping();
+      addGuideMsg(getGuideAnswer(q), false);
+    }, delay);
+  }
+
+  function askGuide(q){
+    document.getElementById('guideInput').value = q;
+    sendGuideMsg();
+    document.getElementById('guideMessages').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function checkAuth() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const authLinks = document.querySelectorAll('.auth-only');
+    const guestActions = document.getElementById('guestActions');
+    const userPill = document.getElementById('userPill');
+
+    if (isLoggedIn) {
+        // Hiện các mục Lịch trình, Gây quỹ
+        authLinks.forEach(el => el.style.display = 'block');
+        // Hiện User Pill và ẩn nút Đăng nhập/Đăng ký
+        if(guestActions) guestActions.style.display = 'none';
+        if(userPill) userPill.style.display = 'flex';
+    } else {
+        // Ẩn các mục Lịch trình, Gây quỹ
+        authLinks.forEach(el => el.style.display = 'none');
+        // Ẩn User Pill và hiện nút Đăng nhập/Đăng ký
+        if(guestActions) guestActions.style.display = 'block';
+        if(userPill) userPill.style.display = 'none';
+    }
+}
+
+function scrollToNext() {
+  const nextSection = document.getElementById('next-section');
+  if (nextSection) {
+    nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// Chạy kiểm tra ngay khi trang web tải xong
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof applyNavigationState === 'function') applyNavigationState();
+  // Nút Đăng nhập mở modal (được inject bởi auth-modal.js)
+  const openLoginBtn = document.getElementById('openLogin');
+  if (openLoginBtn) {
+    openLoginBtn.addEventListener('click', function() {
+      const modal = document.getElementById('loginModal');
+      if (modal) modal.classList.add('open');
+    });
+  }
+});
+
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/db.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/auth-modal.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,656 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Du Lịch – Central Connect</title>
+<meta name="description" content="Câu chuyện du lịch, trải nghiệm di sản và hành trình khám phá Đà Nẵng từ cộng đồng Central Connect.">
+<meta name="keywords" content="blog du lịch, Đà Nẵng, Hội An, Mỹ Sơn, trải nghiệm du lịch miền Trung">
+<meta property="og:title" content="Blog Du Lịch – Central Connect">
+<meta property="og:description" content="Câu chuyện và trải nghiệm du lịch tại Đà Nẵng.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1A4F8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/images.css">
+<style>
+:root {
+  --gold: #C9A84C; --cream: #F5F0E8; --ink: #1A1410; --muted: #8A7D6E;
+  --ocean: #1A4F8C; --ocean-light: #4A90D9;
+  --sunset: #B8532E; --sunset-light: #D4744A;
+  --ink-soft: #3D3530;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+/* ── HERO ── */
+.page-hero {
+  min-height: 380px; display: flex; align-items: center;
+  background: linear-gradient(160deg, #060810 0%, #0C1320 60%, #080A0F 100%);
+  position: relative; overflow: hidden; padding-top: 80px;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 50% at 75% 35%, rgba(184,83,46,0.07), transparent 65%);
+}
+.hero-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 40px; position: relative; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 32px; }
+.hero-left { flex: 1; min-width: 280px; }
+.page-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sunset-light); margin-bottom: 14px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: clamp(30px, 5vw, 52px); font-weight: 900; color: var(--cream); line-height: 1.15; margin-bottom: 16px; }
+.page-title span { color: var(--sunset-light); }
+.page-desc { font-size: 15px; color: var(--muted); max-width: 500px; line-height: 1.75; margin-bottom: 28px; }
+.write-btn { background: linear-gradient(135deg, var(--sunset), var(--sunset-light)); color: #fff; border: none; padding: 13px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.3s; }
+.write-btn:hover { background: linear-gradient(135deg, var(--sunset-light), #E8906A); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(184,83,46,0.3); }
+.hero-right { flex: 0 0 auto; display: flex; gap: 20px; }
+.hstat { text-align: center; }
+.hstat-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: var(--sunset-light); line-height: 1; }
+.hstat-label { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+/* ── SEARCH / FILTER ── */
+.filter-section { background: rgba(10,13,20,0.95); border-bottom: 1px solid rgba(184,83,46,0.12); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+.filter-inner { max-width: 1100px; margin: 0 auto; padding: 14px 40px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.filter-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-right: 4px; white-space: nowrap; }
+.fchip { padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid rgba(184,83,46,0.2); background: transparent; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+.fchip:hover { border-color: rgba(184,83,46,0.4); color: var(--cream); }
+.fchip.active { background: var(--sunset); border-color: var(--sunset); color: #fff; }
+.search-chip { margin-left: auto; display: flex; background: rgba(184,83,46,0.06); border: 1px solid rgba(184,83,46,0.2); border-radius: 8px; overflow: hidden; }
+.search-chip input { background: transparent; border: none; outline: none; color: var(--cream); padding: 8px 12px; font-size: 13px; font-family: inherit; width: 180px; }
+.search-chip input::placeholder { color: rgba(138,125,110,0.4); }
+
+/* ── LAYOUT ── */
+.main-layout { max-width: 1100px; margin: 0 auto; padding: 56px 40px; display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: start; }
+
+/* ── BLOG GRID ── */
+.section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sunset-light); margin-bottom: 6px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--cream); margin-bottom: 28px; }
+.blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+
+/* Featured post */
+.post-featured { grid-column: 1 / -1; background: rgba(255,255,255,0.03); border: 1px solid rgba(184,83,46,0.15); border-radius: 18px; overflow: hidden; display: grid; grid-template-columns: 1.2fr 1fr; cursor: pointer; transition: all 0.3s; }
+.post-featured:hover { border-color: rgba(184,83,46,0.35); transform: translateY(-4px); box-shadow: 0 16px 50px rgba(184,83,46,0.15); }
+.pf-img { min-height: 300px; background-size: cover; background-position: center; position: relative; }
+.pf-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 50%, #0C1018); }
+.pf-badge { position: absolute; top: 16px; left: 16px; background: var(--sunset); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; }
+.pf-body { padding: 36px 32px; display: flex; flex-direction: column; justify-content: center; }
+.pf-cat { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sunset-light); margin-bottom: 10px; }
+.pf-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); line-height: 1.35; margin-bottom: 12px; }
+.pf-excerpt { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+.pf-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.pf-author { display: flex; align-items: center; gap: 8px; }
+.pf-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--sunset), var(--sunset-light)); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
+.pf-author-name { font-size: 13px; color: var(--cream); font-weight: 500; }
+.pf-date { font-size: 12px; color: var(--muted); }
+.pf-stats { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
+.read-btn { background: transparent; border: 1px solid rgba(184,83,46,0.35); color: var(--sunset-light); padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; display: inline-block; width: fit-content; }
+.read-btn:hover { background: rgba(184,83,46,0.12); border-color: var(--sunset-light); }
+
+/* Normal post card */
+.post-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(184,83,46,0.1); border-radius: 16px; overflow: hidden; cursor: pointer; transition: all 0.25s; }
+.post-card:hover { border-color: rgba(184,83,46,0.3); transform: translateY(-4px); box-shadow: 0 10px 35px rgba(184,83,46,0.12); }
+.pc-img { height: 175px; background-size: cover; background-position: center; position: relative; }
+.pc-cat-badge { position: absolute; top: 10px; left: 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 3px 10px; border-radius: 12px; }
+.cat-trai-nghiem { background: rgba(212,116,74,0.2); color: var(--sunset-light); border: 1px solid rgba(212,116,74,0.35); }
+.cat-am-thuc { background: rgba(201,168,76,0.2); color: #E8C97A; border: 1px solid rgba(201,168,76,0.35); }
+.cat-di-tich { background: rgba(74,144,217,0.2); color: #6AAAE8; border: 1px solid rgba(74,144,217,0.35); }
+.cat-tip { background: rgba(96,200,122,0.2); color: #80E09A; border: 1px solid rgba(96,200,122,0.35); }
+.cat-lang-nghe { background: rgba(138,125,110,0.15); color: var(--muted); border: 1px solid rgba(138,125,110,0.3); }
+.pc-body { padding: 16px 18px 18px; }
+.pc-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--cream); line-height: 1.4; margin-bottom: 8px; }
+.pc-excerpt { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pc-footer { display: flex; align-items: center; justify-content: space-between; }
+.pc-author-mini { display: flex; align-items: center; gap: 6px; }
+.pc-ava { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.pc-name { font-size: 11px; color: var(--muted); }
+.pc-likes { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; cursor: pointer; transition: color 0.2s; }
+.pc-likes:hover { color: var(--sunset-light); }
+
+.load-more-btn { display: block; width: 100%; background: transparent; border: 1px solid rgba(184,83,46,0.25); color: var(--muted); padding: 13px; border-radius: 10px; font-size: 13px; font-family: inherit; cursor: pointer; transition: all 0.2s; text-align: center; margin-bottom: 24px; }
+.load-more-btn:hover { border-color: var(--sunset-light); color: var(--cream); }
+
+/* ── SIDEBAR ── */
+.sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+.sidebar-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(184,83,46,0.12); border-radius: 16px; padding: 22px; }
+.sidebar-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--cream); margin-bottom: 16px; }
+.trending-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(184,83,46,0.07); cursor: pointer; transition: all 0.2s; }
+.trending-item:last-child { border-bottom: none; padding-bottom: 0; }
+.trending-item:hover .ti-title { color: var(--sunset-light); }
+.ti-num { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: rgba(184,83,46,0.2); min-width: 26px; line-height: 1; }
+.ti-title { font-size: 13px; color: var(--cream); line-height: 1.45; transition: color 0.2s; }
+.ti-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag-item { font-size: 11px; padding: 5px 12px; border-radius: 14px; background: rgba(184,83,46,0.08); border: 1px solid rgba(184,83,46,0.18); color: var(--muted); cursor: pointer; transition: all 0.2s; }
+.tag-item:hover { background: rgba(184,83,46,0.15); border-color: var(--sunset-light); color: var(--cream); }
+
+.top-writer { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(184,83,46,0.07); }
+.top-writer:last-child { border-bottom: none; }
+.tw-ava { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.tw-name { font-size: 13px; color: var(--cream); font-weight: 500; }
+.tw-posts { font-size: 11px; color: var(--muted); }
+.tw-follow { margin-left: auto; font-size: 11px; border: 1px solid rgba(184,83,46,0.3); color: var(--sunset-light); background: transparent; padding: 4px 10px; border-radius: 8px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.tw-follow:hover { background: rgba(184,83,46,0.1); }
+
+/* ── WRITE MODAL ── */
+.write-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(5,8,15,0.9); backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.write-modal.open { opacity: 1; visibility: visible; }
+.wm-box { background: #0C1018; border: 1px solid rgba(184,83,46,0.25); border-radius: 20px; width: 90%; max-width: 660px; max-height: 88vh; overflow-y: auto; position: relative; transform: translateY(24px); transition: transform 0.3s; padding: 36px; }
+.write-modal.open .wm-box {
+  background: #0D1018; transform: translateY(0); }
+.wm-close { position: absolute; top: 16px; right: 16px; background: rgba(184,83,46,0.1); border: 1px solid rgba(184,83,46,0.2); border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 16px; color: var(--cream); display: flex; align-items: center; justify-content: center; }
+.wm-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+.wm-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.form-row { margin-bottom: 18px; }
+.form-row label { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.form-input, .form-select, .form-textarea { width: 100%; background: rgba(184,83,46,0.05); border: 1px solid rgba(184,83,46,0.2); color: var(--cream); padding: 11px 14px; border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--sunset-light); }
+.form-select { appearance: none; cursor: pointer; }
+.form-textarea { min-height: 160px; resize: vertical; line-height: 1.6; }
+.form-submit { background: linear-gradient(135deg, var(--sunset), var(--sunset-light)); color: #fff; border: none; padding: 13px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.3s; width: 100%; margin-top: 8px; }
+.form-submit:hover { background: linear-gradient(135deg, var(--sunset-light), #E8906A); }
+
+/* ── POST DETAIL MODAL ── */
+.post-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(5,8,15,0.9); backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.post-modal.open { opacity: 1; visibility: visible; }
+.pm-box { background: #0C1018; border: 1px solid rgba(184,83,46,0.2); border-radius: 20px; width: 90%; max-width: 700px; max-height: 90vh; overflow-y: auto; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+.post-modal.open .pm-box {
+  background: #0D1018; transform: translateY(0); }
+.pm-box::-webkit-scrollbar { width: 4px; } .pm-box::-webkit-scrollbar-thumb { background: var(--sunset); }
+.pm-close { position: absolute; top: 16px; right: 16px; z-index: 10; background: rgba(184,83,46,0.1); border: 1px solid rgba(184,83,46,0.2); border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 16px; color: var(--cream); display: flex; align-items: center; justify-content: center; }
+.pm-hero { height: 250px; background-size: cover; background-position: center; border-radius: 20px 20px 0 0; position: relative; }
+.pm-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #0C1018, transparent 55%); border-radius: 20px 20px 0 0; }
+.pm-content { padding: 28px 32px 36px; }
+.pm-cat { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sunset-light); margin-bottom: 10px; }
+.pm-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--cream); margin-bottom: 16px; line-height: 1.3; }
+.pm-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(184,83,46,0.1); flex-wrap: wrap; }
+.pm-body { font-size: 15px; color: rgba(245,240,232,0.75); line-height: 1.85; }
+.pm-body p { margin-bottom: 16px; }
+.pm-actions { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.pm-like-btn { background: transparent; border: 1px solid rgba(184,83,46,0.3); color: var(--sunset-light); padding: 10px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.pm-like-btn.liked { background: rgba(184,83,46,0.15); border-color: var(--sunset-light); }
+.pm-share-btn { background: transparent; border: 1px solid rgba(74,144,217,0.3); color: #6AAAE8; padding: 10px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+
+/* ── FOOTER ── */
+footer { background: #0A0C10; border-top: 1px solid rgba(184,83,46,0.1); padding: 52px 40px 28px; }
+.footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+.footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 12px 0 20px; max-width: 240px; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 34px; height: 34px; border: 1px solid rgba(184,83,46,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.social-btn:hover { border-color: var(--sunset-light); color: var(--sunset-light); }
+.footer-col h4 { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sunset-light); margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; cursor: pointer; }
+.footer-col a:hover { color: var(--cream); }
+.footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid rgba(184,83,46,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.footer-copy { font-size: 12px; color: rgba(138,125,110,0.4); }
+
+/* ── UTILS ── */
+.reveal { opacity: 0; transform: translateY(18px); transition: all 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(60px); background: rgba(10,13,20,0.95); border: 1px solid rgba(184,83,46,0.35); color: var(--cream); padding: 12px 24px; border-radius: 10px; font-size: 14px; backdrop-filter: blur(12px); transition: all 0.35s; z-index: 9999; pointer-events: none; white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .main-layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .post-featured { grid-template-columns: 1fr; }
+  .pf-img { min-height: 220px; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .filter-inner, .hero-wrap, .main-layout { padding-left: 20px; padding-right: 20px; }
+}
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .hero-right { flex-wrap: wrap; gap: 16px; }
+  .pf-body { padding: 22px 18px; }
+  .pm-content { padding: 20px 20px 28px; }
+  .search-chip input { width: 120px; }
+}
+
+  /* ── LIGHT THEME HERO FIXES ── */
+  .page-hero { color: var(--cream); }
+  .page-hero * { color: inherit; }
+  .page-hero .page-label { color: var(--gold); }
+  .page-hero .page-desc { color: rgba(245,240,232,0.75); }
+  .page-hero .hero-chip { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="vku-corner.html">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="doi-tac.html#transport">🚌 Vận tải</a>
+        <a href="doi-tac.html#hostels">🏡 Homestay xanh</a>
+        <a href="doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-notify" id="notifyBtn">🔔</div>
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none; position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown" id="userDropdown">
+        <a href="profile.html">👤 Hồ sơ</a>
+        <a onclick="logout()">🚪 Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <div class="hero-wrap">
+    <div class="hero-left">
+      <div class="page-label">✍ Cộng đồng chia sẻ</div>
+      <h1 class="page-title">Blog<br>Du <span>Lịch</span></h1>
+      <p class="page-desc">Câu chuyện thật, trải nghiệm thật từ những người đã khám phá vùng đất di sản Đà Nẵng.</p>
+      <button class="write-btn" onclick="openWriteModal()">✍ Viết bài chia sẻ</button>
+    </div>
+    <div class="hero-right">
+      <div class="hstat"><div class="hstat-num" data-target="148">0</div><div class="hstat-label">Bài viết</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="3200">0</div><div class="hstat-label">Lượt đọc</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="62">0</div><div class="hstat-label">Tác giả</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FILTER ── -->
+<div class="filter-section">
+  <div class="filter-inner">
+    <span class="filter-label">Chủ đề</span>
+    <button class="fchip active" onclick="filterPosts(this,'all')">Tất cả</button>
+    <button class="fchip" onclick="filterPosts(this,'trai-nghiem')">🗺 Trải nghiệm</button>
+    <button class="fchip" onclick="filterPosts(this,'am-thuc')">🍜 Ẩm thực</button>
+    <button class="fchip" onclick="filterPosts(this,'di-tich')">🏛 Di tích</button>
+    <button class="fchip" onclick="filterPosts(this,'tip')">💡 Tip du lịch</button>
+    <button class="fchip" onclick="filterPosts(this,'lang-nghe')">🏺 Làng nghề</button>
+    <div class="search-chip">
+      <input type="text" id="postSearch" placeholder="🔍 Tìm bài viết..." oninput="renderPosts()">
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main-layout">
+  <div class="blog-main">
+    <div class="section-label">Nổi bật</div>
+    <div class="section-title">Bài viết mới nhất</div>
+    <div id="blogGrid" class="blog-grid"></div>
+    <button class="load-more-btn" onclick="loadMore()">⟳ Xem thêm bài viết</button>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">🔥 Đang hot</div>
+      <div id="trendingList"></div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">🏷 Từ khoá</div>
+      <div class="tag-cloud" id="tagCloud"></div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">✍ Top tác giả</div>
+      <div id="writerList"></div>
+    </div>
+  </aside>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+        <img src="../assets/images/logo.jpg" class="nav-logo-img">
+        <div><span class="nav-logo-text">CENTRAL CONNECT</span><span class="nav-logo-sub">Di sản số Đà Nẵng</span></div>
+      </div>
+      <p>"Dùng công nghệ để bảo tồn những giá trị xưa cũ và mở ra cánh cửa kết nối hiện đại cho du lịch miền Trung."</p>
+      <div class="footer-social"><a class="social-btn">f</a><a class="social-btn">ig</a><a class="social-btn">yt</a></div>
+    </div>
+    <div class="footer-col"><h4>Khám phá</h4><a href="kham-pha.html">Bản đồ di sản</a><a href="di-tich.html">Di tích lịch sử</a><a href="am-thuc.html">Ẩm thực</a><a href="lang-nghe.html">Làng nghề</a><a href="vku-corner.html">VKU Corner</a></div>
+    <div class="footer-col"><h4>Dịch vụ</h4><a href="lich-trinh.html">Lịch trình AI</a><a href="gay-quy.html">Gây quỹ</a><a href="doi-tac.html">Đối tác</a></div>
+    <div class="footer-col"><h4>Về chúng tôi</h4><a>Giới thiệu dự án</a><a>Trở thành Đại sứ</a><a href="su-kien.html">Sự kiện</a></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Central Connect · Được xây dựng bởi sinh viên VKU · Đà Nẵng, Việt Nam</div>
+    <div class="footer-copy">📍 VKU, Nguyễn Lương Bằng, Đà Nẵng · 📧 contact@centralconnect.vn</div>
+  </div>
+</footer>
+
+<!-- ── WRITE MODAL ── -->
+<div class="write-modal" id="writeModal">
+  <div class="wm-box">
+    <button class="wm-close" onclick="closeWriteModal()">✕</button>
+    <div class="wm-title">✍ Chia sẻ câu chuyện</div>
+    <div class="wm-sub">Câu chuyện của bạn sẽ truyền cảm hứng cho hàng nghìn du khách khác</div>
+    <div class="form-row">
+      <label>Tiêu đề bài viết</label>
+      <input class="form-input" id="wTitle" placeholder="Tiêu đề hấp dẫn của bạn...">
+    </div>
+    <div class="form-row">
+      <label>Danh mục</label>
+      <select class="form-select" id="wCat">
+        <option value="trai-nghiem">🗺 Trải nghiệm</option>
+        <option value="am-thuc">🍜 Ẩm thực</option>
+        <option value="di-tich">🏛 Di tích</option>
+        <option value="tip">💡 Tip du lịch</option>
+        <option value="lang-nghe">🏺 Làng nghề</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Nội dung bài viết</label>
+      <textarea class="form-textarea" id="wContent" placeholder="Kể câu chuyện du lịch của bạn tại Đà Nẵng..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>URL ảnh đại diện (tuỳ chọn)</label>
+      <input class="form-input" id="wImg" placeholder="https://...">
+    </div>
+    <button class="form-submit" onclick="submitPost()">🚀 Đăng bài</button>
+  </div>
+</div>
+
+<!-- ── POST DETAIL MODAL ── -->
+<div class="post-modal" id="postModal">
+  <div class="pm-box">
+    <button class="pm-close" onclick="closePostModal()">✕</button>
+    <div class="pm-hero" id="pmHero"></div>
+    <div class="pm-content" id="pmContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const AVATAR_COLORS = ['#B8532E','#1A4F8C','#4A90D9','#C9A84C','#60C87A','#8B4FC8'];
+function pickColor(name) { let h = 0; for(let c of name) h += c.charCodeAt(0); return AVATAR_COLORS[h % AVATAR_COLORS.length]; }
+
+const CAT_LABELS = { 'trai-nghiem':'🗺 Trải nghiệm','am-thuc':'🍜 Ẩm thực','di-tich':'🏛 Di tích','tip':'💡 Tip','lang-nghe':'🏺 Làng nghề' };
+const CAT_CSS = { 'trai-nghiem':'cat-trai-nghiem','am-thuc':'cat-am-thuc','di-tich':'cat-di-tich','tip':'cat-tip','lang-nghe':'cat-lang-nghe' };
+
+let POSTS = [
+  { id:0, cat:'trai-nghiem', title:'Một đêm thả đèn lồng ở Hội An – kỷ niệm không thể quên', author:'Nguyễn Minh Anh', date:'3 tháng 6, 2026', reads:1240, likes:87, tags:['Hội An','Đèn lồng','Lễ hội'], featured:true, img:'../image/hoi-an-moi.jpg', excerpt:'Lần đầu tôi đến Hội An là vào một đêm rằm tháng giêng. Không ai chuẩn bị trước cho tôi rằng cả con phố cổ sẽ ngập trong ánh đèn lồng rực rỡ...', body: 'Lần đầu tôi đến Hội An là vào một đêm rằm tháng giêng. Không ai chuẩn bị trước cho tôi rằng cả con phố cổ sẽ ngập trong ánh đèn lồng rực rỡ, rằng hàng trăm con người sẽ lặng lẽ thả những chiếc đèn nhỏ xuống mặt sông Thu Bồn đen lánh, mỗi người một điều ước riêng.\n\nTôi mua một chiếc đèn lồng màu vàng – vì người bán hàng bảo màu vàng mang lại may mắn cho chuyến đi. Tôi cầm nó trên tay, cảm nhận hơi ấm của ngọn nến nhỏ, rồi thả xuống sông.\n\nKhoảnh khắc đó, giữa hàng nghìn ánh đèn lập lòe trên mặt nước, tôi hiểu tại sao Hội An được gọi là "thành phố của những ký ức". Không phải vì những ngôi nhà cổ hay những con phố vàng óng – mà vì nơi đây biết cách giữ lại khoảnh khắc, để mỗi người rời đi đều mang theo một mảnh ký ức không thể đặt tên.' },
+  { id:1, cat:'am-thuc', title:'Mì Quảng thật sự ngon nhất ở đâu? Sau 7 lần ăn, tôi đã tìm ra câu trả lời', author:'Trần Phúc Hải', date:'29 tháng 5, 2026', reads:892, likes:64, tags:['Mì Quảng','Ẩm thực','Hội An'], img:'../image/My_quang.png', excerpt:'Mì Quảng là linh hồn ẩm thực miền Trung. Nhưng để tìm được tô mì đúng nghĩa – không phải dễ. Tôi đã thử 7 quán trong 3 ngày ở Hội An và Đà Nẵng...', body: 'Mì Quảng là linh hồn ẩm thực miền Trung. Nhưng để tìm được tô mì đúng nghĩa – không phải dễ. Tôi đã thử 7 quán trong 3 ngày ở Hội An và Đà Nẵng, từ những hàng vỉa hè lúc 7 giờ sáng đến nhà hàng trong khu phố cổ.\n\nKết luận: Mì Quảng ngon nhất không phải ở nhà hàng sang trọng, mà ở những quán nhỏ ven đường, chỉ bán đến 10 giờ sáng là hết. Nước dùng đúng vị phải có màu vàng đặc trưng của nghệ, nước không quá nhiều, mì sợi dày và dai. Tô mì phải có bánh tráng mè vừng, rau sống tươi và ớt xanh.\n\nQuán tôi tâm đắc nhất: một góc nhỏ ở chợ Hội An, bà chủ đã bán mì Quảng hơn 30 năm. Tô mì 25.000 đồng nhưng hương vị thì không thể quên.' },
+  { id:2, cat:'di-tich', title:'Mỹ Sơn – khi công nghệ AR mang tháp Champa trở lại', author:'Lê Thu Hà', date:'22 tháng 5, 2026', reads:756, likes:51, tags:['Mỹ Sơn','Champa','AR','UNESCO'], img:'../image/thanh-dia-moi.jpg', excerpt:'Tôi đến Mỹ Sơn lần thứ hai với headset AR trên tay. Và kỳ này, tôi thấy những gì mà 1.500 năm trước, người Champa đã dựng lên giữa thung lũng hoa vàng...', body: 'Tôi đến Mỹ Sơn lần thứ hai với headset AR trên tay do Central Connect cho mượn. Và kỳ này, tôi thấy những gì mà 1.500 năm trước, người Champa đã dựng lên giữa thung lũng hoa vàng.\n\nCông nghệ AR phục dựng ngôi đền chính nhóm B trở về đúng thời kỳ thế kỷ VII – đầy màu sắc, tháp vươn cao, điêu khắc Shiva nguyên vẹn. Đứng trước tàn tích đổ nát mà nhìn qua màn hình thấy toàn bộ khu đền huy hoàng – cảm giác đó không thể diễn tả bằng lời.\n\nMỹ Sơn xứng đáng được ghé thăm ít nhất một lần trong đời, không phải vì nó đẹp – mà vì nó dạy ta trân trọng những gì đang còn lại.' },
+  { id:3, cat:'tip', title:'5 điều không ai nói với bạn khi đến Đà Nẵng lần đầu', author:'Phạm Quốc Khánh', date:'18 tháng 5, 2026', reads:2100, likes:143, tags:['Đà Nẵng','Tip','Du lịch'], img:'../image/cau-rong-moi.jpg', excerpt:'Tôi đã đến Đà Nẵng 5 lần. Và lần nào cũng phát hiện thêm điều gì đó mà lần trước mình bỏ lỡ. Đây là 5 điều tôi ước đã biết sớm hơn...', body: '1. Đừng ra biển buổi chiều cuối tuần – Bãi biển Mỹ Khê lúc 4–6 chiều cuối tuần đông như kiến. Ra biển sáng sớm 6–8 giờ: vắng, sóng đẹp, không khí trong lành.\n\n2. Cầu Rồng phun lửa chỉ thứ Bảy và Chủ nhật – 21 giờ. Đừng ra đứng chờ từ 8 giờ, đến 20:45 là đủ.\n\n3. Bán đảo Sơn Trà có đường lên Bàn Cờ tuyệt đẹp – nhưng chỉ nên lên buổi sáng sớm trước khi mặt trời lên cao, tránh trưa vì nóng.\n\n4. Bánh mì Đà Nẵng (không phải Hội An) mới là đỉnh – Có những hàng bánh mì ven đường giá 15k–20k ngon hơn bất kỳ nhà hàng nào.\n\n5. Mua vé Bà Nà online trước – Tiết kiệm 15–20% và tránh xếp hàng.' },
+  { id:4, cat:'lang-nghe', title:'Một ngày học làm gốm tại Thanh Hà – khi đất sét kể chuyện', author:'Hoàng Ngân Hà', date:'12 tháng 5, 2026', reads:534, likes:38, tags:['Gốm','Thanh Hà','Làng nghề','Workshop'], img:'../image/worshop_gom_thanh_ha.png', excerpt:'Workshop làm gốm tại làng Thanh Hà 500 năm tuổi – tôi đến với kỳ vọng "thử cho biết" và ra về với một trải nghiệm thay đổi cách tôi nhìn nhận nghề thủ công truyền thống...', body: 'Workshop làm gốm tại làng Thanh Hà 500 năm tuổi – tôi đến với kỳ vọng "thử cho biết" và ra về với một trải nghiệm thay đổi cách tôi nhìn nhận nghề thủ công truyền thống.\n\nBác nghệ nhân – 70 tuổi, gắn bó với đất sét từ năm 12 tuổi – không dạy theo kiểu giảng bài. Bác chỉ đặt tay tôi lên khối đất, cười và nói: "Cháu cứ cảm nhận đi. Đất sét nó sẽ tự nói với cháu."\n\nPhải mất 30 phút tôi mới nặn được cái bình méo mó không ra hình thù gì. Nhưng khi nung xong và cầm trên tay, tôi không muốn đặt xuống.\n\nLàng Thanh Hà cần được bảo tồn. Không phải vì gốm đẹp – mà vì nơi đây còn giữ được sự kiên nhẫn và tình yêu với nghề mà thế giới hiện đại đang dần đánh mất.' },
+  { id:5, cat:'trai-nghiem', title:'Chinh phục Bà Nà Hills theo cách khác – không cáp treo, đi bộ xuyên rừng', author:'Võ Thành Đức', date:'8 tháng 5, 2026', reads:678, likes:49, tags:['Bà Nà','Trekking','Sơn Trà'], img:'../image/ba-na-hill-moi.jpg', excerpt:'Thay vì cáp treo, tôi chọn đường mòn xuyên rừng lên Bà Nà. 6 tiếng leo bộ qua thác nước, vân sam cổ thụ và sương mù dày đặc...', body: 'Thay vì cáp treo, tôi chọn đường mòn xuyên rừng lên Bà Nà. 6 tiếng leo bộ qua thác nước, vân sam cổ thụ và sương mù dày đặc – và đó là ngày dài nhất, mệt nhất, đẹp nhất trong đời tôi.\n\nĐường mòn bắt đầu từ chân núi phía đông. Giờ xuất phát lý tưởng: 5h30 sáng, trước khi mặt trời lên. Mang đủ nước (ít nhất 2 lít), áo mưa mỏng (sương ẩm cả ngày), và giày trekking đế bám.\n\nKhoảng km số 4 có thác nước nhỏ – đây là điểm dừng lý tưởng. Lên đến đỉnh, nhìn xuống Đà Nẵng qua làn sương, tôi hiểu tại sao người Pháp đã chọn nơi này để nghỉ dưỡng.\n\nTip: Không phải ai cũng đủ thể lực. Hãy trung thực với bản thân trước khi lên đường.' },
+];
+
+let activeFilter = 'all';
+let shown = 4;
+
+function filterPosts(btn, cat) {
+  activeFilter = cat; shown = 4;
+  document.querySelectorAll('.fchip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPosts();
+}
+
+function getFiltered() {
+  const q = document.getElementById('postSearch').value.toLowerCase();
+  return POSTS.filter(p => {
+    const matchCat = activeFilter === 'all' || p.cat === activeFilter;
+    const matchQ = !q || p.title.toLowerCase().includes(q) || p.author.toLowerCase().includes(q) || (p.tags||[]).some(t => t.toLowerCase().includes(q));
+    return matchCat && matchQ;
+  });
+}
+
+function renderPosts() {
+  const filtered = getFiltered();
+  const grid = document.getElementById('blogGrid');
+  grid.innerHTML = '';
+  const toShow = filtered.slice(0, shown);
+  toShow.forEach((p, i) => {
+    if (p.featured && i === 0 && activeFilter === 'all' && !document.getElementById('postSearch').value) {
+      grid.innerHTML += buildFeatured(p);
+    } else {
+      const div = document.createElement('div');
+      div.className = 'post-card reveal';
+      div.style.transitionDelay = (i * 0.06) + 's';
+      div.onclick = () => openPost(p.id);
+      div.innerHTML = buildCard(p);
+      grid.appendChild(div);
+    }
+  });
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:50px 0;color:var(--muted)">Không tìm thấy bài viết phù hợp</div>';
+  }
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => revObs.observe(el));
+}
+
+function buildFeatured(p) {
+  return `<div class="post-featured reveal" onclick="openPost(${p.id})">
+    <div class="pf-img" style="background-image:url('${p.img||''}')">
+      <span class="pf-badge">⭐ Nổi bật</span>
+    </div>
+    <div class="pf-body">
+      <div class="pf-cat">${CAT_LABELS[p.cat]||''}</div>
+      <div class="pf-title">${p.title}</div>
+      <div class="pf-excerpt">${p.excerpt}</div>
+      <div class="pf-meta">
+        <div class="pf-author">
+          <div class="pf-avatar" style="background:${pickColor(p.author)}">${p.author.charAt(0)}</div>
+          <div><div class="pf-author-name">${p.author}</div><div class="pf-date">${p.date}</div></div>
+        </div>
+        <div class="pf-stats"><span>👁 ${p.reads.toLocaleString()}</span><span>❤ ${p.likes}</span></div>
+      </div>
+      <button class="read-btn">Đọc tiếp →</button>
+    </div>
+  </div>`;
+}
+
+function buildCard(p) {
+  return `<div class="pc-img" style="background-image:url('${p.img||''}')">
+    <span class="pc-cat-badge ${CAT_CSS[p.cat]||''}">${CAT_LABELS[p.cat]||''}</span>
+  </div>
+  <div class="pc-body">
+    <div class="pc-title">${p.title}</div>
+    <div class="pc-excerpt">${p.excerpt}</div>
+    <div class="pc-footer">
+      <div class="pc-author-mini">
+        <div class="pc-ava" style="background:${pickColor(p.author)}">${p.author.charAt(0)}</div>
+        <span class="pc-name">${p.author}</span>
+      </div>
+      <div class="pc-likes" onclick="event.stopPropagation(); likePost(${p.id}, this)">❤ ${p.likes}</div>
+    </div>
+  </div>`;
+}
+
+function openPost(id) {
+  const p = POSTS[id];
+  if (!p) return;
+  document.getElementById('pmHero').style.backgroundImage = `url('${p.img||''}')`;
+  const bodyHtml = (p.body||p.excerpt).split('\n\n').map(para => `<p>${para}</p>`).join('');
+  document.getElementById('pmContent').innerHTML = `
+    <div class="pm-cat">${CAT_LABELS[p.cat]||''}</div>
+    <div class="pm-title">${p.title}</div>
+    <div class="pm-meta">
+      <div class="pf-author">
+        <div class="pf-avatar" style="background:${pickColor(p.author)}">${p.author.charAt(0)}</div>
+        <div><div class="pf-author-name">${p.author}</div><div class="pf-date">${p.date} · ${p.reads.toLocaleString()} lượt đọc</div></div>
+      </div>
+    </div>
+    <div class="pm-body">${bodyHtml}</div>
+    <div class="pm-actions">
+      <button class="pm-like-btn" id="pmLike${id}" onclick="likePostModal(${id})">❤ Thích · ${p.likes}</button>
+      <button class="pm-share-btn" onclick="showToast('📤 Đã sao chép link bài viết!')">📤 Chia sẻ</button>
+    </div>`;
+  if (typeof ccAddPoints === 'function') ccAddPoints(2, 'Đọc bài viết');
+  p.reads++;
+  document.getElementById('postModal').classList.add('open');
+}
+
+function likePostModal(id) {
+  const p = POSTS[id];
+  p.likes++;
+  const btn = document.getElementById('pmLike'+id);
+  if (btn) { btn.textContent = '❤ Thích · ' + p.likes; btn.classList.add('liked'); }
+  if (typeof ccAddPoints === 'function') ccAddPoints(1, 'Thích bài viết');
+  showToast('❤ Đã thích bài viết!');
+}
+
+function likePost(id, el) {
+  POSTS[id].likes++;
+  el.textContent = '❤ ' + POSTS[id].likes;
+  showToast('❤ Đã thích!');
+}
+
+function closePostModal() { document.getElementById('postModal').classList.remove('open'); }
+
+document.getElementById('postModal').addEventListener('click', e => { if (e.target === document.getElementById('postModal')) closePostModal(); });
+
+function loadMore() { shown += 3; renderPosts(); }
+
+// ── WRITE MODAL ──
+function openWriteModal() {
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    showToast('🔐 Vui lòng đăng nhập để viết bài'); return;
+  }
+  document.getElementById('writeModal').classList.add('open');
+}
+function closeWriteModal() { document.getElementById('writeModal').classList.remove('open'); }
+document.getElementById('writeModal').addEventListener('click', e => { if (e.target === document.getElementById('writeModal')) closeWriteModal(); });
+
+async function submitPost() {
+  const title = document.getElementById('wTitle').value.trim();
+  const cat = document.getElementById('wCat').value;
+  const content = document.getElementById('wContent').value.trim();
+  if (!title || !content) { showToast('⚠ Vui lòng nhập tiêu đề và nội dung'); return; }
+  const user = JSON.parse(localStorage.getItem('cc_user')||'{}');
+  const newPost = { id: POSTS.length, cat, title, author: user.displayName||'Ẩn danh', date: 'Hôm nay', reads: 0, likes: 0, excerpt: content.substring(0, 120) + '...', body: content, img: document.getElementById('wImg').value || '' };
+  POSTS.unshift(newPost);
+  // Lưu lên server
+  if (window.ccDB) {
+    try {
+      await ccDB.addStory({ title, content, place: '', tags: [cat], authorName: user.displayName||'Ẩn danh', authorUid: user.uid||null, initials: user.initials||'' });
+    } catch { }
+  }
+  if (typeof ccAddPoints === 'function') ccAddPoints(25, 'Đăng bài viết mới');
+  closeWriteModal();
+  renderPosts();
+  showToast('🎉 Bài viết đã được đăng! +25 Hạt Bàu');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePostModal(); closeWriteModal(); } });
+
+// ── SIDEBAR ──
+const TRENDING = [
+  {title:'Hội An về đêm – ánh đèn và ký ức', sub:'1.2k lượt đọc'},
+  {title:'Top 10 quán Cơm Gà Hội An', sub:'892 lượt đọc'},
+  {title:'Mỹ Sơn không có trong sách giáo khoa', sub:'756 lượt đọc'},
+  {title:'Cầu Rồng lúc nửa đêm', sub:'634 lượt đọc'},
+  {title:'Làng nghề Mộc Kim Bồng: nghề đang chết?', sub:'521 lượt đọc'},
+];
+const TAGS = ['Hội An','Đà Nẵng','Mỹ Sơn','Ẩm thực','Lễ hội','Di sản','Backpacker','Cầu Rồng','Bà Nà','Sơn Trà','Gốm Thanh Hà','Mì Quảng','Cao Lầu','Trekking','UNESCO'];
+const WRITERS = [
+  {name:'Nguyễn Minh Anh', posts:12, color:'#B8532E'},
+  {name:'Phạm Quốc Khánh', posts:9, color:'#1A4F8C'},
+  {name:'Lê Thu Hà', posts:7, color:'#4A90D9'},
+  {name:'Trần Phúc Hải', posts:6, color:'#C9A84C'},
+];
+
+document.getElementById('trendingList').innerHTML = TRENDING.map((t,i) => `<div class="trending-item"><div class="ti-num">0${i+1}</div><div><div class="ti-title">${t.title}</div><div class="ti-sub">${t.sub}</div></div></div>`).join('');
+document.getElementById('tagCloud').innerHTML = TAGS.map(t => `<span class="tag-item" onclick="filterByTag('${t}')">${t}</span>`).join('');
+document.getElementById('writerList').innerHTML = WRITERS.map(w => `<div class="top-writer"><div class="tw-ava" style="background:${w.color}">${w.name.charAt(0)}</div><div><div class="tw-name">${w.name}</div><div class="tw-posts">${w.posts} bài viết</div></div><button class="tw-follow" onclick="showToast('✅ Đã theo dõi ${w.name}')">Theo dõi</button></div>`).join('');
+
+function filterByTag(tag) {
+  document.getElementById('postSearch').value = tag;
+  renderPosts();
+}
+
+// ── INTERSECTION OBSERVER ──
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, target = +el.dataset.target;
+      let cur = 0; const step = target / 60;
+      const t = setInterval(() => { cur = Math.min(cur + step, target); el.textContent = Math.floor(cur) + (cur >= target ? '+' : ''); if (cur >= target) clearInterval(t); }, 25);
+      cntObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(c => cntObs.observe(c));
+
+// ── TOAST ──
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3200); }
+
+// ── INIT ──
+renderPosts();
+
+// Tải stories từ server và bổ sung vào danh sách
+(async () => {
+  if (!window.ccDB) return;
+  try {
+    const stories = await ccDB.getStories(20);
+    if (!stories || !stories.length) return;
+    const existingTitles = new Set(POSTS.map(p => p.title));
+    stories.forEach(s => {
+      if (existingTitles.has(s.title)) return;
+      POSTS.push({
+        id: POSTS.length, cat: (s.tags||[])[0] || 'trai-nghiem',
+        title: s.title || '(Không tiêu đề)', author: s.authorName || 'Ẩn danh',
+        date: s.timestamp ? new Date(s.timestamp).toLocaleDateString('vi-VN') : '',
+        reads: 0, likes: s.likes || 0, excerpt: (s.content||'').substring(0, 120) + '...',
+        body: s.content || '', img: ''
+      });
+    });
+    renderPosts();
+  } catch { }
+})();
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+</body>
+</html>

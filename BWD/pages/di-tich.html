@@ -1,0 +1,1103 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Di Tích Lịch Sử – Central Connect</title>
+<meta name="description" content="Khám phá di tích lịch sử Đà Nẵng: Thánh địa Mỹ Sơn, Thành Điện Hải, Phố cổ Hội An qua công nghệ so sánh Xưa–Nay, timeline tương tác và nhân vật lịch sử ảo.">
+<meta name="keywords" content="di tích lịch sử Đà Nẵng, Mỹ Sơn, Thành Điện Hải, Hội An, Champa, Nguyễn Tri Phương, lịch sử Đà Nẵng">
+<meta property="og:title" content="Di Tích Lịch Sử – Central Connect">
+<meta property="og:description" content="1.800 năm lịch sử Đà Nẵng qua công nghệ tương tác, nhân vật ảo và hệ thống check-in gamified.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#C9A84C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/images.css">
+<style>
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A; --gold-dark: #9A7A30;
+  --cream: #F5F0E8; --ink: #1A1410; --muted: #8A7D6E;
+  --ocean: #1A4F8C; --ocean-light: #4A90D9;
+  --sunset: #B8532E; --sunset-light: #D4774A;
+  --green: #60C87A;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+/* ── HERO ── */
+.page-hero {
+  min-height: 500px; display: flex; align-items: center;
+  background: linear-gradient(155deg, #07090E 0%, #0D1015 40%, #0A0C10 100%);
+  position: relative; overflow: hidden; padding-top: 80px;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 85% 50%, rgba(201,168,76,0.07), transparent 65%);
+}
+.page-hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, transparent 0%, rgba(201,168,76,0.3) 50%, transparent 100%);
+}
+.hero-motif {
+  position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+  font-size: 200px; opacity: 0.035; user-select: none; pointer-events: none; line-height: 1;
+}
+.hero-wrap { max-width: 1100px; margin: 0 auto; padding: 72px 40px 60px; position: relative; z-index: 1; }
+.page-era { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5.5vw, 64px); font-weight: 900; line-height: 1.08; margin-bottom: 18px; color: var(--cream); }
+.page-title em { font-style: italic; color: var(--gold); }
+.page-desc { font-size: 16px; color: var(--muted); max-width: 540px; line-height: 1.78; margin-bottom: 32px; }
+.hero-quick-links { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 42px; }
+.ql { padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; border: 1px solid; cursor: pointer; transition: all 0.2s; }
+.ql-gold { border-color: rgba(201,168,76,0.35); color: var(--gold); }
+.ql-gold:hover { background: rgba(201,168,76,0.1); }
+.ql-ocean { border-color: rgba(74,144,217,0.35); color: var(--ocean-light); }
+.ql-ocean:hover { background: rgba(74,144,217,0.1); }
+.hero-stats { display: flex; gap: 44px; flex-wrap: wrap; padding-top: 26px; border-top: 1px solid rgba(201,168,76,0.12); }
+.hstat-num { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 900; color: var(--gold); line-height: 1; }
+.hstat-lbl { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  background: rgba(255,255,255,0.018); border-bottom: 1px solid rgba(201,168,76,0.1);
+  position: sticky; top: 0; z-index: 100; backdrop-filter: blur(14px);
+}
+.filter-inner { max-width: 1100px; margin: 0 auto; padding: 14px 40px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.filter-lbl { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-right: 4px; white-space: nowrap; }
+.era-chip { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid rgba(201,168,76,0.18); background: transparent; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+.era-chip:hover { border-color: rgba(201,168,76,0.45); color: var(--cream); }
+.era-chip.active { background: rgba(201,168,76,0.14); border-color: var(--gold); color: var(--gold); }
+.filter-search { margin-left: auto; display: flex; background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.18); border-radius: 8px; overflow: hidden; }
+.filter-search input { background: transparent; border: none; outline: none; color: var(--cream); padding: 8px 14px; font-size: 13px; font-family: inherit; width: 200px; }
+.filter-search input::placeholder { color: rgba(138,125,110,0.4); }
+
+/* ── MAIN WRAP ── */
+.main-wrap { max-width: 1100px; margin: 0 auto; padding: 64px 40px; }
+.sec-head { margin-bottom: 34px; }
+.sec-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--cream); }
+.sec-sub { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.65; max-width: 560px; }
+
+/* ── XƯA–NAY SLIDER ── */
+.xn-outer { margin-bottom: 72px; }
+.xn-wrap {
+  position: relative; border-radius: 20px; overflow: hidden; border: 1px solid rgba(201,168,76,0.2);
+  cursor: ew-resize; user-select: none; min-height: 420px;
+}
+.xn-before {
+  width: 100%; min-height: 420px; display: block; position: relative;
+  background: linear-gradient(135deg, #2C1808 0%, #4A2C12 35%, #3A2010 60%, #2A1A08 100%);
+}
+.xn-after {
+  position: absolute; inset: 0; width: 50%;
+  border-right: 3px solid rgba(255,255,255,0.9);
+  background: linear-gradient(135deg, #07090F 0%, #0D1520 35%, #081018 60%, #060A12 100%);
+  overflow: hidden;
+}
+.xn-label {
+  position: absolute; top: 20px; padding: 6px 16px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; border-radius: 20px;
+}
+.xn-label-b { right: 18px; background: rgba(201,168,76,0.2); color: var(--gold); border: 1px solid rgba(201,168,76,0.4); }
+.xn-label-a { left: 18px; background: rgba(74,144,217,0.2); color: var(--ocean-light); border: 1px solid rgba(74,144,217,0.4); }
+.xn-handle {
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 3px; background: rgba(255,255,255,0.9);
+  transform: translateX(-50%); pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.xn-knob {
+  width: 40px; height: 40px; border-radius: 50%; background: #fff; color: #1A1410;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 900; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  flex-shrink: 0;
+}
+/* Artistic decorations inside slider */
+.xn-b-art {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px; pointer-events: none;
+}
+.xn-b-tower { font-size: 80px; opacity: 0.18; filter: sepia(1) brightness(0.8); }
+.xn-b-text { font-family: 'Playfair Display', serif; font-size: 13px; letter-spacing: 0.3em; color: rgba(201,168,76,0.35); text-transform: uppercase; }
+.xn-a-art {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px; pointer-events: none;
+}
+.xn-a-tower { font-size: 80px; opacity: 0.12; filter: hue-rotate(200deg) brightness(0.7); }
+.xn-a-text { font-family: 'Playfair Display', serif; font-size: 13px; letter-spacing: 0.3em; color: rgba(74,144,217,0.35); text-transform: uppercase; }
+.xn-bottom { position: absolute; bottom: 0; left: 0; right: 0; display: flex; pointer-events: none; }
+.xn-info-b { flex: 1; display: flex; justify-content: flex-end; }
+.xn-info-a { flex: 1; }
+.xn-info-box { padding: 20px 22px; background: linear-gradient(to top, rgba(0,0,0,0.75) 70%, transparent); width: 100%; }
+.xn-year { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; }
+.xn-year-b { color: var(--gold); }
+.xn-year-a { color: var(--ocean-light); }
+.xn-caption { font-size: 12px; color: rgba(245,240,232,0.60); margin-top: 3px; }
+.xn-tip { text-align: center; font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+/* ── TIMELINE ── */
+.tl-outer { margin-bottom: 72px; }
+.tl-scroll { overflow-x: auto; padding: 0 0 12px; cursor: grab; }
+.tl-scroll:active { cursor: grabbing; }
+.tl-scroll::-webkit-scrollbar { height: 3px; }
+.tl-scroll::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
+.tl-track {
+  display: flex; align-items: flex-start; padding: 44px 40px 20px;
+  min-width: max-content; position: relative;
+}
+.tl-track::before {
+  content: ''; position: absolute; left: 55px; right: 55px; top: 58px; height: 2px;
+  background: linear-gradient(to right, var(--gold), rgba(201,168,76,0.15) 80%, transparent);
+}
+.tl-era {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 175px; padding: 0 14px; cursor: pointer; position: relative;
+}
+.tl-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid var(--gold); background: rgba(255,255,255,0.04);
+  position: relative; z-index: 1; transition: all 0.3s; margin-bottom: 18px; flex-shrink: 0;
+}
+.tl-era:hover .tl-dot, .tl-era.active .tl-dot { background: var(--gold); box-shadow: 0 0 18px rgba(201,168,76,0.5); }
+.tl-period { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; font-weight: 700; text-align: center; }
+.tl-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--cream); margin-bottom: 7px; text-align: center; line-height: 1.3; }
+.tl-event { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.55; max-width: 145px; }
+.tl-era.active .tl-name { color: var(--gold); }
+.tl-detail-panel {
+  background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 14px; padding: 20px 24px; margin-top: 24px;
+  animation: fadeUp 0.3s ease; display: none;
+}
+.tl-detail-panel.open { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.tl-dp-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+.tl-dp-text { font-size: 13px; color: rgba(245,240,232,0.70); line-height: 1.7; }
+
+/* ── SITES GRID ── */
+.sites-outer { margin-bottom: 72px; }
+.sites-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.site-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.1);
+  border-radius: 18px; overflow: hidden; cursor: pointer; transition: all 0.3s;
+}
+.site-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-5px); box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
+.sc-img { height: 190px; position: relative; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+.sc-emoji { font-size: 64px; opacity: 0.55; filter: drop-shadow(0 0 20px rgba(201,168,76,0.4)); }
+.sc-era-badge { position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 12px; }
+.era-champa { background: rgba(201,168,76,0.22); color: #E8C97A; border: 1px solid rgba(201,168,76,0.4); }
+.era-viet { background: rgba(184,83,46,0.2); color: var(--sunset-light); border: 1px solid rgba(184,83,46,0.4); }
+.era-phap { background: rgba(74,144,217,0.2); color: #6AAAE8; border: 1px solid rgba(74,144,217,0.4); }
+.era-khang { background: rgba(96,200,122,0.2); color: #80E09A; border: 1px solid rgba(96,200,122,0.35); }
+.sc-checkin-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 12px; background: rgba(10,13,20,0.85); color: rgba(245,240,232,0.90); border: 1px solid rgba(201,168,76,0.35); }
+.sc-body { padding: 18px 20px; }
+.sc-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--cream); margin-bottom: 5px; line-height: 1.35; }
+.sc-loc { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.sc-desc { font-size: 13px; color: rgba(245,240,232,0.60); line-height: 1.6; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sc-foot { display: flex; justify-content: space-between; align-items: center; }
+.sc-year { font-size: 11px; color: var(--gold); font-weight: 600; }
+.sc-ci-btn { background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.sc-ci-btn:hover { background: rgba(201,168,76,0.1); }
+
+/* ── HISTORICAL CHARACTERS ── */
+.chars-outer { margin-bottom: 72px; }
+.chars-intro { background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.12); border-radius: 14px; padding: 18px 22px; margin-bottom: 28px; font-size: 14px; color: var(--muted); line-height: 1.7; }
+.chars-intro strong { color: var(--gold); }
+.chars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.char-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 20px; padding: 30px 24px; text-align: center; cursor: pointer;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.char-card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.09), transparent 70%);
+  transition: opacity 0.3s;
+}
+.char-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); }
+.char-card:hover::before { opacity: 1; }
+.char-emoji { font-size: 48px; margin-bottom: 14px; display: block; }
+.char-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--cream); margin-bottom: 5px; }
+.char-era { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.char-bio { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; }
+.char-talk { width: 100%; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); padding: 10px 20px; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.char-talk:hover { background: rgba(201,168,76,0.18); }
+
+/* ── CHECK-IN GAMIFICATION ── */
+.ci-outer {
+  background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.02) 100%);
+  border: 1px solid rgba(201,168,76,0.15); border-radius: 24px; padding: 48px;
+  margin-bottom: 72px; position: relative; overflow: hidden;
+}
+.ci-outer::before { content: '🏆'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 130px; opacity: 0.04; pointer-events: none; }
+.ci-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+.ci-left .ci-ranks { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.ci-rank { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.1); border-radius: 12px; padding: 12px 16px; }
+.ci-rank-num { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: var(--gold); width: 34px; flex-shrink: 0; }
+.ci-rank-ava { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.ci-rank-name { font-size: 14px; font-weight: 600; color: var(--cream); }
+.ci-rank-sub { font-size: 11px; color: var(--muted); }
+.ci-rank-pts { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--gold); }
+.ci-right { }
+.ci-checkin-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.15); border-radius: 16px; padding: 28px; text-align: center; }
+.ci-icon { font-size: 48px; margin-bottom: 14px; }
+.ci-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--cream); margin-bottom: 8px; }
+.ci-sub { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 22px; }
+.ci-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px; }
+.ci-badge { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.ci-badge-locked { background: rgba(255,255,255,0.03); color: rgba(245,240,232,0.4); border: 1px solid rgba(201,168,76,0.18); }
+.ci-badge-unlocked { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.35); }
+.ci-btn { width: 100%; background: var(--gold); color: var(--cream); border: none; padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: inherit; transition: all 0.25s; }
+.ci-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+/* ── COMMUNITY STORIES ── */
+.stories-outer { margin-bottom: 72px; }
+.stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.story-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.1); border-radius: 14px; padding: 22px; transition: all 0.25s; cursor: pointer; }
+.story-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); transform: translateY(-2px); }
+.story-author { display: flex; align-items: center; gap: 10px; margin-bottom: 13px; }
+.story-ava { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.story-name { font-size: 13px; font-weight: 600; color: var(--cream); }
+.story-age { font-size: 11px; color: var(--muted); }
+.story-quote { font-size: 14px; color: rgba(245,240,232,0.72); line-height: 1.72; font-style: italic; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; position: relative; }
+.story-quote::before { content: '"'; font-family: 'Playfair Display', serif; font-size: 36px; color: rgba(201,168,76,0.3); line-height: 0.8; position: absolute; top: -4px; left: -2px; }
+.story-text { padding-left: 20px; }
+.story-site { font-size: 11px; color: var(--gold); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.story-upload { border: 2px dashed rgba(201,168,76,0.22); background: transparent; border-radius: 14px; padding: 36px 22px; text-align: center; cursor: pointer; transition: all 0.25s; }
+.story-upload:hover { border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.04); }
+.story-up-icon { font-size: 32px; margin-bottom: 10px; }
+.story-up-text { font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 5px; }
+.story-up-sub { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── CTA BANNER ── */
+.cta-banner {
+  background: linear-gradient(135deg, rgba(26,79,140,0.12) 0%, rgba(74,144,217,0.06) 100%);
+  border: 1px solid rgba(74,144,217,0.2); border-radius: 20px; padding: 48px;
+  text-align: center; margin-bottom: 72px;
+}
+.cta-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--cream); margin-bottom: 10px; }
+.cta-sub { font-size: 15px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.cta-btn-primary { background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); color: #fff; border: none; padding: 13px 30px; border-radius: 9px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.25s; }
+.cta-btn-primary:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-2px); }
+.cta-btn-sec { background: transparent; border: 1px solid rgba(74,144,217,0.35); color: var(--ocean-light); padding: 13px 30px; border-radius: 9px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.25s; }
+.cta-btn-sec:hover { background: rgba(74,144,217,0.08); }
+
+/* ── FOOTER ── */
+footer { background: #0A0C10; border-top: 1px solid rgba(201,168,76,0.1); padding: 52px 40px 28px; }
+.footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+.footer-brand-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+.footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 240px; }
+.footer-col h4 { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 10px; cursor: pointer; transition: color 0.2s; }
+.footer-col a:hover { color: var(--cream); }
+.footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid rgba(201,168,76,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.footer-copy { font-size: 12px; color: rgba(138,125,110,0.35); }
+
+/* ── SITE DETAIL MODAL ── */
+.site-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(3,5,10,0.9); backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.site-modal.open { opacity: 1; visibility: visible; }
+.sm-box { background: #0A0C12; border: 1px solid rgba(201,168,76,0.22); border-radius: 22px; width: 90%; max-width: 680px; max-height: 88vh; overflow-y: auto; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+.site-modal.open .sm-box {
+  background: #0D1018; transform: translateY(0); }
+.sm-box::-webkit-scrollbar { width: 4px; } .sm-box::-webkit-scrollbar-thumb { background: var(--gold); }
+.sm-close { position: absolute; top: 16px; right: 16px; z-index: 10; width: 32px; height: 32px; border-radius: 50%; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); cursor: pointer; font-size: 16px; color: var(--cream); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.sm-close:hover { background: rgba(201,168,76,0.2); }
+.sm-hero-area { min-height: 220px; position: relative; display: flex; align-items: center; justify-content: center; border-radius: 22px 22px 0 0; overflow: hidden; }
+.sm-hero-emoji { font-size: 80px; opacity: 0.4; }
+.sm-body { padding: 28px 32px 36px; }
+.sm-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--cream); margin-bottom: 6px; }
+.sm-meta { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.sm-stag { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 18px 0 8px; }
+.sm-text { font-size: 14px; color: rgba(245,240,232,0.72); line-height: 1.78; }
+.sm-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+.sm-fact { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 14px; text-align: center; }
+.sm-fact-num { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: var(--gold); }
+.sm-fact-lbl { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.sm-ci-btn { width: 100%; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35); color: var(--gold); padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 20px; transition: all 0.2s; }
+.sm-ci-btn:hover { background: rgba(201,168,76,0.22); }
+
+/* ── CHARACTER CHAT MODAL ── */
+.char-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(3,5,10,0.9); backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.char-modal.open { opacity: 1; visibility: visible; }
+.cm-box { background: #0A0C12; border: 1px solid rgba(201,168,76,0.22); border-radius: 22px; width: 90%; max-width: 500px; max-height: 88vh; overflow-y: auto; padding: 32px; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+.char-modal.open .cm-box {
+  background: #FFFFFF; transform: translateY(0); }
+.cm-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); cursor: pointer; font-size: 16px; color: var(--cream); display: flex; align-items: center; justify-content: center; }
+.cm-close:hover { background: rgba(201,168,76,0.2); }
+.cm-head { text-align: center; margin-bottom: 20px; }
+.cm-emoji { font-size: 52px; margin-bottom: 10px; display: block; }
+.cm-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+.cm-era { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.cm-chat { background: #FFFFFF; border: 1px solid rgba(201,168,76,0.1); border-radius: 14px; padding: 16px; margin-bottom: 16px; min-height: 80px; display: flex; flex-direction: column; gap: 10px; }
+.cm-bubble { padding: 11px 15px; border-radius: 12px; font-size: 13.5px; line-height: 1.68; }
+.cm-b-char { background: rgba(201,168,76,0.09); border: 1px solid rgba(201,168,76,0.15); color: rgba(245,240,232,0.88); border-radius: 4px 14px 14px 14px; }
+.cm-b-user { background: rgba(74,144,217,0.09); border: 1px solid rgba(74,144,217,0.15); color: rgba(245,240,232,0.75); text-align: right; border-radius: 14px 4px 14px 14px; }
+.cm-qs { display: flex; flex-direction: column; gap: 8px; }
+.cm-q { background: #FFFFFF; border: 1px solid rgba(201,168,76,0.18); color: rgba(245,240,232,0.68); padding: 11px 15px; border-radius: 10px; font-size: 13px; cursor: pointer; font-family: inherit; text-align: left; transition: all 0.2s; }
+.cm-q:hover { background: rgba(201,168,76,0.07); color: var(--cream); border-color: rgba(201,168,76,0.4); }
+.cm-q:disabled { opacity: 0.35; cursor: default; }
+.cm-pts { text-align: center; font-size: 12px; color: var(--gold); margin-top: 12px; }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 24px; right: 24px; transform: translateY(60px); background: rgba(10,12,18,0.97); border: 1px solid rgba(201,168,76,0.3); color: var(--cream); padding: 11px 20px; border-radius: 8px; font-size: 13px; backdrop-filter: blur(12px); transition: all 0.3s; z-index: 9999; pointer-events: none; white-space: nowrap; max-width: 320px; }
+.toast.show { transform: translateY(0); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-wrap { padding: 50px 24px 40px; }
+  .hero-motif { display: none; }
+  .filter-inner { padding: 12px 20px; }
+  .filter-search input { width: 130px; }
+  .main-wrap { padding: 40px 20px; }
+  .sites-grid, .chars-grid { grid-template-columns: 1fr 1fr; }
+  .stories-grid { grid-template-columns: 1fr 1fr; }
+  .ci-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .xn-wrap { min-height: 300px; }
+  .xn-before { min-height: 300px; }
+  .xn-b-tower, .xn-a-tower { font-size: 54px; }
+}
+@media (max-width: 600px) {
+  .sites-grid, .chars-grid, .stories-grid { grid-template-columns: 1fr; }
+  .sm-facts { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 22px; }
+  .tl-track { padding: 40px 20px 20px; }
+  .cta-banner { padding: 32px 20px; }
+}
+
+  /* ── LIGHT THEME HERO FIXES ── */
+  .page-hero { color: var(--cream); }
+  .page-hero * { color: inherit; }
+  .page-hero .page-label { color: var(--gold); }
+  .page-hero .page-desc { color: rgba(245,240,232,0.75); }
+  .page-hero .hero-chip { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img" alt="Central Connect" style="width:55px;height:55px;object-fit:cover;border-radius:50%">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html" style="color:var(--gold)">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="vku-corner.html">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="doi-tac.html#transport">🚌 Vận tải</a>
+        <a href="doi-tac.html#hostels">🏡 Homestay xanh</a>
+        <a href="doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-notify" id="notifyBtn">🔔</div>
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none;position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 0</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown" id="userDropdown">
+        <a href="profile.html">👤 Hồ sơ</a>
+        <a onclick="logout()">🚪 Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <div class="hero-motif">🏛</div>
+  <div class="hero-wrap">
+    <div class="page-era">📜 Di sản lịch sử · Đà Nẵng</div>
+    <h1 class="page-title">Di Tích<br><em>Lịch Sử</em></h1>
+    <p class="page-desc">Hành trình xuyên 1.800 năm — từ tháp Chăm huyền bí đến chiến lũy Điện Hải kiên cường. Kéo thanh trượt để thấy quá khứ sống lại, trò chuyện với nhân vật lịch sử và ghi dấu hành trình của bạn tại mỗi di tích.</p>
+    <div class="hero-quick-links">
+      <a class="ql ql-gold" href="#xn-section">↔ So sánh Xưa – Nay</a>
+      <a class="ql ql-ocean" href="#tl-section">📅 Timeline 1.800 năm</a>
+      <a class="ql ql-gold" href="#chars-section">💬 Gặp nhân vật lịch sử</a>
+      <a class="ql ql-ocean" href="#ci-section">🏆 Bảng xếp hạng</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num" data-target="47">0</div><div class="hstat-lbl">Di tích xếp hạng</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="1800">0</div><div class="hstat-lbl">Năm lịch sử</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="3">0</div><div class="hstat-lbl">Di sản UNESCO</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="38">0</div><div class="hstat-lbl">Di tích quốc gia đặc biệt</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FILTER BAR ── -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <span class="filter-lbl">Thời kỳ</span>
+    <button class="era-chip active" onclick="filterSites(this,'all')">Tất cả</button>
+    <button class="era-chip" onclick="filterSites(this,'champa')">🗼 Champa</button>
+    <button class="era-chip" onclick="filterSites(this,'viet')">👑 Đại Việt</button>
+    <button class="era-chip" onclick="filterSites(this,'phap')">⚔ Kháng Pháp</button>
+    <button class="era-chip" onclick="filterSites(this,'khang')">🌿 Kháng Chiến</button>
+    <div class="filter-search">
+      <input type="text" id="siteSearch" placeholder="🔍 Tìm di tích..." oninput="filterSites(null,'current')">
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main-wrap">
+
+  <!-- XƯA – NAY SLIDER -->
+  <div class="xn-outer reveal" id="xn-section">
+    <div class="sec-head">
+      <div class="sec-tag">🔍 Công nghệ tương tác độc quyền</div>
+      <div class="sec-title">So sánh Xưa – Nay</div>
+      <div class="sec-sub">Kéo thanh trượt sang trái hoặc phải để so sánh Thánh địa Mỹ Sơn thế kỷ 4 với hình ảnh hiện tại sau hàng thế kỷ phong trần.</div>
+    </div>
+    <div class="xn-wrap" id="xnSlider">
+      <!-- Before (Xưa) -->
+      <div class="xn-before">
+        <div class="xn-b-art">
+          <div class="xn-b-tower">🏛</div>
+          <div class="xn-b-text">Thánh địa Mỹ Sơn · Vương quốc Champa</div>
+          <div style="font-size:12px;color:rgba(201,168,76,0.25);letter-spacing:0.2em;text-transform:uppercase">Thế kỷ IV – Năm 375 SCN</div>
+        </div>
+        <div class="xn-label xn-label-b">XƯA · TK 4</div>
+      </div>
+      <!-- After (Nay) -->
+      <div class="xn-after" id="xnAfter">
+        <div class="xn-a-art">
+          <div class="xn-a-tower">🏯</div>
+          <div class="xn-a-text">Di sản UNESCO · Hôm nay</div>
+          <div style="font-size:12px;color:rgba(74,144,217,0.3);letter-spacing:0.2em;text-transform:uppercase">Công nhận 1999 · 70+ công trình</div>
+        </div>
+        <div class="xn-label xn-label-a">NAY · 2026</div>
+      </div>
+      <!-- Handle -->
+      <div class="xn-handle" id="xnHandle">
+        <div class="xn-knob">↔</div>
+      </div>
+      <!-- Bottom info -->
+      <div class="xn-bottom">
+        <div class="xn-info-b">
+          <div class="xn-info-box" style="text-align:right">
+            <div class="xn-year xn-year-b">Năm 375</div>
+            <div class="xn-caption">Vua Bhadravarman I xây đền đầu tiên<br>dâng lên thần Shiva</div>
+          </div>
+        </div>
+        <div class="xn-info-a">
+          <div class="xn-info-box">
+            <div class="xn-year xn-year-a">2026</div>
+            <div class="xn-caption">Di sản Thế giới UNESCO<br>thu hút 500.000 khách/năm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="xn-tip">💡 Kéo thanh trắng để so sánh · Hỗ trợ cả cảm ứng</div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="tl-outer reveal" id="tl-section">
+    <div class="sec-head">
+      <div class="sec-tag">📅 Dòng thời gian</div>
+      <div class="sec-title">1.800 Năm Lịch Sử</div>
+      <div class="sec-sub">Cuộn ngang và nhấn vào từng mốc để khám phá những sự kiện định hình vùng đất Đà Nẵng.</div>
+    </div>
+    <div class="tl-scroll" id="tlScroll">
+      <div class="tl-track" id="tlTrack">
+        <div class="tl-era" onclick="openTL(0)">
+          <div class="tl-dot"></div>
+          <div class="tl-period">192 SCN</div>
+          <div class="tl-name">Vương quốc<br>Champa</div>
+          <div class="tl-event">Lâm Ấp thành lập, mở đầu nền văn minh Champa hơn 1.000 năm</div>
+        </div>
+        <div class="tl-era" onclick="openTL(1)">
+          <div class="tl-dot"></div>
+          <div class="tl-period">TK 4–13</div>
+          <div class="tl-name">Thánh địa<br>Mỹ Sơn</div>
+          <div class="tl-event">Các vua Champa xây dựng hàng trăm đền tháp tại thung lũng Mỹ Sơn</div>
+        </div>
+        <div class="tl-era" onclick="openTL(2)">
+          <div class="tl-dot"></div>
+          <div class="tl-period">1471</div>
+          <div class="tl-name">Đại Việt<br>nam tiến</div>
+          <div class="tl-event">Vua Lê Thánh Tông chinh phục Champa. Quảng Nam trở thành lãnh thổ Việt</div>
+        </div>
+        <div class="tl-era" onclick="openTL(3)">
+          <div class="tl-dot"></div>
+          <div class="tl-period">1558–1777</div>
+          <div class="tl-name">Chúa Nguyễn<br>Đàng Trong</div>
+          <div class="tl-event">Nguyễn Hoàng vào Nam, Hội An thành thương cảng quốc tế, chữ Quốc ngữ ra đời</div>
+        </div>
+        <div class="tl-era" onclick="openTL(4)">
+          <div class="tl-dot"></div>
+          <div class="tl-period">1858</div>
+          <div class="tl-name">Kháng Pháp<br>Điện Hải</div>
+          <div class="tl-event">Liên quân Pháp–Tây Ban Nha tấn công Đà Nẵng. Nguyễn Tri Phương giữ thành 18 tháng</div>
+        </div>
+        <div class="tl-era" onclick="openTL(5)">
+          <div class="tl-dot"></div>
+          <div class="tl-period">1945–1975</div>
+          <div class="tl-name">Kháng Chiến<br>Giải Phóng</div>
+          <div class="tl-event">Địa đạo Kỳ Anh, Đà Nẵng (thuộc tỉnh Quảng Nam cũ) nơi thấm máu hàng vạn anh hùng vì độc lập dân tộc</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-detail-panel" id="tlPanel"></div>
+  </div>
+
+  <!-- SITES GRID -->
+  <div class="sites-outer reveal" id="sites-section">
+    <div class="sec-head">
+      <div class="sec-tag">📍 Khám phá</div>
+      <div class="sec-title">Di Tích Nổi Bật</div>
+    </div>
+    <div class="sites-grid" id="sitesGrid"></div>
+  </div>
+
+  <!-- HISTORICAL CHARACTERS -->
+  <div class="chars-outer reveal" id="chars-section">
+    <div class="sec-head">
+      <div class="sec-tag">💬 Nhân vật lịch sử ảo</div>
+      <div class="sec-title">Gặp Gỡ Người Của Lịch Sử</div>
+      <div class="sec-sub">Chọn một nhân vật và đặt câu hỏi — họ sẽ trả lời theo ngôn ngữ và quan điểm của thời đại mình. Mỗi câu hỏi +2 Hạt Bàu.</div>
+    </div>
+    <div class="chars-intro">
+      🧠 <strong>Ý tưởng của Central Connect:</strong> Lịch sử không nên chỉ là những dòng chữ khô khan trong sách giáo khoa. Chúng tôi xây dựng hệ thống nhân vật ảo có tính cách, có quan điểm riêng — để bạn "trò chuyện" với những con người đã định hình vùng đất này. Đây là cách học lịch sử thú vị nhất.
+    </div>
+    <div class="chars-grid" id="charsGrid"></div>
+  </div>
+
+  <!-- CHECK-IN GAMIFICATION -->
+  <div class="ci-outer reveal" id="ci-section">
+    <div class="ci-grid">
+      <div class="ci-left">
+        <div class="sec-tag">🏆 Gamification</div>
+        <div class="sec-title" style="margin-bottom:6px">Nhà Thám Hiểm<br>Di Sản</div>
+        <div class="sec-sub">Check-in thực tế tại mỗi di tích để tích điểm Hạt Bàu, mở khóa huy hiệu độc quyền và leo bảng xếp hạng toàn quốc.</div>
+        <div class="ci-ranks" id="ciRanks"></div>
+      </div>
+      <div class="ci-right">
+        <div class="ci-checkin-card">
+          <div class="ci-icon">🗺</div>
+          <div class="ci-title">Thu thập Huy Hiệu</div>
+          <div class="ci-sub">Check-in tại 6 di tích để mở khóa danh hiệu <strong style="color:var(--gold)">Sứ Giả Di Sản</strong> và nhận 200 Hạt Bàu thưởng đặc biệt.</div>
+          <div class="ci-badges">
+            <span class="ci-badge ci-badge-unlocked">🗼 Champa Huyền Bí</span>
+            <span class="ci-badge ci-badge-unlocked">⚔ Điện Hải Kiên Cường</span>
+            <span class="ci-badge ci-badge-locked">🏮 Hội An Hoa Đăng</span>
+            <span class="ci-badge ci-badge-locked">⛰ Ngũ Hành Linh Sơn</span>
+            <span class="ci-badge ci-badge-locked">📜 Thanh Chiêm Sử Thi</span>
+            <span class="ci-badge ci-badge-locked">🌿 Kỳ Anh Địa Đạo</span>
+          </div>
+          <button class="ci-btn" onclick="doCheckin()">📍 Check-in di tích gần nhất (+30 Hạt Bàu)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMUNITY STORIES -->
+  <div class="stories-outer reveal" id="stories-section">
+    <div class="sec-head">
+      <div class="sec-tag">📖 Ký ức cộng đồng</div>
+      <div class="sec-title">Câu Chuyện Của Người Dân</div>
+      <div class="sec-sub">Những ký ức sống từ người cao tuổi địa phương — kho lưu trữ lịch sử quý giá không sách vở nào có được.</div>
+    </div>
+    <div class="stories-grid" id="storiesGrid"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-banner reveal">
+    <div class="cta-title">Bạn Có Câu Chuyện Về Di Tích?</div>
+    <div class="cta-sub">Chia sẻ ký ức, hình ảnh hoặc nghiên cứu của bạn về di tích lịch sử Đà Nẵng.<br>Mỗi đóng góp được duyệt sẽ nhận +50 Hạt Bàu và được ghi danh vào Cộng đồng Bảo Tồn Di Sản.</div>
+    <div class="cta-btns">
+      <button class="cta-btn-primary" onclick="openStoryUpload()">✍ Chia sẻ câu chuyện</button>
+      <button class="cta-btn-sec" onclick="window.location.href='gay-quy.html'">💚 Đóng góp bảo tồn</button>
+    </div>
+  </div>
+
+</div><!-- /main-wrap -->
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-name">CENTRAL CONNECT</div>
+      <p>Nền tảng di sản số kết nối quá khứ với hiện tại, bảo tồn văn hóa Đà Nẵng cho muôn đời sau.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Khám Phá</h4>
+      <a href="kham-pha.html">Bản đồ di sản</a>
+      <a href="di-tich.html">Di tích lịch sử</a>
+      <a href="lang-nghe.html">Làng nghề</a>
+      <a href="am-thuc.html">Ẩm thực</a>
+    </div>
+    <div class="footer-col">
+      <h4>Cộng Đồng</h4>
+      <a href="su-kien.html">Sự kiện & lễ hội</a>
+      <a href="blog.html">Blog du lịch</a>
+      <a href="gay-quy.html">Gây quỹ bảo tồn</a>
+      <a href="vku-corner.html">VKU Corner</a>
+    </div>
+    <div class="footer-col">
+      <h4>Về Chúng Tôi</h4>
+      <a href="doi-tac.html">Đối tác</a>
+      <a href="admin/index.html">Admin</a>
+      <a onclick="showToast('📧 contact@centralconnect.vn')">Liên hệ</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Central Connect · Di sản số Đà Nẵng · Made with ❤ by VKU</div>
+    <div style="font-size:12px;color:rgba(138,125,110,0.35)">Bảo tồn di sản · Kết nối thế hệ · Truyền cảm hứng</div>
+  </div>
+</footer>
+
+<!-- ── SITE DETAIL MODAL ── -->
+<div class="site-modal" id="siteModal">
+  <div class="sm-box">
+    <button class="sm-close" onclick="closeSiteModal()">✕</button>
+    <div class="sm-hero-area" id="smHeroArea"></div>
+    <div class="sm-body" id="smBody"></div>
+  </div>
+</div>
+
+<!-- ── CHARACTER CHAT MODAL ── -->
+<div class="char-modal" id="charModal">
+  <div class="cm-box">
+    <button class="cm-close" onclick="closeCharModal()">✕</button>
+    <div class="cm-head">
+      <span class="cm-emoji" id="cmEmoji"></span>
+      <div class="cm-name" id="cmName"></div>
+      <div class="cm-era" id="cmEra"></div>
+    </div>
+    <div class="cm-chat" id="cmChat"></div>
+    <div class="cm-qs" id="cmQs"></div>
+    <div class="cm-pts" id="cmPts">💬 Hỏi nhân vật để nhận Hạt Bàu</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA ──
+const SITES = [
+  { id:1, name:'Thánh địa Mỹ Sơn', era:'champa', badge:'Champa · TK 4–13', badgeClass:'era-champa', loc:'📍 Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', emoji:'🗼', img:'../image/thanh_dia_my_son.png', color:'linear-gradient(135deg,#2C1808,#4A2C12)', desc:'Quần thể đền tháp Champa lớn nhất Việt Nam, UNESCO 1999. Hơn 70 công trình còn sót lại sau hàng thế kỷ.', year:'192 – 1471', checkins:1248, facts:['70+','UNESCO 1999','117'], factLbls:['Đền tháp','Công nhận','Bi ký Champa'], detail:'Thánh địa Mỹ Sơn nằm trong thung lũng bao quanh bởi núi rừng, cách Đà Nẵng 70km về phía Tây Nam. Đây là trung tâm tôn giáo và chính trị của các triều đại Champa suốt hơn 10 thế kỷ (TK 4 – TK 14). Các tháp được xây bằng gạch nung đỏ với kỹ thuật xây dựng độc đáo — không có mạch vữa giữa các viên gạch. Đây là kỳ tích kiến trúc mà khoa học hiện đại vẫn chưa hoàn toàn giải mã được nguyên lý kết dính.' },
+  { id:2, name:'Thành Điện Hải', era:'phap', badge:'Đại Việt · 1813', badgeClass:'era-viet', loc:'📍 Hải Châu, Đà Nẵng', emoji:'🏰', img:'../image/thanh_dien_hai.png', color:'linear-gradient(135deg,#08101A,#0D1828)', desc:'Pháo đài bảo vệ cửa biển Đà Nẵng, nơi diễn ra trận đánh đầu tiên chống thực dân Pháp năm 1858.', year:'1813 – 1858', checkins:876, facts:['1858','14 chiến thuyền','18 tháng'], factLbls:['Năm Pháp xâm lược','Liên quân tấn công','Quân ta cố thủ'], detail:'Thành Điện Hải được xây dựng năm 1813 dưới triều Gia Long, nằm bên bờ sông Hàn. Năm 1858, liên quân Pháp–Tây Ban Nha với 14 chiến thuyền và 3.000 quân tấn công Đà Nẵng, mở đầu cuộc xâm lược Việt Nam. Tướng Nguyễn Tri Phương chỉ huy quân ta cố thủ suốt 18 tháng, không để giặc tiến sâu vào nội địa. Trận chiến này buộc Pháp phải thay đổi chiến lược, chuyển hướng vào Sài Gòn.' },
+  { id:3, name:'Đô thị cổ Hội An', era:'viet', badge:'Thương Cảng · TK 15', badgeClass:'era-viet', loc:'📍 Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', emoji:'🏮', img:'../image/do_thi_co_hoi_an.png', color:'linear-gradient(135deg,#1A0A04,#2A1008)', desc:'Thương cảng quốc tế thịnh vượng nhất Đông Nam Á TK 16–17, nơi văn hóa Việt–Nhật–Hoa giao thoa.', year:'TK 15 – nay', checkins:3420, facts:['1.107','UNESCO 1999','4 TK'], factLbls:['Công trình di tích','Công nhận','Thương mại quốc tế'], detail:'Phố cổ Hội An là điểm giao thoa văn minh hiếm có — thương nhân Nhật Bản xây Chùa Cầu, người Hoa dựng hội quán, người Việt làm nghề thủ công. Kiến trúc kết hợp phong cách Việt–Hoa–Nhật–Pháp. Đây là một trong số ít đô thị cổ được bảo tồn gần như nguyên vẹn trên thế giới. Mỗi năm đón hàng triệu du khách từ khắp năm châu.' },
+  { id:4, name:'Ngũ Hành Sơn', era:'champa', badge:'Cổ đại · TK 2+', badgeClass:'era-champa', loc:'📍 Ngũ Hành Sơn, Đà Nẵng', emoji:'⛰', img:'../image/ngu_hanh_son.png', color:'linear-gradient(135deg,#081208,#0D1A0D)', desc:'Năm ngọn núi đá cẩm thạch thiêng liêng với 17 hang động, trung tâm Phật giáo và nghề điêu khắc đá 200 năm.', year:'TK 2 – nay', checkins:1560, facts:['5 ngọn','17 hang','200 năm'], factLbls:['Kim Mộc Thủy Hỏa Thổ','Hang động','Nghề điêu khắc đá'], detail:'Ngũ Hành Sơn gồm 5 ngọn núi mang tên 5 yếu tố vũ trụ: Kim, Mộc, Thủy, Hỏa, Thổ. Người Champa coi đây là thánh địa từ thế kỷ 2. Trong các hang động có chùa chiền và phù điêu Champa cổ xưa. Làng nghề điêu khắc đá Non Nước tại chân núi có truyền thống 200 năm, tạo ra những tác phẩm xuất khẩu khắp thế giới.' },
+  { id:5, name:'Dinh Trấn Thanh Chiêm', era:'viet', badge:'Đại Việt · 1602', badgeClass:'era-viet', loc:'📍 Điện Bàn, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', emoji:'📜', img:'../image/dinh_tran_thanh_chiem.png', color:'linear-gradient(135deg,#16080A,#200C10)', desc:'Thủ phủ Đàng Trong — nơi chữ Quốc ngữ Latin được hoàn thiện và lần đầu tiên truyền bá rộng rãi.', year:'1602 – 1832', checkins:320, facts:['1602','1651','232 năm'], factLbls:['Thành lập','Từ điển Quốc ngữ','Thủ phủ Đàng Trong'], detail:'Dinh Trấn Thanh Chiêm là thủ phủ của Đàng Trong từ 1602. Đây là nơi linh mục Alexandre de Rhodes học tiếng Việt, dần hoàn thiện chữ Quốc ngữ Latin — hệ thống chữ viết mà hàng triệu người Việt đang dùng hôm nay. Năm 1651, cuốn từ điển Việt–Bồ–La đầu tiên được in, khai sinh nền văn học chữ Quốc ngữ.' },
+  { id:6, name:'Địa đạo Kỳ Anh', era:'khang', badge:'Kháng chiến · 1965', badgeClass:'era-khang', loc:'📍 Tam Kỳ, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', emoji:'🌿', img:'../image/dia_dao_ky_anh.png', color:'linear-gradient(135deg,#080E08,#0C140A)', desc:'32km đường hầm dưới lòng đất — nơi hàng nghìn người dân và chiến sĩ ẩn náu trong cuộc chiến chống Mỹ.', year:'1965 – 1975', checkins:445, facts:['32km','1.000+','10 năm'], factLbls:['Tổng chiều dài','Người từng trú ẩn','Kháng chiến kiên cường'], detail:'Địa đạo Kỳ Anh được người dân Tam Kỳ đào bằng tay trong điều kiện bị bom đạn bao vây liên tục. Bên trong có nhà ở, bếp nấu, kho lương thực, trạm y tế và hầm hội họp. Là một trong những địa đạo dài nhất miền Trung, minh chứng cho ý chí bất khuất của người dân Quảng Nam.' },
+];
+
+const CHARS = [
+  { id:1, emoji:'🏛', name:'Bhadravarman I', era:'Vua Champa · Năm 375 SCN', bio:'Vị vua đầu tiên xây dựng đền thờ Shiva tại Mỹ Sơn — khởi nguồn Thánh địa Champa ngàn năm.',
+    intro:'Chào ngươi, khách lữ hành! Ta là Bhadravarman, đã xây dựng thánh địa Mỹ Sơn để dâng lên thần Shiva. Hãy hỏi ta về vương quốc Champa huyền thoại — một nền văn minh rực rỡ mà ngọn lửa của nó chưa bao giờ tắt.',
+    qa:[
+      {q:'Tại sao ngài chọn Mỹ Sơn để xây thánh địa?', a:'Ta chọn Mỹ Sơn vì nơi đây được núi rừng che chắn bốn bề, suối nước linh thiêng chảy quanh — đây là đất của thần linh. Năm 375, ta xây đền đầu tiên để tạ ơn Shiva đã ban chiến thắng. Từ đó, các vua Champa đời sau tiếp tục xây thêm hàng trăm công trình trong hơn 9 thế kỷ.'},
+      {q:'Người Champa có kỹ thuật xây dựng gì đặc biệt?', a:'Bí quyết của ta là gạch nung đỏ được chế tác từ đất đặc biệt và nung ở nhiệt độ cực cao. Khi xây, ta không dùng vữa — các viên gạch được mài khít vào nhau rồi dán bằng nhựa cây thiên nhiên. Ngàn năm qua, bom đạn có thể phá hủy nhiều công trình nhưng những gì còn lại vẫn đứng vững — khoa học hiện đại vẫn chưa giải mã hết bí ẩn đó.'},
+      {q:'Điều gì đã xảy ra với Vương quốc Champa?', a:'Sau hơn 1.100 năm huy hoàng, vương quốc ta dần thu hẹp trước sức nam tiến của Đại Việt. Năm 1471, kinh đô Vijaya thất thủ. Nhưng văn hóa, nghệ thuật và tâm hồn Champa còn sống mãi — trong những tháp đá Mỹ Sơn, trong điệu múa Apsara, trong máu của người Chăm còn sinh sống hôm nay.'},
+      {q:'Thông điệp cho thế hệ trẻ Đà Nẵng?', a:'Hãy bảo vệ những gì cha ông để lại. Mỗi hòn đá ở Mỹ Sơn là một trang lịch sử của nhân loại. Khi các bạn hiểu, trân trọng và chia sẻ di sản này với thế giới — đó chính là cách các bạn tiếp nối ngọn lửa văn minh mà ta đã thắp lên từ 1.600 năm trước.'}
+    ]
+  },
+  { id:2, emoji:'👑', name:'Chúa Nguyễn Hoàng', era:'Chúa Tiên Nguyễn · 1558–1613', bio:'Người khai mở Đàng Trong, biến Hội An thành thương cảng quốc tế và đặt nền móng cho quốc gia Việt Nam ngày nay.',
+    intro:'Ta là Nguyễn Hoàng, năm 1558 ta xin vào trấn thủ vùng đất xa xôi Thuận Hóa khi mới 34 tuổi. Từ vùng đất hoang vu đó, ta đã xây dựng một xứ sở trù phú mà lịch sử sau này gọi là Đàng Trong. Hãy hỏi ta — ta sẽ kể hết.',
+    qa:[
+      {q:'Tại sao ngài xin vào Nam trong hoàn cảnh nguy hiểm?', a:'Anh ta của ta — Nguyễn Uông — bị Trịnh Kiểm giết hại. Ta biết mình cũng trong tầm ngắm nên nhờ chị gái là Ngọc Bảo (vợ Trịnh Kiểm) xin cho vào trấn thủ Thuận Hóa — vùng đất xa xôi, hoang dã mà không ai muốn đến. Nhưng ta thấy đây là cơ hội: đất rộng, người ít, ta có thể xây dựng sự nghiệp riêng.'},
+      {q:'Ngài đã làm gì để Hội An trở thành thương cảng lớn?', a:'Ta mở cửa đón thương nhân Nhật Bản và Trung Hoa, cho họ đặt phố, xây hội quán, buôn bán tự do. Ta không đánh thuế nặng, không cản trở — chỉ tạo điều kiện và bảo đảm an ninh. Chỉ vài thập kỷ sau, Hội An trở thành cảng giao thương sầm uất nhất Đông Nam Á, nơi tàu thuyền từ Nhật, Trung Quốc, Bồ Đào Nha, Hà Lan đều ghé thăm.'},
+      {q:'Di sản lớn nhất ngài để lại là gì?', a:'Là một con đường — con đường nam tiến. Từ bước chân đầu tiên của ta vào năm 1558, các thế hệ chúa Nguyễn sau đó đã tiếp tục mở rộng đến Bình Thuận, Nam Kỳ và tận Hà Tiên. Nếu không có ta, bản đồ Việt Nam hôm nay sẽ rất khác. Và cũng đừng quên — chính tại thủ phủ Thanh Chiêm của ta, chữ Quốc ngữ đã được hoàn thiện.'},
+      {q:'Lời khuyên cho người trẻ Đà Nẵng hôm nay?', a:'Đất nước rộng lớn và giàu có như thế này không phải ngẫu nhiên mà có. Đó là xương máu và mồ hôi của bao thế hệ. Hãy hiểu lịch sử để biết ơn và tự hào. Và hãy dũng cảm đối mặt với thử thách — như người trẻ của ta đã làm năm 1558, không sợ vùng đất xa lạ, không sợ bắt đầu từ con số không.'}
+    ]
+  },
+  { id:3, emoji:'⚔', name:'Nguyễn Tri Phương', era:'Tổng thống quân thứ · 1858–1873', bio:'Danh tướng chỉ huy bảo vệ thành Điện Hải chống liên quân Pháp–Tây Ban Nha năm 1858, biểu tượng ý chí bất khuất Đà Nẵng.',
+    intro:'Năm 1858, hơn 14 chiến thuyền của liên quân Pháp–Tây Ban Nha nã pháo vào Đà Nẵng. Ta chỉ huy quân ta tại thành Điện Hải — không phải vì ta không biết sức mạnh vũ khí của họ, mà vì ta biết rõ trách nhiệm của người làm tướng. Hãy hỏi ta.',
+    qa:[
+      {q:'Trận chiến Đà Nẵng năm 1858 diễn ra thế nào?', a:'Ngày 1/9/1858, liên quân khai hỏa. Họ có tàu sắt, đại pháo tầm xa — vũ khí hiện đại hơn ta rất nhiều. Nhưng ta dùng chiến thuật phòng thủ linh hoạt: đào mương ngăn bộ binh đổ bộ, dựng đồn lũy dọc sông Hàn, và điều quan trọng nhất — ta giữ tinh thần chiến đấu của quân ta không bao giờ bị bẻ gãy.'},
+      {q:'Điều gì giúp ngài trụ vững 18 tháng?', a:'Ý chí của người lính và lòng dân. Người dân Đà Nẵng không chạy trốn — họ tiếp tế lương thực, truyền tin tức về địch, tự nguyện đào hầm. Một dân tộc chiến đấu trên đất của mình, bảo vệ nhà của mình — sức mạnh đó không thể cân đo bằng súng ống hay tàu chiến. Đó là lý do ta trụ được 18 tháng khiến kẻ thù bất ngờ.'},
+      {q:'Thất bại tại Đà Nẵng có ý nghĩa gì không?', a:'Pháp chiếm được Đà Nẵng sau cùng, nhưng sự kháng cự của ta đã khiến họ phải chuyển hướng vào Sài Gòn — điều thay đổi hoàn toàn tiến trình lịch sử. Một trận "thua" nhưng đã mua thời gian và buộc kẻ thù phải thay đổi chiến lược — đó không phải là thất bại đúng nghĩa. Lịch sử phải được đọc đúng chỗ.'},
+      {q:'Thông điệp cho người trẻ hôm nay?', a:'Mảnh đất Đà Nẵng này đã thấm máu của nhiều người. Thành Điện Hải còn đứng đó để nhắc nhở. Hãy biết ơn sự hy sinh đó không chỉ bằng lời nói, mà bằng cách xây dựng và bảo vệ quê hương trong thời bình — bằng tri thức, bằng sáng tạo, bằng lòng tự hào dân tộc. Đó là cách các bạn trả ơn lịch sử.'}
+    ]
+  },
+];
+
+const TL_DETAILS = [
+  { title:'Vương quốc Champa (192 SCN)', text:'Năm 192 SCN, Khu Liên nổi dậy thành lập Lâm Ấp — tiền thân của Vương quốc Champa. Đây là một trong những quốc gia Đông Nam Á đầu tiên có nhà nước tổ chức chặt chẽ, với nền văn minh Hindu ảnh hưởng sâu sắc. Champa kiểm soát vùng duyên hải miền Trung Việt Nam suốt hơn 1.000 năm, để lại hơn 70 công trình tháp đá tại Mỹ Sơn.' },
+  { title:'Thánh địa Mỹ Sơn (TK 4–13)', text:'Từ thế kỷ 4, các vua Champa bắt đầu xây dựng đền tháp tại Mỹ Sơn để thờ phụng thần Shiva. Qua hơn 9 thế kỷ, hơn 100 công trình được dựng lên trong thung lũng này. Năm 1999, UNESCO công nhận Mỹ Sơn là Di sản Văn hóa Thế giới. Đây là trung tâm tôn giáo lớn nhất và quan trọng nhất của nền văn minh Champa.' },
+  { title:'Đại Việt nam tiến (1471)', text:'Năm 1471, vua Lê Thánh Tông dẫn 260.000 quân chinh phạt Champa, chiếm kinh đô Vijaya (Bình Định). Quảng Nam trở thành lãnh thổ Đại Việt. Đây là bước ngoặt lịch sử — chấm dứt gần 1.300 năm của Vương quốc Champa và mở ra kỷ nguyên người Việt định cư và phát triển miền Trung.' },
+  { title:'Chúa Nguyễn & Đàng Trong (1558–1777)', text:'Năm 1558, Nguyễn Hoàng vào Nam, xây dựng Đàng Trong. Hội An trở thành thương cảng quốc tế sầm uất nhất Đông Nam Á thế kỷ 16–17. Năm 1602, Dinh Trấn Thanh Chiêm được thành lập, nơi chữ Quốc ngữ được hoàn thiện. Đây là thời kỳ vàng son của văn hóa và kinh tế vùng Quảng Nam.' },
+  { title:'Kháng Pháp – Điện Hải (1858)', text:'Ngày 1/9/1858, liên quân Pháp–Tây Ban Nha tấn công Đà Nẵng, mở màn cuộc xâm lược Việt Nam. Tướng Nguyễn Tri Phương chỉ huy quân ta cố thủ tại thành Điện Hải suốt 18 tháng, buộc Pháp phải thay đổi chiến lược chuyển hướng vào Sài Gòn. Trận chiến Đà Nẵng là biểu tượng của ý chí kháng chiến Việt Nam.' },
+  { title:'Kháng chiến & Giải phóng (1945–1975)', text:'Quảng Nam là vùng đất chiến lược trong hai cuộc kháng chiến. Địa đạo Kỳ Anh (32km) là hệ thống hầm ngầm điển hình cho ý chí bất khuất của người dân. Năm 1975, Đà Nẵng được giải phóng ngày 29/3 — sớm hơn cả Sài Gòn. Đà Nẵng là vùng đất của anh hùng.' },
+];
+
+const STORIES = [
+  { name:'Cụ Nguyễn Văn Minh', age:'82 tuổi', color:'#B8532E', initial:'M', quote:'Hồi nhỏ tôi hay chạy vào chơi trong thành Điện Hải. Ngày đó chưa ai biết đó là di tích quốc gia — chúng tôi chỉ thấy đó là những bức tường đất cao và cũ kỹ. Bây giờ thấy con cháu đến tham quan, tôi mừng lắm...', site:'Thành Điện Hải' },
+  { name:'Bà Lê Thị Hoa', age:'74 tuổi', color:'#1A4F8C', initial:'H', quote:'Tôi làm thợ điêu khắc đá ở Non Nước từ năm 14 tuổi, học từ ông nội. Người Champa xưa đã điêu khắc những tượng đó hàng nghìn năm trước — tôi chỉ đang tiếp nối. Nghề này trong máu rồi, không bỏ được.', site:'Ngũ Hành Sơn' },
+  { name:'Ông Trần Công Sơn', age:'68 tuổi', color:'#4A90D9', initial:'S', quote:'Năm 1967, tôi 9 tuổi đã phải xuống địa đạo trốn bom. Trong đó tối đen, chật chội nhưng có đủ mọi người: bà già, trẻ con, bộ đội. Họ ca hát, kể chuyện để quên đi tiếng bom. Tôi sẽ không bao giờ quên điều đó.', site:'Địa đạo Kỳ Anh' },
+];
+
+const CI_RANKS = [
+  { name:'Phạm Quốc Khánh', pts:2840, sites:47, color:'#C9A84C' },
+  { name:'Nguyễn Minh Anh', pts:2210, sites:38, color:'#1A4F8C' },
+  { name:'Lê Thu Hà', pts:1890, sites:31, color:'#B8532E' },
+  { name:'Trần Phúc Hải', pts:1650, sites:28, color:'#4A90D9' },
+];
+
+let activeSite = null, activeChar = null, currentEra = 'all', askedQs = {};
+
+// ── RENDER SITES ──
+function renderSites() {
+  const q = (document.getElementById('siteSearch')?.value || '').toLowerCase();
+  const filtered = SITES.filter(s => {
+    const eraOk = currentEra === 'all' || s.era === currentEra;
+    const qOk = !q || s.name.toLowerCase().includes(q) || s.loc.toLowerCase().includes(q);
+    return eraOk && qOk;
+  });
+  const grid = document.getElementById('sitesGrid');
+  if (!filtered.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted);font-size:14px">Không tìm thấy di tích phù hợp</div>'; return; }
+  grid.innerHTML = filtered.map(s => `
+    <div class="site-card" onclick="openSite(${s.id})">
+      <div class="sc-img" style="${s.img ? `background-image:url('${s.img}')` : `background:${s.color}`}">
+        ${!s.img ? `<div class="sc-emoji">${s.emoji}</div>` : ''}
+        <div class="sc-era-badge ${s.badgeClass}">${s.badge}</div>
+        <div class="sc-checkin-badge">📍 ${s.checkins.toLocaleString()} check-in</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">${s.name}</div>
+        <div class="sc-loc">${s.loc}</div>
+        <div class="sc-desc">${s.desc}</div>
+        <div class="sc-foot">
+          <div class="sc-year">📅 ${s.year}</div>
+          <button class="sc-ci-btn" onclick="event.stopPropagation();doSiteCheckin(${s.id})">📍 Check-in</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function filterSites(btn, era) {
+  if (era === 'current') { renderSites(); return; }
+  currentEra = era;
+  document.querySelectorAll('.era-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderSites();
+}
+
+// ── SITE MODAL ──
+function openSite(id) {
+  const s = SITES.find(x => x.id === id);
+  if (!s) return;
+  activeSite = s;
+  document.getElementById('smHeroArea').style.background = s.color;
+  document.getElementById('smHeroArea').innerHTML = `<div style="font-size:80px;opacity:0.45">${s.emoji}</div><div class="sc-era-badge ${s.badgeClass}" style="position:absolute;top:16px;left:16px">${s.badge}</div>`;
+  document.getElementById('smBody').innerHTML = `
+    <div class="sm-title">${s.name}</div>
+    <div class="sm-meta">${s.loc} · ${s.year}</div>
+    <div class="sm-facts">${s.facts.map((f,i)=>`<div class="sm-fact"><div class="sm-fact-num">${f}</div><div class="sm-fact-lbl">${s.factLbls[i]}</div></div>`).join('')}</div>
+    <div class="sm-stag">Lịch sử & Ý nghĩa</div>
+    <div class="sm-text">${s.detail}</div>
+    <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+      <button class="sm-ci-btn" onclick="doSiteCheckin(${s.id});closeSiteModal()">📍 Check-in tại ${s.name} (+30 Hạt Bàu)</button>
+      <button class="sm-ci-btn" style="background:rgba(74,144,217,0.1);border-color:rgba(74,144,217,0.4);color:var(--ocean-light);" onclick="window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ' ' + s.loc)}','_blank','noopener,noreferrer')">🗺 Chỉ đường</button>
+    </div>`;
+  document.getElementById('siteModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSiteModal() { document.getElementById('siteModal').classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('siteModal').addEventListener('click', e => { if (e.target === document.getElementById('siteModal')) closeSiteModal(); });
+
+// ── RENDER CHARACTERS ──
+function renderChars() {
+  document.getElementById('charsGrid').innerHTML = CHARS.map(c => `
+    <div class="char-card" onclick="openChar(${c.id})">
+      <span class="char-emoji">${c.emoji}</span>
+      <div class="char-name">${c.name}</div>
+      <div class="char-era">${c.era}</div>
+      <div class="char-bio">${c.bio}</div>
+      <button class="char-talk">💬 Trò chuyện · +2 Hạt Bàu/câu</button>
+    </div>`).join('');
+}
+
+// ── CHARACTER CHAT MODAL ──
+function openChar(id) {
+  const c = CHARS.find(x => x.id === id);
+  if (!c) return;
+  activeChar = c;
+  if (!askedQs[id]) askedQs[id] = new Set();
+  document.getElementById('cmEmoji').textContent = c.emoji;
+  document.getElementById('cmName').textContent = c.name;
+  document.getElementById('cmEra').textContent = c.era;
+  renderCharChat(c);
+  document.getElementById('charModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function renderCharChat(c) {
+  const asked = askedQs[c.id];
+  document.getElementById('cmChat').innerHTML = `<div class="cm-bubble cm-b-char">${c.intro}</div>`;
+  document.getElementById('cmQs').innerHTML = c.qa.map((qa, i) =>
+    `<button class="cm-q" onclick="askChar(${c.id},${i})" ${asked.has(i)?'disabled':''}>
+      ${asked.has(i) ? '✓ ' : ''}${qa.q}
+    </button>`).join('');
+  const pts = asked.size * 2;
+  document.getElementById('cmPts').textContent = pts > 0 ? `🌾 Đã nhận ${pts} Hạt Bàu từ cuộc trò chuyện này` : '💬 Hỏi nhân vật để nhận Hạt Bàu';
+}
+function askChar(charId, qIdx) {
+  const c = CHARS.find(x => x.id === charId);
+  if (!c || askedQs[charId].has(qIdx)) return;
+  askedQs[charId].add(qIdx);
+  const qa = c.qa[qIdx];
+  const chat = document.getElementById('cmChat');
+  chat.innerHTML += `<div class="cm-bubble cm-b-user">${qa.q}</div>`;
+  setTimeout(() => {
+    chat.innerHTML += `<div class="cm-bubble cm-b-char">${qa.a}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+    renderCharChat(c);
+    if (typeof ccAddPoints === 'function') ccAddPoints(2, `Hỏi ${c.name}`);
+  }, 400);
+  chat.scrollTop = chat.scrollHeight;
+}
+function closeCharModal() { document.getElementById('charModal').classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('charModal').addEventListener('click', e => { if (e.target === document.getElementById('charModal')) closeCharModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSiteModal(); closeCharModal(); } });
+
+// ── TIMELINE ──
+function openTL(idx) {
+  const panel = document.getElementById('tlPanel');
+  const d = TL_DETAILS[idx];
+  const eras = document.querySelectorAll('.tl-era');
+  eras.forEach((el, i) => el.classList.toggle('active', i === idx));
+  if (panel.classList.contains('open') && panel.dataset.idx == idx) {
+    panel.classList.remove('open');
+    eras.forEach(el => el.classList.remove('active'));
+    return;
+  }
+  panel.dataset.idx = idx;
+  panel.innerHTML = `<div class="tl-dp-title">${d.title}</div><div class="tl-dp-text">${d.text}</div>`;
+  panel.classList.add('open');
+}
+
+// ── CHECKIN ──
+async function doCheckin() {
+  const user = (function(){ try{ return JSON.parse(localStorage.getItem('cc_user')); }catch{return null;} })();
+  if (!user) { showToast('🔐 Đăng nhập để check-in và tích điểm Hạt Bàu!'); document.getElementById('openLogin')?.click(); return; }
+  if (window.ccDB) {
+    const result = await ccDB.checkIn('di-tich-lich-su', 'Di tích lịch sử');
+    if (result.reason === 'already') { showToast('✅ Bạn đã check-in hôm nay rồi!'); return; }
+  } else if (typeof ccAddPoints === 'function') { ccAddPoints(30, 'Check-in di tích lịch sử'); }
+  showToast('📍 Check-in thành công! +30 Hạt Bàu 🌾');
+}
+async function doSiteCheckin(id) {
+  const s = SITES.find(x => x.id === id);
+  const user = (function(){ try{ return JSON.parse(localStorage.getItem('cc_user')); }catch{return null;} })();
+  if (!user) { showToast('🔐 Đăng nhập để check-in!'); document.getElementById('openLogin')?.click(); return; }
+  if (window.ccDB) {
+    const result = await ccDB.checkIn('site-' + id, s?.name || 'Di tích');
+    if (result.reason === 'already') { showToast('✅ Bạn đã check-in địa điểm này rồi!'); return; }
+  } else if (typeof ccAddPoints === 'function') { ccAddPoints(30, `Check-in ${s?.name}`); }
+  showToast(`📍 Check-in ${s?.name || ''}! +30 Hạt Bàu 🌾`);
+}
+
+// ── COMMUNITY STORIES ──
+function _renderStoriesData(stories) {
+  const grid = document.getElementById('storiesGrid');
+  if (!grid) return;
+  const cards = stories.slice(0, 6).map(s => {
+    const initial = s.initials || (s.initial) || (s.name||'?').charAt(0);
+    const age     = s.age || (s.from ? s.from : '');
+    const colors  = ['#B8532E','#1A4F8C','#4A90D9','#C9A84C'];
+    const color   = s.color || colors[Math.abs((s.authorName||s.name||'').charCodeAt(0)||0) % colors.length];
+    const place   = s.site || s.place || '';
+    const quote   = s.content || s.quote || '';
+    const authorName = s.authorName || s.name || 'Ẩn danh';
+    return `
+    <div class="story-card">
+      <div class="story-author">
+        <div class="story-ava" style="background:${color}">${initial}</div>
+        <div><div class="story-name">${authorName}</div><div class="story-age">${age}</div></div>
+      </div>
+      <div class="story-quote"><div class="story-text">${quote}</div></div>
+      ${place ? `<div class="story-site">📍 ${place}</div>` : ''}
+    </div>`;
+  }).join('');
+  grid.innerHTML = cards + `
+    <div class="story-upload" onclick="openStoryUpload()">
+      <div class="story-up-icon">📷</div>
+      <div class="story-up-text">Chia sẻ ký ức của bạn</div>
+      <div class="story-up-sub">Hình ảnh, câu chuyện hoặc video về di tích<br>+50 Hạt Bàu khi được duyệt</div>
+    </div>`;
+}
+
+async function renderStories() {
+  if (window.ccDB) {
+    const stories = await ccDB.getStories(6);
+    if (stories && stories.length) { _renderStoriesData(stories); return; }
+  }
+  _renderStoriesData(STORIES);
+  // Start real-time listener if Firebase available
+  if (window.ccDB) {
+    ccDB.onStories(stories => { if (stories.length) _renderStoriesData(stories); }, 6);
+  }
+}
+
+function openStoryUpload() {
+  const user = (function(){ try{ return JSON.parse(localStorage.getItem('cc_user')); }catch{return null;} })();
+  if (!user) { showToast('🔐 Đăng nhập để chia sẻ câu chuyện!'); document.getElementById('openLogin')?.click(); return; }
+  // Simple prompt-based upload (can be replaced with a full modal)
+  const title   = prompt('Tiêu đề câu chuyện của bạn:');
+  if (!title) return;
+  const content = prompt('Chia sẻ ký ức của bạn:');
+  if (!content) return;
+  const place   = prompt('Địa điểm (tên di tích):') || '';
+  if (window.ccDB) {
+    ccDB.submitStory({ title, content, place, tags: ['di-tich'] }).then(() => {
+      showToast('📷 Câu chuyện đã được gửi! +50 Hạt Bàu 🌾');
+      renderStories();
+    });
+  } else {
+    showToast('📷 Cảm ơn! Câu chuyện sẽ sớm ra mắt!');
+  }
+}
+
+// ── CHECK-IN RANKS ──
+function _renderRanksData(ranks) {
+  const el = document.getElementById('ciRanks');
+  if (!el) return;
+  const colors = ['#C9A84C','#1A4F8C','#B8532E','#4A90D9','#8A7D6E','#2E7D5C'];
+  el.innerHTML = ranks.slice(0, 8).map((r, i) => {
+    const initial = r.initials || (r.displayName||r.name||'?').charAt(0);
+    const color   = r.color || colors[i % colors.length];
+    const name    = r.displayName || r.name || 'Ẩn danh';
+    const pts     = r.points || r.pts || 0;
+    const sites   = r.sites || '';
+    return `
+    <div class="ci-rank${r.isMe ? ' ci-rank-me' : ''}">
+      <div class="ci-rank-num">#${i+1}</div>
+      <div class="ci-rank-ava" style="background:${color}">${initial}</div>
+      <div><div class="ci-rank-name">${name}</div>${sites ? `<div class="ci-rank-sub">Đã check-in ${sites} di tích</div>` : ''}</div>
+      <div class="ci-rank-pts">🌾 ${(+pts).toLocaleString()}</div>
+    </div>`;
+  }).join('');
+}
+
+async function renderRanks() {
+  if (window.ccDB) {
+    // Real-time listener
+    ccDB.onLeaderboard(ranks => _renderRanksData(ranks), 8);
+    return;
+  }
+  _renderRanksData(CI_RANKS);
+}
+
+// ── XƯA–NAY SLIDER ──
+function initSlider() {
+  const wrap = document.getElementById('xnSlider');
+  const after = document.getElementById('xnAfter');
+  const handle = document.getElementById('xnHandle');
+  if (!wrap || !after || !handle) return;
+  let dragging = false;
+
+  function setPos(clientX) {
+    const rect = wrap.getBoundingClientRect();
+    let pct = Math.max(5, Math.min(95, ((clientX - rect.left) / rect.width) * 100));
+    after.style.width = pct + '%';
+    handle.style.left = pct + '%';
+  }
+  wrap.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); });
+  window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+  window.addEventListener('mouseup', () => { dragging = false; });
+  wrap.addEventListener('touchstart', e => { e.preventDefault(); dragging = true; setPos(e.touches[0].clientX); }, { passive: false });
+  window.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('touchend', () => { dragging = false; });
+}
+
+// ── TIMELINE DRAG SCROLL ──
+function initTLScroll() {
+  const el = document.getElementById('tlScroll');
+  if (!el) return;
+  let isDown = false, startX = 0, scrollL = 0;
+  el.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - el.offsetLeft; scrollL = el.scrollLeft; });
+  el.addEventListener('mouseleave', () => { isDown = false; });
+  el.addEventListener('mouseup', () => { isDown = false; });
+  el.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); el.scrollLeft = scrollL - (e.pageX - el.offsetLeft - startX); });
+}
+
+// ── HERO COUNTERS ──
+function initCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const t = +el.dataset.target, step = t / 60;
+    let c = 0;
+    const iv = setInterval(() => { c = Math.min(c + step, t); el.textContent = Math.floor(c).toLocaleString(); if (c >= t) clearInterval(iv); }, 20);
+  });
+}
+
+// ── REVEAL ON SCROLL ──
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// ── TOAST ──
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3200); }
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  renderSites();
+  renderChars();
+  renderRanks();
+  renderStories();
+  initSlider();
+  initTLScroll();
+  initCounters();
+  initReveal();
+});
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  requirePageAccess();
+  applyNavigationState();
+});
+</script>
+</body>
+</html>

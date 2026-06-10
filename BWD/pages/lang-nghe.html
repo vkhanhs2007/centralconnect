@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Làng Nghề Truyền Thống – Central Connect</title>
+<meta name="description" content="Khám phá các làng nghề thủ công truyền thống Đà Nẵng: gốm Thanh Hà, mộc Kim Bồng, lụa Mã Châu, đèn lồng Hội An. Đặt tour trải nghiệm trực tiếp.">
+<meta name="keywords" content="làng nghề Đà Nẵng, gốm Thanh Hà, mộc Kim Bồng, lụa Mã Châu, đèn lồng Hội An, thủ công truyền thống">
+<meta property="og:title" content="Làng Nghề Truyền Thống – Central Connect">
+<meta property="og:description" content="Trải nghiệm làng nghề thủ công truyền thống tại Đà Nẵng.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1A4F8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/images.css">
+<style>
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A;
+  --cream: #F5F0E8; --ink: #1A1410; --muted: #8A7D6E;
+  --ocean: #1A4F8C; --ocean-light: #4A90D9;
+  --sunset: #B8532E; --sunset-light: #D4744A;
+  --earth: #7D5A3C; --earth-light: #A87B55;
+  --glass: rgba(245,240,232,0.05); --glass-strong: rgba(245,240,232,0.10);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: 'Be Vietnam Pro', sans-serif; overflow-x: hidden; }
+
+/* ── HERO ── */
+.page-hero {
+  min-height: 460px; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, #06080C 0%, #0C1018 60%, #080A0F 100%);
+  position: relative; overflow: hidden; padding-top: 80px; text-align: center;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 60%, rgba(201,168,76,0.06), transparent 65%);
+}
+.hero-wrap { max-width: 760px; margin: 0 auto; padding: 72px 40px; position: relative; }
+.page-label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: clamp(34px, 5.5vw, 60px); font-weight: 900; color: var(--cream); line-height: 1.1; margin-bottom: 18px; }
+.page-title span { color: var(--gold-light); font-style: italic; }
+.page-desc { font-size: 16px; color: var(--muted); line-height: 1.8; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+.hero-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.hero-chip { padding: 8px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid rgba(201,168,76,0.25); color: var(--muted); background: rgba(201,168,76,0.05); }
+
+/* ── STATS BAR ── */
+.stats-bar { background: rgba(201,168,76,0.04); border-top: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15); }
+.stats-inner { max-width: 1100px; margin: 0 auto; padding: 28px 40px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 16px; }
+.stat-item { text-align: center; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 900; color: var(--gold-light); line-height: 1; }
+.stat-label { font-size: 11px; color: var(--muted); margin-top: 6px; letter-spacing: 0.06em; }
+
+/* ── VILLAGE CARDS ── */
+.main-wrap { max-width: 1100px; margin: 0 auto; padding: 64px 40px; }
+.section-header { margin-bottom: 40px; }
+.section-badge { display: inline-block; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--cream); }
+
+.village-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 72px; }
+.village-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(201,168,76,0.12); cursor: pointer; transition: all 0.3s; background: rgba(245,240,232,0.03); }
+.village-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(201,168,76,0.1); }
+.vc-img { height: 260px; background-size: cover; background-position: center; position: relative; }
+.vc-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,10,15,0.85) 0%, transparent 50%); }
+.vc-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 24px; z-index: 2; }
+.vc-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 12px; margin-bottom: 8px; }
+.badge-gold { background: rgba(201,168,76,0.25); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.4); }
+.badge-unesco { background: rgba(74,144,217,0.2); color: #6AAAE8; border: 1px solid rgba(74,144,217,0.35); }
+.badge-alive { background: rgba(96,200,122,0.2); color: #80E09A; border: 1px solid rgba(96,200,122,0.35); }
+.badge-rare { background: rgba(184,83,46,0.2); color: var(--sunset-light); border: 1px solid rgba(184,83,46,0.35); }
+.vc-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); line-height: 1.3; margin-bottom: 5px; }
+.vc-location { font-size: 12px; color: rgba(245,240,232,0.55); display: flex; align-items: center; gap: 5px; }
+.vc-body { padding: 20px 24px 24px; }
+.vc-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+.vc-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
+.vc-tag { font-size: 10px; padding: 3px 10px; border-radius: 10px; background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.18); color: rgba(232,201,122,0.7); }
+.vc-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.vc-age { font-size: 12px; color: var(--muted); }
+.vc-age span { color: var(--gold-light); font-weight: 700; font-size: 13px; }
+.vc-btn { background: transparent; border: 1px solid rgba(201,168,76,0.35); color: var(--gold-light); padding: 8px 18px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.vc-btn:hover { background: rgba(201,168,76,0.12); }
+
+/* ── CRAFT PRODUCTS ── */
+.products-section { margin-bottom: 72px; }
+.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.product-card { border-radius: 14px; overflow: hidden; border: 1px solid rgba(201,168,76,0.1); background: rgba(245,240,232,0.03); transition: all 0.25s; cursor: pointer; }
+.product-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+.pp-img { height: 150px; background-size: cover; background-position: center; }
+.pp-body { padding: 14px 16px; }
+.pp-name { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 4px; }
+.pp-village { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.pp-price { font-size: 13px; color: var(--gold-light); font-weight: 700; }
+
+/* ── CRAFTSMAN STORIES ── */
+.stories-section { margin-bottom: 72px; }
+.stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.story-card { background: rgba(245,240,232,0.04); border: 1px solid rgba(201,168,76,0.1); border-radius: 16px; padding: 24px; transition: all 0.25s; cursor: pointer; }
+.story-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); }
+.sc-avatar { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 14px; border: 2px solid rgba(201,168,76,0.25); }
+.sc-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+.sc-title { font-size: 12px; color: var(--gold); margin-bottom: 12px; letter-spacing: 0.05em; }
+.sc-quote { font-size: 13px; color: var(--muted); line-height: 1.7; font-style: italic; }
+.sc-years { font-size: 11px; color: rgba(201,168,76,0.5); margin-top: 14px; }
+
+/* ── WORKSHOP CTA ── */
+.workshop-cta { background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(125,90,60,0.08) 100%); border: 1px solid rgba(201,168,76,0.2); border-radius: 22px; padding: 56px 48px; text-align: center; margin-bottom: 72px; position: relative; overflow: hidden; }
+.workshop-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(201,168,76,0.06), transparent); }
+.wc-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.wc-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: var(--cream); margin-bottom: 14px; }
+.wc-title span { color: var(--gold-light); }
+.wc-desc { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto 32px; line-height: 1.75; }
+.wc-workshops { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+.ww-item { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); border-radius: 14px; padding: 16px 20px; min-width: 140px; cursor: pointer; transition: all 0.2s; }
+.ww-item:hover { background: rgba(201,168,76,0.14); border-color: rgba(201,168,76,0.4); transform: translateY(-2px); }
+.ww-emoji { font-size: 26px; margin-bottom: 7px; }
+.ww-name { font-size: 13px; font-weight: 600; color: var(--cream); margin-bottom: 3px; }
+.ww-price { font-size: 12px; color: var(--gold); }
+.wc-btn { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--ink); border: none; padding: 14px 36px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.3s; }
+.wc-btn:hover { background: linear-gradient(135deg, var(--gold-light), #F0D890); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201,168,76,0.3); }
+
+/* ── BOOKING MODAL ── */
+.book-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(5,8,15,0.9); backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.book-modal.open { opacity: 1; visibility: visible; }
+.bm-box { background: #0C1018; border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; width: 90%; max-width: 520px; max-height: 88vh; overflow-y: auto; padding: 36px; position: relative; transform: translateY(22px); transition: transform 0.3s; }
+.book-modal.open .bm-box { transform: translateY(0); }
+.bm-close { position: absolute; top: 16px; right: 16px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 16px; color: var(--cream); display: flex; align-items: center; justify-content: center; }
+.bm-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+.bm-sub { font-size: 13px; color: var(--muted); margin-bottom: 26px; }
+.form-row { margin-bottom: 16px; }
+.form-row label { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.form-input, .form-select { width: 100%; background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); color: var(--cream); padding: 11px 14px; border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; }
+.form-input:focus, .form-select:focus { border-color: var(--gold-light); }
+.form-select { appearance: none; cursor: pointer; }
+.price-row { display: flex; justify-content: space-between; align-items: center; background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 14px 16px; margin: 20px 0; }
+.price-label { font-size: 13px; color: var(--muted); }
+.price-val { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold-light); }
+.book-btn { width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--ink); border: none; padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.3s; margin-top: 6px; }
+.book-btn:hover { background: linear-gradient(135deg, var(--gold-light), #F0D890); }
+
+/* ── VILLAGE DETAIL MODAL ── */
+.village-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(5,8,15,0.9); backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.village-modal.open { opacity: 1; visibility: visible; }
+.vm-box { background: #0C1018; border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; width: 90%; max-width: 680px; max-height: 90vh; overflow-y: auto; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+.village-modal.open .vm-box { transform: translateY(0); }
+.vm-box::-webkit-scrollbar { width: 4px; } .vm-box::-webkit-scrollbar-thumb { background: var(--gold); }
+.vm-close { position: absolute; top: 16px; right: 16px; z-index: 10; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 16px; color: var(--cream); display: flex; align-items: center; justify-content: center; }
+.vm-hero { height: 240px; background-size: cover; background-position: center; border-radius: 20px 20px 0 0; position: relative; }
+.vm-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #0C1018, transparent 55%); border-radius: 20px 20px 0 0; }
+.vm-content { padding: 28px 32px 36px; }
+.vm-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 12px; display: inline-block; margin-bottom: 10px; }
+.vm-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--cream); margin-bottom: 14px; }
+.vm-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.vm-info-item { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.12); border-radius: 10px; padding: 12px 14px; }
+.vm-info-label { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+.vm-info-val { font-size: 14px; color: var(--cream); font-weight: 500; }
+.vm-desc { font-size: 14px; color: rgba(245,240,232,0.70); line-height: 1.8; margin-bottom: 20px; }
+.vm-products-title { font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+.vm-products { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.vm-product { font-size: 12px; padding: 5px 14px; border-radius: 12px; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); color: var(--gold-light); }
+.vm-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.vm-book-btn { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--ink); border: none; padding: 12px 24px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.3s; }
+.vm-book-btn:hover { background: linear-gradient(135deg, var(--gold-light), #F0D890); transform: translateY(-1px); }
+.vm-map-btn { background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--cream); padding: 11px 20px; border-radius: 10px; font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.vm-map-btn:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+/* ── FOOTER ── */
+footer { background: #0A0C10; border-top: 1px solid rgba(201,168,76,0.1); padding: 52px 40px 28px; }
+.footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+.footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 12px 0 20px; max-width: 240px; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 34px; height: 34px; border: 1px solid rgba(201,168,76,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.social-btn:hover { border-color: var(--gold-light); color: var(--gold-light); }
+.footer-col h4 { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; cursor: pointer; }
+.footer-col a:hover { color: var(--cream); }
+.footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid rgba(201,168,76,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.footer-copy { font-size: 12px; color: rgba(138,125,110,0.4); }
+
+/* ── UTILS ── */
+.reveal { opacity: 0; transform: translateY(18px); transition: all 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(60px); background: rgba(10,13,20,0.95); border: 1px solid rgba(201,168,76,0.35); color: var(--cream); padding: 12px 24px; border-radius: 10px; font-size: 14px; backdrop-filter: blur(12px); transition: all 0.35s; z-index: 9999; pointer-events: none; white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .village-grid { grid-template-columns: 1fr; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .stories-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .main-wrap { padding: 48px 20px; }
+  .stats-inner { padding: 20px; }
+  .vm-info-grid { grid-template-columns: 1fr; }
+  .wc-workshops { gap: 10px; }
+  .hero-wrap { padding: 52px 20px; }
+  .workshop-cta { padding: 36px 20px; }
+}
+@media (max-width: 600px) {
+  .product-grid { grid-template-columns: 1fr 1fr; }
+  .stories-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../image/logo.jpg" class="nav-logo-img">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html" class="active">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="vku-corner.html">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="doi-tac.html#transport">🚌 Vận tải</a>
+        <a href="doi-tac.html#hostels">🏡 Homestay xanh</a>
+        <a href="doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-notify" id="notifyBtn">🔔</div>
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none; position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown" id="userDropdown">
+        <a href="profile.html">👤 Hồ sơ</a>
+        <a onclick="logout()">🚪 Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <div class="hero-wrap">
+    <div class="page-label">🏺 Làng nghề truyền thống</div>
+    <h1 class="page-title">Tinh Hoa <span>Thủ Công</span><br>Đà Nẵng</h1>
+    <p class="page-desc">Nơi đôi bàn tay lưu giữ ký ức của đất, của lửa, của nước và của hàng thế kỷ văn hóa sống.</p>
+    <div class="hero-chips">
+      <span class="hero-chip">🏺 Gốm Thanh Hà</span>
+      <span class="hero-chip">🪵 Mộc Kim Bồng</span>
+      <span class="hero-chip">🧵 Lụa Mã Châu</span>
+      <span class="hero-chip">🏮 Đèn Lồng Hội An</span>
+      <span class="hero-chip">🎣 Làng Chài Mỹ Khê</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num" data-target="500">0</div><div class="stat-label">Năm lịch sử</div></div>
+    <div class="stat-item"><div class="stat-num" data-target="12">0</div><div class="stat-label">Làng nghề đang hoạt động</div></div>
+    <div class="stat-item"><div class="stat-num" data-target="340">0</div><div class="stat-label">Nghệ nhân được ghi nhận</div></div>
+    <div class="stat-item"><div class="stat-num" data-target="8">0</div><div class="stat-label">Nghề được UNESCO vinh danh</div></div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main-wrap">
+
+  <!-- Villages -->
+  <div class="section-header reveal">
+    <div class="section-badge">Các làng nghề</div>
+    <div class="section-title">Khám Phá Làng Nghề</div>
+  </div>
+
+  <div class="village-grid reveal" id="villageGrid"></div>
+
+  <!-- Products -->
+  <div class="products-section">
+    <div class="section-header reveal">
+      <div class="section-badge">Sản phẩm tiêu biểu</div>
+      <div class="section-title">Tinh Hoa Thủ Công</div>
+    </div>
+    <div class="product-grid reveal" id="productGrid"></div>
+  </div>
+
+  <!-- Craftsman Stories -->
+  <div class="stories-section">
+    <div class="section-header reveal">
+      <div class="section-badge">Nghệ nhân</div>
+      <div class="section-title">Người Giữ Lửa Nghề</div>
+    </div>
+    <div class="stories-grid" id="storiesGrid"></div>
+  </div>
+
+  <!-- Workshop CTA -->
+  <div class="workshop-cta reveal">
+    <div class="wc-label">Trải nghiệm thực tế</div>
+    <div class="wc-title">Đặt Tour <span>Workshop</span></div>
+    <div class="wc-desc">Tự tay tạo ra sản phẩm thủ công dưới sự hướng dẫn của nghệ nhân. Mang về một kỷ niệm độc đáo không thể mua được.</div>
+    <div class="wc-workshops" id="workshopList"></div>
+    <button class="wc-btn" onclick="openBookModal('all')">📅 Đặt workshop ngay</button>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+        <img src="../image/logo.jpg" class="nav-logo-img">
+        <div><span class="nav-logo-text">CENTRAL CONNECT</span><span class="nav-logo-sub">Di sản số Đà Nẵng</span></div>
+      </div>
+      <p>"Dùng công nghệ để bảo tồn những giá trị xưa cũ và mở ra cánh cửa kết nối hiện đại cho du lịch miền Trung."</p>
+      <div class="footer-social"><a class="social-btn">f</a><a class="social-btn">ig</a><a class="social-btn">yt</a></div>
+    </div>
+    <div class="footer-col"><h4>Khám phá</h4><a href="kham-pha.html">Bản đồ di sản</a><a href="di-tich.html">Di tích lịch sử</a><a href="am-thuc.html">Ẩm thực</a><a href="vku-corner.html">VKU Corner</a></div>
+    <div class="footer-col"><h4>Dịch vụ</h4><a href="lich-trinh.html">Lịch trình AI</a><a href="gay-quy.html">Gây quỹ</a><a href="su-kien.html">Sự kiện</a></div>
+    <div class="footer-col"><h4>Làng nghề</h4><a onclick="openVillageModal(0)">Gốm Thanh Hà</a><a onclick="openVillageModal(1)">Mộc Kim Bồng</a><a onclick="openVillageModal(2)">Lụa Mã Châu</a><a onclick="openVillageModal(3)">Đèn Lồng Hội An</a></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Central Connect · Được xây dựng bởi sinh viên VKU · Đà Nẵng, Việt Nam</div>
+    <div class="footer-copy">📍 VKU, Nguyễn Lương Bằng, Đà Nẵng · 📧 contact@centralconnect.vn</div>
+  </div>
+</footer>
+
+<!-- ── VILLAGE DETAIL MODAL ── -->
+<div class="village-modal" id="villageModal">
+  <div class="vm-box">
+    <button class="vm-close" onclick="closeVillageModal()">✕</button>
+    <div class="vm-hero" id="vmHero"></div>
+    <div class="vm-content" id="vmContent"></div>
+  </div>
+</div>
+
+<!-- ── BOOKING MODAL ── -->
+<div class="book-modal" id="bookModal">
+  <div class="bm-box">
+    <button class="bm-close" onclick="closeBookModal()">✕</button>
+    <div class="bm-title">📅 Đặt Tour Workshop</div>
+    <div class="bm-sub">Trải nghiệm làng nghề truyền thống cùng nghệ nhân</div>
+    <div class="form-row">
+      <label>Chọn workshop</label>
+      <select class="form-select" id="bWorkshop" onchange="updatePrice()">
+        <option value="150000">🏺 Làm gốm Thanh Hà – 150.000đ</option>
+        <option value="200000">🪵 Điêu khắc gỗ Kim Bồng – 200.000đ</option>
+        <option value="180000">🏮 Làm đèn lồng Hội An – 180.000đ</option>
+        <option value="220000">🧵 Dệt lụa Mã Châu – 220.000đ</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Ngày tham gia</label>
+      <input class="form-input" type="date" id="bDate">
+    </div>
+    <div class="form-row">
+      <label>Số người</label>
+      <select class="form-select" id="bPeople" onchange="updatePrice()">
+        <option>1 người</option><option>2 người</option><option>3 người</option><option>4 người</option><option>5+ người (liên hệ)</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Họ tên liên hệ</label>
+      <input class="form-input" id="bName" placeholder="Nguyễn Văn A">
+    </div>
+    <div class="form-row">
+      <label>Số điện thoại</label>
+      <input class="form-input" id="bPhone" type="tel" placeholder="09xx xxx xxx">
+    </div>
+    <div class="price-row">
+      <span class="price-label">Tổng chi phí ước tính</span>
+      <span class="price-val" id="bPrice">150.000đ</span>
+    </div>
+    <button class="book-btn" onclick="submitBooking()">✅ Xác nhận đặt chỗ</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const VILLAGES = [
+  { id:0, name:'Gốm Thanh Hà', video:'../mp4/lang_gom_thanh_ha_hoi_an.mp4', location:'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:500, badge:'badge-gold', badgeText:'Di sản UNESCO', img:'../image/tra-que.jpg', desc:'Làng gốm 500 năm tuổi, một trong những làng gốm cổ nhất miền Trung. Nghệ nhân tạo hình đất sét bằng bàn xoay thủ công, nung bằng lửa củi để tạo ra màu nâu đỏ đặc trưng. Hiện còn khoảng 40 hộ gia đình giữ nghề.', products:['Bình hoa', 'Chậu gốm', 'Tượng gốm', 'Đồ gia dụng', 'Quà lưu niệm'], hours:'07:00–17:00', price:'Workshop 150.000đ/người', tags:['Gốm nung', 'Thủ công', 'Bàn xoay', 'Di sản'] },
+  { id:1, name:'Mộc Kim Bồng', video:'', location:'Cẩm Kim, Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:400, badge:'badge-alive', badgeText:'Đang hoạt động', img:'../image/moc_kim_bong.png', desc:'Làng mộc nổi tiếng với nghề chạm khắc gỗ tinh xảo. Nghệ nhân Kim Bồng đã góp phần kiến tạo nên những ngôi nhà cổ và hội quán trong khu phố cổ Hội An. Sản phẩm nổi tiếng với họa tiết Rồng-Phượng truyền thống.', products:['Đồ nội thất', 'Tượng gỗ', 'Tranh chạm khắc', 'Đồ trang trí', 'Nhà cổ'], hours:'07:30–17:30', price:'Workshop 200.000đ/người', tags:['Chạm khắc', 'Gỗ quý', 'Nội thất', 'Hội An'] },
+  { id:2, name:'Lụa Mã Châu', video:'', location:'Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:300, badge:'badge-rare', badgeText:'Nghề hiếm', img:'../image/lua_ma_chau.png', desc:'Làng dệt lụa 300 năm tuổi với kỹ thuật dệt thủ công truyền thống. Lụa Mã Châu nổi tiếng với độ bóng mịn, màu sắc tự nhiên từ cây cỏ địa phương. Hiện chỉ còn khoảng 15 hộ giữ nghề dệt thủ công hoàn toàn.', products:['Lụa tơ tằm', 'Áo dài', 'Khăn lụa', 'Vải thổ cẩm', 'Phụ kiện'], hours:'08:00–16:00', price:'Workshop 220.000đ/người', tags:['Lụa tơ tằm', 'Dệt thủ công', 'Màu tự nhiên', 'Hiếm'] },
+  { id:3, name:'Đèn Lồng Hội An', video:'../mp4/pho_co_hoi_an.mp4', location:'Phố cổ Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:200, badge:'badge-gold', badgeText:'Biểu tượng Hội An', img:'../image/den_long_hoi_an.png', desc:'Nghề làm đèn lồng là biểu tượng văn hóa của Hội An. Mỗi chiếc đèn được làm từ khung tre và vải lụa, vẽ tay họa tiết truyền thống. Phố Nguyễn Thái Học tập trung nhiều xưởng làm đèn lồng nhất.', products:['Đèn lồng lụa', 'Đèn lồng giấy', 'Đèn ông sao', 'Đèn trang trí', 'Bộ DIY'], hours:'08:00–21:00', price:'Workshop 180.000đ/người', tags:['Đèn lồng', 'Lụa', 'Tre', 'Sơn tay'] },
+];
+
+const PRODUCTS = [
+  { name:'Bình gốm Thanh Hà', village:'Gốm Thanh Hà', price:'180.000đ', img:'../image/tra-que.jpg' },
+  { name:'Đèn lồng lụa Hội An', village:'Đèn Lồng Hội An', price:'95.000đ', img:'../image/den_long_hoi_an.png' },
+  { name:'Bộ gốm gia đình', village:'Gốm Thanh Hà', price:'680.000đ', img:'../image/tra-que-2.jpg' },
+  { name:'Thủ công mỹ nghệ Hội An', village:'Mộc Kim Bồng', price:'350.000đ', img:'../image/moc_kim_bong.png' },
+  { name:'Bộ đèn lồng DIY', village:'Đèn Lồng Hội An', price:'145.000đ', img:'../image/bo_den_long_diy.png' },
+];
+
+const CRAFTSMEN = [
+  { emoji:'👴', name:'Bác Nguyễn Văn Phúc', title:'Nghệ nhân Gốm Thanh Hà · Đời thứ 6', quote:'"Đất sét không biết nói nhưng nó biết cảm nhận. Khi tay bạn thô bạo, nó sẽ vỡ. Khi bạn yêu thương nó, nó sẽ trở thành nghệ thuật."', years:'58 năm giữ nghề' },
+  { emoji:'👩', name:'Bà Trần Thị Hoàng', title:'Nghệ nhân Lụa Mã Châu · Đời thứ 4', quote:'"Mỗi tấm lụa là một câu chuyện. Màu xanh lấy từ cây chàm, màu vàng từ nghệ – đất và cây cỏ Quảng Nam đang sống trong từng thớ vải."', years:'44 năm dệt lụa' },
+  { emoji:'👨', name:'Ông Lê Quang Khánh', title:'Nghệ nhân Mộc Kim Bồng · Đời thứ 5', quote:'"Ngôi nhà ở phố cổ Hội An có nét chạm tổ phụ tôi khắc từ 80 năm trước. Mỗi lần đi qua tôi đều dừng lại nhìn. Đó là lý do tôi không bỏ nghề."', years:'38 năm chạm khắc' },
+];
+
+const WORKSHOPS = [
+  { emoji:'🏺', name:'Làm gốm', price:'150k/người' },
+  { emoji:'🪵', name:'Điêu khắc gỗ', price:'200k/người' },
+  { emoji:'🏮', name:'Làm đèn lồng', price:'180k/người' },
+  { emoji:'🧵', name:'Dệt lụa', price:'220k/người' },
+];
+
+// ── Render villages ──
+const grid = document.getElementById('villageGrid');
+VILLAGES.forEach(v => {
+  grid.innerHTML += `<div class="village-card reveal" onclick="openVillageModal(${v.id})">
+    <div class="vc-img" style="background-image:url('${v.img}')">
+      <div class="vc-overlay">
+        <span class="vc-badge ${v.badge}">${v.badgeText}</span>
+        <div class="vc-name">${v.name}</div>
+        <div class="vc-location">📍 ${v.location}</div>
+      </div>
+    </div>
+    <div class="vc-body">
+      <div class="vc-desc">${v.desc.substring(0, 140)}...</div>
+      <div class="vc-tags">${v.tags.map(t=>`<span class="vc-tag">${t}</span>`).join('')}</div>
+      <div class="vc-footer">
+        <div class="vc-age">Lịch sử: <span>${v.age}+ năm</span></div>
+        <button class="vc-btn">Khám phá →</button>
+      </div>
+    </div>
+  </div>`;
+});
+
+// ── Render products ──
+document.getElementById('productGrid').innerHTML = PRODUCTS.map(p => `
+  <div class="product-card reveal" onclick="showToast('🛒 Liên hệ để mua: ${p.name}')">
+    <div class="pp-img" style="background-image:url('${p.img}')"></div>
+    <div class="pp-body">
+      <div class="pp-name">${p.name}</div>
+      <div class="pp-village">📍 ${p.village}</div>
+      <div class="pp-price">${p.price}</div>
+    </div>
+  </div>`).join('');
+
+// ── Render craftsmen ──
+document.getElementById('storiesGrid').innerHTML = CRAFTSMEN.map(c => `
+  <div class="story-card reveal" onclick="showToast('👋 Gặp gỡ ${c.name} tại workshop!')">
+    <div class="sc-avatar">${c.emoji}</div>
+    <div class="sc-name">${c.name}</div>
+    <div class="sc-title">${c.title}</div>
+    <div class="sc-quote">${c.quote}</div>
+    <div class="sc-years">⏱ ${c.years}</div>
+  </div>`).join('');
+
+// ── Render workshops ──
+document.getElementById('workshopList').innerHTML = WORKSHOPS.map(w => `
+  <div class="ww-item" onclick="openBookModal('${w.name}')">
+    <div class="ww-emoji">${w.emoji}</div>
+    <div class="ww-name">${w.name}</div>
+    <div class="ww-price">${w.price}</div>
+  </div>`).join('');
+
+// ── Village Modal ──
+function buildVillageVideo(v) {
+  if (v.video) {
+    return '<video class="modal-video" controls preload="metadata" style="width:100%;border-radius:12px;margin-bottom:16px;background:#000;max-height:260px;"><source src="' + v.video + '" type="video/mp4"></video>';
+  }
+  return '';
+}
+
+function openVillageModal(id) {
+  const v = VILLAGES[id];
+  document.getElementById('vmHero').style.backgroundImage = `url('${v.img}')`;
+  document.getElementById('vmContent').innerHTML = `
+    <span class="vm-badge ${v.badge}">${v.badgeText}</span>
+    <div class="vm-name">${v.name}</div>
+    <div class="vm-info-grid">
+      <div class="vm-info-item"><div class="vm-info-label">📍 Địa điểm</div><div class="vm-info-val">${v.location}</div></div>
+      <div class="vm-info-item"><div class="vm-info-label">📅 Lịch sử</div><div class="vm-info-val">${v.age}+ năm</div></div>
+      <div class="vm-info-item"><div class="vm-info-label">⏰ Giờ mở cửa</div><div class="vm-info-val">${v.hours}</div></div>
+      <div class="vm-info-item"><div class="vm-info-label">🎓 Workshop</div><div class="vm-info-val">${v.price}</div></div>
+    </div>
+    <div class="vm-desc">${v.desc}</div>
+    ${buildVillageVideo(v)}
+    <div class="vm-products-title">Sản phẩm tiêu biểu</div>
+    <div class="vm-products">${v.products.map(p=>`<span class="vm-product">${p}</span>`).join('')}</div>
+    <div class="vm-actions">
+      <button class="vm-book-btn" onclick="closeVillageModal(); openBookModal('${v.name}')">📅 Đặt workshop</button>
+      <button class="vm-map-btn" onclick="showToast('🗺 Đang mở bản đồ...')">🗺 Xem bản đồ</button>
+    </div>`;
+  document.getElementById('villageModal').classList.add('open');
+}
+function closeVillageModal() { document.getElementById('villageModal').classList.remove('open'); }
+document.getElementById('villageModal').addEventListener('click', e => { if (e.target === document.getElementById('villageModal')) closeVillageModal(); });
+
+// ── Booking Modal ──
+function openBookModal(name) {
+  document.getElementById('bDate').min = new Date().toISOString().split('T')[0];
+  document.getElementById('bookModal').classList.add('open');
+}
+function closeBookModal() { document.getElementById('bookModal').classList.remove('open'); }
+document.getElementById('bookModal').addEventListener('click', e => { if (e.target === document.getElementById('bookModal')) closeBookModal(); });
+
+function updatePrice() {
+  const base = +document.getElementById('bWorkshop').value;
+  const ppl = document.getElementById('bPeople').selectedIndex + 1;
+  const total = ppl <= 4 ? base * ppl : null;
+  document.getElementById('bPrice').textContent = total ? total.toLocaleString('vi') + 'đ' : 'Liên hệ để được tư vấn';
+}
+
+function submitBooking() {
+  const name = document.getElementById('bName').value.trim();
+  const phone = document.getElementById('bPhone').value.trim();
+  const date = document.getElementById('bDate').value;
+  if (!name || !phone || !date) { showToast('⚠ Vui lòng điền đầy đủ thông tin'); return; }
+  if (typeof ccAddPoints === 'function') ccAddPoints(20, 'Đặt workshop làng nghề');
+  closeBookModal();
+  showToast('🎉 Đã đặt workshop! Chúng tôi sẽ liên hệ trong 24 giờ. +20 Hạt Bàu');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVillageModal(); closeBookModal(); } });
+
+// ── Intersection Observer ──
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, target = +el.dataset.target;
+      let cur = 0; const step = target / 60;
+      const t = setInterval(() => { cur = Math.min(cur + step, target); el.textContent = Math.floor(cur) + (cur >= target ? '+' : ''); if (cur >= target) clearInterval(t); }, 25);
+      cntObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(c => cntObs.observe(c));
+
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3200); }
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  requirePageAccess();
+  applyNavigationState();
+});
+</script>
+</body>
+</html>

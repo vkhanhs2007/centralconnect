@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voucher Của Tôi – Central Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/nav.css">
+<style>
+:root{--gold:#C9A84C;--cream:#F5F0E8;--ink:#1A1410;--muted:#8A7D6E;--ocean:#1A4F8C;--ocean-light:#4A90D9;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#080A0F;color:var(--cream);overflow-x:hidden;}
+.page{padding:104px 40px 80px;max-width:960px;margin:0 auto;}
+.page-hero{margin-bottom:36px;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--cream);margin-bottom:6px;}
+.page-hero p{color:var(--muted);font-size:14px;}
+.pts-bar{background:linear-gradient(135deg,rgba(26,79,140,0.15),rgba(74,144,217,0.08));border:1px solid rgba(74,144,217,0.25);border-radius:14px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.pts-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--ocean-light);}
+.tabs{display:flex;gap:0;border-bottom:1px solid rgba(74,144,217,0.12);margin-bottom:28px;}
+.tab{padding:10px 20px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;transition:all 0.2s;}
+.tab.active{color:var(--ocean-light);border-bottom-color:var(--ocean-light);}
+.voucher-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.vcard{background:rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.12);border-radius:14px;overflow:hidden;position:relative;}
+.vcard.used{opacity:0.5;}
+.vcard.expired{opacity:0.4;}
+.vtop{padding:18px 18px 14px;border-bottom:1px dashed rgba(74,144,217,0.12);}
+.vdiscount{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--gold);margin-bottom:4px;}
+.vname{font-size:14px;font-weight:600;color:var(--cream);}
+.vpartner{font-size:12px;color:var(--muted);margin-top:3px;}
+.vbottom{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+.vcode{font-family:monospace;font-size:15px;font-weight:700;color:var(--ocean-light);letter-spacing:2px;cursor:pointer;}
+.vcode:hover{text-decoration:underline;}
+.vdate{font-size:11px;color:var(--muted);}
+.vstatus{position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;letter-spacing:0.05em;text-transform:uppercase;}
+.vstatus.active{background:rgba(96,208,144,0.15);color:#60D090;border:1px solid rgba(96,208,144,0.3);}
+.vstatus.used{background:rgba(138,125,110,0.12);color:var(--muted);border:1px solid rgba(138,125,110,0.2);}
+.vstatus.expired{background:rgba(224,92,92,0.1);color:#E05C5C;border:1px solid rgba(224,92,92,0.2);}
+.shop-btn{background:linear-gradient(135deg,var(--ocean),var(--ocean-light));color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;}
+.shop-btn:hover{opacity:0.9;}
+@media(max-width:600px){.page{padding:88px 16px 60px;}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img" alt="Central Connect">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none;position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a href="my-vouchers.html" class="active">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <h1>🎟 Voucher Của Tôi</h1>
+    <p>Quản lý voucher đã đổi từ điểm Hạt Bàu</p>
+  </div>
+
+  <div class="pts-bar">
+    <div style="font-size:32px;">🌾</div>
+    <div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Điểm Hạt Bàu khả dụng</div>
+      <div class="pts-val" id="ptsDisplay">—</div>
+    </div>
+    <div style="margin-left:auto;">
+      <button class="shop-btn" onclick="window.location.href='profile.html'">🛒 Đổi thêm voucher</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="filterV('all',this)">Tất cả</button>
+    <button class="tab" onclick="filterV('active',this)">✅ Còn dùng được</button>
+    <button class="tab" onclick="filterV('used',this)">🔘 Đã dùng</button>
+    <button class="tab" onclick="filterV('expired',this)">⏰ Hết hạn</button>
+  </div>
+
+  <div id="vGrid" class="voucher-grid"></div>
+</div>
+
+<div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(60px);background:rgba(10,13,20,0.95);border:1px solid rgba(74,144,217,0.35);color:#F5F0E8;padding:12px 24px;border-radius:10px;font-size:14px;backdrop-filter:blur(12px);transition:all 0.35s;z-index:10000;pointer-events:none;white-space:nowrap;"></div>
+
+<footer></footer>
+<script src="../js/nav.js"></script>
+<script src="../js/utils.js"></script>
+<script>
+const MOCK_V = [
+  {id:1,discount:'Giảm 20%',name:'Grab Food',partner:'Grab',code:'CC-GRAB20',status:'active',exp:'30/06/2026',pts:50},
+  {id:2,discount:'Miễn phí',name:'Vé tham quan Bà Nà',partner:'Sun World',code:'CC-BANA01',status:'active',exp:'31/12/2026',pts:200},
+  {id:3,discount:'Giảm 15%',name:'Khách sạn Vinpearl',partner:'Vinpearl',code:'CC-VIN15',status:'used',exp:'01/05/2026',pts:150},
+  {id:4,discount:'10% off',name:'Lặn biển Cù Lao Chàm',partner:'CLC Diving',code:'CC-CLC10',status:'expired',exp:'01/01/2026',pts:80},
+];
+let currentFilter = 'all';
+
+function renderVouchers() {
+  const user = ccGetUser();
+  if (user) document.getElementById('ptsDisplay').textContent = ccFormatPoints(user.points);
+
+  const filtered = currentFilter === 'all' ? MOCK_V : MOCK_V.filter(v => v.status === currentFilter);
+  const grid = document.getElementById('vGrid');
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="text-align:center;padding:48px;color:var(--muted);grid-column:1/-1"><div style="font-size:48px;margin-bottom:12px;">🎟</div><div>Không có voucher nào</div></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(v => `
+    <div class="vcard ${v.status}">
+      <div class="vstatus ${v.status}">${v.status==='active'?'Còn hạn':v.status==='used'?'Đã dùng':'Hết hạn'}</div>
+      <div class="vtop">
+        <div class="vdiscount">${v.discount}</div>
+        <div class="vname">${v.name}</div>
+        <div class="vpartner">🤝 ${v.partner} · ${ccFormatPoints(v.pts)} Hạt Bàu</div>
+      </div>
+      <div class="vbottom">
+        <div>
+          <div class="vcode" onclick="copyCode('${v.code}')" title="Bấm để sao chép">${v.code}</div>
+          <div class="vdate">⏰ HSD: ${v.exp}</div>
+        </div>
+        ${v.status==='active'?`<button class="shop-btn" style="font-size:12px;padding:7px 14px;" onclick="copyCode('${v.code}')">📋 Sao chép mã</button>`:''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function copyCode(code) {
+  navigator.clipboard?.writeText(code).catch(() => {});
+  const t = document.getElementById('toast');
+  t.textContent = '✅ Đã sao chép mã: ' + code;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(60px)'; }, 2500);
+}
+
+function filterV(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderVouchers();
+}
+
+window.addEventListener('DOMContentLoaded', renderVouchers);
+</script>
+<script src="../js/auth-modal.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+</body>
+</html>

@@ -1,0 +1,1092 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khám Phá Di Sản – Central Connect</title>
+<meta name="description" content="Bản đồ di sản tương tác Đà Nẵng. Khám phá Hội An, Mỹ Sơn, Ngũ Hành Sơn, Bà Nà Hills và hơn 12 địa điểm văn hóa với audio thuyết minh và slider ngày ấy – bây giờ.">
+<meta name="keywords" content="bản đồ di sản, khám phá Đà Nẵng, Hội An, Mỹ Sơn, du lịch văn hóa">
+<meta property="og:title" content="Khám Phá Di Sản – Central Connect">
+<meta property="og:description" content="Bản đồ tương tác khám phá di sản văn hóa Đà Nẵng.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1A4F8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="../css/images.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+/* ── VARIABLES & BASE ── */
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A; --gold-dark: #9A7A30;
+  --cream: #F5F0E8; --ink: #1A1410; --ink-soft: #3D3530;
+  --muted: #8A7D6E; --surface: #FDFAF5;
+  --glass: rgba(245,240,232,0.05); --glass-strong: rgba(245,240,232,0.10);
+  --ocean: #1A4F8C; --ocean-light: #4A90D9; --ocean-soft: rgba(74,144,217,0.1);
+  --sunset: #B8532E; --sunset-light: #D4744A; --sunset-soft: rgba(212,116,74,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--ink); color: var(--cream); overflow-x: hidden; }
+
+/* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 40px;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+  nav.scrolled {
+    background: rgba(10,13,20,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,144,217,0.15);
+  }
+
+ .nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-logo-img{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+    margin-top: -2px;
+  }
+
+  .nav-menu {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none;
+  }
+  .nav-menu li { position: relative; }
+  .nav-menu a {
+    text-decoration: none;
+    color: rgba(245,240,232,0.72);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 4px;
+    cursor: pointer;
+  }
+  .nav-menu a:hover { color: var(--ocean-light); background: var(--ocean-soft); }
+  .nav-menu .fund-link { color: #E8A020; }
+  .nav-menu .fund-link:hover { color: #F0B840; background: rgba(232,160,32,0.1); }
+
+  /* Dropdown */
+  .dropdown-menu {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    background: rgba(10,13,20,0.95);
+    border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 10px;
+    padding: 8px;
+    min-width: 180px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(20px);
+  }
+  .nav-menu li:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown-menu a {
+    display: block; padding: 8px 12px;
+    font-size: 13px; color: var(--cream);
+    border-radius: 6px;
+  }
+  .dropdown-menu a:hover { background: rgba(74,144,217,0.12); color: var(--ocean-light); }
+
+  .nav-actions {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-notify {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 15px;
+    transition: all 0.2s;
+    color: var(--muted);
+    opacity: 0.5;
+    position: relative;
+  }
+  .nav-notify.active { opacity: 1; color: var(--ocean-light); }
+  .notif-dot {
+    position: absolute; top: 6px; right: 6px;
+    width: 7px; height: 7px;
+    background: #E8A020; border-radius: 50%;
+    border: 1.5px solid var(--ink);
+  }
+
+  .btn-login {
+    background: transparent;
+    border: 1px solid rgba(74,144,217,0.4);
+    color: var(--cream);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-login:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+  .btn-register {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    border: none;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.25s;
+  }
+  .btn-register:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-1px); }
+
+  /* User dropdown after login */
+  .user-pill {
+    display: none;
+    align-items: center; gap: 8px;
+    padding: 5px 12px 5px 5px;
+    background: var(--glass);
+    border: 1px solid rgba(74,144,217,0.35);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .user-pill:hover { border-color: var(--ocean-light); }
+  .user-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: #fff;
+  }
+  .user-points {
+    font-size: 12px; color: var(--ocean-light);
+    font-weight: 600;
+  }
+  .user-name { font-size: 13px; color: var(--cream); }
+
+  .user-dropdown {
+    position: absolute; top: calc(100% + 10px); right: 0;
+    background: rgba(10,13,20,0.97);
+    border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 10px; padding: 8px;
+    min-width: 200px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s;
+    backdrop-filter: blur(20px);
+  }
+  .user-pill:hover .user-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .user-dropdown a {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px;
+    text-decoration: none; font-size: 13.5px; color: var(--cream);
+    border-radius: 6px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .user-dropdown a:hover { background: rgba(74,144,217,0.1); color: var(--ocean-light); }
+  .user-dropdown .divider { height: 1px; background: rgba(74,144,217,0.12); margin: 6px 0; }
+  .user-dropdown .logout { color: #E05C5C !important; }
+  .user-dropdown .logout:hover { background: rgba(224,92,92,0.1) !important; }
+/* ── PAGE HERO ── */
+.page-hero {
+  margin-top: 72px;
+  background: linear-gradient(135deg, #0A0D14 0%, #0D0A06 40%, #0A0D14 100%);
+  padding: 60px 40px 40px;
+  position: relative; overflow: hidden;
+  border-bottom: 2px solid rgba(74,144,217,0.2);
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(74,144,217,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(74,144,217,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.page-hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+.breadcrumb { font-size: 12px; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.breadcrumb a { color: var(--ocean-light); text-decoration: none; }
+.breadcrumb span { color: var(--muted); }
+.page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 900; line-height: 1.05; margin-bottom: 16px; }
+.page-hero h1 em { font-style: italic; background: linear-gradient(90deg, var(--ocean-light), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-hero p { font-size: 16px; color: rgba(245,240,232,0.60); line-height: 1.7; max-width: 560px; }
+
+/* ── FILTERS BAR ── */
+.filters-bar {
+  background: rgba(10,13,20,0.97);
+  border-bottom: 1px solid rgba(74,144,217,0.15);
+  padding: 16px 40px;
+  position: sticky; top: 72px; z-index: 500;
+  backdrop-filter: blur(12px);
+}
+.filters-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.filter-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.filter-chip {
+  padding: 7px 16px; border-radius: 24px; font-size: 13px; font-weight: 500;
+  border: 1px solid rgba(74,144,217,0.25); color: var(--cream);
+  cursor: pointer; transition: all 0.2s; background: transparent; font-family: inherit;
+}
+.filter-chip:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+.filter-chip.active { background: var(--ocean-light); color: #fff; border-color: var(--ocean-light); }
+.filter-sep { width: 1px; height: 24px; background: rgba(74,144,217,0.2); }
+.filter-search {
+  margin-left: auto; display: flex; align-items: center; gap: 10px;
+  background: rgba(74,144,217,0.07); border: 1px solid rgba(74,144,217,0.2);
+  border-radius: 24px; padding: 7px 16px;
+}
+.filter-search input { background: transparent; border: none; outline: none; color: var(--cream); font-size: 13px; font-family: inherit; width: 180px; }
+.filter-search input::placeholder { color: var(--muted); }
+
+/* ── MAIN LAYOUT ── */
+.main-layout { display: grid; grid-template-columns: 380px 1fr; height: calc(100vh - 72px - 57px - 153px); min-height: 560px; }
+
+/* ── SIDEBAR TOGGLE (mobile) ── */
+.sidebar-toggle-bar {
+  display: none;
+  align-items: center; justify-content: space-between;
+  background: #0A0D14; border-bottom: 1px solid rgba(74,144,217,0.15);
+  padding: 10px 16px; cursor: pointer;
+  font-size: 13px; color: var(--ocean-light); font-weight: 600;
+}
+.sidebar-toggle-bar span { display: flex; align-items: center; gap: 8px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .page-hero { padding: 40px 20px 28px; }
+  .filters-bar { padding: 10px 16px; top: 72px; }
+  .filters-inner { gap: 8px; }
+  .filter-label { display: none; }
+  .filter-sep { display: none; }
+  .filter-search { margin-left: 0; width: 100%; }
+  .filter-search input { width: 100%; }
+
+  .sidebar-toggle-bar { display: flex; }
+  .main-layout { grid-template-columns: 1fr; height: auto; }
+  .sidebar { display: none; }
+  .sidebar.open { display: block; max-height: 60vh; overflow-y: auto; }
+  #leaflet-map { min-height: 400px; height: 55vw; max-height: 500px; }
+
+  .modal-box { background: #0C1018; width: 96%; max-width: 100%; border-radius: 12px; }
+  .modal-content { padding: 18px 16px; }
+  .slider-wrap { height: 200px; }
+  .modal-info-grid { grid-template-columns: 1fr; }
+  .modal-cta { flex-direction: column; }
+  .mcta-btn { justify-content: center; }
+}
+
+@media (max-width: 540px) {
+  .page-hero h1 { font-size: 28px; }
+  .page-hero p { font-size: 14px; }
+  .filter-chip { padding: 5px 11px; font-size: 12px; }
+  .filters-inner { gap: 6px; }
+  #leaflet-map { height: 60vw; min-height: 280px; }
+}
+
+/* ── SIDEBAR ── */
+.sidebar { background: #0A0D14; border-right: 1px solid rgba(74,144,217,0.12); overflow-y: auto; }
+.sidebar::-webkit-scrollbar { width: 4px; } .sidebar::-webkit-scrollbar-thumb { background: var(--ocean); border-radius: 2px; }
+.sidebar-header { padding: 20px 24px 14px; border-bottom: 1px solid rgba(74,144,217,0.1); }
+.sidebar-count { font-size: 12px; color: var(--muted); }
+.sidebar-count strong { color: var(--ocean-light); }
+.place-list-item {
+  padding: 16px 24px; border-bottom: 1px solid rgba(74,144,217,0.07);
+  cursor: pointer; transition: all 0.2s; display: flex; gap: 14px; align-items: flex-start;
+}
+.place-list-item:hover { background: rgba(74,144,217,0.06); }
+.place-list-item.selected { background: rgba(74,144,217,0.1); border-left: 3px solid var(--ocean-light); }
+.pli-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.pli-thumb { width: 62px; height: 62px; border-radius: 8px; background-size: cover; background-position: center; flex-shrink: 0; border: 1px solid rgba(74,144,217,0.18); opacity: 0.9; }
+.pli-icon.lich-su { background: rgba(212,116,74,0.15); }
+.pli-icon.thien-nhien { background: rgba(80,180,120,0.15); }
+.pli-icon.lang-nghe { background: rgba(220,140,80,0.15); }
+.pli-icon.bien { background: rgba(60,140,200,0.15); }
+.pli-body { flex: 1; min-width: 0; }
+.pli-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pli-loc { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
+.pli-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.pli-tag { font-size: 10px; padding: 2px 8px; border-radius: 12px; font-weight: 500; }
+.tag-lich-su { background: rgba(212,116,74,0.15); color: var(--sunset-light); }
+.tag-thien-nhien { background: rgba(80,180,120,0.15); color: #60D090; }
+.tag-lang-nghe { background: rgba(220,140,80,0.15); color: #E8A040; }
+.tag-bien { background: rgba(60,140,200,0.15); color: #60B4E0; }
+.pli-stars { font-size: 11px; color: var(--gold); }
+
+/* ── MAP ── */
+#map { position: relative; z-index: 1; }
+#leaflet-map { width: 100%; height: 100%; min-height: 560px; }
+#map-loading { position: absolute; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center; background: rgba(10,13,20,0.7); pointer-events: none; transition: opacity 0.5s; }
+#map-loading.hidden { opacity: 0; pointer-events: none; }
+.map-spinner { width: 36px; height: 36px; border: 3px solid rgba(74,144,217,0.2); border-top-color: var(--ocean-light); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.pli-thumb.img-err { background-image: none !important; background: linear-gradient(135deg, rgba(74,144,217,0.12) 0%, rgba(201,168,76,0.08) 100%); }
+.pli-thumb.img-err::after { content: '🏛'; font-size: 22px; display: flex; align-items: center; justify-content: center; height: 100%; }
+.leaflet-container { background: #e8e0d8; }
+.leaflet-popup-content-wrapper { border-radius: 10px !important; }
+.leaflet-popup-content { font-family: 'Be Vietnam Pro', sans-serif; font-size: 13px; }
+/* custom leaflet dark tiles */
+/* ── GEOCODER ── */
+.map-geocoder { position: absolute; top: 16px; left: 16px; z-index: 1000; width: 270px; }
+.geocoder-row { display: flex; background: rgba(10,13,20,0.92); border: 1px solid rgba(74,144,217,0.3); border-radius: 8px; overflow: hidden; backdrop-filter: blur(12px); }
+.geocoder-input { flex: 1; background: transparent; border: none; outline: none; color: var(--cream); padding: 10px 12px; font-size: 13px; font-family: inherit; min-width: 0; }
+.geocoder-input::placeholder { color: rgba(138,125,110,0.6); }
+.geocoder-btn { background: rgba(74,144,217,0.15); border: none; border-left: 1px solid rgba(74,144,217,0.2); color: var(--ocean-light); padding: 0 12px; cursor: pointer; font-size: 15px; transition: background 0.2s; }
+.geocoder-btn:hover { background: rgba(74,144,217,0.28); }
+.geocoder-results { background: rgba(10,13,20,0.95); border: 1px solid rgba(74,144,217,0.2); border-top: none; border-radius: 0 0 8px 8px; max-height: 200px; overflow-y: auto; display: none; backdrop-filter: blur(12px); }
+.geocoder-result-item { padding: 9px 12px; font-size: 12px; color: var(--cream); cursor: pointer; border-bottom: 1px solid rgba(74,144,217,0.08); transition: background 0.15s; }
+.geocoder-result-item:hover { background: rgba(74,144,217,0.12); color: var(--ocean-light); }
+.geocoder-result-item:last-child { border-bottom: none; }
+.geocoder-status { padding: 9px 12px; font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── PLACE DETAIL MODAL ── */
+.place-modal {
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(10,8,5,0.85); backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden; transition: all 0.3s;
+}
+.place-modal.open { opacity: 1; visibility: visible; }
+.modal-box {
+  background: #0A0D14;
+  border: 1px solid rgba(74,144,217,0.25);
+  border-radius: 16px; width: 90%; max-width: 780px; max-height: 90vh;
+  overflow-y: auto; position: relative;
+  transform: translateY(20px); transition: transform 0.3s;
+}
+.place-modal.open .modal-box { background: #0C1018; transform: translateY(0); }
+.modal-box::-webkit-scrollbar { width: 4px; } .modal-box::-webkit-scrollbar-thumb { background: var(--ocean); }
+.modal-close {
+  position: absolute; top: 16px; right: 16px; z-index: 10;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(74,144,217,0.1); border: 1px solid rgba(74,144,217,0.2);
+  cursor: pointer; font-size: 16px; color: var(--muted);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { background: rgba(74,144,217,0.2); color: var(--cream); }
+
+/* ── THEN/NOW SLIDER ── */
+.thenow-section { position: relative; overflow: hidden; }
+.thenow-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+  background: rgba(10,13,20,0.85); border: 1px solid rgba(74,144,217,0.3);
+  border-radius: 24px; padding: 5px 14px; font-size: 12px; color: var(--ocean-light);
+  z-index: 10; letter-spacing: 0.08em; white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+.slider-wrap { position: relative; width: 100%; height: 320px; overflow: hidden; cursor: ew-resize; user-select: none; }
+.slider-before, .slider-after { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.slider-after { clip-path: inset(0 50% 0 0); }
+.slider-handle {
+  position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 3px; background: var(--ocean-light); z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+}
+.slider-knob {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--ocean-light); border: 3px solid var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: #fff; box-shadow: 0 4px 16px rgba(26,79,140,0.5);
+  cursor: ew-resize; flex-shrink: 0;
+}
+.slider-then-label, .slider-now-label {
+  position: absolute; bottom: 12px; font-size: 11px; letter-spacing: 0.15em;
+  text-transform: uppercase; padding: 4px 12px; border-radius: 4px;
+  background: rgba(10,8,5,0.75); backdrop-filter: blur(4px);
+  pointer-events: none; z-index: 5;
+}
+.slider-then-label { left: 12px; color: rgba(245,240,232,0.70); }
+.slider-now-label { right: 12px; color: var(--ocean-light); }
+
+/* ── MODAL CONTENT ── */
+.modal-content { padding: 28px 32px; }
+.modal-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.modal-tag { font-size: 11px; padding: 4px 12px; border-radius: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--cream); margin-bottom: 8px; }
+.modal-loc { font-size: 13px; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 6px; }
+.modal-desc { font-size: 14px; color: rgba(245,240,232,0.70); line-height: 1.8; margin-bottom: 24px; }
+
+.modal-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.modal-info-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(74,144,217,0.12); border-radius: 10px; padding: 14px 16px; }
+.mic-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.mic-val { font-size: 14px; font-weight: 600; color: var(--cream); }
+
+/* ── AUDIO PLAYER ── */
+.audio-row { display: flex; align-items: center; gap: 12px; background: rgba(74,144,217,0.06); border: 1px solid rgba(74,144,217,0.2); border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; }
+.audio-btn { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.2s; flex-shrink: 0; }
+.audio-btn:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: scale(1.1); }
+.audio-info { flex: 1; }
+.audio-title { font-size: 13px; font-weight: 600; color: var(--cream); }
+.audio-sub { font-size: 11px; color: var(--muted); }
+.audio-waves { display: flex; align-items: center; gap: 3px; }
+.audio-wave { width: 3px; border-radius: 2px; background: var(--ocean-light); opacity: 0.5; animation: wave 1s ease-in-out infinite; }
+.audio-wave:nth-child(1) { height: 10px; animation-delay: 0s; }
+.audio-wave:nth-child(2) { height: 18px; animation-delay: 0.15s; }
+.audio-wave:nth-child(3) { height: 14px; animation-delay: 0.3s; }
+.audio-wave:nth-child(4) { height: 20px; animation-delay: 0.45s; }
+.audio-wave:nth-child(5) { height: 12px; animation-delay: 0.6s; }
+.audio-wave.playing { opacity: 1; }
+@keyframes wave { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1.2); } }
+
+/* ── VIDEO ── */
+.modal-video { width: 100%; border-radius: 12px; margin-bottom: 20px; background: #000; max-height: 260px; }
+.video-placeholder { background: rgba(74,144,217,0.05); border: 1px solid rgba(74,144,217,0.18); border-radius: 12px; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; cursor: pointer; transition: all 0.2s; }
+.video-placeholder:hover { border-color: rgba(74,144,217,0.3); background: rgba(74,144,217,0.05); }
+.video-play-btn { width: 52px; height: 52px; border-radius: 50%; background: rgba(74,144,217,0.15); border: 2px solid var(--ocean-light); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.video-sub { font-size: 12px; color: var(--muted); }
+
+/* ── RATINGS ── */
+.modal-reviews { margin-bottom: 24px; }
+.review-title { font-size: 13px; font-weight: 600; color: var(--cream); margin-bottom: 12px; }
+.review-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(74,144,217,0.08); }
+.review-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.review-body { flex: 1; }
+.review-name { font-size: 13px; font-weight: 600; color: var(--cream); }
+.review-text { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 3px; }
+.review-stars { color: var(--gold); font-size: 11px; }
+
+/* CTA row */
+.modal-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+.mcta-btn { padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.mcta-primary { background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); color: #fff; border: none; }
+.mcta-primary:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-2px); }
+.mcta-ghost { background: transparent; border: 1px solid rgba(74,144,217,0.35); color: var(--cream); }
+.mcta-ghost:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+/* TOAST */
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(10,13,20,0.97); border: 1px solid rgba(74,144,217,0.3); border-radius: 10px; padding: 12px 24px; font-size: 14px; color: var(--cream); z-index: 9999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); backdrop-filter: blur(16px); white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* REVEAL */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeUp 0.6s ease forwards; }
+
+/* ── FOOTER ── */
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+@media (max-width:800px) { .footer-grid { grid-template-columns:1fr 1fr; gap:24px; } }
+@media (max-width:540px) { .footer-grid { grid-template-columns:1fr; gap:20px; } }
+
+  /* ── LIGHT THEME HERO FIXES ── */
+  .page-hero { color: var(--cream); }
+  .page-hero * { color: inherit; }
+  .page-hero .page-label { color: var(--gold); }
+  .page-hero .page-desc { color: rgba(245,240,232,0.75); }
+  .page-hero .hero-chip { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+       <img src= "../assets/images/logo.jpg"  class="nav-logo-img">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html" class="active">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="vku-corner.html">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="doi-tac.html#transport">🚌 Vận tải</a>
+        <a href="doi-tac.html#hostels">🏡 Homestay xanh</a>
+        <a href="doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="nav-notify" id="notifyBtn" title="Thông báo">🔔</div>
+    
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+
+    <div class="user-pill" id="userPill" style="display:none; position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🪙 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Trang chủ</a>
+      <span>›</span>
+      <span>Khám phá di sản</span>
+    </div>
+    <h1>Bản đồ<br><em>Di sản Tương tác</em></h1>
+    <p>Chạm vào từng điểm, lắng nghe câu chuyện – kéo thanh trượt để thấy quá khứ hòa vào hiện tại.</p>
+  </div>
+</div>
+
+<!-- ── EXPLORE STRIP ── -->
+<div style="background:rgba(201,168,76,0.05);border-bottom:1px solid rgba(201,168,76,0.1);padding:14px 40px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+    <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-right:4px;">Khám phá theo chuyên đề</span>
+    <a href="di-tich.html" style="display:flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:22px;text-decoration:none;color:var(--gold);font-size:13px;font-weight:600;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(201,168,76,0.2)'" onmouseout="this.style.background='rgba(201,168,76,0.1)'">
+      🏛 Di tích lịch sử <span style="font-size:11px;background:rgba(201,168,76,0.2);padding:2px 8px;border-radius:10px;margin-left:2px;">47 di tích</span>
+    </a>
+    <a href="lang-nghe.html" style="display:flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(220,140,80,0.08);border:1px solid rgba(220,140,80,0.25);border-radius:22px;text-decoration:none;color:#E8A040;font-size:13px;font-weight:600;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(220,140,80,0.15)'" onmouseout="this.style.background='rgba(220,140,80,0.08)'">
+      🏺 Làng nghề thủ công <span style="font-size:11px;background:rgba(220,140,80,0.18);padding:2px 8px;border-radius:10px;margin-left:2px;">12 làng nghề</span>
+    </a>
+    <span style="margin-left:auto;font-size:12px;color:var(--muted);">💡 Lọc trên bản đồ bên dưới để xem theo từng loại hình</span>
+  </div>
+</div>
+
+<!-- ── FILTERS ── -->
+<div class="filters-bar">
+  <div class="filters-inner">
+    <span class="filter-label">Tỉnh</span>
+    <button class="filter-chip active" onclick="filterBy(this,'province','all')">Tất cả</button>
+    <button class="filter-chip" onclick="filterBy(this,'province','danang')">🌊 Đà Nẵng</button>
+    <button class="filter-chip" onclick="filterBy(this,'province','quangnam')">🏺 Khu vực Quảng Nam</button>
+    <div class="filter-sep"></div>
+    <span class="filter-label">Loại</span>
+    <button class="filter-chip active" onclick="filterBy(this,'type','all')">Tất cả</button>
+    <button class="filter-chip" onclick="filterBy(this,'type','lich-su')">🏛 Lịch sử</button>
+    <button class="filter-chip" onclick="filterBy(this,'type','thien-nhien')">🌿 Thiên nhiên</button>
+    <button class="filter-chip" onclick="filterBy(this,'type','lang-nghe')">🏺 Làng nghề</button>
+    <button class="filter-chip" onclick="filterBy(this,'type','bien')">🏖 Bãi biển</button>
+    <div class="filter-sep"></div>
+    <button class="filter-chip" onclick="filterVKU()">📍 Gần VKU</button>
+    <div class="filter-search">
+      <span style="color:var(--muted)">🔍</span>
+      <input type="text" placeholder="Tìm địa điểm..." id="searchInput" oninput="handleSearch()">
+    </div>
+  </div>
+</div>
+
+<!-- ── SIDEBAR TOGGLE (mobile) ── -->
+<div class="sidebar-toggle-bar" id="sidebarToggle" onclick="toggleSidebar()">
+  <span>📋 <span id="toggleLabel">Xem danh sách địa điểm</span></span>
+  <span id="toggleIcon">▼</span>
+</div>
+
+<!-- ── MAIN LAYOUT ── -->
+<div class="main-layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="mainSidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-count"><strong id="countNum">12</strong> địa điểm được tìm thấy</span>
+    </div>
+    <div id="placeList"></div>
+  </div>
+
+  <!-- MAP -->
+  <div id="map">
+    <div id="map-loading"><div class="map-spinner"></div></div>
+    <div class="map-geocoder">
+      <div class="geocoder-row">
+        <input class="geocoder-input" id="geocoderInput" type="text" placeholder="Tìm địa điểm trên bản đồ..."
+          onkeydown="if(event.key==='Enter') geocodeSearch()"
+          oninput="if(!this.value) document.getElementById('geocoderResults').style.display='none'">
+        <button class="geocoder-btn" onclick="geocodeSearch()" title="Tìm kiếm">🔍</button>
+      </div>
+      <div class="geocoder-results" id="geocoderResults"></div>
+    </div>
+    <div id="leaflet-map"></div>
+  </div>
+</div>
+
+<!-- ── PLACE DETAIL MODAL ── -->
+<div class="place-modal" id="placeModal">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <!-- Then/Now Slider -->
+    <div class="thenow-section">
+      <div class="thenow-label">⟵ Ngày ấy &nbsp;|&nbsp; Bây giờ ⟶</div>
+      <div class="slider-wrap" id="modalSliderWrap">
+        <div class="slider-before" id="modalBefore" style="background-image: url('../image/hoi-an-cu.jpg'); filter: grayscale(100%) sepia(30%);"></div>
+        <div class="slider-after" id="modalAfter" style="background-image: url('../image/hoi-an-moi.jpg');"></div>
+        <div class="slider-handle" id="modalHandle">
+          <div class="slider-knob">⟺</div>
+        </div>
+        <span class="slider-then-label">Ngày ấy</span>
+        <span class="slider-now-label">Bây giờ</span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="modal-content" id="modalContent">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let PLACES = [
+  { id: 1, video: '../mp4/pho_co_hoi_an.mp4', name: 'Hội An Cổ Phố', loc: 'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lich-su', icon: '🏮', lat: 15.8801, lng: 108.3380, rating: 4.9, reviews: 2840, hours: '06:00 – 22:00', price: '120.000đ', desc: 'Phố cổ Hội An là Di sản Văn hóa Thế giới UNESCO từ năm 1999, nổi tiếng với những ngôi nhà gỗ cổ kính, đèn lồng rực rỡ và dòng sông Thu Bồn hiền hòa. Nơi đây lưu giữ hơn 1.000 công trình kiến trúc từ thế kỷ XV–XIX.', audio: 'Nhạc bài chòi Hội An', beforeImg: '../image/hoi-an-cu.jpg', nowImg: '../image/hoi-an-moi.jpg' },
+  { id: 2, video: '../mp4/thanh_dia_my_son.mp4', name: 'Thánh Địa Mỹ Sơn', loc: 'Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lich-su', icon: '🏛', lat: 15.7710, lng: 108.1240, rating: 4.8, reviews: 1560, hours: '06:30 – 17:00', price: '150.000đ', desc: 'Quần thể tháp Chăm Mỹ Sơn được UNESCO công nhận năm 1999, là thánh địa Ấn Độ giáo tuyệt đẹp của vương quốc Champa cổ đại từ thế kỷ IV–XIII. Kiến trúc đá độc đáo giữa thung lũng xanh.', audio: 'Nhạc trống Chăm cổ', beforeImg: '../image/thanh-dia-cu.jpg', nowImg: '../image/thanh-dia-moi.jpg' },
+  { id: 3, name: 'Bà Nà Hills', loc: 'Hòa Vang, Đà Nẵng', province: 'danang', type: 'thien-nhien', icon: '🌿', lat: 15.9970, lng: 107.9880, rating: 4.7, reviews: 3200, hours: '08:00 – 21:00', price: '550.000đ–900.000đ', desc: 'Khu du lịch Bà Nà Hills tọa lạc ở độ cao 1.487m, nơi có Cầu Vàng nổi tiếng thế giới với hai bàn tay khổng lồ đỡ cầu. Khí hậu mát mẻ quanh năm, cảnh quan núi rừng hùng vĩ.', audio: 'Tiếng suối và chim rừng Bà Nà', beforeImg: '../image/ba-na-hill-cu.jpg', nowImg: '../image/ba-na-hill-moi.jpg' },
+  { id: 4, video: '../mp4/lang_gom_thanh_ha_hoi_an.mp4', name: 'Làng Gốm Thanh Hà', loc: 'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lang-nghe', icon: '🏺', lat: 15.8920, lng: 108.3100, rating: 4.6, reviews: 890, hours: '07:00 – 18:00', price: 'Miễn phí', desc: 'Làng gốm Thanh Hà có lịch sử hơn 500 năm, là một trong những làng gốm lâu đời nhất Việt Nam. Du khách có thể trực tiếp ngồi bàn xoay và nặn gốm theo hướng dẫn của nghệ nhân.', audio: 'Tiếng bàn xoay gốm truyền thống', beforeImg: '../image/tra-que.jpg', nowImg: '../image/worshop_gom_thanh_ha.png' },
+  { id: 5, name: 'Biển Mỹ Khê', loc: 'Sơn Trà, Đà Nẵng', province: 'danang', type: 'bien', icon: '🏖', lat: 16.0620, lng: 108.2470, rating: 4.8, reviews: 4100, hours: 'Cả ngày', price: 'Miễn phí', desc: 'Bãi biển Mỹ Khê được Forbes bình chọn là một trong 6 bãi biển quyến rũ nhất hành tinh. Bãi cát trắng mịn trải dài 900m, nước biển xanh trong vắt, lý tưởng cho tắm biển và thể thao dưới nước.', audio: 'Tiếng sóng biển Mỹ Khê', beforeImg: '../image/my-khe.jpg', nowImg: '../image/my-khe-moi.jpg' },
+  { id: 6, name: 'Ngũ Hành Sơn', loc: 'Ngũ Hành Sơn, Đà Nẵng', province: 'danang', type: 'lich-su', icon: '🗿', lat: 16.0020, lng: 108.2630, rating: 4.7, reviews: 2200, hours: '07:00 – 17:30', price: '40.000đ', desc: 'Quần thể 5 ngọn núi đá cẩm thạch thiêng liêng: Kim, Mộc, Thủy, Hỏa, Thổ Sơn. Bên trong hang động là chùa chiền cổ kính, tượng Phật khổng lồ và tầm nhìn toàn cảnh Đà Nẵng tuyệt đẹp.', audio: 'Tiếng kinh cầu Ngũ Hành Sơn', beforeImg: '../image/ngu_hanh_son.png', nowImg: '../image/ngu_hanh_son.png' },
+  { id: 7, video: '../mp4/lang_rau_tra_que.mp4', name: 'Làng Rau Trà Quế', loc: 'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lang-nghe', icon: '🌱', lat: 15.9020, lng: 108.3510, rating: 4.5, reviews: 760, hours: '06:00 – 18:00', price: 'Miễn phí', desc: 'Làng rau Trà Quế nằm bên cạnh hồ Trà Quế thơ mộng, nổi tiếng với hơn 20 loại rau thơm đặc biệt. Du khách có thể tham gia trải nghiệm trồng rau và chế biến món ăn truyền thống cùng dân làng.', audio: 'Tiếng gió qua đồng rau Trà Quế', beforeImg: '../image/tra-que.jpg', nowImg: '../image/tra-que-2.jpg' },
+  { id: 8, video: '../mp4/chua_linh_ung.mp4', name: 'Sơn Trà & Bán đảo', loc: 'Sơn Trà, Đà Nẵng', province: 'danang', type: 'thien-nhien', icon: '🐒', lat: 16.1060, lng: 108.2800, rating: 4.6, reviews: 1800, hours: 'Cả ngày (xe máy)', price: 'Miễn phí', desc: 'Bán đảo Sơn Trà là "lá phổi xanh" của Đà Nẵng với 4.000ha rừng nguyên sinh. Nơi đây là môi trường sống của voọc chà vá chân nâu – loài linh trưởng quý hiếm bậc nhất thế giới.', audio: 'Tiếng voọc và rừng xanh Sơn Trà', beforeImg: '../image/manhai-cu.jpg', nowImg: '../image/ban-dao-son-tra.jpg' },
+  { id: 9, video: '../mp4/cau_rong.mp4', name: 'Cầu Rồng Đà Nẵng', loc: 'Hải Châu, Đà Nẵng', province: 'danang', type: 'lich-su', icon: '🐉', lat: 16.0610, lng: 108.2270, rating: 4.8, reviews: 5200, hours: 'Cả ngày | Phun lửa T7-CN 21:00', price: 'Miễn phí', desc: 'Cầu Rồng là biểu tượng của Đà Nẵng hiện đại, dài 666m bắc qua sông Hàn. Đây là cây cầu phun lửa và phun nước duy nhất tại Việt Nam, vào cuối tuần thu hút hàng nghìn du khách đến xem biểu diễn.', audio: 'Âm thanh lễ hội sông Hàn', beforeImg: '../image/cau-rong-cu.jpg', nowImg: '../image/cau-rong-moi.jpg' },
+  { id: 10, name: 'Phố Cổ Hội An ban đêm', loc: 'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lich-su', icon: '🏮', lat: 15.8760, lng: 108.3360, rating: 4.9, reviews: 3100, hours: '18:00 – 23:00', price: 'Included', desc: 'Hội An về đêm lung linh hơn bao giờ hết với hàng ngàn đèn lồng đủ màu sắc phản chiếu xuống mặt sông Thu Bồn. Lễ hội đèn lồng vào ngày rằm hằng tháng là trải nghiệm không thể quên.', audio: 'Tiếng đàn bầu và hò khoan đêm phố cổ', beforeImg: '../image/hoi-an-cu.jpg', nowImg: '../image/hoi-an-moi.jpg' },
+  { id: 11, name: 'Bãi biển Cửa Đại', loc: 'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'bien', icon: '🌊', lat: 15.8550, lng: 108.4050, rating: 4.5, reviews: 1200, hours: 'Cả ngày', price: 'Miễn phí', desc: 'Bãi biển Cửa Đại trải dài 7km với cát trắng mịn và nước biển xanh ngọc. Đây là điểm lý tưởng để tắm biển yên tĩnh, ngắm hoàng hôn và thưởng thức hải sản tươi ngay trên bãi.', audio: 'Tiếng sóng và gió biển Cửa Đại', beforeImg: '../image/cua-dai-cu.jpg', nowImg: '../image/cua-dai-moi.jpg' },
+  { id: 12, video: '../mp4/lang_nghe_phuoc_kieu.mp4', name: 'Làng Đúc Đồng Phước Kiều', loc: 'Điện Bàn, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lang-nghe', icon: '⚒', lat: 15.9300, lng: 108.2180, rating: 4.4, reviews: 420, hours: '07:00 – 17:00', price: 'Miễn phí', desc: 'Làng đúc đồng Phước Kiều hơn 400 năm tuổi, nổi tiếng với tiếng đúc cồng chiêng và nhạc cụ dân tộc. Du khách có thể trực tiếp quan sát nghệ nhân đúc đồng theo phương pháp truyền thống.', audio: 'Tiếng cồng chiêng làng Phước Kiều', beforeImg: '../image/lang-duc-dong-phuoc-kieu-1.webp', nowImg: '../image/lang-duc-dong-phuoc-kieu-2.jpg' },
+  { id: 13, name: 'Làng Cổ Lộc Yên', loc: 'Tiên Phước, Quảng Nam', province: 'quangnam', type: 'lang-nghe', icon: '🏡', lat: 15.5230, lng: 108.1570, rating: 4.5, reviews: 310, hours: '06:00 – 18:00', price: 'Miễn phí', desc: 'Làng cổ Lộc Yên ở Tiên Phước là một trong những làng cổ đẹp nhất Quảng Nam, lưu giữ hàng chục ngôi nhà gỗ cổ từ thế kỷ XVIII–XIX, vườn cây xanh mát và không khí bình yên hiếm có giữa xã hội hiện đại.', audio: 'Tiếng chim và gió làng cổ Lộc Yên', beforeImg: '../image/hoi-an-cu.jpg', nowImg: '../image/hoi-an-moi.jpg' },
+  { id: 14, name: 'Cù Lao Chàm', loc: 'Tân Hiệp, Hội An, Quảng Nam', province: 'quangnam', type: 'thien-nhien', icon: '🏝', lat: 15.9600, lng: 108.5200, rating: 4.7, reviews: 1450, hours: '06:00 – 17:00 (theo phà)', price: '70.000–120.000đ/phà', desc: 'Cù Lao Chàm là quần đảo thuộc Khu dự trữ sinh quyển thế giới UNESCO, cách Hội An 18km về phía Đông. Nơi đây nổi tiếng với rạn san hô tuyệt đẹp, lặn biển ngắm cá và không khí trong lành.', audio: 'Tiếng sóng và gió biển Cù Lao Chàm', beforeImg: '../image/my-khe.jpg', nowImg: '../image/my-khe-moi.jpg' }
+];
+
+const TYPE_COLORS = { 'lich-su': '#C9A84C', 'thien-nhien': '#60D090', 'lang-nghe': '#E8A040', 'bien': '#60B4E0' };
+const TYPE_LABELS = { 'lich-su': 'Lịch sử', 'thien-nhien': 'Thiên nhiên', 'lang-nghe': 'Làng nghề', 'bien': 'Bãi biển' };
+
+let activeFilters = { province: 'all', type: 'all' };
+let allMarkers = [];
+let map;
+
+// Init Leaflet map
+function initMap() {
+  map = L.map('leaflet-map', { center: [15.88, 108.25], zoom: 10, zoomControl: true });
+  const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+    maxZoom: 19
+  }).addTo(map);
+  tiles.once('load', () => {
+    const ov = document.getElementById('map-loading');
+    if (ov) { ov.classList.add('hidden'); setTimeout(() => ov.remove(), 600); }
+  });
+  setTimeout(() => {
+    const ov = document.getElementById('map-loading');
+    if (ov) { ov.classList.add('hidden'); setTimeout(() => ov.remove(), 600); }
+  }, 4000);
+  map.zoomControl.setPosition('topright');
+  renderMarkers();
+  addSovereigntyMarkers();
+}
+
+function addSovereigntyMarkers() {
+  // Quần đảo Hoàng Sa — chú thích chủ quyền Việt Nam
+  const hsIcon = L.divIcon({
+    className: '',
+    html: `<div style="background:rgba(26,47,90,0.92);border:2px solid #C9A84C;border-radius:8px;padding:5px 10px;white-space:nowrap;font-size:11px;font-weight:700;color:#F5E98A;letter-spacing:0.05em;box-shadow:0 2px 12px rgba(0,0,0,0.35);">🇻🇳 Quần đảo Hoàng Sa<br><span style="font-size:9px;font-weight:400;color:#C9A84C;">Thuộc Việt Nam</span></div>`,
+    iconAnchor: [72, 20]
+  });
+  L.marker([16.50, 111.60], { icon: hsIcon })
+    .addTo(map)
+    .bindPopup('<b>🇻🇳 Quần đảo Hoàng Sa, Việt Nam</b><br><small>Thuộc chủ quyền Việt Nam theo luật pháp quốc tế</small>');
+
+  // Quần đảo Trường Sa — chú thích chủ quyền Việt Nam
+  const tsIcon = L.divIcon({
+    className: '',
+    html: `<div style="background:rgba(26,47,90,0.92);border:2px solid #C9A84C;border-radius:8px;padding:5px 10px;white-space:nowrap;font-size:11px;font-weight:700;color:#F5E98A;letter-spacing:0.05em;box-shadow:0 2px 12px rgba(0,0,0,0.35);">🇻🇳 Quần đảo Trường Sa<br><span style="font-size:9px;font-weight:400;color:#C9A84C;">Thuộc Việt Nam</span></div>`,
+    iconAnchor: [76, 20]
+  });
+  L.marker([8.65, 111.92], { icon: tsIcon })
+    .addTo(map)
+    .bindPopup('<b>🇻🇳 Quần đảo Trường Sa, Việt Nam</b><br><small>Thuộc chủ quyền Việt Nam theo luật pháp quốc tế</small>');
+}
+
+function renderMarkers() {
+  allMarkers.forEach(m => map.removeLayer(m));
+  allMarkers = [];
+  const filtered = getFiltered();
+  filtered.forEach(p => {
+    const color = TYPE_COLORS[p.type];
+    const markerHtml = `<div style="width:36px;height:36px;border-radius:50%;background:${color}22;border:2px solid ${color};display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:transform 0.2s;">${p.icon}</div>`;
+    const icon = L.divIcon({ className: '', html: markerHtml, iconSize: [36, 36], iconAnchor: [18, 18] });
+    const marker = L.marker([p.lat, p.lng], { icon })
+      .addTo(map)
+      .on('click', () => openPlace(p));
+    allMarkers.push(marker);
+  });
+}
+
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  return PLACES.filter(p => {
+    const matchProvince = activeFilters.province === 'all' || p.province === activeFilters.province;
+    const matchType = activeFilters.type === 'all' || p.type === activeFilters.type;
+    const matchSearch = !q || p.name.toLowerCase().includes(q) || p.loc.toLowerCase().includes(q);
+    return matchProvince && matchType && matchSearch;
+  });
+}
+
+function renderList() {
+  const filtered = getFiltered();
+  document.getElementById('countNum').textContent = filtered.length;
+  const list = document.getElementById('placeList');
+  list.innerHTML = '';
+  filtered.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'place-list-item';
+    div.id = 'pli-' + p.id;
+    div.onclick = () => openPlace(p);
+    div.innerHTML = `
+      <div class="pli-thumb" style="background-image:url('${p.nowImg}')"></div>
+      <div class="pli-body">
+        <div class="pli-name">${p.name}</div>
+        <div class="pli-loc">📍 ${p.loc}</div>
+        <div class="pli-tags">
+          <span class="pli-tag tag-${p.type}">${p.icon} ${TYPE_LABELS[p.type]}</span>
+        </div>
+        <div class="pli-stars">${'★'.repeat(Math.round(p.rating))} ${p.rating} (${p.reviews.toLocaleString()})</div>
+      </div>`;
+    list.appendChild(div);
+    const thumb = div.querySelector('.pli-thumb');
+    if (thumb && p.nowImg) safeBg(thumb, p.nowImg);
+  });
+}
+
+function safeBg(el, url) {
+  const img = new Image();
+  img.onerror = () => el.classList.add('img-err');
+  img.src = url;
+}
+
+function filterBy(btn, key, val) {
+  activeFilters[key] = val;
+  btn.closest('.filters-inner').querySelectorAll(`.filter-chip`).forEach(c => {
+    if (c.getAttribute('onclick') && c.getAttribute('onclick').includes(`'${key}'`)) c.classList.remove('active');
+  });
+  btn.classList.add('active');
+  renderList(); renderMarkers();
+}
+
+function filterVKU() {
+  const vkuLat = 16.0750, vkuLng = 108.1520;
+  map.flyTo([vkuLat, vkuLng], 12, { duration: 1.5 });
+  showToast('📍 Đang hiển thị các địa điểm gần VKU');
+}
+
+function handleSearch() { renderList(); renderMarkers(); }
+
+// ── GEOCODER (Nominatim) ──
+let geocodeMarker = null;
+async function geocodeSearch() {
+  const q = document.getElementById('geocoderInput').value.trim();
+  if (!q) return;
+  const res = document.getElementById('geocoderResults');
+  res.style.display = 'block';
+  res.innerHTML = '<div class="geocoder-status">⏳ Đang tìm...</div>';
+  try {
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q + ' Đà Nẵng Quảng Nam')}&countrycodes=vn&limit=5&accept-language=vi`);
+    const data = await r.json();
+    if (!data.length) { res.innerHTML = '<div class="geocoder-status">Không tìm thấy kết quả</div>'; return; }
+    res.innerHTML = '';
+    data.forEach(d => {
+      const div = document.createElement('div');
+      div.className = 'geocoder-result-item';
+      div.textContent = '📍 ' + d.display_name;
+      div.addEventListener('click', () => flyToGeocode(parseFloat(d.lat), parseFloat(d.lon), d.display_name.split(',')[0]));
+      res.appendChild(div);
+    });
+  } catch(e) {
+    res.innerHTML = '<div class="geocoder-status">Lỗi kết nối. Vui lòng thử lại.</div>';
+  }
+}
+function flyToGeocode(lat, lon, name) {
+  if (geocodeMarker) map.removeLayer(geocodeMarker);
+  geocodeMarker = L.marker([lat, lon]).addTo(map).bindPopup(`<b>${name}</b>`).openPopup();
+  map.flyTo([lat, lon], 14, { duration: 1.2 });
+  document.getElementById('geocoderResults').style.display = 'none';
+  document.getElementById('geocoderInput').value = name;
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.map-geocoder')) document.getElementById('geocoderResults').style.display = 'none';
+});
+
+function buildVideoBlock(p) {
+  if (p.video) {
+    return '<video class="modal-video" controls preload="metadata"><source src="' + p.video + '" type="video/mp4"></video>';
+  }
+  return '<div class="video-placeholder" onclick="showToast(\'🎬 Video đang được sinh viên VKU thực hiện...\')">' +
+    '<div class="video-play-btn">▶</div>' +
+    '<div style="font-size:13px;color:var(--cream);font-weight:600;">Câu chuyện về ' + p.name + '</div>' +
+    '<div class="video-sub">Clip 2 phút · Sản xuất bởi sinh viên VKU</div>' +
+    '</div>';
+}
+
+function openPlace(p) {
+  document.querySelectorAll('.place-list-item').forEach(el => el.classList.remove('selected'));
+  const pli = document.getElementById('pli-' + p.id);
+  if (pli) pli.classList.add('selected');
+
+  map.flyTo([p.lat, p.lng], 14, { duration: 1.2 });
+
+  document.getElementById('modalBefore').style.backgroundImage = `url('${p.beforeImg}')`;
+  document.getElementById('modalAfter').style.backgroundImage = `url('${p.nowImg}')`;
+  document.getElementById('modalBefore').style.filter = 'grayscale(100%) sepia(30%)';
+
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-tag-row">
+      <span class="modal-tag pli-tag tag-${p.type}">${p.icon} ${TYPE_LABELS[p.type]}</span>
+      <span class="modal-tag" style="background:rgba(255,255,255,0.06);color:var(--muted);">📍 ${p.loc}</span>
+    </div>
+    <div class="modal-title">${p.name}</div>
+    <div class="modal-loc">📍 ${p.loc} &nbsp;·&nbsp; ⭐ ${p.rating} (${p.reviews.toLocaleString()} đánh giá)</div>
+    <div class="modal-desc">${p.desc}</div>
+    <div class="modal-info-grid">
+      <div class="modal-info-card"><div class="mic-label">⏰ Giờ mở cửa</div><div class="mic-val">${p.hours}</div></div>
+      <div class="modal-info-card"><div class="mic-label">🎫 Giá vé</div><div class="mic-val">${p.price}</div></div>
+      <div class="modal-info-card"><div class="mic-label">🗺 Tỉnh/Thành</div><div class="mic-val">${p.province === 'danang' ? 'Đà Nẵng' : 'Đà Nẵng (thuộc tỉnh Quảng Nam cũ)'}</div></div>
+      <div class="modal-info-card"><div class="mic-label">📂 Phân loại</div><div class="mic-val">${TYPE_LABELS[p.type]}</div></div>
+    </div>
+    <div class="audio-row">
+      <button class="audio-btn" id="audioBtn" onclick="toggleAudio(this)">▶</button>
+      <div class="audio-info">
+        <div class="audio-title">🎵 ${p.audio}</div>
+        <div class="audio-sub">Âm thanh truyền thống</div>
+      </div>
+      <div class="audio-waves" id="audioWaves">
+        <div class="audio-wave"></div><div class="audio-wave"></div><div class="audio-wave"></div><div class="audio-wave"></div><div class="audio-wave"></div>
+      </div>
+    </div>
+    ${buildVideoBlock(p)}
+    <div class="modal-reviews">
+      <div class="review-title">💬 Đánh giá gần đây</div>
+      <div class="review-item">
+        <div class="review-avatar">T</div>
+        <div class="review-body">
+          <div class="review-name">Thanh Hương <span class="review-stars">★★★★★</span></div>
+          <div class="review-text">Tuyệt vời! Bản đồ tương tác giúp tôi tìm ra những góc chụp ảnh đẹp mà tôi chưa bao giờ biết. Slider "Ngày ấy – Bây giờ" rất cảm xúc!</div>
+        </div>
+      </div>
+      <div class="review-item">
+        <div class="review-avatar">M</div>
+        <div class="review-body">
+          <div class="review-name">Minh Khoa <span class="review-stars">★★★★★</span></div>
+          <div class="review-text">Âm thanh truyền thống phát tự động khi đến gần địa điểm – trải nghiệm rất độc đáo và có chiều sâu văn hóa!</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <button class="mcta-btn mcta-primary" id="checkinBtn" onclick="doCheckin('${p.id}', '${p.name.replace(/'/g,"\\'")}')">📍 Check-in (+30 🪙)</button>
+      <button class="mcta-btn mcta-ghost" onclick="showToast('✅ Đã thêm vào lịch trình của bạn!')">📅 Thêm vào lịch</button>
+      <button class="mcta-btn mcta-ghost" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}','_blank','noopener,noreferrer')">🗺 Chỉ đường</button>
+    </div>`;
+
+  document.getElementById('placeModal').classList.add('open');
+  initModalSlider();
+}
+
+function closeModal() {
+  document.getElementById('placeModal').classList.remove('open');
+}
+
+async function doCheckin(placeId, placeName) {
+  const user = (() => { try { return JSON.parse(localStorage.getItem('cc_user') || 'null'); } catch { return null; } })();
+  if (!user) { showToast('⚠ Vui lòng đăng nhập để check-in!'); return; }
+  const btn = document.getElementById('checkinBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang xử lý...';
+  if (window.ccDB) {
+    const res = await ccDB.checkIn(placeId, placeName).catch(() => null);
+    // ccDB.checkIn() tự award +30 điểm nội bộ → không gọi ccAddPoints thêm
+    if (res && res.reason === 'already') {
+      btn.textContent = '✅ Đã check-in';
+      showToast('ℹ Bạn đã check-in địa điểm này rồi!');
+      return;
+    }
+    if (res && res.success) {
+      btn.textContent = '✅ Đã check-in';
+      showToast('🎉 Check-in thành công: ' + placeName + ' (+30 Hạt Bàu 🪙)');
+      return;
+    }
+  }
+  // Fallback khi không có ccDB hoặc API lỗi
+  if (typeof ccAddPoints === 'function') ccAddPoints(30, 'Check-in ' + placeName);
+  btn.textContent = '✅ Đã check-in';
+  showToast('🎉 Check-in thành công: ' + placeName + ' (+30 Hạt Bàu 🪙)');
+}
+
+let audioPlaying = false;
+function toggleAudio(btn) {
+  audioPlaying = !audioPlaying;
+  btn.textContent = audioPlaying ? '⏸' : '▶';
+  const waves = document.getElementById('audioWaves');
+  if (waves) waves.querySelectorAll('.audio-wave').forEach(w => w.classList.toggle('playing', audioPlaying));
+  showToast(audioPlaying ? '🎵 Đang phát âm thanh truyền thống...' : '⏸ Đã dừng');
+}
+
+function initModalSlider() {
+  const wrap = document.getElementById('modalSliderWrap');
+  const after = document.getElementById('modalAfter');
+  const handle = document.getElementById('modalHandle');
+  if (!wrap || !after || !handle) return;
+  let dragging = false;
+  function setPos(x) {
+    const r = wrap.getBoundingClientRect();
+    const pct = Math.min(Math.max((x - r.left) / r.width * 100, 2), 98);
+    after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    handle.style.left = pct + '%';
+  }
+  wrap.onmousedown = e => { dragging = true; setPos(e.clientX); };
+  wrap.ontouchstart = e => { dragging = true; setPos(e.touches[0].clientX); };
+  document.onmousemove = e => { if (dragging) setPos(e.clientX); };
+  document.ontouchmove = e => { if (dragging) setPos(e.touches[0].clientX); };
+  document.onmouseup = () => dragging = false;
+  document.ontouchend = () => dragging = false;
+}
+
+document.getElementById('placeModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('placeModal')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Boot
+document.addEventListener('DOMContentLoaded', async () => {
+  initMap();
+  renderList();
+  // Load từ API — fallback sang hardcoded nếu server chưa chạy
+  try {
+    const base = (typeof CC_API_URL !== 'undefined' ? CC_API_URL : 'http://localhost:3000');
+    const res = await fetch(base + '/api/places');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data || !data.length) return;
+    data.forEach(serverP => {
+      serverP.lat = parseFloat(serverP.lat); serverP.lng = parseFloat(serverP.lng);
+      serverP.rating = parseFloat(serverP.rating); serverP.reviews = parseInt(serverP.reviews);
+      serverP.desc = serverP.description;
+      // Giữ beforeImg/nowImg/video/audio từ hardcoded nếu server không cung cấp
+      const local = PLACES.find(lp => lp.id === serverP.id);
+      if (local) {
+        if (!serverP.beforeImg) serverP.beforeImg = local.beforeImg || serverP.img;
+        if (!serverP.nowImg) serverP.nowImg = local.nowImg || serverP.img;
+        if (!serverP.video) serverP.video = local.video || '';
+        if (!serverP.audio) serverP.audio = local.audio || '';
+      } else {
+        serverP.beforeImg = serverP.img; serverP.nowImg = serverP.img;
+      }
+    });
+    PLACES.length = 0;
+    data.forEach(p => PLACES.push(p));
+    renderList(); renderMarkers();
+  } catch { /* dùng dữ liệu hardcoded */ }
+});
+
+function toggleSidebar() {
+  const sb = document.getElementById('mainSidebar');
+  const lbl = document.getElementById('toggleLabel');
+  const ico = document.getElementById('toggleIcon');
+  const isOpen = sb.classList.toggle('open');
+  lbl.textContent = isOpen ? 'Ẩn danh sách' : 'Xem danh sách địa điểm';
+  ico.textContent = isOpen ? '▲' : '▼';
+  if (isOpen) setTimeout(() => map.invalidateSize(), 300);
+}
+</script>
+
+<!-- ── FOOTER ── -->
+<footer style="background:#060810;border-top:1px solid rgba(74,144,217,0.12);padding:48px 40px 28px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="footer-grid">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:0.05em;margin-bottom:8px;">CENTRAL CONNECT</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:240px;margin-bottom:16px;">Bản đồ di sản tương tác – khám phá văn hoá Đà Nẵng.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Khám phá</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="kham-pha.html" style="font-size:13px;color:var(--ocean-light);text-decoration:none;font-weight:600;">🗺 Bản đồ di sản</a>
+          <a href="di-tich.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🏛 Di tích lịch sử</a>
+          <a href="lang-nghe.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🏺 Làng nghề</a>
+          <a href="am-thuc.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🍜 Ẩm thực</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Lịch Trình</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="lich-trinh.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">📅 Tự lên lịch AI</a>
+          <a href="lich-trinh.html#weather" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">☀ Thời tiết hôm nay</a>
+          <a href="vku-corner.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🎒 Từ VKU</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Cộng đồng</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="su-kien.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🎭 Sự kiện</a>
+          <a href="blog.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">📝 Blog</a>
+          <a href="gay-quy.html" style="font-size:13px;color:#E8A020;text-decoration:none;">🌱 Gây Quỹ</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(74,144,217,0.1);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <span style="font-size:12px;color:var(--muted);">© 2026 Central Connect · Bản đồ từ <a href="https://leafletjs.com" target="_blank" style="color:var(--ocean-light);text-decoration:none;">Leaflet</a> & <a href="https://www.openstreetmap.org" target="_blank" style="color:var(--ocean-light);text-decoration:none;">OpenStreetMap</a></span>
+      <a href="../index.html" style="font-size:12px;color:var(--muted);text-decoration:none;">← Trang chủ</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+</html>

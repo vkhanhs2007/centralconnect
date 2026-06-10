@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cài Đặt – Central Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/nav.css">
+<style>
+:root{--gold:#C9A84C;--cream:#F5F0E8;--ink:#1A1410;--muted:#8A7D6E;--ocean:#1A4F8C;--ocean-light:#4A90D9;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#080A0F;color:var(--cream);overflow-x:hidden;}
+.page{padding:104px 40px 80px;max-width:760px;margin:0 auto;}
+.page-hero{margin-bottom:36px;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--cream);margin-bottom:6px;}
+.settings-section{background:rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.12);border-radius:14px;overflow:hidden;margin-bottom:20px;}
+.ss-header{padding:18px 22px;border-bottom:1px solid rgba(74,144,217,0.1);font-size:15px;font-weight:700;color:var(--cream);display:flex;align-items:center;gap:8px;}
+.ss-body{padding:20px 22px;}
+.sg{margin-bottom:16px;}
+.sl{display:block;font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.si{width:100%;background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.16);border-radius:8px;padding:10px 14px;color:var(--cream);font-size:13.5px;font-family:inherit;outline:none;transition:border-color 0.2s;}
+.si:focus{border-color:var(--ocean-light);}
+.si::placeholder{color:rgba(138,125,110,0.35);}
+.sw-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(74,144,217,0.06);}
+.sw-row:last-child{border-bottom:none;}
+.sw-label{font-size:14px;color:var(--cream);}
+.sw-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+.sw-toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+.sw-toggle input{opacity:0;width:0;height:0;}
+.sw-slider{position:absolute;inset:0;background:rgba(74,144,217,0.2);border-radius:24px;cursor:pointer;transition:background 0.3s;}
+.sw-toggle input:checked + .sw-slider{background:#4A90D9;}
+.sw-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform 0.3s;}
+.sw-toggle input:checked + .sw-slider::before{transform:translateX(20px);}
+.sbtn{background:linear-gradient(135deg,var(--ocean),var(--ocean-light));color:#fff;border:none;padding:10px 26px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-top:6px;}
+.sbtn:hover{background:linear-gradient(135deg,var(--ocean-light),#6AAAE8);}
+.danger-btn{background:transparent;border:1px solid rgba(224,92,92,0.4);color:#E05C5C;padding:10px 22px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.danger-btn:hover{background:rgba(224,92,92,0.08);}
+.cc-pw-strength{height:3px;border-radius:2px;margin-top:5px;background:rgba(74,144,217,0.08);overflow:hidden;}
+.cc-pw-bar{height:100%;width:0;border-radius:2px;transition:width 0.3s,background 0.3s;}
+.cc-field-error{font-size:11px;color:#E05C5C;margin-top:4px;display:none;}
+.cc-field-error.show{display:block;}
+@media(max-width:600px){.page{padding:88px 16px 60px;}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img" alt="Central Connect">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none;position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a href="settings.html" class="active">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <h1>⚙ Cài Đặt Tài Khoản</h1>
+  </div>
+
+  <!-- Thông tin tài khoản -->
+  <div class="settings-section">
+    <div class="ss-header">👤 Thông tin cá nhân</div>
+    <div class="ss-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div class="sg"><label class="sl">Họ và tên</label><input class="si" id="setName" placeholder="Nguyễn Văn A"></div>
+        <div class="sg"><label class="sl">Email</label><input class="si" id="setEmail" placeholder="email@example.com" type="email"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+        <div class="sg"><label class="sl">Số điện thoại</label><input class="si" id="setPhone" placeholder="0901 234 567" type="tel"></div>
+        <div class="sg"><label class="sl">Đến từ</label><input class="si" id="setFrom" placeholder="Hà Nội, TP.HCM..."></div>
+      </div>
+      <button class="sbtn" onclick="saveProfile()">💾 Lưu thay đổi</button>
+    </div>
+  </div>
+
+  <!-- Đổi mật khẩu -->
+  <div class="settings-section">
+    <div class="ss-header">🔒 Đổi mật khẩu</div>
+    <div class="ss-body">
+      <div class="sg"><label class="sl">Mật khẩu hiện tại</label><input class="si" id="setPwCurrent" type="password" placeholder="••••••••"></div>
+      <div class="sg">
+        <label class="sl">Mật khẩu mới</label>
+        <input class="si" id="setPwNew" type="password" placeholder="Tối thiểu 8 ký tự" oninput="checkPw(this.value)">
+        <div class="cc-pw-strength"><div class="cc-pw-bar" id="setPwBar"></div></div>
+        <div class="cc-field-error" id="errSetPw">Mật khẩu chưa đủ mạnh</div>
+      </div>
+      <div class="sg">
+        <label class="sl">Xác nhận mật khẩu mới</label>
+        <input class="si" id="setPwConfirm" type="password" placeholder="Nhập lại mật khẩu mới">
+        <div class="cc-field-error" id="errSetPwConfirm">Mật khẩu xác nhận không khớp</div>
+      </div>
+      <button class="sbtn" onclick="changePassword()">🔑 Đổi mật khẩu</button>
+    </div>
+  </div>
+
+  <!-- Tuỳ chọn thông báo -->
+  <div class="settings-section">
+    <div class="ss-header">🔔 Tuỳ chọn thông báo</div>
+    <div class="ss-body">
+      <div class="sw-row"><div><div class="sw-label">Thông báo sự kiện mới</div><div class="sw-sub">Nhận thông báo khi có sự kiện văn hoá mới</div></div><label class="sw-toggle"><input type="checkbox" id="notifEvents" checked><span class="sw-slider"></span></label></div>
+      <div class="sw-row"><div><div class="sw-label">Cập nhật địa điểm mới</div><div class="sw-sub">Địa điểm, di tích mới được thêm vào bản đồ</div></div><label class="sw-toggle"><input type="checkbox" id="notifPlaces" checked><span class="sw-slider"></span></label></div>
+      <div class="sw-row"><div><div class="sw-label">Nhắc nhở lịch trình</div><div class="sw-sub">Nhắc trước khi lịch trình bắt đầu 1 ngày</div></div><label class="sw-toggle"><input type="checkbox" id="notifSchedule"><span class="sw-slider"></span></label></div>
+      <div class="sw-row"><div><div class="sw-label">Tin tức blog & cộng đồng</div><div class="sw-sub">Bài đăng mới từ cộng đồng</div></div><label class="sw-toggle"><input type="checkbox" id="notifBlog"><span class="sw-slider"></span></label></div>
+      <button class="sbtn" style="margin-top:14px" onclick="saveNotifs()">💾 Lưu cài đặt thông báo</button>
+    </div>
+  </div>
+
+  <!-- Nguy hiểm -->
+  <div class="settings-section" style="border-color:rgba(224,92,92,0.2)">
+    <div class="ss-header" style="color:#E05C5C;">⚠ Vùng nguy hiểm</div>
+    <div class="ss-body" style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="danger-btn" onclick="confirmDeleteData()">🗑 Xoá dữ liệu cá nhân</button>
+      <button class="danger-btn" onclick="confirmDeleteAccount()">❌ Xoá tài khoản</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(60px);background:rgba(10,13,20,0.95);border:1px solid rgba(74,144,217,0.35);color:#F5F0E8;padding:12px 24px;border-radius:10px;font-size:14px;backdrop-filter:blur(12px);transition:all 0.35s;z-index:10000;pointer-events:none;white-space:nowrap;"></div>
+
+<footer></footer>
+<script src="../js/nav.js"></script>
+<script src="../js/utils.js"></script>
+<script>
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(60px)'; }, 2800);
+}
+
+function checkPw(val) {
+  const bar = document.getElementById('setPwBar');
+  if (!bar) return;
+  const r = ccValidatePassword(val);
+  const score = Object.values(r).filter(v => v === true).length;
+  const pct = (score / 5) * 100;
+  const colors = ['', '#E05C5C', '#E8A020', '#E8C020', '#60D090', '#4A9ED4'];
+  bar.style.width = pct + '%'; bar.style.background = colors[score] || '#E05C5C';
+}
+
+function loadProfile() {
+  const user = ccGetUser();
+  if (!user) return;
+  const setVal = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+  setVal('setName', user.displayName);
+  setVal('setEmail', user.email);
+  setVal('setPhone', user.phone);
+  setVal('setFrom', user.from);
+}
+
+function saveProfile() {
+  const user = ccGetUser() || {};
+  user.displayName = document.getElementById('setName')?.value.trim() || user.displayName;
+  user.email = document.getElementById('setEmail')?.value.trim() || user.email;
+  user.phone = document.getElementById('setPhone')?.value.trim();
+  user.from = document.getElementById('setFrom')?.value.trim();
+  localStorage.setItem('cc_user', JSON.stringify(user));
+  showToast('✅ Đã lưu thông tin cá nhân');
+}
+
+function changePassword() {
+  const pw = document.getElementById('setPwNew')?.value || '';
+  const confirm = document.getElementById('setPwConfirm')?.value || '';
+  document.getElementById('errSetPw').classList.remove('show');
+  document.getElementById('errSetPwConfirm').classList.remove('show');
+  if (!ccValidatePassword(pw).ok) { document.getElementById('errSetPw').classList.add('show'); return; }
+  if (pw !== confirm) { document.getElementById('errSetPwConfirm').classList.add('show'); return; }
+  showToast('✅ Mật khẩu đã được cập nhật (Firebase sẽ xử lý nếu đang đăng nhập)');
+  document.getElementById('setPwCurrent').value = '';
+  document.getElementById('setPwNew').value = '';
+  document.getElementById('setPwConfirm').value = '';
+}
+
+function saveNotifs() { showToast('✅ Đã lưu cài đặt thông báo'); }
+
+function confirmDeleteData() {
+  if (confirm('Bạn có chắc muốn xoá toàn bộ dữ liệu cá nhân (lịch trình, checkin, điểm)?')) {
+    showToast('🗑 Đã gửi yêu cầu xoá dữ liệu');
+  }
+}
+function confirmDeleteAccount() {
+  if (confirm('Hành động này không thể hoàn tác! Xác nhận xoá tài khoản?')) {
+    if (typeof logout === 'function') logout();
+  }
+}
+
+window.addEventListener('DOMContentLoaded', loadProfile);
+</script>
+<script src="../js/auth-modal.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+</body>
+</html>

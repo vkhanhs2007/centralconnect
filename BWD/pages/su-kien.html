@@ -1,0 +1,656 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sự Kiện & Lễ Hội – Central Connect</title>
+<meta name="description" content="Lịch sự kiện văn hóa, lễ hội truyền thống và hoạt động cộng đồng tại Đà Nẵng. Đăng ký tham dự ngay.">
+<meta name="keywords" content="sự kiện Đà Nẵng, lễ hội Hội An, pháo hoa, đèn lồng, văn hóa Đà Nẵng">
+<meta property="og:title" content="Sự Kiện & Lễ Hội – Central Connect">
+<meta property="og:description" content="Lịch sự kiện văn hóa và lễ hội truyền thống Đà Nẵng.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1A4F8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/images.css">
+<style>
+:root {
+  --gold: #C9A84C; --cream: #F5F0E8; --ink: #1A1410; --muted: #8A7D6E;
+  --ocean: #1A4F8C; --ocean-light: #4A90D9;
+  --sunset: #B8532E; --sunset-light: #D4744A;
+  --green: #60C87A; --ink-soft: #3D3530;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: 'Be Vietnam Pro', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  min-height: 420px; display: flex; align-items: center;
+  background: linear-gradient(160deg, #060810 0%, #0D1520 50%, #0A0E18 100%);
+  position: relative; overflow: hidden; padding-top: 80px;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 55% at 70% 40%, rgba(74,144,217,0.08), transparent 65%);
+}
+.hero-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 40px; position: relative; }
+.page-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 16px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: var(--cream); line-height: 1.15; margin-bottom: 18px; }
+.page-title span { color: var(--ocean-light); }
+.page-desc { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.75; margin-bottom: 32px; }
+.hero-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+.hstat { text-align: center; }
+.hstat-num { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900; color: var(--ocean-light); line-height: 1; }
+.hstat-label { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.06em; }
+
+/* ── FILTER TABS ── */
+.filter-section { background: rgba(10,13,20,0.95); border-bottom: 1px solid rgba(74,144,217,0.1); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+.filter-inner { max-width: 1100px; margin: 0 auto; padding: 16px 40px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.filter-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-right: 6px; white-space: nowrap; }
+.fchip { padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid rgba(74,144,217,0.2); background: transparent; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+.fchip:hover { border-color: rgba(74,144,217,0.4); color: var(--cream); }
+.fchip.active { background: var(--ocean); border-color: var(--ocean); color: #fff; }
+.search-chip { margin-left: auto; display: flex; background: rgba(74,144,217,0.06); border: 1px solid rgba(74,144,217,0.2); border-radius: 8px; overflow: hidden; }
+.search-chip input { background: transparent; border: none; outline: none; color: var(--cream); padding: 8px 12px; font-size: 13px; font-family: inherit; width: 180px; }
+.search-chip input::placeholder { color: rgba(138,125,110,0.5); }
+
+/* ── MAIN ── */
+.main-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+.section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; flex-wrap: wrap; gap: 12px; }
+.section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 6px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--cream); }
+.count-badge { font-size: 13px; color: var(--muted); }
+
+/* ── FEATURED EVENT ── */
+.featured-event {
+  border-radius: 20px; overflow: hidden; border: 1px solid rgba(74,144,217,0.2);
+  display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 60px;
+  background: rgba(255,255,255,0.03); cursor: pointer; transition: all 0.3s;
+}
+.featured-event:hover { border-color: rgba(74,144,217,0.4); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(26,79,140,0.2); }
+.fe-img { min-height: 340px; background-size: cover; background-position: center; position: relative; }
+.fe-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 60%, #0D1018); }
+.fe-badge { position: absolute; top: 20px; left: 20px; background: var(--ocean); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; }
+.fe-body { padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+.fe-cat { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 12px; }
+.fe-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--cream); line-height: 1.3; margin-bottom: 14px; }
+.fe-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+.fe-meta { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+.fe-meta-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.fe-meta-icon { width: 30px; height: 30px; border-radius: 50%; background: rgba(74,144,217,0.1); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.fe-btns { display: flex; gap: 10px; }
+.btn-reg { background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); color: #fff; border: none; padding: 11px 24px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.3s; }
+.btn-reg:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-1px); }
+.btn-save { background: transparent; border: 1px solid rgba(74,144,217,0.3); color: var(--cream); padding: 11px 20px; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.btn-save:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+/* ── EVENT GRID ── */
+.event-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 60px; }
+.event-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(74,144,217,0.1); border-radius: 16px; overflow: hidden; cursor: pointer; transition: all 0.25s; }
+.event-card:hover { border-color: rgba(74,144,217,0.3); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,79,140,0.15); }
+.ec-img { height: 180px; background-size: cover; background-position: center; position: relative; }
+.ec-cat-badge { position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 12px; }
+.cat-le-hoi { background: rgba(201,168,76,0.25); color: #E8C97A; border: 1px solid rgba(201,168,76,0.4); }
+.cat-nghe-thuat { background: rgba(74,144,217,0.2); color: #6AAAE8; border: 1px solid rgba(74,144,217,0.35); }
+.cat-the-thao { background: rgba(96,200,122,0.2); color: #80E09A; border: 1px solid rgba(96,200,122,0.35); }
+.cat-am-thuc { background: rgba(184,83,46,0.2); color: var(--sunset-light); border: 1px solid rgba(184,83,46,0.35); }
+.cat-bao-ton { background: rgba(138,125,110,0.15); color: var(--muted); border: 1px solid rgba(138,125,110,0.3); }
+.ec-sold { position: absolute; top: 12px; right: 12px; background: rgba(220,50,50,0.85); color: #fff; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; }
+.ec-body { padding: 18px 20px; }
+.ec-date-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.ec-date-box { background: rgba(74,144,217,0.1); border-radius: 8px; padding: 6px 10px; text-align: center; flex-shrink: 0; }
+.ec-day { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: var(--ocean-light); line-height: 1; }
+.ec-month { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.ec-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--cream); line-height: 1.35; margin-bottom: 8px; }
+.ec-loc { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; margin-bottom: 12px; }
+.ec-footer { display: flex; justify-content: space-between; align-items: center; }
+.ec-price { font-size: 13px; font-weight: 600; color: var(--ocean-light); }
+.ec-spots { font-size: 11px; color: var(--muted); }
+.ec-register-btn { background: transparent; border: 1px solid rgba(74,144,217,0.3); color: var(--ocean-light); padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.ec-register-btn:hover { background: rgba(74,144,217,0.12); }
+
+/* ── CALENDAR SECTION ── */
+.calendar-section { background: rgba(255,255,255,0.03); border: 1px solid rgba(74,144,217,0.1); border-radius: 20px; padding: 36px; margin-bottom: 60px; }
+.cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.cal-nav { display: flex; align-items: center; gap: 12px; }
+.cal-nav-btn { background: rgba(74,144,217,0.1); border: 1px solid rgba(74,144,217,0.2); color: var(--cream); width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.cal-nav-btn:hover { background: rgba(74,144,217,0.2); }
+.cal-month { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--cream); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.cal-weekday { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: center; padding: 6px 0; }
+.cal-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-size: 13px; color: var(--muted); cursor: pointer; position: relative; transition: all 0.2s; }
+.cal-day:hover { background: rgba(74,144,217,0.1); color: var(--cream); }
+.cal-day.today { background: rgba(74,144,217,0.15); color: var(--ocean-light); font-weight: 700; }
+.cal-day.has-event::after { content: ''; position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: var(--ocean-light); }
+.cal-day.featured-day { background: rgba(201,168,76,0.15); color: #E8C97A; }
+.cal-day.other-month { opacity: 0.25; }
+
+/* ── NEWSLETTER ── */
+.newsletter-section { background: linear-gradient(135deg, rgba(26,79,140,0.15), rgba(74,144,217,0.08)); border: 1px solid rgba(74,144,217,0.2); border-radius: 20px; padding: 48px; text-align: center; margin-bottom: 60px; }
+.nl-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--cream); margin-bottom: 10px; }
+.nl-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+.nl-row { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+.nl-input { flex: 1; background: rgba(74,144,217,0.07); border: 1px solid rgba(74,144,217,0.25); color: var(--cream); padding: 12px 16px; border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; }
+.nl-input::placeholder { color: rgba(138,125,110,0.5); }
+.nl-input:focus { border-color: var(--ocean-light); }
+.nl-btn { background: var(--ocean); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.2s; }
+.nl-btn:hover { background: var(--ocean-light); }
+
+/* ── FOOTER ── */
+footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.1); padding: 52px 40px 28px; }
+.footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+.footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 12px 0 20px; max-width: 240px; }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 34px; height: 34px; border: 1px solid rgba(74,144,217,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.social-btn:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+.footer-col h4 { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; cursor: pointer; }
+.footer-col a:hover { color: var(--cream); }
+.footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid rgba(74,144,217,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.footer-copy { font-size: 12px; color: rgba(138,125,110,0.4); }
+
+/* ── EVENT DETAIL MODAL ── */
+.event-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(5,8,15,0.88); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.event-modal.open { opacity: 1; visibility: visible; }
+.em-box { background: #0A0D14; border: 1px solid rgba(74,144,217,0.25); border-radius: 20px; width: 90%; max-width: 680px; max-height: 90vh; overflow-y: auto; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+.event-modal.open .em-box {
+  background: #0D1018; transform: translateY(0); }
+.em-box::-webkit-scrollbar { width: 4px; } .em-box::-webkit-scrollbar-thumb { background: var(--ocean); }
+.em-close { position: absolute; top: 16px; right: 16px; z-index: 10; width: 32px; height: 32px; border-radius: 50%; background: rgba(74,144,217,0.1); border: 1px solid rgba(74,144,217,0.2); cursor: pointer; font-size: 16px; color: var(--cream); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.em-close:hover { background: rgba(74,144,217,0.2); }
+.em-hero { height: 220px; background-size: cover; background-position: center; position: relative; border-radius: 20px 20px 0 0; }
+.em-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #0D1018 0%, transparent 50%); border-radius: 20px 20px 0 0; }
+.em-content { padding: 28px 32px 36px; }
+.em-cat { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 10px; }
+.em-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); margin-bottom: 16px; line-height: 1.3; }
+.em-desc { font-size: 14px; color: rgba(245,240,232,0.65); line-height: 1.75; margin-bottom: 24px; }
+.em-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.em-info-item { background: rgba(74,144,217,0.06); border: 1px solid rgba(74,144,217,0.12); border-radius: 10px; padding: 12px 14px; }
+.em-info-label { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+.em-info-val { font-size: 14px; color: var(--cream); font-weight: 500; }
+.em-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.em-tag { font-size: 11px; padding: 4px 12px; border-radius: 12px; background: rgba(74,144,217,0.1); color: var(--ocean-light); border: 1px solid rgba(74,144,217,0.2); }
+.em-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.em-btn-primary { background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); color: #fff; border: none; padding: 13px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.3s; }
+.em-btn-primary:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-1px); }
+.em-btn-ghost { background: transparent; border: 1px solid rgba(74,144,217,0.3); color: var(--cream); padding: 12px 20px; border-radius: 10px; font-size: 14px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.em-btn-ghost:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(60px); background: rgba(10,13,20,0.95); border: 1px solid rgba(74,144,217,0.35); color: var(--cream); padding: 12px 24px; border-radius: 10px; font-size: 14px; backdrop-filter: blur(12px); transition: all 0.35s; z-index: 9999; pointer-events: none; white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .featured-event { grid-template-columns: 1fr; }
+  .fe-img { min-height: 240px; }
+  .event-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .filter-inner { padding: 12px 20px; }
+  .main-wrap, .hero-wrap { padding: 40px 20px; }
+  .em-info-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .event-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .nl-row { flex-direction: column; }
+  .search-chip input { width: 120px; }
+  .hero-stats { gap: 20px; }
+  .fe-body { padding: 24px 20px; }
+}
+
+  /* ── LIGHT THEME HERO FIXES ── */
+  .page-hero { color: var(--cream); }
+  .page-hero * { color: inherit; }
+  .page-hero .page-label { color: var(--gold); }
+  .page-hero .page-desc { color: rgba(245,240,232,0.75); }
+  .page-hero .hero-chip { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html" class="active">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="vku-corner.html">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="doi-tac.html#transport">🚌 Vận tải</a>
+        <a href="doi-tac.html#hostels">🏡 Homestay xanh</a>
+        <a href="doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-notify" id="notifyBtn">🔔</div>
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none; position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown" id="userDropdown">
+        <a href="profile.html">👤 Hồ sơ</a>
+        <a onclick="logout()">🚪 Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <div class="hero-wrap">
+    <div class="page-label">📅 Lịch sự kiện 2026</div>
+    <h1 class="page-title">Sự Kiện &amp; <span>Lễ Hội</span></h1>
+    <p class="page-desc">Không bỏ lỡ bất kỳ lễ hội truyền thống, hoạt động văn hóa hay sự kiện cộng đồng nào tại Đà Nẵng.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num" data-target="24">0</div><div class="hstat-label">Sự kiện tháng này</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="8">0</div><div class="hstat-label">Lễ hội UNESCO</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="5200">0</div><div class="hstat-label">Người tham dự</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FILTER ── -->
+<div class="filter-section">
+  <div class="filter-inner">
+    <span class="filter-label">Danh mục</span>
+    <button class="fchip active" onclick="filterEvents(this,'all')">Tất cả</button>
+    <button class="fchip" onclick="filterEvents(this,'le-hoi')">🎊 Lễ hội</button>
+    <button class="fchip" onclick="filterEvents(this,'nghe-thuat')">🎨 Nghệ thuật</button>
+    <button class="fchip" onclick="filterEvents(this,'the-thao')">⚽ Thể thao</button>
+    <button class="fchip" onclick="filterEvents(this,'am-thuc')">🍜 Ẩm thực</button>
+    <button class="fchip" onclick="filterEvents(this,'bao-ton')">🌿 Bảo tồn</button>
+    <div class="search-chip">
+      <input type="text" id="eventSearch" placeholder="🔍 Tìm sự kiện..." oninput="renderEvents()">
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ── -->
+<div class="main-wrap">
+
+  <!-- Featured -->
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">Nổi bật</div>
+      <div class="section-title">Sự kiện đặc biệt tháng 6</div>
+    </div>
+  </div>
+
+  <div class="featured-event reveal" onclick="openEvent(0)">
+    <div class="fe-img" style="background-image:url('../image/le_hoi_long_den_hoi_an.png')">
+      <span class="fe-badge">⭐ Nổi bật</span>
+    </div>
+    <div class="fe-body">
+      <div class="fe-cat">🎊 Lễ hội truyền thống</div>
+      <div class="fe-title">Lễ Hội Đèn Lồng Hội An – Đêm Rằm Tháng 5</div>
+      <div class="fe-desc">Hàng nghìn đèn lồng rực rỡ phản chiếu trên mặt sông Thu Bồn, âm nhạc dân gian và nghi lễ thả đèn cầu nguyện trong không gian phố cổ di sản UNESCO.</div>
+      <div class="fe-meta">
+        <div class="fe-meta-row"><div class="fe-meta-icon">📅</div><span>11 tháng 6, 2026 · 18:00 – 23:00</span></div>
+        <div class="fe-meta-row"><div class="fe-meta-icon">📍</div><span>Phố cổ Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)</span></div>
+        <div class="fe-meta-row"><div class="fe-meta-icon">🎟</div><span>Miễn phí tham dự (Đèn lồng thả: 25.000đ)</span></div>
+        <div class="fe-meta-row"><div class="fe-meta-icon">👥</div><span>Ước tính 3.000+ người tham dự</span></div>
+      </div>
+      <div class="fe-btns">
+        <button class="btn-reg" onclick="event.stopPropagation(); registerEvent(this, 0, 'Lễ Hội Đèn Lồng Hội An – Đêm Rằm Tháng 5')">📅 Đăng ký tham dự</button>
+        <button class="btn-save" onclick="event.stopPropagation(); saveEvent('Lễ Hội Đèn Lồng Hội An')">🔔 Nhắc nhở</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">Sắp diễn ra</div>
+      <div class="section-title">Tất cả sự kiện</div>
+    </div>
+    <span class="count-badge" id="eventCount">8 sự kiện</span>
+  </div>
+
+  <div class="event-grid" id="eventGrid"></div>
+
+  <!-- Calendar -->
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">Lịch tháng</div>
+      <div class="section-title">Tháng 6 năm 2026</div>
+    </div>
+    <div class="cal-nav">
+      <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
+      <span class="cal-month" id="calMonthLabel">Tháng 6, 2026</span>
+      <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
+    </div>
+  </div>
+
+  <div class="calendar-section reveal">
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="newsletter-section reveal">
+    <div class="nl-title">📩 Không bỏ lỡ sự kiện nào</div>
+    <div class="nl-sub">Đăng ký nhận thông báo sự kiện hằng tuần qua email</div>
+    <div class="nl-row">
+      <input class="nl-input" type="email" id="nlEmail" placeholder="email@example.com">
+      <button class="nl-btn" onclick="subscribeNl()">Đăng ký</button>
+    </div>
+  </div>
+
+</div><!-- /main-wrap -->
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+        <img src="../assets/images/logo.jpg" class="nav-logo-img">
+        <div><span class="nav-logo-text">CENTRAL CONNECT</span><span class="nav-logo-sub">Di sản số Đà Nẵng</span></div>
+      </div>
+      <p>"Dùng công nghệ để bảo tồn những giá trị xưa cũ và mở ra cánh cửa kết nối hiện đại cho du lịch miền Trung."</p>
+      <div class="footer-social">
+        <a class="social-btn">f</a><a class="social-btn">ig</a><a class="social-btn">yt</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Khám phá</h4><a href="kham-pha.html">Bản đồ di sản</a><a href="di-tich.html">Di tích lịch sử</a><a href="am-thuc.html">Ẩm thực</a><a href="lang-nghe.html">Làng nghề</a></div>
+    <div class="footer-col"><h4>Dịch vụ</h4><a href="lich-trinh.html">Lịch trình AI</a><a href="gay-quy.html">Gây quỹ</a><a href="doi-tac.html">Đối tác</a></div>
+    <div class="footer-col"><h4>Về chúng tôi</h4><a>Giới thiệu dự án</a><a>Trở thành Đại sứ</a><a>Liên hệ</a></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Central Connect · Được xây dựng bởi sinh viên VKU · Đà Nẵng, Việt Nam</div>
+    <div class="footer-copy">📍 VKU, Nguyễn Lương Bằng, Đà Nẵng · 📧 contact@centralconnect.vn</div>
+  </div>
+</footer>
+
+<!-- ── EVENT DETAIL MODAL ── -->
+<div class="event-modal" id="eventModal">
+  <div class="em-box">
+    <button class="em-close" onclick="closeEventModal()">✕</button>
+    <div class="em-hero" id="emHero"></div>
+    <div class="em-content" id="emContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let EVENTS = [
+  { id:0, cat:'le-hoi', title:'Lễ Hội Đèn Lồng Hội An – Đêm Rằm Tháng 5', date:'11/6/2026', day:11, month:6, time:'18:00–23:00', loc:'Phố cổ Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', price:'Miễn phí', spots:3000, desc:'Hàng nghìn đèn lồng rực rỡ phản chiếu trên sông Thu Bồn, âm nhạc dân gian, múa Chăm và nghi lễ thả đèn cầu nguyện trên sông. Lễ hội diễn ra mỗi tháng vào đêm rằm, tháng 6 có thêm biểu diễn nhạc cụ truyền thống đặc biệt.', tags:['UNESCO', 'Truyền thống', 'Phố cổ'], img:'../image/le_hoi_long_den_hoi_an.png', featured:true },
+  { id:1, cat:'nghe-thuat', title:'Triển Lãm Nhiếp Ảnh Di Sản Miền Trung', date:'15/6/2026', day:15, month:6, time:'09:00–18:00', loc:'Bảo tàng Đà Nẵng, 24 Trần Phú', price:'Miễn phí', spots:500, desc:'Hơn 120 tác phẩm nhiếp ảnh ghi lại vẻ đẹp và giá trị văn hóa di sản Đà Nẵng từ thập niên 1970 đến nay. Triển lãm kết hợp công nghệ AR cho phép xem ảnh thực địa.', tags:['Nhiếp ảnh', 'Di sản', 'AR'], img:'../image/trien_lam_nhiep_anh_di_san_mien_trung.png' },
+  { id:2, cat:'am-thuc', title:'Lễ Hội Ẩm Thực Phố Hội – Food Fest 2026', date:'20/6/2026', day:20, month:6, time:'10:00–22:00', loc:'Công viên An Hội, Hội An', price:'Vào cửa miễn phí', spots:2000, desc:'50+ gian hàng đặc sản từ Đà Nẵng, Hội An, Mỹ Sơn và các tỉnh miền Trung. Workshop nấu ăn, thi tài nấu Mì Quảng và Cao Lầu, biểu diễn nghệ thuật ẩm thực trực tiếp.', tags:['Ẩm thực', 'Hội An', 'Trải nghiệm'], img:'../image/le_hoi_am_thu_pho_hoi.png' },
+  { id:3, cat:'the-thao', title:'Giải Chạy Di Sản Đà Nẵng Marathon 2026', date:'22/6/2026', day:22, month:6, time:'05:00–12:00', loc:'Quảng trường 29/3, Đà Nẵng', price:'350.000đ (42km) · 200.000đ (10km)', spots:8000, desc:'Đường chạy đẹp nhất Việt Nam qua Cầu Rồng, bờ biển Mỹ Khê, Bán đảo Sơn Trà. 3 cự ly: 42km (Marathon), 21km và 10km. Huy chương di sản đặc biệt cho người hoàn thành.', tags:['Thể thao', 'Marathon', 'Di sản'], img:'../image/gai_chay_di_san_da_nang.png' },
+  { id:4, cat:'bao-ton', title:'Workshop Sơn Mài & Nghề Gốm Thanh Hà', date:'28/6/2026', day:28, month:6, time:'08:00–17:00', loc:'Làng Gốm Thanh Hà, Hội An', price:'150.000đ/người', spots:30, sold: true, desc:'Học làm gốm truyền thống từ nghệ nhân làng Thanh Hà 500 năm tuổi. Tự tay tạo ra tác phẩm gốm mang về. Bữa trưa tại nhà nghệ nhân, tham quan công đoạn nung gốm lửa củi.', tags:['Workshop', 'Làng nghề', 'Gốm'], img:'../image/worshop_gom_thanh_ha.png' },
+  { id:5, cat:'le-hoi', title:'Đêm Nhạc Dân Gian Bên Sông Hàn', date:'4/7/2026', day:4, month:7, time:'19:30–22:00', loc:'Bờ Đông Sông Hàn, Đà Nẵng', price:'Miễn phí', spots:1500, desc:'Đêm nhạc ngoài trời với các tiết mục dân ca miền Trung, hát bội, bài chòi và múa rối nước. Ngồi bên sông Hàn ngắm Cầu Rồng chiếu sáng cùng âm nhạc truyền thống.', tags:['Âm nhạc', 'Dân gian', 'Sông Hàn'], img:'../image/dem_nhac_nhan_gian_ben_song_han.png' },
+  { id:6, cat:'nghe-thuat', title:'Triển Lãm Điêu Khắc Champa – Mỹ Sơn', date:'10/7/2026', day:10, month:7, time:'08:00–17:00', loc:'Thánh địa Mỹ Sơn, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', price:'Included với vé vào cửa', spots:800, desc:'Triển lãm ngoài trời 40 tác phẩm phục chế điêu khắc Champa thế kỷ VII–XIII. Hướng dẫn viên chuyên gia UNESCO, audio guide tiếng Việt và Anh, VR trải nghiệm Mỹ Sơn thời Champa.', tags:['Champa', 'UNESCO', 'Di tích'], img:'../image/trien_lam_dieu_khac_cham_pha_my_son.png' },
+  { id:7, cat:'bao-ton', title:'Trồng San Hô – Bảo Vệ Biển Sơn Trà', date:'19/7/2026', day:19, month:7, time:'06:30–12:00', loc:'Bãi Bắc, Bán đảo Sơn Trà', price:'200.000đ (bao gồm thiết bị lặn)', spots:40, desc:'Hoạt động tình nguyện bảo vệ rạn san hô Sơn Trà. Huấn luyện lặn ngắm san hô (snorkeling), trồng san hô nhân tạo, dọn rác biển. Nhận chứng chỉ tình nguyện viên bảo tồn.', tags:['Môi trường', 'Tình nguyện', 'Biển'], img:'../image/trong_san_ho_bao_ve_bien_son_tra.png' },
+];
+
+const CAT_COLORS = { 'le-hoi': 'cat-le-hoi', 'nghe-thuat': 'cat-nghe-thuat', 'the-thao': 'cat-the-thao', 'am-thuc': 'cat-am-thuc', 'bao-ton': 'cat-bao-ton' };
+const CAT_LABELS = { 'le-hoi': '🎊 Lễ hội', 'nghe-thuat': '🎨 Nghệ thuật', 'the-thao': '⚽ Thể thao', 'am-thuc': '🍜 Ẩm thực', 'bao-ton': '🌿 Bảo tồn' };
+const CAT_FALLBACK = { 'le-hoi': 'linear-gradient(135deg,#1a0a02,#2a1408)', 'nghe-thuat': 'linear-gradient(135deg,#06101a,#0a1828)', 'the-thao': 'linear-gradient(135deg,#041208,#082010)', 'am-thuc': 'linear-gradient(135deg,#1a0a04,#281008)', 'bao-ton': 'linear-gradient(135deg,#08100a,#101608)' };
+
+let activeFilter = 'all';
+
+function filterEvents(btn, cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.fchip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderEvents();
+}
+
+function getFiltered() {
+  const q = document.getElementById('eventSearch').value.toLowerCase();
+  return EVENTS.filter(e => {
+    const matchCat = activeFilter === 'all' || e.cat === activeFilter;
+    const matchQ = !q || e.title.toLowerCase().includes(q) || e.loc.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+}
+
+function renderEvents() {
+  const filtered = getFiltered();
+  const grid = document.getElementById('eventGrid');
+  document.getElementById('eventCount').textContent = filtered.length + ' sự kiện';
+  grid.innerHTML = '';
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted)">Không tìm thấy sự kiện phù hợp</div>';
+    return;
+  }
+  filtered.forEach((ev, i) => {
+    const card = document.createElement('div');
+    card.className = 'event-card reveal';
+    card.style.transitionDelay = (i * 0.07) + 's';
+    card.onclick = () => openEvent(ev.id);
+    const [d, m] = ev.date.split('/');
+    card.innerHTML = `
+      <div class="ec-img" style="${ev.img ? `background-image:url('${ev.img}')` : `background:${CAT_FALLBACK[ev.cat]||'linear-gradient(135deg,#0a0d14,#1a1f2c)'}`}">
+        <span class="ec-cat-badge ${CAT_COLORS[ev.cat]}">${CAT_LABELS[ev.cat]}</span>
+        ${ev.sold ? '<span class="ec-sold">Hết chỗ</span>' : ''}
+      </div>
+      <div class="ec-body">
+        <div class="ec-date-row">
+          <div class="ec-date-box"><div class="ec-day">${d}</div><div class="ec-month">Tháng ${m}</div></div>
+          <div><div class="ec-title">${ev.title}</div></div>
+        </div>
+        <div class="ec-loc">📍 ${ev.loc}</div>
+        <div class="ec-footer">
+          <div><div class="ec-price">${ev.price}</div><div class="ec-spots">👥 ${ev.spots.toLocaleString()} chỗ</div></div>
+          <button class="ec-register-btn" onclick="event.stopPropagation(); registerEvent(this, ${ev.id}, '${ev.title.replace(/'/g,"&#39;")}')" ${ev.sold ? 'disabled style="opacity:0.4;cursor:not-allowed"' : ''}>${ev.sold ? 'Hết chỗ' : 'Đăng ký'}</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  // Observe new reveals
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => revObs.observe(el));
+}
+
+function openEvent(id) {
+  const ev = EVENTS[id];
+  if (!ev) return;
+  document.getElementById('emHero').style.backgroundImage = `url('${ev.img}')`;
+  document.getElementById('emContent').innerHTML = `
+    <div class="em-cat">${CAT_LABELS[ev.cat]}</div>
+    <div class="em-title">${ev.title}</div>
+    <div class="em-desc">${ev.desc}</div>
+    <div class="em-info-grid">
+      <div class="em-info-item"><div class="em-info-label">📅 Ngày tổ chức</div><div class="em-info-val">${ev.date}</div></div>
+      <div class="em-info-item"><div class="em-info-label">⏰ Giờ</div><div class="em-info-val">${ev.time}</div></div>
+      <div class="em-info-item"><div class="em-info-label">📍 Địa điểm</div><div class="em-info-val">${ev.loc}</div></div>
+      <div class="em-info-item"><div class="em-info-label">🎟 Giá vào cửa</div><div class="em-info-val">${ev.price}</div></div>
+    </div>
+    <div class="em-tags">${ev.tags.map(t => `<span class="em-tag">${t}</span>`).join('')}</div>
+    <div class="em-actions">
+      <button class="em-btn-primary" ${ev.sold ? 'disabled style="opacity:0.5;cursor:not-allowed"' : ''} onclick="registerEvent(this, ${ev.id}, '${ev.title.replace(/'/g,"&#39;")}')">
+        ${ev.sold ? '😔 Hết chỗ' : '📅 Đăng ký tham dự'}
+      </button>
+      <button class="em-btn-ghost" onclick="saveEvent('${ev.title}')">🔔 Nhắc nhở</button>
+      <button class="em-btn-ghost" onclick="showToast('📤 Đã sao chép link sự kiện!')">📤 Chia sẻ</button>
+    </div>`;
+  document.getElementById('eventModal').classList.add('open');
+}
+
+function closeEventModal() { document.getElementById('eventModal').classList.remove('open'); }
+
+document.getElementById('eventModal').addEventListener('click', e => { if (e.target === document.getElementById('eventModal')) closeEventModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEventModal(); });
+
+async function registerEvent(btn, eventId, title) {
+  const user = (() => { try { return JSON.parse(localStorage.getItem('cc_user') || 'null'); } catch { return null; } })();
+  if (!user) { showToast('⚠ Vui lòng đăng nhập để đăng ký sự kiện!'); return; }
+
+  btn.textContent = '⏳ Đang đăng ký...';
+  btn.disabled = true;
+
+  // Gọi RSVP API
+  if (window.ccDB) {
+    try {
+      const apiBase = (typeof CC_API_URL !== 'undefined' ? CC_API_URL : 'http://localhost:3000');
+      const resp = await fetch(apiBase + '/api/rsvps', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId: String(eventId), eventName: title, uid: user.uid, displayName: user.displayName || '' })
+      });
+      const data = await resp.json();
+      if (data.already) {
+        btn.textContent = '✅ Đã đăng ký';
+        showToast('ℹ Bạn đã đăng ký sự kiện này rồi!');
+        return;
+      }
+    } catch { /* Tiếp tục dù API lỗi */ }
+  }
+
+  // Tặng điểm (await để navbar cập nhật trước khi toast)
+  if (typeof ccAddPoints === 'function') await ccAddPoints(10, 'Đăng ký sự kiện');
+  btn.textContent = '✅ Đã đăng ký';
+  showToast('🎉 Đăng ký thành công: ' + title + ' (+10 Hạt Bàu)');
+}
+
+function saveEvent(title) { showToast('🔔 Đã đặt nhắc nhở: ' + title); }
+
+// ── CALENDAR ──
+let calYear = 2026, calMonth = 5; // June = index 5
+const EVENT_DAYS = { '6-11': true, '6-15': true, '6-20': true, '6-22': true, '6-28': true, '7-4': true, '7-10': true, '7-19': true };
+const MONTHS_VI = ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+
+function renderCalendar() {
+  const grid = document.getElementById('calGrid');
+  document.getElementById('calMonthLabel').textContent = MONTHS_VI[calMonth] + ', ' + calYear;
+  const weekdays = ['CN','T2','T3','T4','T5','T6','T7'];
+  let html = weekdays.map(d => `<div class="cal-weekday">${d}</div>`).join('');
+  const first = new Date(calYear, calMonth, 1).getDay();
+  const days = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date(); const toKey = (m, d) => `${m+1}-${d}`;
+  for (let i = 0; i < first; i++) html += `<div class="cal-day other-month"></div>`;
+  for (let d = 1; d <= days; d++) {
+    const isToday = d === today.getDate() && calMonth === today.getMonth() && calYear === today.getFullYear();
+    const key = toKey(calMonth, d);
+    const hasEv = EVENT_DAYS[key];
+    const isFeat = calMonth === 5 && d === 11;
+    html += `<div class="cal-day${isToday ? ' today' : ''}${hasEv ? ' has-event' : ''}${isFeat ? ' featured-day' : ''}" title="${hasEv ? 'Có sự kiện' : ''}" onclick="${hasEv ? `showToast('📅 Ngày ${d}/${calMonth+1} có sự kiện!')` : ''}">${d}</div>`;
+  }
+  grid.innerHTML = html;
+}
+
+function changeMonth(delta) {
+  calMonth += delta;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+// ── COUNTER ANIMATION ──
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, target = +el.dataset.target;
+      let cur = 0; const step = target / 60;
+      const t = setInterval(() => { cur = Math.min(cur + step, target); el.textContent = Math.floor(cur) + (cur >= target ? '+' : ''); if (cur >= target) clearInterval(t); }, 25);
+      cntObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(c => cntObs.observe(c));
+
+// ── NEWSLETTER ──
+function subscribeNl() {
+  const v = document.getElementById('nlEmail').value;
+  if (v && v.includes('@')) { showToast('📩 Đăng ký thành công! Kiểm tra email của bạn'); document.getElementById('nlEmail').value = ''; }
+  else showToast('⚠ Vui lòng nhập email hợp lệ');
+}
+
+// ── TOAST ──
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3200); }
+
+// ── INIT ──
+renderEvents();
+renderCalendar();
+
+// Load sự kiện từ API — fallback sang hardcoded nếu server chưa chạy
+(async () => {
+  try {
+    const base = (typeof CC_API_URL !== 'undefined' ? CC_API_URL : 'http://localhost:3000');
+    const res = await fetch(base + '/api/events');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data || !data.length) return;
+    const localImgs = Object.fromEntries(EVENTS.map(e => [e.id, e.img]));
+    const fmtDate = dt => {
+      const d = new Date(dt);
+      return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
+    };
+    const mapped = data.map(e => ({
+      id:       parseInt(e.id) || 0,
+      cat:      e.cat || 'le-hoi',
+      title:    e.name,
+      date:     e.eventDate ? fmtDate(e.eventDate) : '',
+      day:      e.eventDate ? new Date(e.eventDate).getDate() : 0,
+      month:    e.eventDate ? new Date(e.eventDate).getMonth() + 1 : 0,
+      time:     e.time_range || '',
+      loc:      e.location || '',
+      price:    e.price || 'Miễn phí',
+      spots:    e.spots || 0,
+      desc:     e.description || '',
+      tags:     Array.isArray(e.tags) ? e.tags : [],
+      img:      localImgs[parseInt(e.id)] || e.imgUrl || '',
+      featured: !!e.featured,
+      sold:     !!e.sold
+    }));
+    EVENTS.length = 0;
+    mapped.forEach(e => EVENTS.push(e));
+    renderEvents();
+  } catch { /* dùng dữ liệu hardcoded */ }
+})();
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+</body>
+</html>

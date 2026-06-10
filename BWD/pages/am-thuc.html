@@ -1,0 +1,931 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ẩm Thực Địa Phương – Central Connect</title>
+<meta name="description" content="Khám phá ẩm thực đặc sản Đà Nẵng: Mì Quảng, Cao Lầu, Bánh mì Phượng, Cơm gà Hội An. Bản đồ quán ăn ngon, menu QR và câu chuyện đằng sau mỗi món ăn.">
+<meta name="keywords" content="ẩm thực Đà Nẵng, Mì Quảng, Cao Lầu, Hội An, đặc sản miền Trung">
+<meta property="og:title" content="Ẩm Thực Địa Phương – Central Connect">
+<meta property="og:description" content="Bản đồ và câu chuyện ẩm thực đặc sản Đà Nẵng.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#B8532E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="../css/images.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+/* ── VARIABLES & BASE ── */
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A; --gold-dark: #9A7A30;
+  --cream: #F5F0E8; --ink: #1A1410; --ink-soft: #3D3530;
+  --muted: #8A7D6E; --spice: #D4540A; --spice-light: #F07040;
+  --glass: rgba(245,240,232,0.05);
+  --ocean: #1A4F8C; --ocean-light: #4A90D9; --ocean-soft: rgba(74,144,217,0.1);
+  --sunset: #B8532E; --sunset-light: #D4744A; --sunset-soft: rgba(212,116,74,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--ink); color: var(--cream); overflow-x: hidden; }
+
+/* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 40px;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+  nav.scrolled {
+    background: rgba(10,13,20,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,144,217,0.15);
+  }
+
+ .nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-logo-img{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+    margin-top: -2px;
+  }
+
+  .nav-menu {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none;
+  }
+  .nav-menu li { position: relative; }
+  .nav-menu a {
+    text-decoration: none;
+    color: rgba(245,240,232,0.72);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 4px;
+    cursor: pointer;
+  }
+  .nav-menu a:hover { color: var(--ocean-light); background: var(--ocean-soft); }
+  .nav-menu .fund-link { color: #E8A020; }
+  .nav-menu .fund-link:hover { color: #F0B840; background: rgba(232,160,32,0.1); }
+
+  /* Dropdown */
+  .dropdown-menu {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    background: rgba(10,13,20,0.95);
+    border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 10px;
+    padding: 8px;
+    min-width: 180px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(20px);
+  }
+  .nav-menu li:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown-menu a {
+    display: block; padding: 8px 12px;
+    font-size: 13px; color: var(--cream);
+    border-radius: 6px;
+  }
+  .dropdown-menu a:hover { background: rgba(74,144,217,0.12); color: var(--ocean-light); }
+
+  .nav-actions {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-notify {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 15px;
+    transition: all 0.2s;
+    color: var(--muted);
+    opacity: 0.5;
+    position: relative;
+  }
+  .nav-notify.active { opacity: 1; color: var(--ocean-light); }
+  .notif-dot {
+    position: absolute; top: 6px; right: 6px;
+    width: 7px; height: 7px;
+    background: #E8A020; border-radius: 50%;
+    border: 1.5px solid var(--ink);
+  }
+
+  .btn-login {
+    background: transparent;
+    border: 1px solid rgba(74,144,217,0.4);
+    color: var(--cream);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-login:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+  .btn-register {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    border: none;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.25s;
+  }
+  .btn-register:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-1px); }
+
+  /* User dropdown after login */
+  .user-pill {
+    display: none;
+    align-items: center; gap: 8px;
+    padding: 5px 12px 5px 5px;
+    background: var(--glass);
+    border: 1px solid rgba(74,144,217,0.35);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .user-pill:hover { border-color: var(--ocean-light); }
+  .user-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: #fff;
+  }
+  .user-points {
+    font-size: 12px; color: var(--ocean-light);
+    font-weight: 600;
+  }
+  .user-name { font-size: 13px; color: var(--cream); }
+
+  .user-dropdown {
+    position: absolute; top: calc(100% + 10px); right: 0;
+    background: rgba(10,13,20,0.97);
+    border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 10px; padding: 8px;
+    min-width: 200px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s;
+    backdrop-filter: blur(20px);
+  }
+  .user-pill:hover .user-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .user-dropdown a {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px;
+    text-decoration: none; font-size: 13.5px; color: var(--cream);
+    border-radius: 6px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .user-dropdown a:hover { background: rgba(74,144,217,0.12); color: var(--ocean-light); }
+  .user-dropdown .divider { height: 1px; background: rgba(74,144,217,0.12); margin: 6px 0; }
+  .user-dropdown .logout { color: #E05C5C !important; }
+  .user-dropdown .logout:hover { background: rgba(224,92,92,0.1) !important; }
+/* ── PAGE HERO ── */
+.page-hero { margin-top: 72px; background: linear-gradient(135deg, #140806 0%, #0A0D14 100%); padding: 60px 40px 40px; position: relative; overflow: hidden; border-bottom: 2px solid rgba(212,84,10,0.25); }
+.page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 20%, rgba(212,84,10,0.08) 0%, transparent 60%), 
+radial-gradient(ellipse 40% 60% at 20% 80%, rgba(74,144,217,0.06) 0%, transparent 60%); }
+.page-hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+.breadcrumb { font-size: 12px; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.breadcrumb a { color: var(--ocean-light); text-decoration: none; }
+.page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 900; line-height: 1.05; margin-bottom: 16px; }
+.page-hero h1 em { font-style: italic; background: linear-gradient(90deg, var(--spice), var(--spice-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-hero p { font-size: 16px; color: rgba(245,240,232,0.60); line-height: 1.7; max-width: 560px; }
+
+/* ── CATEGORY TABS ── */
+.cat-tabs { background: rgba(10,13,20,0.95); border-bottom: 1px solid rgba(74,144,217,0.12); padding: 14px 40px; position: sticky; top: 72px; z-index: 500; backdrop-filter: blur(12px); }
+.cat-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.cat-btn { padding: 9px 20px; border-radius: 24px; font-size: 13px; font-weight: 500; border: 1px solid rgba(74,144,217,0.2); color: var(--cream); cursor: pointer; font-family: inherit; transition: all 0.2s; background: transparent; display: flex; align-items: center; gap: 6px; }
+.cat-btn:hover { border-color: var(--spice); color: var(--spice-light); }
+.cat-btn.active { background: var(--spice); border-color: var(--spice); color: white; }
+.cat-btn.all.active { background: var(--ocean); border-color: var(--ocean); color: #fff; }
+
+/* ── MAIN LAYOUT ── */
+.main-layout { display: grid; grid-template-columns: 420px 1fr; height: calc(100vh - 72px - 57px - 127px); min-height: 600px; }
+
+/* ── SIDEBAR TOGGLE (mobile) ── */
+.sidebar-toggle-bar {
+  display: none;
+  align-items: center; justify-content: space-between;
+  background: #0A0D14; border-bottom: 1px solid rgba(74,144,217,0.12);
+  padding: 10px 16px; cursor: pointer;
+  font-size: 13px; color: var(--spice-light); font-weight: 600;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .filters-bar { padding: 10px 16px; }
+  .cat-btn { padding: 7px 14px; font-size: 12px; }
+  .sidebar-toggle-bar { display: flex; }
+  .main-layout { grid-template-columns: 1fr; height: auto; }
+  .sidebar { display: none; }
+  .sidebar.open { display: block; max-height: 60vh; overflow-y: auto; }
+  #leaflet-map { min-height: 360px; height: 55vw; max-height: 480px; }
+  .fmodal-box {
+  background: #0D1018; width: 96%; max-width: 100%; }
+  .fmodal-content { padding: 16px 16px; }
+  .modal-hero-img { height: 200px; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .qr-section { flex-direction: column; align-items: flex-start; }
+  .modal-cta { flex-direction: column; }
+  .mcta-btn { justify-content: center; }
+}
+
+@media (max-width: 540px) {
+  .page-hero { padding: 36px 16px 24px; }
+  .fmodal-title { font-size: 22px; }
+  .info-chips { gap: 7px; }
+}
+
+/* ── SIDEBAR ── */
+.sidebar { background: #0A0D14; border-right: 1px solid rgba(74,144,217,0.1); overflow-y: auto; }
+.sidebar::-webkit-scrollbar { width: 4px; } .sidebar::-webkit-scrollbar-thumb { background: var(--spice); border-radius: 2px; }
+.sidebar-header { padding: 16px 22px; border-bottom: 1px solid rgba(74,144,217,0.08); display: flex; align-items: center; justify-content: space-between; }
+.sidebar-count { font-size: 12px; color: var(--muted); } .sidebar-count strong { color: var(--ocean-light); }
+.sort-select { background: transparent; border: 1px solid rgba(74,144,217,0.2); border-radius: 6px; color: var(--cream); padding: 4px 10px; font-size: 12px; font-family: inherit; cursor: pointer; }
+
+.food-card { padding: 14px 18px; border-bottom: 1px solid rgba(212,84,10,0.07); cursor: pointer; transition: background 0.2s; display: flex; gap: 12px; align-items: flex-start; }
+.food-card:hover { background: rgba(212,84,10,0.06); }
+.food-card.selected { background: rgba(212,84,10,0.1); border-left: 3px solid var(--spice); padding-left: 15px; }
+.fc-img { width: 64px; height: 64px; border-radius: 8px; background-size: cover; background-position: center; flex-shrink: 0; border: 1px solid rgba(212,84,10,0.18); }
+.fc-body { flex: 1; min-width: 0; }
+.fc-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fc-shop { font-size: 11px; color: var(--muted); margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fc-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.fc-tag { font-size: 10px; padding: 2px 10px; border-radius: 12px; font-weight: 600; }
+.fc-price { font-size: 13px; color: var(--ocean-light); font-weight: 600; }
+.fc-stars { font-size: 11px; color: var(--gold); }
+
+/* ── MAP ── */
+#map { position: relative; z-index: 1; }
+#leaflet-map { width: 100%; height: 100%; min-height: 600px; }
+#map-loading { position: absolute; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center; background: rgba(10,5,2,0.75); pointer-events: none; transition: opacity 0.5s; }
+#map-loading.hidden { opacity: 0; pointer-events: none; }
+.map-spinner { width: 36px; height: 36px; border: 3px solid rgba(212,84,10,0.2); border-top-color: var(--spice); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* ── GEOCODER ── */
+.map-geocoder { position: absolute; top: 16px; left: 16px; z-index: 1000; width: 260px; }
+.geocoder-row { display: flex; background: rgba(26,10,5,0.92); border: 1px solid rgba(212,84,10,0.35); border-radius: 8px; overflow: hidden; backdrop-filter: blur(12px); }
+.geocoder-input { flex: 1; background: transparent; border: none; outline: none; color: var(--cream); padding: 10px 12px; font-size: 13px; font-family: inherit; min-width: 0; }
+.geocoder-input::placeholder { color: rgba(138,100,80,0.6); }
+.geocoder-btn { background: rgba(212,84,10,0.15); border: none; border-left: 1px solid rgba(212,84,10,0.25); color: var(--sunset-light); padding: 0 12px; cursor: pointer; font-size: 15px; transition: background 0.2s; }
+.geocoder-btn:hover { background: rgba(212,84,10,0.28); }
+.geocoder-results { background: rgba(26,10,5,0.95); border: 1px solid rgba(212,84,10,0.2); border-top: none; border-radius: 0 0 8px 8px; max-height: 200px; overflow-y: auto; display: none; backdrop-filter: blur(12px); }
+.geocoder-result-item { padding: 9px 12px; font-size: 12px; color: var(--cream); cursor: pointer; border-bottom: 1px solid rgba(212,84,10,0.08); transition: background 0.15s; }
+.geocoder-result-item:hover { background: rgba(212,84,10,0.1); color: var(--sunset-light); }
+.geocoder-result-item:last-child { border-bottom: none; }
+.geocoder-status { padding: 9px 12px; font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── FOOD DETAIL MODAL ── */
+.food-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(10,5,2,0.9); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.food-modal.open { opacity: 1; visibility: visible; }
+.fmodal-box { background: #1A0F0A; border: 1px solid rgba(212,84,10,0.3); border-radius: 16px; width: 90%; max-width: 820px; max-height: 92vh; overflow-y: auto; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+.food-modal.open .fmodal-box { background: #1A0F0A; transform: translateY(0); }
+.fmodal-box::-webkit-scrollbar { width: 4px; } .fmodal-box::-webkit-scrollbar-thumb { background: var(--spice); }
+
+.modal-hero-img { width: 100%; height: 260px; background-size: cover; background-position: center; position: relative; }
+.modal-hero-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #1A0F0A 0%, transparent 50%); }
+.modal-close { position: absolute; top: 16px; right: 16px; z-index: 10; width: 32px; height: 32px; border-radius: 50%; background: rgba(26,20,16,0.2); border: 1px solid rgba(74,144,217,0.3); cursor: pointer; font-size: 16px; color: var(--muted); display: flex; align-items: center; justify-content: center; }
+.modal-close:hover { background: rgba(74,144,217,0.2); }
+
+.fmodal-content { padding: 24px 30px; }
+.fmodal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.fmodal-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--cream); }
+.fmodal-shop { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+/* QR Menu */
+.qr-section { background: linear-gradient(135deg, rgba(212,84,10,0.12), rgba(74,144,217,0.06)); border: 1px solid rgba(212,84,10,0.25); border-radius: 12px; padding: 20px; margin-bottom: 24px; display: flex; gap: 20px; align-items: center; }
+.qr-box { width: 80px; height: 80px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; transition: transform 0.2s; }
+.qr-box:hover { transform: scale(1.1); }
+.qr-inner { width: 68px; height: 68px; }
+.qr-info { flex: 1; }
+.qr-title { font-size: 14px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+.qr-sub { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.qr-scan-btn { padding: 8px 18px; background: var(--spice); border: none; border-radius: 8px; color: white; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; margin-top: 10px; display: inline-block; }
+.qr-scan-btn:hover { background: var(--spice-light); }
+
+/* Story section */
+.story-section { margin-bottom: 24px; }
+.story-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.story-line { flex: 1; height: 1px; background: rgba(74,144,217,0.2); }
+
+.story-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ocean-light); white-space: nowrap; }
+.story-text { font-size: 14px; color: rgba(245,240,232,0.75); line-height: 1.9; }
+
+/* Menu items */
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+.menu-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(74,144,217,0.1); border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
+.menu-item-name { font-size: 13px; font-weight: 500; color: var(--cream); }
+.menu-item-price { font-size: 13px; color: var(--ocean-light); font-weight: 600; }
+.menu-item-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* Info chips */
+.info-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+.info-chip { background: rgba(255,255,255,0.04); border: 1px solid rgba(74,144,217,0.12); border-radius: 10px; padding: 10px 14px; }
+.info-chip-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.info-chip-val { font-size: 13px; font-weight: 600; color: var(--cream); }
+
+/* QR Modal */
+.qr-modal { position: fixed; inset: 0; z-index: 3000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.9); opacity: 0; visibility: hidden; transition: all 0.3s; }
+.qr-modal.open { opacity: 1; visibility: visible; }
+
+.qr-modal-box { background: #FDFAF5; border-radius: 16px; padding: 32px; text-align: center; width: 90%; max-width: 360px; position: relative; }
+.qr-modal-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+.qr-modal-sub { font-size: 13px; color: var(--ink-soft); margin-bottom: 24px; }
+.qr-large { width: 220px; height: 220px; margin: 0 auto 16px; }
+.qr-modal-note { font-size: 12px; color: var(--muted); }
+.qr-modal-close { position: absolute; top: 14px; right: 14px; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.1); border: none; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(10,13,20,0.97); border: 1px solid rgba(74,144,217,0.3); border-radius: 10px; padding: 12px 24px; font-size: 14px; color: var(--cream); z-index: 9999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); backdrop-filter: blur(16px); }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+.modal-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+.mcta-btn { padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.mcta-primary { background: var(--spice); color: white; border: none; }
+.mcta-primary:hover { background: var(--spice-light); transform: translateY(-2px); }
+.mcta-ghost { background: transparent; border: 1px solid rgba(74,144,217,0.35); color: var(--cream); }
+.mcta-ghost:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+ /* ── FOOTER ── */
+  footer {
+    background: rgba(255,255,255,0.04);
+    border-top: 1px solid rgba(74,144,217,0.12);
+    padding: 52px 40px 28px;
+  }
+  .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  @media (max-width: 540px) { .footer-grid { grid-template-columns: 1fr; gap: 20px; } }
+  .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 12px 0 20px; max-width: 240px; }
+  .footer-social { display: flex; gap: 10px; }
+  .social-btn {
+    width: 34px; height: 34px;
+    border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.2s;
+    text-decoration: none;
+  }
+  .social-btn:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+  .footer-col h4 { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 16px; }
+  .footer-col a {
+    display: block; font-size: 13px; color: var(--muted);
+    text-decoration: none; margin-bottom: 10px; cursor: pointer;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-bottom {
+    max-width: 1100px; margin: 0 auto;
+    border-top: 1px solid rgba(74,144,217,0.1);
+    padding-top: 22px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+  }
+  .footer-copy { font-size: 12px; color: var(--muted); }
+
+  /* ── LIGHT THEME HERO FIXES ── */
+  .page-hero { color: var(--cream); }
+  .page-hero * { color: inherit; }
+  .page-hero .page-label { color: var(--gold); }
+  .page-hero .page-desc { color: rgba(245,240,232,0.75); }
+  .page-hero .hero-chip { color: var(--muted); }
+</style>
+</head>
+
+
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+       <img src= "../assets/images/logo.jpg"  class="nav-logo-img">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html" class="active">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="vku-corner.html">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="doi-tac.html#transport">🚌 Vận tải</a>
+        <a href="doi-tac.html#hostels">🏡 Homestay xanh</a>
+        <a href="doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="nav-notify" id="notifyBtn" title="Thông báo">🔔</div>
+    
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+
+    <div class="user-pill" id="userPill" style="display:none; position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🪙 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+
+    <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="../index.html">Trang chủ</a><span>›</span><span>Ẩm thực vỉa hè</span></div>
+    <h1>Bản đồ<br><em>Ẩm Thực Địa Phương </em></h1>
+    <p>Từng món ăn là một câu chuyện gia truyền. Quét QR để khám phá menu số và nguồn gốc văn hóa đằng sau mỗi tô, mỗi đĩa.</p>
+  </div>
+</div>
+
+<!-- ── CATEGORY TABS ── -->
+<div class="cat-tabs">
+  <div class="cat-inner">
+    <button class="cat-btn all active" onclick="setCat(this,'all')">🍽 Tất cả</button>
+    <button class="cat-btn" onclick="setCat(this,'mi-quang')">🍜 Mì Quảng</button>
+    <button class="cat-btn" onclick="setCat(this,'cao-lau')">🥢 Cao Lầu</button>
+    <button class="cat-btn" onclick="setCat(this,'banh-mi')">🥖 Bánh Mì</button>
+    <button class="cat-btn" onclick="setCat(this,'banh-trang')">🌯 Bánh Tráng</button>
+    <button class="cat-btn" onclick="setCat(this,'che')">🍮 Chè</button>
+    <button class="cat-btn" onclick="setCat(this,'hai-san')">🦐 Hải sản</button>
+  </div>
+</div>
+
+<div class="sidebar-toggle-bar" id="sidebarToggle" onclick="toggleSidebar()">
+  <span>🍜 <span id="toggleLabel">Xem danh sách quán ăn</span></span>
+  <span id="toggleIcon">▼</span>
+</div>
+
+<!-- ── MAIN LAYOUT ── -->
+<div class="main-layout">
+  <div class="sidebar" id="mainSidebar">
+    <div class="sidebar-header">
+
+              <span class="sidebar-count"><strong id="countNum">10</strong> quán đặc sản</span>
+      <select class="sort-select" onchange="showToast('🔃 Đang sắp xếp...')">
+        <option>Đánh giá cao nhất</option>
+        <option>Gần nhất</option>
+        <option>Giá thấp nhất</option>
+      </select>
+    </div>
+    <div id="foodList"></div>
+  </div>
+  <div id="map">
+    <div id="map-loading"><div class="map-spinner"></div></div>
+    <div class="map-geocoder">
+      <div class="geocoder-row">
+        <input class="geocoder-input" id="geocoderInput" type="text" placeholder="Tìm quán ăn, địa điểm..."
+          onkeydown="if(event.key==='Enter') geocodeSearch()"
+          oninput="if(!this.value) document.getElementById('geocoderResults').style.display='none'">
+        <button class="geocoder-btn" onclick="geocodeSearch()" title="Tìm kiếm">🔍</button>
+      </div>
+      <div class="geocoder-results" id="geocoderResults"></div>
+    </div>
+    <div id="leaflet-map"></div>
+  </div>
+</div>
+
+<!-- ── FOOD DETAIL MODAL ── -->
+<div class="food-modal" id="foodModal">
+  <div class="fmodal-box">
+    <button class="modal-close" onclick="closeFoodModal()">✕</button>
+    <div class="modal-hero-img" id="fmodalHero"></div>
+    <div class="fmodal-content" id="fmodalContent"></div>
+  </div>
+</div>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="display:flex; gap:10px; align-items:center; margin-bottom:12px">
+           <img src= "../assets/images/logo.jpg"  class="nav-logo-img">
+        <div>
+          <span class="nav-logo-text">CENTRAL CONNECT</span>
+          <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+        </div>
+      </div>
+      <p>"Dùng công nghệ để bảo tồn những giá trị xưa cũ và mở ra cánh cửa kết nối hiện đại cho du lịch miền Trung."</p>
+      <div class="footer-social">
+        <a class="social-btn" title="Facebook">f</a>
+        <a class="social-btn" title="Instagram">ig</a>
+        <a class="social-btn" title="YouTube">yt</a>
+        <a class="social-btn" title="TikTok">tt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Khám phá</h4>
+      <a href="di-tich.html">Di tích lịch sử</a>
+      <a href="kham-pha.html">Bản đồ di sản</a>
+      <a href="lang-nghe.html">Làng nghề</a>
+      <a href="kham-pha.html">Bản đồ tương tác</a>
+    </div>
+    <div class="footer-col">
+      <h4>Dịch vụ</h4>
+      <a>Lịch trình thông minh</a>
+      <a>Đặt vé & Tour</a>
+      <a>Homestay xanh</a>
+      <a>Thuê xe máy</a>
+      <a>Gây quỹ di sản</a>
+    </div>
+    <div class="footer-col">
+      <h4>Về chúng tôi</h4>
+      <a>Giới thiệu dự án</a>
+      <a>VKU Corner</a>
+      <a>Trở thành Đại sứ</a>
+      <a>Hợp tác doanh nghiệp</a>
+      <a>Điều khoản & Chính sách</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Central Connect · Được xây dựng bởi sinh viên VKU · Đà Nẵng, Việt Nam</div>
+    <div class="footer-copy">📍 VKU, Nguyễn Lương Bằng, Đà Nẵng · 📧 contact@centralconnect.vn</div>
+  </div>
+</footer>
+
+<!-- ── QR MODAL ── -->
+<div class="qr-modal" id="qrModal">
+  <div class="qr-modal-box">
+    <button class="qr-modal-close" onclick="document.getElementById('qrModal').classList.remove('open')">✕</button>
+    <div class="qr-modal-title" id="qrTitle">Menu số</div>
+    <div class="qr-modal-sub" id="qrSub">Quét để xem thực đơn & câu chuyện</div>
+    <div class="qr-large">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="white"/>
+        <!-- QR code simulation -->
+        <rect x="5" y="5" width="35" height="35" fill="none" stroke="#1A1410" stroke-width="3"/>
+        <rect x="10" y="10" width="25" height="25" fill="#1A1410"/>
+        <rect x="14" y="14" width="17" height="17" fill="white"/>
+        <rect x="18" y="18" width="9" height="9" fill="#1A1410"/>
+        <rect x="60" y="5" width="35" height="35" fill="none" stroke="#1A1410" stroke-width="3"/>
+        <rect x="65" y="10" width="25" height="25" fill="#1A1410"/>
+        <rect x="69" y="14" width="17" height="17" fill="white"/>
+        <rect x="73" y="18" width="9" height="9" fill="#1A1410"/>
+        <rect x="5" y="60" width="35" height="35" fill="none" stroke="#1A1410" stroke-width="3"/>
+        <rect x="10" y="65" width="25" height="25" fill="#1A1410"/>
+        <rect x="14" y="69" width="17" height="17" fill="white"/>
+        <rect x="18" y="73" width="9" height="9" fill="#1A1410"/>
+        <!-- data dots -->
+
+        <rect x="45" y="5" width="7" height="7" fill="#1A1410"/>
+        <rect x="55" y="5" width="7" height="7" fill="#1A1410"/>
+        <rect x="45" y="15" width="7" height="7" fill="#1A1410"/>
+        <rect x="55" y="25" width="7" height="7" fill="#1A1410"/>
+        <rect x="45" y="45" width="7" height="7" fill="#1A1410"/>
+        <rect x="55" y="45" width="7" height="7" fill="#1A1410"/>
+        <rect x="65" y="45" width="7" height="7" fill="#1A1410"/>
+        <rect x="75" y="45" width="7" height="7" fill="#1A1410"/>
+        <rect x="85" y="45" width="7" height="7" fill="#1A1410"/>
+        <rect x="45" y="55" width="7" height="7" fill="#1A1410"/>
+        <rect x="65" y="55" width="7" height="7" fill="#1A1410"/>
+        <rect x="85" y="55" width="7" height="7" fill="#1A1410"/>
+        <rect x="45" y="65" width="7" height="7" fill="#1A1410"/>
+        <rect x="55" y="65" width="7" height="7" fill="#1A1410"/>
+        <rect x="75" y="65" width="7" height="7" fill="#1A1410"/>
+        <rect x="45" y="75" width="7" height="7" fill="#1A1410"/>
+        <rect x="65" y="75" width="7" height="7" fill="#1A1410"/>
+        <rect x="75" y="75" width="7" height="7" fill="#1A1410"/>
+        <rect x="85" y="75" width="7" height="7" fill="#1A1410"/>
+        <rect x="45" y="85" width="7" height="7" fill="#1A1410"/>
+        <rect x="55" y="85" width="7" height="7" fill="#1A1410"/>
+        <rect x="85" y="85" width="7" height="7" fill="#1A1410"/>
+      </svg>
+    </div>
+
+        <p class="qr-modal-note">Demo: Trong hệ thống thực tế, QR sẽ liên kết tới trang menu riêng của từng quán.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let FOODS = [
+  { id:1, name:'Mì Quảng Bà Vị', shop:'Quán Bà Vị – 6B Phan Châu Trinh', cat:'mi-quang', lat:15.8794, lng:108.3356, rating:4.9, reviews:1820, price:'35.000đ–55.000đ', hours:'06:00–14:00', since:'1978', img:'../image/My_quang.png', story:'Bà Vị bắt đầu bán mì Quảng từ năm 1978 với gánh nhỏ trước nhà. Bí quyết nằm ở nước lèo hầm xương heo 6 tiếng, bánh mì Quảng tự tráng buổi sáng sớm, và rau sống hái từ vườn Trà Quế. Hơn 40 năm, chưa thay đổi công thức.', menu:[{n:'Mì Quảng tôm thịt',p:'45.000đ'},{n:'Mì Quảng gà',p:'40.000đ'},{n:'Mì Quảng bò',p:'55.000đ'},{n:'Mì Quảng chay',p:'35.000đ'}] },
+  { id:2, name:'Cao Lầu Ông Hai', shop:'Quán Ông Hai – 22 Lê Lợi, Hội An', cat:'cao-lau', lat:15.8762, lng:108.3339, rating:4.8, reviews:1340, price:'40.000đ–60.000đ', hours:'07:00–21:00', since:'1965', img:'../image/cau_lau_hoi_an.png', story:'Cao Lầu là món ăn đặc trưng chỉ có ở Hội An. Sợi mì được làm từ nước giếng Bá Lễ duy nhất tại Hội An và tro từ cây củi đặc biệt. Ông Hai đã giữ bí quyết gia truyền 3 đời, từ thời ông nội.', menu:[{n:'Cao Lầu đặc biệt',p:'55.000đ'},{n:'Cao Lầu thường',p:'40.000đ'},{n:'Cao Lầu chay',p:'35.000đ'},{n:'Cao Lầu chua',p:'45.000đ'}] },
+  { id:3, name:'Bánh Mì Phượng', shop:'Bánh Mì Phượng – 2B Phan Châu Trinh', cat:'banh-mi', lat:15.8774, lng:108.3348, rating:4.9, reviews:4560, price:'25.000đ–45.000đ', hours:'06:30–20:00', since:'1988', img:'../image/banh_mi_phuong.png', story:'Anthony Bourdain gọi đây là "bánh mì ngon nhất thế giới" năm 2009. Bà Phượng tự làm bánh mì mỗi sáng, thịt xá xíu ướp 2 ngày, nước sốt đặc biệt pha từ 12 gia vị. Mỗi ngày bán hơn 1.500 ổ.', menu:[{n:'Bánh mì đặc biệt',p:'40.000đ'},{n:'Bánh mì xá xíu',p:'35.000đ'},{n:'Bánh mì pate',p:'25.000đ'},{n:'Bánh mì trứng',p:'30.000đ'}] },
+  { id:4, name:'Bánh Tráng Cuốn Thịt Heo Bảy Hoàng', shop:'Quán Bảy Hoàng – 25 Trần Phú', cat:'banh-trang', lat:16.0678, lng:108.2207, rating:4.7, reviews:980, price:'80.000đ–150.000đ/người', hours:'10:00–22:00', since:'1992', img:'../image/banh_trang_cuon_thit_heo.png', story:'Bánh tráng cuốn thịt heo là đặc sản số 1 Đà Nẵng, không thể nhầm lẫn với nơi khác. Ông Bảy Hoàng chọn heo từ làng Cẩm Lệ, luộc vừa chín tới, kèm rau sống 12 loại và tương đặc biệt ủ 3 tháng.', menu:[{n:'Set 2 người',p:'160.000đ'},{n:'Set 4 người',p:'300.000đ'},{n:'Thêm bánh tráng',p:'20.000đ'},{n:'Thêm thịt',p:'60.000đ'}] },
+  { id:5, name:'Chè Bà Bốn Hội An', shop:'Quán Chè Bà Bốn – 1 Nguyễn Huệ', cat:'che', lat:15.8810, lng:108.3370, rating:4.6, reviews:760, price:'15.000đ–30.000đ', hours:'08:00–22:30', since:'1975', img:'../image/banh_xeo.png', story:'Chè Hội An có hơn 20 loại chè truyền thống, từ chè bắp, chè đậu ván, chè sâm bổ lượng… Bà Bốn là thế hệ thứ 3 giữ nghề từ 1975, nguyên liệu chọn lọc từ vùng đồng bằng Thăng Bình.', menu:[{n:'Chè bắp',p:'20.000đ'},{n:'Chè đậu ván',p:'20.000đ'},{n:'Sâm bổ lượng',p:'30.000đ'},{n:'Chè thập cẩm',p:'25.000đ'}] },
+  { id:6, name:'Hải Sản Bờ Biển Thanh', shop:'Quán Thanh – 18 Võ Nguyên Giáp', cat:'hai-san', lat:16.0638, lng:108.2476, rating:4.8, reviews:2100, price:'150.000đ–500.000đ/người', hours:'10:00–23:00', since:'2001', img:'../image/my-khe-moi.jpg', story:'Ngay trên bãi biển Mỹ Khê, quán Thanh nổi tiếng với hải sản tươi từ ngư dân Thanh Khê đánh về mỗi sáng. Ghẹ rang me, tôm hùm nướng, sò điệp phô mai là những món khách quay lại mãi không chán.', menu:[{n:'Ghẹ rang me (kg)',p:'350.000đ'},{n:'Tôm hùm nướng (con)',p:'480.000đ'},{n:'Sò điệp phô mai',p:'80.000đ'},{n:'Mực nướng',p:'150.000đ'}] },
+  { id:7, name:'Mì Quảng Tuân Quán', shop:'Tuân Quán – 64 Hùng Vương', cat:'mi-quang', lat:16.0712, lng:108.2243, rating:4.7, reviews:1200, price:'30.000đ–50.000đ', hours:'06:00–12:00', since:'2003', img:'../image/My_quang.png', story:'Tuân Quán mang công thức Mì Quảng thuần chất từ Duy Xuyên ra Đà Nẵng. Khác với mì Quảng phố thị, ở đây vẫn dùng bánh dày truyền thống, nước lèo ngọt thanh không bột ngọt.', menu:[{n:'Mì Quảng gà ta',p:'45.000đ'},{n:'Mì Quảng ếch',p:'50.000đ'},{n:'Mì Quảng bò',p:'45.000đ'},{n:'Mì Quảng chay',p:'30.000đ'}] },
+  { id:8, name:'Bánh Mì Bà Lan', shop:'Bánh Mì Bà Lan – 8 Đống Đa', cat:'banh-mi', lat:16.0652, lng:108.2153, rating:4.5, reviews:620, price:'20.000đ–35.000đ', hours:'05:30–10:00', since:'1995', img:'../image/banh_mi_phuong.png', story:'Bà Lan chỉ bán buổi sáng sớm, bánh nướng mỗi 30 phút một lần. Không có nhân cầu kỳ, chỉ pate, chả lụa, dưa leo – nhưng bánh giòn và tươi đến mức không thể cưỡng lại.', menu:[{n:'Bánh mì pate chả',p:'25.000đ'},{n:'Bánh mì thịt đặc',p:'35.000đ'},{n:'Bánh mì trứng',p:'20.000đ'},{n:'Bánh mì không',p:'5.000đ'}] },
+  { id:9, name:'Chè 3 Màu Ngọc Mai', shop:'Ngọc Mai – 30 Lê Duẩn', cat:'che', lat:16.0689, lng:108.2219, rating:4.4, reviews:430, price:'10.000đ–25.000đ', hours:'14:00–23:00', since:'2010', img:'../image/banh_trang_cuon.png', story:'Một hàng chè nhỏ nhưng có tâm ở góc phố Lê Duẩn. Chè 3 màu ở đây nức tiếng nhờ thạch đen nhà làm từ cây sương sáo, đậu xanh không đường hóa học và nước cốt dừa tươi mỗi ngày.', menu:[{n:'Chè 3 màu',p:'20.000đ'},{n:'Chè thạch đen',p:'15.000đ'},{n:'Sinh tố bơ',p:'25.000đ'},{n:'Chè bưởi',p:'20.000đ'}] },
+  { id:10, name:'Hải Sản Bình Dân Cô Ba', shop:'Cô Ba – Chợ Hàn, Đà Nẵng', cat:'hai-san', lat:16.0685, lng:108.2225, rating:4.6, reviews:1560, price:'50.000đ–200.000đ/người', hours:'17:00–22:00', since:'1998', img:'../image/manhai.jpg', story:'Cô Ba bán hải sản vỉa hè ngay cạnh chợ Hàn suốt 25 năm. Giá rẻ bình dân nhưng chất lượng không thua – ngao, sò, mực, cá thu đều từ tàu cập bến sáng hôm đó.', menu:[{n:'Ngao xào sả ớt',p:'60.000đ'},{n:'Sò huyết nướng',p:'80.000đ'},{n:'Mực chiên giòn',p:'90.000đ'},{n:'Cá thu kho tiêu',p:'120.000đ'}] },
+];
+
+const CAT_COLORS = { 'mi-quang':'#E8A040', 'cao-lau':'#C9A84C', 'banh-mi':'#D4540A', 'banh-trang':'#A0C080', 'che':'#E070A0', 'hai-san':'#4080D0', 'all':'#C9A84C' };
+const CAT_LABELS = { 'mi-quang':'Mì Quảng', 'cao-lau':'Cao Lầu', 'banh-mi':'Bánh Mì', 'banh-trang':'Bánh Tráng', 'che':'Chè', 'hai-san':'Hải sản' };
+
+let activeCat = 'all', map;
+
+function initMap() {
+  map = L.map('leaflet-map', { center: [15.97, 108.29], zoom: 11, zoomControl: true });
+  const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+    maxZoom: 19
+  }).addTo(map);
+  tiles.once('load', () => {
+    const ov = document.getElementById('map-loading');
+    if (ov) { ov.classList.add('hidden'); setTimeout(() => ov.remove(), 600); }
+  });
+  setTimeout(() => {
+    const ov = document.getElementById('map-loading');
+    if (ov) { ov.classList.add('hidden'); setTimeout(() => ov.remove(), 600); }
+  }, 4000);
+  map.zoomControl.setPosition('topright');
+  renderMarkers();
+  addSovereigntyMarkers();
+}
+
+function addSovereigntyMarkers() {
+  const hsIcon = L.divIcon({
+    className: '',
+    html: `<div style="background:rgba(26,47,90,0.92);border:2px solid #C9A84C;border-radius:8px;padding:5px 10px;white-space:nowrap;font-size:11px;font-weight:700;color:#F5E98A;letter-spacing:0.05em;box-shadow:0 2px 12px rgba(0,0,0,0.35);">🇻🇳 Quần đảo Hoàng Sa<br><span style="font-size:9px;font-weight:400;color:#C9A84C;">Thuộc Việt Nam</span></div>`,
+    iconAnchor: [72, 20]
+  });
+  L.marker([16.50, 111.60], { icon: hsIcon })
+    .addTo(map)
+    .bindPopup('<b>🇻🇳 Quần đảo Hoàng Sa, Việt Nam</b><br><small>Thuộc chủ quyền Việt Nam theo luật pháp quốc tế</small>');
+
+  const tsIcon = L.divIcon({
+    className: '',
+    html: `<div style="background:rgba(26,47,90,0.92);border:2px solid #C9A84C;border-radius:8px;padding:5px 10px;white-space:nowrap;font-size:11px;font-weight:700;color:#F5E98A;letter-spacing:0.05em;box-shadow:0 2px 12px rgba(0,0,0,0.35);">🇻🇳 Quần đảo Trường Sa<br><span style="font-size:9px;font-weight:400;color:#C9A84C;">Thuộc Việt Nam</span></div>`,
+    iconAnchor: [76, 20]
+  });
+  L.marker([8.65, 111.92], { icon: tsIcon })
+    .addTo(map)
+    .bindPopup('<b>🇻🇳 Quần đảo Trường Sa, Việt Nam</b><br><small>Thuộc chủ quyền Việt Nam theo luật pháp quốc tế</small>');
+}
+
+let allMarkers = [];
+function renderMarkers() {
+  allMarkers.forEach(m => map.removeLayer(m));
+  allMarkers = [];
+  getFiltered().forEach(f => {
+    const color = CAT_COLORS[f.cat];
+    const icon = L.divIcon({ className: '', html: `<div style="width:40px;height:40px;border-radius:50%;background:${color}22;border:2px solid ${color};display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;">🍜</div>`, iconSize:[40,40], iconAnchor:[20,20] });
+    const m = L.marker([f.lat, f.lng], { icon }).addTo(map).on('click', () => openFood(f));
+    allMarkers.push(m);
+  });
+}
+function getFiltered() {
+  return FOODS.filter(f => activeCat === 'all' || f.cat === activeCat);
+}
+
+function setCat(btn, cat) {
+  activeCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderList(); renderMarkers();
+  document.getElementById('countNum').textContent = getFiltered().length;
+}
+
+function renderList() {
+  const filtered = getFiltered();
+  document.getElementById('countNum').textContent = filtered.length;
+  const list = document.getElementById('foodList');
+  list.innerHTML = '';
+  filtered.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'food-card'; div.id = 'fc-' + f.id;
+    div.onclick = () => openFood(f);
+    div.innerHTML = `
+      <div class="fc-img" style="background-image:url('${f.img}')"></div>
+      <div class="fc-body">
+        <div class="fc-name">${f.name}</div>
+        <div class="fc-shop">🏪 ${f.shop}</div>
+        <div class="fc-meta">
+          <span class="fc-tag" style="background:${CAT_COLORS[f.cat]}22;color:${CAT_COLORS[f.cat]}">${CAT_LABELS[f.cat]||f.cat}</span>
+          <span class="fc-price">${f.price}</span>
+          <span class="fc-stars">★ ${f.rating} (${f.reviews.toLocaleString()})</span>
+        </div>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+function openFood(f) {
+  document.querySelectorAll('.food-card').forEach(c => c.classList.remove('selected'));
+  const fc = document.getElementById('fc-' + f.id); if (fc) fc.classList.add('selected');
+  map.flyTo([f.lat, f.lng], 15, { duration: 1.2 });
+  document.getElementById('fmodalHero').style.backgroundImage = `url('${f.img}')`;
+  document.getElementById('fmodalContent').innerHTML = `
+    <div class="fmodal-header">
+      <div>
+        <div class="fmodal-title">${f.name}</div>
+        <div class="fmodal-shop">🏪 ${f.shop} &nbsp;·&nbsp; Từ năm ${f.since}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:20px;color:var(--ocean-light);font-weight:700">★ ${f.rating}</div>
+        <div style="font-size:12px;color:var(--muted)">${f.reviews.toLocaleString()} đánh giá</div>
+      </div>
+    </div>
+    <div class="qr-section">
+      <div class="qr-box" onclick="openQR('${f.name}', '${f.shop}')">
+        <svg class="qr-inner" viewBox="0 0 60 60"><rect width="60" height="60" fill="white"/><rect x="3" y="3" width="20" height="20" fill="none" stroke="#1A1410" stroke-width="2"/><rect x="6" y="6" width="14" height="14" fill="#1A1410"/><rect x="8" y="8" width="10" height="10" fill="white"/><rect x="10" y="10" width="6" height="6" fill="#1A1410"/><rect x="37" y="3" width="20" height="20" fill="none" stroke="#1A1410" stroke-width="2"/><rect x="40" y="6" width="14" height="14" fill="#1A1410"/><rect x="42" y="8" width="10" height="10" fill="white"/><rect x="44" y="10" width="6" height="6" fill="#1A1410"/><rect x="3" y="37" width="20" height="20" fill="none" stroke="#1A1410" stroke-width="2"/><rect x="6" y="40" width="14" height="14" fill="#1A1410"/><rect x="8" y="42" width="10" height="10" fill="white"/><rect x="10" y="44" width="6" height="6" fill="#1A1410"/><rect x="27" y="3" width="5" height="5" fill="#1A1410"/><rect x="27" y="13" width="5" height="5" fill="#1A1410"/><rect x="27" y="27" width="5" height="5" fill="#1A1410"/><rect x="37" y="27" width="5" height="5" fill="#1A1410"/><rect x="47" y="27" width="5" height="5" fill="#1A1410"/><rect x="27" y="37" width="5" height="5" fill="#1A1410"/><rect x="37" y="37" width="5" height="5" fill="#1A1410"/><rect x="47" y="47" width="5" height="5" fill="#1A1410"/><rect x="37" y="47" width="5" height="5" fill="#1A1410"/><rect x="27" y="47" width="5" height="5" fill="#1A1410"/></svg>
+      </div>
+      <div class="qr-info">
+        <div class="qr-title">📱 Menu số & Câu chuyện ẩm thực</div>
+        <div class="qr-sub">Quét QR để xem thực đơn đầy đủ, ảnh món ăn, câu chuyện gia truyền và bản đồ chỉ đường tới quán.</div>
+        <button class="qr-scan-btn" onclick="openQR('${f.name}', '${f.shop}')">📷 Xem Menu số</button>
+      </div>
+    </div>
+    <div class="story-section">
+      <div class="story-header"><div class="story-line"></div><div class="story-label">📖 Câu chuyện gia truyền</div><div class="story-line"></div></div>
+      <div class="story-text">${f.story}</div>
+    </div>
+    <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">🍽 Thực đơn</div>
+    <div class="menu-grid">${f.menu.map(m=>`<div class="menu-item"><div><div class="menu-item-name">${m.n}</div></div><div class="menu-item-price">${m.p}</div></div>`).join('')}</div>
+    <div class="info-chips">
+      <div class="info-chip"><div class="info-chip-label">⏰ Giờ bán</div><div class="info-chip-val">${f.hours}</div></div>
+      <div class="info-chip"><div class="info-chip-label">💰 Khoảng giá</div><div class="info-chip-val">${f.price}</div></div>
+      <div class="info-chip"><div class="info-chip-label">📅 Từ năm</div><div class="info-chip-val">${f.since}</div></div>
+      <div class="info-chip"><div class="info-chip-label">⭐ Đánh giá</div><div class="info-chip-val">${f.rating}/5 (${f.reviews.toLocaleString()})</div></div>
+    </div>
+    <div class="modal-cta">
+      <button class="mcta-btn mcta-primary" id="foodCheckinBtn" onclick="doFoodCheckin('${f.id}', '${f.name.replace(/'/g,"\\'")}')">📍 Check-in (+30 🪙)</button>
+      <button class="mcta-btn mcta-ghost" onclick="showToast('✅ Đã thêm vào lịch trình ẩm thực!')">📅 Lưu địa điểm</button>
+      <button class="mcta-btn mcta-ghost" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${f.lat},${f.lng}','_blank','noopener,noreferrer')">🗺 Chỉ đường</button>
+    </div>`;
+  document.getElementById('foodModal').classList.add('open');
+}
+
+function closeFoodModal() { document.getElementById('foodModal').classList.remove('open'); }
+
+async function doFoodCheckin(placeId, placeName) {
+  const user = (() => { try { return JSON.parse(localStorage.getItem('cc_user') || 'null'); } catch { return null; } })();
+  if (!user) { showToast('⚠ Vui lòng đăng nhập để check-in!'); return; }
+  const btn = document.getElementById('foodCheckinBtn');
+  btn.disabled = true; btn.textContent = '⏳ Đang xử lý...';
+  if (window.ccDB) {
+    const res = await ccDB.checkIn(placeId, placeName).catch(() => null);
+    // ccDB.checkIn() tự award +30 điểm nội bộ → không gọi ccAddPoints thêm
+    if (res && res.reason === 'already') {
+      btn.textContent = '✅ Đã check-in';
+      showToast('ℹ Bạn đã check-in quán này rồi!');
+      return;
+    }
+    if (res && res.success) {
+      btn.textContent = '✅ Đã check-in';
+      showToast('🎉 Check-in thành công: ' + placeName + ' (+30 Hạt Bàu 🪙)');
+      return;
+    }
+  }
+  // Fallback khi không có ccDB hoặc API lỗi
+  if (typeof ccAddPoints === 'function') ccAddPoints(30, 'Check-in ' + placeName);
+  btn.textContent = '✅ Đã check-in';
+  showToast('🎉 Check-in thành công: ' + placeName + ' (+30 Hạt Bàu 🪙)');
+}
+
+function openQR(name, shop) {
+  document.getElementById('qrTitle').textContent = name;
+  document.getElementById('qrSub').textContent = shop;
+  document.getElementById('qrModal').classList.add('open');
+}
+
+document.getElementById('foodModal').addEventListener('click', e => { if (e.target === document.getElementById('foodModal')) closeFoodModal(); });
+document.getElementById('qrModal').addEventListener('click', e => { if (e.target === document.getElementById('qrModal')) document.getElementById('qrModal').classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeFoodModal(); document.getElementById('qrModal').classList.remove('open'); } });
+
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+
+document.addEventListener('DOMContentLoaded', async () => {
+  initMap(); renderList();
+  // Load từ API — fallback sang hardcoded nếu server chưa chạy
+  try {
+    const base = (typeof CC_API_URL !== 'undefined' ? CC_API_URL : 'http://localhost:3000');
+    const res = await fetch(base + '/api/foods');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data || !data.length) return;
+    data.forEach(f => {
+      f.lat = parseFloat(f.lat); f.lng = parseFloat(f.lng);
+      f.rating = parseFloat(f.rating); f.reviews = parseInt(f.reviews);
+      if (!Array.isArray(f.menu)) { try { f.menu = JSON.parse(f.menu || '[]'); } catch { f.menu = []; } }
+    });
+    FOODS.length = 0;
+    data.forEach(f => FOODS.push(f));
+    renderList(); renderMarkers();
+    document.getElementById('countNum').textContent = getFiltered().length;
+  } catch { /* dùng dữ liệu hardcoded */ }
+});
+
+function toggleSidebar() {
+  const sb = document.getElementById('mainSidebar');
+  const lbl = document.getElementById('toggleLabel');
+  const ico = document.getElementById('toggleIcon');
+  const isOpen = sb.classList.toggle('open');
+  lbl.textContent = isOpen ? 'Ẩn danh sách' : 'Xem danh sách quán ăn';
+  ico.textContent = isOpen ? '▲' : '▼';
+  if (isOpen) setTimeout(() => map && map.invalidateSize(), 300);
+}
+
+// ── GEOCODER (Nominatim) ──
+let geocodeMarker = null;
+async function geocodeSearch() {
+  const q = document.getElementById('geocoderInput').value.trim();
+  if (!q) return;
+  const res = document.getElementById('geocoderResults');
+  res.style.display = 'block';
+  res.innerHTML = '<div class="geocoder-status">⏳ Đang tìm...</div>';
+  try {
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q + ' Đà Nẵng Hội An Quảng Nam')}&countrycodes=vn&limit=5&accept-language=vi`);
+    const data = await r.json();
+    if (!data.length) { res.innerHTML = '<div class="geocoder-status">Không tìm thấy kết quả</div>'; return; }
+    res.innerHTML = '';
+    data.forEach(d => {
+      const div = document.createElement('div');
+      div.className = 'geocoder-result-item';
+      div.textContent = '📍 ' + d.display_name;
+      div.addEventListener('click', () => flyToGeocode(parseFloat(d.lat), parseFloat(d.lon), d.display_name.split(',')[0]));
+      res.appendChild(div);
+    });
+  } catch(e) {
+    res.innerHTML = '<div class="geocoder-status">Lỗi kết nối. Vui lòng thử lại.</div>';
+  }
+}
+function flyToGeocode(lat, lon, name) {
+  if (geocodeMarker) map.removeLayer(geocodeMarker);
+  geocodeMarker = L.marker([lat, lon]).addTo(map).bindPopup(`<b>${name}</b>`).openPopup();
+  map.flyTo([lat, lon], 15, { duration: 1.2 });
+  document.getElementById('geocoderResults').style.display = 'none';
+  document.getElementById('geocoderInput').value = name;
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.map-geocoder')) document.getElementById('geocoderResults').style.display = 'none';
+});
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+</body>
+</html>

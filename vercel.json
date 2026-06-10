@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "outputDirectory": "BWD",
+  "functions": {
+    "api/ai.js": { "maxDuration": 30 }
+  }
+}

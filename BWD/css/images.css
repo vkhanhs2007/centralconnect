@@ -1,0 +1,130 @@
+/* ══════════════════════════════════════════════════════
+   CENTRAL CONNECT — Global Image Styles
+   Áp dụng cho toàn bộ ảnh card, banner, gallery
+   ══════════════════════════════════════════════════════ */
+
+/* ── Ảnh thẻ & background-image ── */
+.card-img,
+.fc-img,
+.vc-img,
+.ec-img,
+.fund-img {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transition: transform 0.45s ease;
+}
+
+/* ── Chiều cao đồng nhất theo loại card ── */
+.card-img  { height: 220px; border-radius: 10px 10px 0 0; }
+.fc-img    { height: 200px; border-radius: 10px 10px 0 0; }
+.vc-img    { height: 220px; border-radius: 10px 10px 0 0; }
+.ec-img    { height: 200px; border-radius: 10px 10px 0 0; }
+.fund-img  { height: 180px; border-radius: 10px 10px 0 0; }
+
+/* ── sc-img (di-tich cards) có ảnh thật ── */
+.sc-img {
+  height: 190px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  transition: transform 0.45s ease;
+}
+
+/* ── Hover zoom ── */
+.place-card:hover .card-img,
+.food-card:hover .fc-img,
+.village-card:hover .vc-img,
+.event-card:hover .ec-img,
+.site-card:hover .sc-img {
+  transform: scale(1.06);
+}
+
+/* ── Thẻ card có shadow & bo góc ── */
+.place-card,
+.food-card,
+.village-card,
+.event-card,
+.site-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.place-card:hover,
+.food-card:hover,
+.village-card:hover,
+.event-card:hover,
+.site-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.45);
+}
+
+/* ── Thẻ <img> thông thường ── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Ảnh trong food modal & event modal ── */
+.modal-hero-img,
+#emHero {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ── Slider before/after ── */
+.slider-before,
+.slider-after {
+  background-size: cover;
+  background-position: center;
+}
+
+/* ── Ảnh ẩm thực trong index ── */
+.food-thumb {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.food-thumb:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* ── Logo nav ── */
+.nav-logo-img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ── Responsive ── */
+@media (max-width: 800px) {
+  .card-img  { height: 180px; }
+  .fc-img    { height: 170px; }
+  .vc-img    { height: 180px; }
+  .ec-img    { height: 170px; }
+  .sc-img    { height: 160px; }
+  .fund-img  { height: 150px; }
+  .food-thumb { height: 120px; }
+}
+
+@media (max-width: 540px) {
+  .card-img  { height: 160px; }
+  .fc-img    { height: 150px; }
+  .vc-img    { height: 160px; }
+  .ec-img    { height: 150px; }
+  .sc-img    { height: 140px; }
+  .fund-img  { height: 130px; }
+  .food-thumb { height: 110px; }
+}

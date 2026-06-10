@@ -1,0 +1,427 @@
+﻿7-VKU
+9-PROFILE
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hồ Sơ Cá Nhân – Central Connect</title>
+<meta name="description" content="Quản lý hồ sơ cá nhân, điểm Hải Âu, lịch sử check-in và sở thích du lịch trên Central Connect.">
+<meta property="og:title" content="Hồ Sơ – Central Connect">
+<meta property="og:description" content="Trang hồ sơ người dùng Central Connect – Di sản số Đà Nẵng.">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1A4F8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#9A7A30;--cream:#F5F0E8;--ink:#1A1410;--ink-soft:#3D3530;--muted:#8A7D6E;--glass:rgba(26,20,16,0.05);--ocean:#1A4F8C;--ocean-light:#4A90D9;--ocean-soft:rgba(74,144,217,0.1);--sunset:#B8532E;--sunset-light:#D4744A;--sunset-soft:rgba(212,116,74,0.1);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--ink);color:var(--cream);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,13,20,0.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(74,144,217,0.25);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;}
+.nav-logo-icon{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:0.05em;}
+.nav-logo-sub{font-size:9px;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;display:block;margin-top:-2px;}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nbtn{background:transparent;border:1px solid rgba(74,144,217,0.3);color:rgba(245,240,232,0.7);padding:7px 14px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.nbtn:hover{border-color:var(--ocean-light);color:var(--ocean-light);}
+.nbtn-gold{background:linear-gradient(135deg,var(--ocean),var(--ocean-light));color:#fff;border-color:var(--ocean);font-weight:600;}
+.nbtn-gold:hover{background:linear-gradient(135deg,var(--ocean-light),#6AAAE8);color:#fff;}
+.page{padding:104px 40px 80px;max-width:1100px;margin:0 auto;}
+/* HERO */
+.phero{position:relative;overflow:hidden;background:linear-gradient(135deg,#080A0F 0%,#0D1018 50%,#0A0D14 100%);border:1px solid rgba(74,144,217,0.15);border-radius:20px;padding:44px 44px 32px;margin-bottom:28px;}
+.phero::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(ellipse,rgba(74,144,217,0.07) 0%,transparent 70%);pointer-events:none;}
+.phero-grid{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;}
+.av-wrap{position:relative;}
+.av{width:92px;height:92px;border-radius:50%;background:linear-gradient(135deg,var(--ocean),var(--ocean-light));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:#fff;border:3px solid rgba(74,144,217,0.35);cursor:pointer;transition:all 0.3s;user-select:none;}
+.av:hover{box-shadow:0 0 24px rgba(74,144,217,0.3);border-color:var(--ocean-light);}
+.av-edit{position:absolute;bottom:0;right:0;width:26px;height:26px;background:var(--ocean-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;border:2px solid var(--ink);}
+.pname{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--cream);margin-bottom:4px;}
+.phandle{font-size:13px;color:var(--muted);margin-bottom:12px;}
+.pbadges{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:4px 12px;border-radius:20px;}
+.b-gold{background:rgba(74,144,217,0.12);color:var(--ocean-light);border:1px solid rgba(74,144,217,0.3);}
+.b-blue{background:rgba(75,195,247,0.08);color:#4FC3F7;border:1px solid rgba(75,195,247,0.2);}
+.b-green{background:rgba(128,216,144,0.08);color:#80D890;border:1px solid rgba(128,216,144,0.2);}
+.pstats{display:flex;flex-direction:column;gap:10px;}
+.ps{background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.14);border-radius:12px;padding:14px 20px;text-align:center;min-width:140px;}
+.ps-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--ocean-light);line-height:1;}
+.ps-lbl{font-size:11px;color:var(--muted);margin-top:3px;}
+/* HAU BAR */
+.haubox{margin-top:22px;background:linear-gradient(135deg,rgba(74,144,217,0.09),rgba(74,144,217,0.03));border:1px solid rgba(74,144,217,0.25);border-radius:12px;padding:18px 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.hau-icon{font-size:34px;}
+.hau-info strong{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--ocean-light);display:block;}
+.hau-info span{font-size:12px;color:var(--muted);}
+.hau-bar-wrap{flex:1;min-width:200px;}
+.hau-top{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px;}
+.hau-bar{height:8px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden;}
+.hau-fill{height:100%;background:linear-gradient(90deg,var(--ocean),var(--ocean-light));border-radius:4px;transition:width 1.2s ease;width:0;}
+.hau-note{font-size:11px;color:var(--muted);margin-top:5px;}
+.hau-note span{color:var(--ocean-light);}
+/* GRID */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.card{background: rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.11);border-radius:14px;overflow:hidden;}
+.ch{padding:20px 22px 0;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.ct{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);display:flex;align-items:center;gap:7px;}
+.ca{font-size:12px;color:var(--ocean-light);cursor:pointer;background:none;border:none;font-family:inherit;transition:opacity 0.2s;}
+.ca:hover{opacity:0.7;}
+.cb{padding:0 22px 22px;}
+/* FORM */
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.fg{margin-bottom:12px;}
+.fl{display:block;font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.fi,.fsel{width:100%;background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.16);border-radius:8px;padding:9px 12px;color:var(--cream);font-size:13.5px;font-family:inherit;outline:none;transition:border-color 0.2s;}
+.fi:focus,.fsel:focus{border-color:var(--ocean-light);}
+.fi::placeholder{color:rgba(138,125,110,0.35);}
+.fsel option{background: #0A0D14;}
+.sbtn{background:linear-gradient(135deg,var(--ocean),var(--ocean-light));color:#fff;border:none;padding:9px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.sbtn:hover{background:linear-gradient(135deg,var(--ocean-light),#6AAAE8);}
+/* ACTIVITY */
+.alist{display:flex;flex-direction:column;}
+.aitem{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(74,144,217,0.07);}
+.aitem:last-child{border-bottom:none;}
+.aico{width:34px;height:34px;border-radius:9px;background:rgba(74,144,217,0.09);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:1px;}
+.atxt{flex:1;}
+.atit{font-size:13.5px;color:var(--cream);font-weight:500;margin-bottom:2px;line-height:1.4;}
+.atime{font-size:11px;color:var(--muted);}
+.apts{font-size:12px;color:var(--ocean-light);font-weight:600;white-space:nowrap;}
+.apts-neg{color:#E05C5C;}
+/* CHECKINS */
+.cgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+.ci{border-radius:10px;aspect-ratio:1;background:rgba(74,144,217,0.05);border:1px solid rgba(74,144,217,0.1);cursor:pointer;transition:all 0.25s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:26px;position:relative;overflow:hidden;}
+.ci:hover{border-color:rgba(74,144,217,0.35);transform:scale(1.04);}
+.ci-lbl{font-size:10px;color:rgba(245,240,232,0.55);font-weight:500;text-align:center;padding:0 4px;}
+.ci-empty{border-style:dashed !important;opacity:0.4;}
+/* PREF */
+.ptags{display:flex;flex-wrap:wrap;gap:8px;}
+.ptag{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid rgba(74,144,217,0.18);color:var(--muted);cursor:pointer;transition:all 0.2s;}
+.ptag.on{background:rgba(74,144,217,0.11);border-color:var(--ocean-light);color:var(--ocean-light);}
+/* SECURITY */
+.sitem{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(74,144,217,0.07);}
+.sitem:last-child{border-bottom:none;}
+.sl{display:flex;align-items:center;gap:11px;}
+.sico{width:34px;height:34px;border-radius:9px;background:rgba(74,144,217,0.08);display:flex;align-items:center;justify-content:center;font-size:15px;}
+.sn{font-size:13.5px;color:var(--cream);font-weight:500;}
+.ss{font-size:11px;margin-top:2px;}
+.ss-ok{color:#80D890;}
+.ss-warn{color:#E8A020;}
+.schg{background:transparent;border:1px solid rgba(74,144,217,0.22);color:var(--muted);padding:5px 13px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.schg:hover{border-color:var(--ocean-light);color:var(--ocean-light);}
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;z-index:9999;background:rgba(10,13,20,0.97);border:1px solid rgba(144,212,138,0.35);border-radius:10px;padding:13px 20px;font-size:14px;color:#90D48A;backdrop-filter:blur(12px);transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none;max-width:300px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){
+  .phero-grid,.cgrid{grid-template-columns:1fr;}
+  .pstats{flex-direction:row;}
+  .av-wrap,.pbadges{margin:0 auto;}
+  .pname,.phandle{text-align:center;}
+  .page{padding:96px 20px 60px;}
+  nav{padding:0 16px;}
+  .nav-right .nbtn:not(.nbtn-gold){display:none;}
+  .haubox{
+  background:rgba(74,144,217,0.09);flex-direction:column;gap:12px;}
+  .hau-bar-wrap{width:100%;}
+}
+@media(max-width:540px){
+  .frow{grid-template-columns:1fr;}
+  .cgrid{grid-template-columns:1fr;}
+  .cgrd{grid-template-columns:repeat(2,1fr);}
+  .phero{padding:28px 20px 20px;}
+  .pname{font-size:22px;}
+  .ps{min-width:100px;}
+}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <div class="nav-logo-icon">🏛</div>
+    <div><span class="nav-logo-text">Central Connect</span><span class="nav-logo-sub">Di sản số Đà Nẵng</span></div>
+  </a>
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nbtn nbtn-gold" onclick="location.href='../index.html'">← Trang chủ</button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- PROFILE HERO -->
+  <div class="phero reveal">
+    <div class="phero-grid">
+      <div class="av-wrap">
+        <div class="av" onclick="showToast('📷 Tính năng đổi ảnh sắp ra mắt!')">LN</div>
+        <div class="av-edit" onclick="showToast('✏️ Đổi ảnh đại diện')">✏️</div>
+      </div>
+      <div>
+        <div class="pname">Lê Nguyễn Minh Khoa</div>
+        <div class="phandle">@leminhkhoa · Thành viên từ tháng 3, 2025</div>
+        <div class="pbadges">
+          <span class="badge b-gold">🌟 Đại sứ Tích cực</span>
+          <span class="badge b-blue">🎓 VKU K23</span>
+          <span class="badge b-green">✅ Đã xác thực</span>
+        </div>
+      </div>
+      <div class="pstats">
+        <div class="ps"><div class="ps-num">14</div><div class="ps-lbl">Địa điểm checkin</div></div>
+        <div class="ps"><div class="ps-num">3</div><div class="ps-lbl">Lịch trình đã tạo</div></div>
+      </div>
+    </div>
+    <div class="haubox">
+      <div class="hau-icon">🪙</div>
+      <div class="hau-info"><strong>50 Hạt Bàu</strong><span>Cấp độ: Lữ Khách Mới</span></div>
+      <div class="hau-bar-wrap">
+        <div class="hau-top"><span>Lữ Khách Mới</span><span>Nhà Thám Hiểm · 100 HB</span></div>
+        <div class="hau-bar"><div class="hau-fill" id="hauFill"></div></div>
+        <div class="hau-note">Cần thêm <span>50 Hạt Bàu</span> để lên cấp tiếp theo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="cgrid">
+
+    <!-- Thông tin cá nhân -->
+    <div class="card reveal">
+      <div class="ch"><div class="ct">👤 Thông tin cá nhân</div><button class="ca" id="editBtn" onclick="toggleEdit()">Chỉnh sửa</button></div>
+      <div class="cb">
+        <div class="frow">
+          <div class="fg"><label class="fl">Họ và tên</label><input class="fi" id="f_name" value="Lê Nguyễn Minh Khoa" readonly></div>
+          <div class="fg"><label class="fl">Tên hiển thị</label><input class="fi" id="f_user" value="leminhkhoa" readonly></div>
+        </div>
+        <div class="fg"><label class="fl">Email</label><input class="fi" id="f_email" value="leminhkhoa@vku.udn.vn" readonly></div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Số điện thoại</label><input class="fi" id="f_phone" value="0905 123 456" readonly></div>
+          <div class="fg"><label class="fl">Ngày sinh</label><input class="fi" id="f_dob" value="15/08/2003" readonly></div>
+        </div>
+        <div class="fg"><label class="fl">Đơn vị / Trường</label><input class="fi" id="f_school" value="VKU – Khoa CNTT, K23" readonly></div>
+        <div id="saveWrap" style="display:none;margin-top:6px"><button class="sbtn" onclick="saveProfile()">💾 Lưu thay đổi</button></div>
+        <div id="saveStatus" style="margin-top:8px;font-size:13px;color:var(--muted);display:none"></div>
+      </div>
+    </div>
+
+    <!-- Hoạt động gần đây -->
+    <div class="card reveal">
+      <div class="ch"><div class="ct">⚡ Hoạt động gần đây</div><button class="ca">Xem tất cả</button></div>
+      <div class="cb">
+        <div class="alist">
+          <div class="aitem"><div class="aico">📍</div><div class="atxt"><div class="atit">Checkin tại <strong>Ngũ Hành Sơn</strong></div><div class="atime">Hôm nay, 09:14</div></div><div class="apts">+10 HB</div></div>
+          <div class="aitem"><div class="aico">🎟</div><div class="atxt"><div class="atit">Đổi voucher <strong>Giảm 20% Grab</strong></div><div class="atime">Hôm qua, 15:32</div></div><div class="apts apts-neg">-30 HB</div></div>
+          <div class="aitem"><div class="aico">✍️</div><div class="atxt"><div class="atit">Đăng bài: <em>"Sơn Trà lúc 5 sáng"</em></div><div class="atime">12/05/2025</div></div><div class="apts">+15 HB</div></div>
+          <div class="aitem"><div class="aico">🗺</div><div class="atxt"><div class="atit">Tạo lịch trình <strong>Hội An 2 ngày</strong></div><div class="atime">10/05/2025</div></div><div class="apts">+5 HB</div></div>
+          <div class="aitem"><div class="aico">📍</div><div class="atxt"><div class="atit">Checkin tại <strong>Phố cổ Hội An</strong></div><div class="atime">10/05/2025</div></div><div class="apts">+10 HB</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Địa điểm đã checkin -->
+    <div class="card reveal">
+      <div class="ch"><div class="ct">📍 Địa điểm đã khám phá</div><button class="ca" onclick="location.href='itinerary.html'">Xem bản đồ →</button></div>
+      <div class="cb">
+        <div class="cgrd">
+          <div class="ci" onclick="showToast('🏔 Ngũ Hành Sơn – 14/05/2025')">🏔<span class="ci-lbl">Ngũ Hành Sơn</span></div>
+          <div class="ci" onclick="showToast('🏮 Phố cổ Hội An – 10/05/2025')">🏮<span class="ci-lbl">Hội An</span></div>
+          <div class="ci" onclick="showToast('🌿 Sơn Trà – 08/05/2025')">🌿<span class="ci-lbl">Sơn Trà</span></div>
+          <div class="ci" onclick="showToast('🌊 Mỹ Khê – 05/05/2025')">🌊<span class="ci-lbl">Mỹ Khê</span></div>
+          <div class="ci" onclick="showToast('🐉 Cầu Rồng – 02/05/2025')">🐉<span class="ci-lbl">Cầu Rồng</span></div>
+          <div class="ci ci-empty" onclick="showToast('🔓 Khám phá thêm để mở ô mới!')">＋<span class="ci-lbl">Chưa mở</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sở thích + Bảo mật -->
+    <div style="display:flex;flex-direction:column;gap:22px;">
+      <div class="card reveal">
+        <div class="ch"><div class="ct">💛 Sở thích du lịch</div><button class="ca" onclick="showToast('✅ Đã lưu sở thích!')">Lưu</button></div>
+        <div class="cb">
+          <div class="ptags">
+            <span class="ptag on" onclick="this.classList.toggle('on')">🏖 Biển</span>
+            <span class="ptag on" onclick="this.classList.toggle('on')">🏛 Di sản</span>
+            <span class="ptag" onclick="this.classList.toggle('on')">🌿 Thiên nhiên</span>
+            <span class="ptag on" onclick="this.classList.toggle('on')">🍜 Ẩm thực</span>
+            <span class="ptag" onclick="this.classList.toggle('on')">🎭 Văn hoá</span>
+            <span class="ptag" onclick="this.classList.toggle('on')">📸 Nhiếp ảnh</span>
+            <span class="ptag on" onclick="this.classList.toggle('on')">🏍 Phượt xe</span>
+            <span class="ptag" onclick="this.classList.toggle('on')">🛶 Kayak</span>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="ch"><div class="ct">🔒 Bảo mật tài khoản</div></div>
+        <div class="cb">
+          <div class="sitem"><div class="sl"><div class="sico">🔑</div><div><div class="sn">Mật khẩu</div><div class="ss ss-ok">● Đã đặt mật khẩu</div></div></div><button class="schg" onclick="showToast('🔑 Mở form đổi mật khẩu...')">Đổi</button></div>
+          <div class="sitem"><div class="sl"><div class="sico">📱</div><div><div class="sn">Xác thực 2 bước</div><div class="ss ss-warn">● Chưa bật</div></div></div><button class="schg" onclick="showToast('📱 Hướng dẫn sẽ gửi qua email')">Bật</button></div>
+          <div class="sitem"><div class="sl"><div class="sico">📧</div><div><div class="sn">Email đã xác thực</div><div class="ss ss-ok">● leminhkhoa@vku.udn.vn</div></div></div><button class="schg" onclick="showToast('📧 Gửi lại email xác thực')">Xác thực lại</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+setTimeout(()=>{document.getElementById('hauFill').style.width='50%';},400);
+
+function showToast(msg,dur=3000){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
+let editing=false;
+const FIELDS=['f_name','f_user','f_email','f_phone','f_dob','f_school'];
+function toggleEdit(){
+  editing=!editing;
+  FIELDS.forEach(id=>{
+    const el=document.getElementById(id);
+    editing?el.removeAttribute('readonly'):el.setAttribute('readonly','');
+    el.style.borderColor=editing?'rgba(74,144,217,0.5)':'';
+  });
+  document.getElementById('saveWrap').style.display=editing?'block':'none';
+  document.getElementById('editBtn').textContent=editing?'Hủy':'Chỉnh sửa';
+}
+function saveProfile(){
+  (async function(){
+    editing=false;
+    FIELDS.forEach(id=>{const el=document.getElementById(id);el.setAttribute('readonly','');el.style.borderColor='';});
+    document.getElementById('saveWrap').style.display='none';
+    document.getElementById('editBtn').textContent='Chỉnh sửa';
+
+    // Thu thập dữ liệu từ form
+    const user = {
+      // uid will be preserved from local copy if present
+      uid: (window.cc_user && window.cc_user.uid) || null,
+      displayName: document.getElementById('f_name').value || '',
+      email: document.getElementById('f_email').value || '',
+      initials: (document.getElementById('f_user').value || '').substring(0,2).toUpperCase(),
+      phone: document.getElementById('f_phone').value || '',
+      // store school in prefs.fromSchool for convenience
+      prefs: (window.cc_user && window.cc_user.prefs) || [],
+      fromLocation: document.getElementById('f_school').value || ''
+    };
+
+    const statusEl = document.getElementById('saveStatus');
+    try {
+      if (statusEl) { statusEl.style.display = 'block'; statusEl.textContent = 'Đang lưu...'; }
+      if (window.ccDB && user.uid) {
+        await ccDB.saveUser(user);
+      } else if (window.ccDB && !user.uid) {
+        // If no uid yet, save minimal local profile
+        await ccDB.saveUser(Object.assign({ uid: 'local-' + Date.now() }, user));
+      } else {
+        // fallback: localStorage
+        localStorage.setItem('cc_user', JSON.stringify(user));
+        localStorage.setItem('isLoggedIn','true');
+        localStorage.setItem('userName', user.displayName || '');
+      }
+      // Update UI
+      applyNavigationState();
+      window.cc_user = Object.assign(window.cc_user||{}, user);
+      document.querySelector('.pname').textContent = user.displayName || 'Thành viên';
+      document.querySelector('.phandle').textContent = '@' + ((document.getElementById('f_user').value) || (user.displayName||'').split(' ')[0]) + ' · Thành viên';
+      if (statusEl) { statusEl.textContent = 'Đã lưu ✓'; setTimeout(()=>{ statusEl.style.display='none'; }, 1800); }
+      showToast('✅ Đã lưu thông tin cá nhân!');
+    } catch (e) {
+      console.error('saveProfile error', e);
+      if (statusEl) { statusEl.textContent = 'Lỗi khi lưu hồ sơ'; }
+      showToast('❌ Lỗi khi lưu hồ sơ');
+    }
+  })();
+}
+
+// Nạp hồ sơ thực từ API/localStorage khi trang mở
+async function initProfile(){
+  // Try to get cached user first
+  let user = null;
+  try { user = window.cc_user || JSON.parse(localStorage.getItem('cc_user')); } catch { user = null; }
+
+  // If we have ccDB and an uid, prefer server copy
+  if (window.ccDB && user && user.uid) {
+    try {
+      const srv = await ccDB.getUser(user.uid);
+      if (srv) user = srv;
+    } catch (e) {
+      // ignore — keep local
+      console.warn('initProfile: could not fetch user from API', e);
+    }
+  }
+
+  // Keep window-level copy for saveProfile
+  window.cc_user = user || null;
+
+  if (!user) return;
+
+  // Populate fields
+  document.getElementById('f_name').value = user.displayName || '';
+  document.getElementById('f_user').value = (user.displayName || '').split(' ')[0] || (user.initials || '').toLowerCase();
+  document.getElementById('f_email').value = user.email || '';
+  document.getElementById('f_phone').value = user.phone || '';
+  document.getElementById('f_school').value = user.fromLocation || '';
+
+  // Update hero
+  const av = document.querySelector('.av'); if (av) av.textContent = (user.initials || (user.displayName||'').substring(0,2)).toUpperCase();
+  const pname = document.querySelector('.pname'); if (pname) pname.textContent = user.displayName || 'Thành viên';
+  const phandle = document.querySelector('.phandle'); if (phandle) phandle.textContent = '@' + ((user.displayName||'').split(' ')[0] || 'user') + ' · Thành viên';
+  // points display
+  try { document.querySelector('.ps-num').textContent = (user.points != null) ? user.points : (user.points || 0); } catch {}
+  try { document.querySelector('.hau-info strong').textContent = (user.points != null ? user.points + ' Hạt Bàu' : '0 Hạt Bàu'); } catch {}
+}
+
+document.addEventListener('DOMContentLoaded', initProfile);
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  requirePageAccess();
+  applyNavigationState();
+});
+</script>
+
+<!-- FOOTER -->
+<footer style="background:#060810;border-top:1px solid rgba(201,168,76,0.12);padding:36px 40px 20px;margin-top:40px;">
+  <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--gold);margin-bottom:4px;">CENTRAL CONNECT</div>
+      <span style="font-size:12px;color:var(--muted);">© 2026 · Dự án VKU · Di sản số Đà Nẵng</span>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="../index.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🏠 Trang chủ</a>
+      <a href="kham-pha.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🗺 Khám phá</a>
+      <a href="gay-quy.html" style="font-size:13px;color:#E8A020;text-decoration:none;">🌱 Gây Quỹ</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+

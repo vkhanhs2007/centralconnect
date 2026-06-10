@@ -1,0 +1,1160 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lịch Trình Thông Minh – Central Connect</title>
+<meta name="description" content="AI lên lịch trình du lịch cá nhân hóa Đà Nẵng. Tự động tính thời gian di chuyển, gợi ý theo sở thích, xuất phát từ VKU hoặc trung tâm thành phố.">
+<meta name="keywords" content="lịch trình Đà Nẵng, AI du lịch, VKU, tour Đà Nẵng">
+<meta property="og:title" content="Lịch Trình AI – Central Connect">
+<meta property="og:description" content="AI tạo lịch trình du lịch cá nhân hóa Đà Nẵng từng giờ, từng địa điểm.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1A4F8C">
+<meta name="description" content="AI lên lịch trình du lịch cá nhân hóa Đà Nẵng. Tự động tính thời gian di chuyển, gợi ý theo sở thích, xuất phát từ VKU hoặc trung tâm thành phố.">
+<meta name="keywords" content="lịch trình Đà Nẵng, AI du lịch, VKU, tour Đà Nẵng">
+<meta property="og:title" content="Lịch Trình AI – Central Connect">
+<meta property="og:description" content="AI tạo lịch trình du lịch cá nhân hóa Đà Nẵng từng giờ, từng địa điểm.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1A4F8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── VARIABLES & BASE ── */
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A; --gold-dark: #9A7A30;
+  --cream: #F5F0E8; --ink: #1A1410; --ink-soft: #3D3530;
+  --muted: #8A7D6E; --blue: #1A4F8C; --blue-light: #4A90D9;
+  --glass: rgba(245,240,232,0.05);
+  --ocean: #1A4F8C; --ocean-light: #4A90D9; --ocean-soft: rgba(74,144,217,0.1);
+  --sunset: #B8532E; --sunset-light: #D4744A; --sunset-soft: rgba(212,116,74,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--ink); color: var(--cream); overflow-x: hidden; }
+
+/* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 40px;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+  nav.scrolled {
+    background: rgba(10,13,20,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,144,217,0.15);
+  }
+
+ .nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-logo-img{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+    margin-top: -2px;
+  }
+
+  .nav-menu {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none;
+  }
+  .nav-menu li { position: relative; }
+  .nav-menu a {
+    text-decoration: none;
+    color: rgba(245,240,232,0.72);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 4px;
+    cursor: pointer;
+  }
+  .nav-menu a:hover { color: var(--ocean-light); background: var(--ocean-soft); }
+  .nav-menu .fund-link { color: #E8A020; }
+  .nav-menu .fund-link:hover { color: #F0B840; background: rgba(232,160,32,0.1); }
+
+  /* Dropdown */
+  .dropdown-menu {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    background: rgba(10,13,20,0.95);
+    border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 10px;
+    padding: 8px;
+    min-width: 180px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(20px);
+  }
+  .nav-menu li:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown-menu a {
+    display: block; padding: 8px 12px;
+    font-size: 13px; color: var(--cream);
+    border-radius: 6px;
+  }
+  .dropdown-menu a:hover { background: rgba(74,144,217,0.12); color: var(--ocean-light); }
+
+  .nav-actions {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-notify {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 15px;
+    transition: all 0.2s;
+    color: var(--muted);
+    opacity: 0.5;
+    position: relative;
+  }
+  .nav-notify.active { opacity: 1; color: var(--ocean-light); }
+  .notif-dot {
+    position: absolute; top: 6px; right: 6px;
+    width: 7px; height: 7px;
+    background: #E8A020; border-radius: 50%;
+    border: 1.5px solid var(--ink);
+  }
+
+  .btn-login {
+    background: transparent;
+    border: 1px solid rgba(74,144,217,0.4);
+    color: var(--cream);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-login:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+  .btn-register {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    border: none;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.25s;
+  }
+  .btn-register:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-1px); }
+
+  /* User dropdown after login */
+  .user-pill {
+    display: none;
+    align-items: center; gap: 8px;
+    padding: 5px 12px 5px 5px;
+    background: var(--glass);
+    border: 1px solid rgba(74,144,217,0.35);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .user-pill:hover { border-color: var(--ocean-light); }
+  .user-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: #fff;
+  }
+  .user-points {
+    font-size: 12px; color: var(--ocean-light);
+    font-weight: 600;
+  }
+  .user-name { font-size: 13px; color: var(--cream); }
+
+  .user-dropdown {
+    position: absolute; top: calc(100% + 10px); right: 0;
+    background: rgba(20,15,10,0.97);
+    border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 10px; padding: 8px;
+    min-width: 200px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s;
+    backdrop-filter: blur(20px);
+  }
+  .user-pill:hover .user-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .user-dropdown a {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px;
+    text-decoration: none; font-size: 13.5px; color: var(--cream);
+    border-radius: 6px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .user-dropdown a:hover { background: rgba(74,144,217,0.1); color: var(--ocean-light); }
+  .user-dropdown .divider { height: 1px; background: rgba(74,144,217,0.12); margin: 6px 0; }
+  .user-dropdown .logout { color: #E05C5C !important; }
+  .user-dropdown .logout:hover { background: rgba(224,92,92,0.1) !important; }
+
+/* ── HERO ── */
+.page-hero { margin-top: 72px; background: linear-gradient(135deg, #080C14 0%, #0E1420 50%, #1A1410 100%); padding: 70px 40px 50px; position: relative; overflow: hidden; border-bottom: 1px solid rgba(61,143,212,0.2); }
+.page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 70% at 80% 30%, rgba(61,143,212,0.1) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 20% 70%, rgba(74,144,217,0.07) 0%, transparent 60%); }
+.hero-inner { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+@media (max-width: 800px) { .hero-inner { grid-template-columns: 1fr; } }
+.breadcrumb { font-size: 12px; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.breadcrumb a { color: var(--ocean-light); text-decoration: none; }
+.page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 56px); font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
+.page-hero h1 em { font-style: italic; background: linear-gradient(90deg, var(--blue), var(--blue-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-hero p { font-size: 15px; color: rgba(245,240,232,0.60); line-height: 1.7; }
+
+/* ── AI WIZARD ── */
+.wizard-card {
+  background: rgba(10,15,22,0.8); border: 1px solid rgba(61,143,212,0.25);
+  border-radius: 16px; padding: 28px; backdrop-filter: blur(12px);
+  position: relative; overflow: hidden;
+}
+.wizard-card::before { content: '🤖 AI'; position: absolute; top: 16px; right: 16px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-light); background: rgba(61,143,212,0.12); border: 1px solid rgba(61,143,212,0.25); padding: 3px 10px; border-radius: 12px; }
+.wizard-title { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 20px; }
+
+.form-group { margin-bottom: 18px; }
+.form-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+.form-input { width: 100%; background: rgba(74,144,217,0.07); border: 1px solid rgba(74,144,217,0.2); border-radius: 10px; padding: 12px 16px; color: var(--cream); font-size: 14px; font-family: inherit; transition: border-color 0.2s; outline: none; }
+.form-input:focus { border-color: var(--blue); }
+.form-input option { background: #1A1410; }
+
+.days-row { display: flex; gap: 8px; }
+.day-btn { flex: 1; padding: 10px 8px; border-radius: 8px; border: 1px solid rgba(74,144,217,0.2); background: transparent; color: var(--cream); font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; transition: all 0.2s; text-align: center; }
+.day-btn:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+.day-btn.active { background: var(--ocean); border-color: var(--ocean); color: #fff; }
+
+.pref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pref-btn { padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(74,144,217,0.18); background: transparent; color: var(--cream); font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; text-align: center; }
+.pref-btn:hover { border-color: var(--blue); color: var(--blue-light); }
+.pref-btn.selected { background: rgba(61,143,212,0.15); border-color: var(--blue); color: var(--blue-light); }
+
+.gen-btn { width: 100%; padding: 14px; border-radius: 10px; background: linear-gradient(90deg, var(--blue), #5060D0); border: none; color: white; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; }
+.gen-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(61,143,212,0.35); }
+.gen-btn:active { transform: translateY(0); }
+
+/* ── ITINERARY SECTION ── */
+.itinerary-section { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+.section-title-group {}
+.section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 6px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--cream); }
+.section-actions { display: flex; gap: 10px; }
+.action-btn { padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.action-primary { background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); border: none; color: #fff; }
+.action-primary:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); }
+.action-ghost { background: transparent; border: 1px solid rgba(74,144,217,0.3); color: var(--cream); }
+.action-ghost:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+/* ── TIMELINE ── */
+.days-tabs { display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap; }
+.day-tab { padding: 8px 20px; border-radius: 24px; font-size: 13px; font-weight: 600; border: 1px solid rgba(74,144,217,0.2); color: var(--cream); cursor: pointer; font-family: inherit; background: transparent; transition: all 0.2s; }
+.day-tab:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+.day-tab.active { background: rgba(74,144,217,0.12); border-color: var(--ocean-light); color: var(--ocean-light); }
+
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--blue), rgba(74,144,217,0.3)); }
+
+.tl-item { position: relative; margin-bottom: 24px; opacity: 0; transform: translateX(-20px); transition: all 0.5s ease; }
+.tl-item.visible { opacity: 1; transform: translateX(0); }
+.tl-dot { position: absolute; left: -27px; top: 18px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ocean-light); background: rgba(245,240,232,0.04); z-index: 2; }
+.tl-dot.vku { border-color: var(--blue); background: rgba(61,143,212,0.2); }
+
+.tl-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(74,144,217,0.12); border-radius: 14px; padding: 18px 20px; transition: all 0.2s; cursor: pointer; display: grid; grid-template-columns: 80px 1fr; gap: 16px; align-items: start; }
+.tl-card:hover { border-color: rgba(74,144,217,0.3); background: rgba(74,144,217,0.04); transform: translateX(4px); }
+.tl-card.vku-card { border-color: rgba(61,143,212,0.25); background: rgba(61,143,212,0.05); }
+.tl-card.vku-card:hover { border-color: var(--blue); }
+
+.tl-time-col { text-align: center; }
+.tl-time { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ocean-light); line-height: 1; }
+.tl-dur { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.tl-icon-big { font-size: 28px; margin: 8px 0; }
+
+.tl-body {}
+.tl-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+.tl-loc { font-size: 12px; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.tl-desc { font-size: 13px; color: rgba(245,240,232,0.60); line-height: 1.6; }
+.tl-chips { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.tl-chip { font-size: 11px; padding: 3px 10px; border-radius: 12px; background: rgba(74,144,217,0.1); color: var(--ocean-light); font-weight: 500; }
+.tl-chip.blue { background: rgba(61,143,212,0.1); color: var(--blue-light); }
+
+/* ── DRAG & DROP ── */
+.tl-item[draggable="true"] { cursor: grab; }
+.tl-item[draggable="true"]:active { cursor: grabbing; }
+.tl-item.dragging { opacity: 0.3; transform: scale(0.98); }
+.tl-item.drag-over .tl-card { border-color: var(--blue) !important; box-shadow: 0 0 0 2px rgba(61,143,212,0.25); }
+.drag-hint { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+
+/* ── PRINT / PDF ── */
+@media print {
+  nav, .wizard-section, .days-tabs, .section-actions, footer, #toast,
+  .sidebar-toggle-bar, .chatbot-btn, .page-hero { display: none !important; }
+  body { background: #fff !important; color: #111 !important; }
+  .itinerary-section { padding: 20px 0 !important; max-width: 100% !important; }
+  .tl-card { border: 1px solid #ddd !important; background: #fff !important; break-inside: avoid; transform: none !important; box-shadow: none !important; }
+  .tl-time, .tl-dur, .tl-icon-big, .travel-chip { color: #333 !important; }
+  .tl-name { color: #111 !important; font-weight: 700 !important; }
+  .tl-desc { color: #555 !important; }
+  .tl-loc { color: #777 !important; }
+  .section-title, .section-label { color: #111 !important; }
+  .vku-badge { color: #1A4F8C !important; background: #E8F0FA !important; border-color: #1A4F8C !important; }
+  #itinerarySection, #itineraryResult { display: block !important; }
+  #emptyState, #aiLoadingEl { display: none !important; }
+  .timeline::before { background: #ccc !important; }
+  .tl-dot { border-color: #1A4F8C !important; background: #fff !important; }
+  .tl-chip { background: #eee !important; color: #333 !important; }
+}
+
+.vku-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(61,143,212,0.15); color: var(--blue-light); border: 1px solid rgba(61,143,212,0.3); padding: 3px 10px; border-radius: 12px; margin-bottom: 8px; }
+
+/* ── TRAVEL INFO BAR ── */
+.travel-bar { display: flex; align-items: center; padding: 8px 0; margin: -10px 0 14px 0; }
+.travel-connector { flex: 1; border-top: 1px dashed rgba(74,144,217,0.2); margin: 0 12px; }
+.travel-chip { font-size: 11px; color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.18); padding: 3px 12px; border-radius: 12px; white-space: nowrap; }
+
+/* ── EMPTY STATE ── */
+.empty-state { text-align: center; padding: 80px 40px; }
+.empty-icon { font-size: 64px; margin-bottom: 20px; opacity: 0.4; }
+.empty-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--cream); margin-bottom: 10px; }
+.empty-sub { font-size: 15px; color: var(--muted); }
+
+/* ── LOADING ── */
+.ai-loading { text-align: center; padding: 40px; }
+.ai-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+.ai-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); animation: dotPulse 1.2s ease-in-out infinite; }
+.ai-dot:nth-child(2) { animation-delay: 0.2s; }
+.ai-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotPulse { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+.ai-loading-text { font-size: 14px; color: var(--muted); }
+
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(10,13,20,0.97); border: 1px solid rgba(74,144,217,0.3); border-radius: 10px; padding: 12px 24px; font-size: 14px; color: var(--cream); z-index: 9999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); backdrop-filter: blur(16px); }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .page-hero { padding: 40px 20px 28px; }
+  .itinerary-section { padding: 40px 16px; }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .section-actions { flex-wrap: wrap; }
+  .tl-card { grid-template-columns: 64px 1fr; gap: 12px; padding: 14px 14px; }
+  .tl-time { font-size: 16px; }
+  .pref-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 540px) {
+  .days-tabs { gap: 4px; }
+  .day-tab { padding: 6px 14px; font-size: 12px; }
+  .tl-card { grid-template-columns: 1fr; }
+  .tl-time-col { display: flex; align-items: center; gap: 12px; text-align: left; }
+  .tl-icon-big { margin: 0; font-size: 22px; }
+  .action-btn { padding: 8px 14px; font-size: 12px; }
+  .wizard-card { padding: 20px 16px; }
+  .pref-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .days-row { gap: 5px; }
+}
+
+/* ── FOOTER ── */
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+@media (max-width:800px) { .footer-grid { grid-template-columns:1fr 1fr; gap:24px; } }
+@media (max-width:540px) { .footer-grid { grid-template-columns:1fr; gap:20px; } }
+
+  /* ── LIGHT THEME HERO FIXES ── */
+  .page-hero { color: var(--cream); }
+  .page-hero * { color: inherit; }
+  .page-hero .page-label { color: var(--gold); }
+  .page-hero .page-desc { color: rgba(245,240,232,0.75); }
+  .page-hero .hero-chip { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+       <img src= "../assets/images/logo.jpg"  class="nav-logo-img">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html" class="active">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="vku-corner.html">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="doi-tac.html#transport">🚌 Vận tải</a>
+        <a href="doi-tac.html#hostels">🏡 Homestay xanh</a>
+        <a href="doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="nav-notify" id="notifyBtn" title="Thông báo">🔔</div>
+    
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+
+    <div class="user-pill" id="userPill" style="display:none; position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🪙 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <div>
+      <div class="breadcrumb"><a href="../index.html">Trang chủ</a><span>›</span><span>Lịch trình AI</span></div>
+      <h1>Lịch trình<br><em>Thông Minh</em><br>do AI tạo</h1>
+      <p style="margin-top:16px">Nhập sở thích, AI sẽ thiết kế lịch trình cá nhân hóa – từng giờ, từng địa điểm, từng khoảng cách di chuyển.</p>
+    </div>
+    <div class="wizard-card">
+      <div class="wizard-title">✨ Tạo lịch trình của bạn</div>
+
+      <div class="form-group">
+        <label class="form-label">📍 Xuất phát từ</label>
+        <select class="form-input" id="startFrom">
+          <option value="vku">🎓 Trường ĐH VKU (mặc định)</option>
+          <option value="danang-center">🌆 Trung tâm Đà Nẵng</option>
+          <option value="hoian">🏮 Phố cổ Hội An</option>
+          <option value="airport">✈ Sân bay Đà Nẵng</option>
+          <option value="custom">📌 Vị trí tùy chọn</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">📆 Số ngày</label>
+        <div class="days-row">
+          <button class="day-btn active" onclick="selectDays(this,1)">1 ngày</button>
+          <button class="day-btn" onclick="selectDays(this,2)">2 ngày</button>
+          <button class="day-btn" onclick="selectDays(this,3)">3 ngày</button>
+          <button class="day-btn" onclick="selectDays(this,5)">5 ngày</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">❤ Sở thích (chọn nhiều)</label>
+        <div class="pref-grid">
+          <button class="pref-btn selected" onclick="togglePref(this)">🏖 Biển & Thiên nhiên</button>
+          <button class="pref-btn" onclick="togglePref(this)">🏛 Di tích lịch sử</button>
+          <button class="pref-btn selected" onclick="togglePref(this)">🍜 Ẩm thực đường phố</button>
+          <button class="pref-btn" onclick="togglePref(this)">🏺 Làng nghề truyền thống</button>
+          <button class="pref-btn" onclick="togglePref(this)">🎭 Văn hóa & Lễ hội</button>
+          <button class="pref-btn" onclick="togglePref(this)">🛍 Mua sắm & Giải trí</button>
+        </div>
+      </div>
+
+      <button class="gen-btn" onclick="generateItinerary()">
+        <span id="genBtnText">🤖 Tạo lịch trình AI ngay</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── WEATHER SECTION ─────────── -->
+<section id="weather" style="background:rgba(26,79,140,0.06);border-top:1px solid rgba(74,144,217,0.15);border-bottom:1px solid rgba(74,144,217,0.15);padding:56px 40px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:32px;">
+      <div>
+        <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ocean-light);margin-bottom:8px;">☀ Thời tiết & Gợi ý</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;color:var(--cream);margin-bottom:8px;">Dự báo thời tiết <em style="font-style:italic;background:linear-gradient(90deg,var(--ocean-light),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Đà Nẵng – Hội An</em></h2>
+        <p style="font-size:14px;color:var(--muted);">Dữ liệu thực từ Open-Meteo · Cập nhật mỗi giờ · Miễn phí, không quảng cáo</p>
+      </div>
+      <button onclick="loadWeather()" style="padding:10px 22px;background:rgba(74,144,217,0.12);border:1px solid rgba(74,144,217,0.3);border-radius:8px;color:var(--ocean-light);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(74,144,217,0.22)'" onmouseout="this.style.background='rgba(74,144,217,0.12)'">🔄 Làm mới</button>
+    </div>
+
+    <!-- Current + 5-day forecast -->
+    <div id="weatherContent" style="display:grid;grid-template-columns:1fr 2fr;gap:24px;align-items:start;">
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.15);border-radius:16px;padding:28px;text-align:center;">
+        <div id="wNow" style="font-size:60px;margin-bottom:8px;">⏳</div>
+        <div id="wNowTemp" style="font-size:42px;font-weight:700;color:var(--ocean);font-family:'Playfair Display',serif;">--°</div>
+        <div id="wNowDesc" style="font-size:14px;color:var(--muted);margin:6px 0 16px;">Đang tải...</div>
+        <div style="display:flex;justify-content:center;gap:20px;font-size:13px;color:var(--muted);">
+          <span id="wWind">💨 --</span>
+          <span id="wHumid">💧 --</span>
+        </div>
+        <div id="wAdvice" style="margin-top:20px;padding:12px 16px;background:rgba(74,144,217,0.08);border:1px solid rgba(74,144,217,0.2);border-radius:10px;font-size:13px;color:var(--ocean-light);line-height:1.5;text-align:left;">Đang phân tích thời tiết...</div>
+      </div>
+      <div id="wForecast" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+        <!-- filled by JS -->
+      </div>
+    </div>
+
+    <!-- Travel suggestions based on weather -->
+    <div id="wSuggestions" style="margin-top:24px;display:none;">
+      <div style="font-size:13px;font-weight:600;color:var(--cream);margin-bottom:12px;">💡 Gợi ý địa điểm phù hợp hôm nay</div>
+      <div id="wSugList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ITINERARY OUTPUT ── -->
+<div class="itinerary-section" id="itinerarySection">
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">🗓</div>
+    <div class="empty-title">Chưa có lịch trình</div>
+    <div class="empty-sub">Điền thông tin bên trên và nhấn "Tạo lịch trình AI" để bắt đầu hành trình của bạn.</div>
+  </div>
+
+  <!-- AI LOADING STATE -->
+  <div class="ai-loading" id="aiLoadingEl" style="display:none">
+    <div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>
+    <div style="font-size:15px;color:var(--blue-light);font-weight:600;margin-bottom:8px">🤖 Gemini AI đang xây dựng lịch trình...</div>
+    <div class="ai-loading-text" id="aiLoadingStep">Đang phân tích sở thích của bạn</div>
+    <div style="margin-top:20px;max-width:400px;margin-left:auto;margin-right:auto">
+      <div style="height:3px;background:rgba(61,143,212,0.15);border-radius:2px;overflow:hidden">
+        <div id="aiProgressBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--blue),#5060D0);border-radius:2px;transition:width 0.8s ease"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="itineraryResult" style="display:none">
+    <div class="section-header">
+      <div class="section-title-group">
+        <div class="section-label">AI · Lịch trình cá nhân hóa</div>
+        <div class="section-title" id="itineraryTitle">Hành trình 1 ngày từ VKU</div>
+      </div>
+      <div class="section-actions">
+        <button class="action-btn action-ghost" onclick="showToast('💾 Đã lưu lịch trình!')">💾 Lưu lịch</button>
+        <button class="action-btn action-ghost" onclick="showToast('📤 Đã chia sẻ!')">📤 Chia sẻ</button>
+        <button class="action-btn action-ghost" onclick="window.print()" title="Xuất lịch trình ra PDF">📄 PDF</button>
+        <button class="action-btn action-primary" onclick="showToast('✅ Đã thêm vào lịch cá nhân!')">📅 Thêm vào lịch</button>
+      </div>
+    </div>
+
+    <div class="days-tabs" id="daysTabs"></div>
+    <div class="timeline" id="timelineContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// API proxy — key giữ an toàn trên server
+const AI_API_BASE = (typeof CC_API_URL !== 'undefined')
+  ? CC_API_URL
+  : (location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+      ? 'http://localhost:3000' : '');
+
+let selectedDays = 1;
+let prefs = ['Biển & Thiên nhiên', 'Ẩm thực đường phố'];
+let currentDay = 0;
+
+// ── DỮ LIỆU DỰ PHÒNG (dùng khi không có API key) ──
+const ITINERARIES = {
+  vku: {
+    1: [
+      [
+        { time:'07:00', dur:'30 phút', icon:'🎓', name:'Trường ĐH VKU', loc:'Quận Ngũ Hành Sơn, Đà Nẵng', desc:'Xuất phát từ VKU – điểm khởi đầu hành trình khám phá của sinh viên và du khách công nghệ.', tags:['Xuất phát VKU','Điểm đặc biệt'], isVKU:true },
+        { time:'07:45', dur:'2 giờ', icon:'🗿', name:'Ngũ Hành Sơn', loc:'Ngũ Hành Sơn, Đà Nẵng', desc:'Chỉ 3km từ VKU, tham quan quần thể núi đá cẩm thạch huyền bí và chùa chiền cổ kính. Đừng bỏ lỡ vọng lâu nhìn toàn thành phố.', tags:['Di tích lịch sử','Cách VKU 3km'], travel:'🏍 3km · 8 phút xe máy' },
+        { time:'10:00', dur:'1.5 giờ', icon:'🏖', name:'Biển Mỹ Khê', loc:'Sơn Trà, Đà Nẵng', desc:'Bãi biển đẹp nhất Đà Nẵng, cát trắng mịn, nước trong vắt. Thời điểm này vắng khách, tuyệt vời để tắm biển.', tags:['Biển & Thiên nhiên','Miễn phí'], travel:'🚗 7km · 12 phút' },
+        { time:'12:00', dur:'1 giờ', icon:'🍜', name:'Cơm nhà hàng Bà Vinh', loc:'Ngũ Hành Sơn, Đà Nẵng', desc:'Bữa trưa với cơm gà Hội An và các đặc sản miền Trung. Quán bình dân, giá hợp lý, phần ăn đầy đặn.', tags:['Ẩm thực','35–60k/người'], travel:'🛺 5km · 10 phút' },
+        { time:'13:30', dur:'3 giờ', icon:'🐒', name:'Bán đảo Sơn Trà', loc:'Sơn Trà, Đà Nẵng', desc:'Lái xe máy quanh bán đảo, ghé thăm chùa Linh Ứng với Phật Quan Âm cao 67m và tìm kiếm đàn voọc chà vá chân nâu.', tags:['Thiên nhiên','Rừng nguyên sinh'], travel:'🏍 8km · 15 phút' },
+        { time:'17:00', dur:'1 giờ', icon:'🌅', name:'Ngắm hoàng hôn Sơn Trà', loc:'Đỉnh Sơn Trà', desc:'Từ đỉnh Bàn Cờ có thể nhìn thấy toàn bộ đường bờ biển từ Mỹ Khê đến Non Nước trong ánh hoàng hôn tuyệt đẹp.', tags:['Thiên nhiên','Miễn phí'], travel:'🚶 Tại chỗ' },
+        { time:'18:30', dur:'1.5 giờ', icon:'🦐', name:'Hải sản bờ biển Mỹ Khê', loc:'Võ Nguyên Giáp, Đà Nẵng', desc:'Kết thúc ngày với bữa hải sản tươi sống ngay trên bờ biển. Thử tôm hùm nướng, ghẹ rang me và sò điệp phô mai.', tags:['Ẩm thực','150–400k/người'], travel:'🏍 3km · 8 phút' },
+      ]
+    ],
+    2: [
+      [
+        { time:'07:00', dur:'30 phút', icon:'🎓', name:'Trường ĐH VKU', loc:'Quận Ngũ Hành Sơn, Đà Nẵng', desc:'Xuất phát từ VKU.', tags:['Xuất phát VKU'], isVKU:true },
+        { time:'07:30', dur:'2 giờ', icon:'🗿', name:'Ngũ Hành Sơn', loc:'Ngũ Hành Sơn', desc:'Khám phá hang động và tượng Phật cổ xưa.', tags:['Di tích','3km từ VKU'], travel:'🏍 3km · 8 phút' },
+        { time:'10:00', dur:'2 giờ', icon:'🏖', name:'Biển Mỹ Khê', loc:'Sơn Trà', desc:'Thư giãn trên bãi biển danh tiếng.', tags:['Biển'], travel:'🚗 7km · 12 phút' },
+        { time:'12:30', dur:'1 giờ', icon:'🍜', name:'Mì Quảng Tuân Quán', loc:'Hùng Vương, Đà Nẵng', desc:'Mì Quảng thuần chất từ Duy Xuyên.', tags:['Ẩm thực','30–50k'], travel:'🚗 5km · 10 phút' },
+        { time:'14:00', dur:'2 giờ', icon:'🐉', name:'Cầu Rồng & Sông Hàn', loc:'Hải Châu, Đà Nẵng', desc:'Đi dọc sông Hàn, thăm Cầu Rồng và Cầu Tình Yêu.', tags:['Biểu tượng Đà Nẵng'], travel:'🚗 8km · 15 phút' },
+        { time:'17:00', dur:'2 giờ', icon:'🌃', name:'Phố đêm Đà Nẵng', loc:'Trung tâm, Đà Nẵng', desc:'Khám phá phố đi bộ, chợ đêm và street food.', tags:['Giải trí','Ẩm thực'], travel:'🚶 Gần đó' },
+        { time:'21:00', dur:'Cả tối', icon:'🎆', name:'Ngắm Cầu Rồng phun lửa', loc:'Sông Hàn, Đà Nẵng', desc:'Cuối tuần: Cầu Rồng phun lửa và phun nước lúc 21:00 – không thể bỏ qua!', tags:['Đặc sắc','Thứ 7 & CN'], travel:'🚶 Ngay đó' },
+      ],
+      [
+        { time:'06:30', dur:'30 phút', icon:'🚌', name:'Di chuyển Đà Nẵng – Hội An', loc:'Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Bắt xe buýt hoặc thuê xe máy đi Hội An (30km).', tags:['Di chuyển','30km·45 phút'], travel:'🚌 30km · 45 phút' },
+        { time:'07:30', dur:'3 giờ', icon:'🏮', name:'Phố Cổ Hội An buổi sáng', loc:'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Buổi sáng yên tĩnh nhất để khám phá phố cổ, chụp ảnh trước khi du khách đổ về. Đừng bỏ lỡ Chùa Cầu và nhà cổ Tấn Ký.', tags:['Di sản UNESCO','Bán vé 120k'], isVKU:false },
+        { time:'10:30', dur:'1.5 giờ', icon:'🍜', name:'Mì Quảng Bà Vị & Cao Lầu Ông Hai', loc:'Hội An', desc:'Ăn sáng muộn với hai đặc sản huyền thoại của Hội An tại cùng khu phố.', tags:['Ẩm thực','35–60k'], travel:'🚶 5 phút đi bộ' },
+        { time:'12:30', dur:'2 giờ', icon:'🏺', name:'Làng Gốm Thanh Hà', loc:'Hội An', desc:'Tự tay nặn gốm với nghệ nhân làng gốm 500 năm tuổi.', tags:['Làng nghề','Trải nghiệm'], travel:'🏍 3km · 8 phút' },
+        { time:'15:00', dur:'1.5 giờ', icon:'🌱', name:'Làng Rau Trà Quế', loc:'Hội An', desc:'Tham gia làm vườn cùng dân làng và học nấu ăn truyền thống.', tags:['Trải nghiệm văn hóa'], travel:'🏍 2km · 5 phút' },
+        { time:'17:00', dur:'2 giờ', icon:'🌊', name:'Biển Cửa Đại', loc:'Hội An', desc:'Thư giãn trên bãi biển Cửa Đại, ngắm hoàng hôn cùng những thuyền gỗ truyền thống.', tags:['Biển','Hoàng hôn'], travel:'🏍 5km · 10 phút' },
+        { time:'19:00', dur:'2 giờ', icon:'🏮', name:'Hội An ban đêm & Đèn lồng', loc:'Hội An', desc:'Thả đèn lồng trên sông Thu Bồn – trải nghiệm không thể quên. Mua đèn lồng 15k tại phố.', tags:['Văn hóa','Lễ hội'], travel:'🚶 Đi bộ' },
+      ]
+    ],
+    3: [
+      // Ngày 1 — giống 2 ngày
+      [
+        { time:'07:00', dur:'30 phút', icon:'🎓', name:'Trường ĐH VKU', loc:'Quận Ngũ Hành Sơn, Đà Nẵng', desc:'Xuất phát từ VKU – nơi hành trình bắt đầu.', tags:['Xuất phát VKU'], isVKU:true },
+        { time:'07:30', dur:'2 giờ', icon:'🗿', name:'Ngũ Hành Sơn', loc:'Ngũ Hành Sơn, Đà Nẵng', desc:'Khám phá hang động và tượng Phật cổ xưa trong quần thể núi đá cẩm thạch huyền bí.', tags:['Di tích','3km từ VKU'], travel:'🏍 3km · 8 phút' },
+        { time:'10:00', dur:'2 giờ', icon:'🏖', name:'Biển Mỹ Khê', loc:'Sơn Trà, Đà Nẵng', desc:'Tắm biển và thư giãn trên bãi biển đẹp nhất Đà Nẵng, cát trắng mịn, nước trong xanh.', tags:['Biển','Miễn phí'], travel:'🚗 7km · 12 phút' },
+        { time:'12:30', dur:'1 giờ', icon:'🍜', name:'Mì Quảng Ếch – Bà Vị', loc:'Ngũ Hành Sơn, Đà Nẵng', desc:'Thưởng thức mì Quảng đặc sản với nước lèo vàng óng, tôm thịt đầy đặn theo đúng vị gốc Duy Xuyên.', tags:['Ẩm thực','25–45k'], travel:'🚗 5km · 10 phút' },
+        { time:'14:00', dur:'1.5 giờ', icon:'🐒', name:'Bán đảo Sơn Trà', loc:'Sơn Trà, Đà Nẵng', desc:'Chùa Linh Ứng với tượng Phật Bà cao 67m và săn voọc chà vá chân nâu — loài linh trưởng quý hiếm.', tags:['Thiên nhiên','Miễn phí'], travel:'🏍 8km · 15 phút' },
+        { time:'16:30', dur:'1 giờ', icon:'🌅', name:'Đỉnh Bàn Cờ – Sơn Trà', loc:'Đỉnh Sơn Trà', desc:'Nhìn toàn cảnh Đà Nẵng từ đỉnh cao nhất bán đảo trong ánh hoàng hôn tuyệt đẹp.', tags:['Thiên nhiên','Miễn phí'], travel:'🚶 Tại chỗ' },
+        { time:'18:30', dur:'1.5 giờ', icon:'🦐', name:'Hải sản bờ biển Mỹ Khê', loc:'Võ Nguyên Giáp, Đà Nẵng', desc:'Tôm hùm nướng, ghẹ rang me, sò điệp phô mai tươi ngon ngay trên bờ biển.', tags:['Ẩm thực','150–400k'], travel:'🏍 3km · 8 phút' },
+      ],
+      // Ngày 2 — Đà Nẵng thành phố
+      [
+        { time:'07:30', dur:'1 giờ', icon:'☕', name:'Cà phê trứng & Bánh mì Đà Nẵng', loc:'Hải Châu, Đà Nẵng', desc:'Khởi động ngày với cà phê trứng béo ngậy và ổ bánh mì giòn rụm theo kiểu Đà Nẵng.', tags:['Ẩm thực','25–40k'], travel:'🚗 10km · 15 phút' },
+        { time:'09:00', dur:'1.5 giờ', icon:'🐉', name:'Cầu Rồng & Sông Hàn', loc:'Hải Châu, Đà Nẵng', desc:'Biểu tượng của Đà Nẵng hiện đại – dạo bộ dọc bờ sông Hàn thơ mộng, chụp ảnh Cầu Rồng và Cầu Tình Yêu.', tags:['Biểu tượng Đà Nẵng'], travel:'🚶 Đi bộ' },
+        { time:'11:00', dur:'1 giờ', icon:'🏛', name:'Bảo tàng Đà Nẵng', loc:'Hải Châu, Đà Nẵng', desc:'Tìm hiểu lịch sử văn hóa 300 năm của Đà Nẵng qua hiện vật, bản đồ và câu chuyện kể sống động.', tags:['Lịch sử','Vé 20k'], travel:'🚶 5 phút đi bộ' },
+        { time:'12:30', dur:'1 giờ', icon:'🍖', name:'Bánh tráng cuốn thịt heo – Trần Cao Vân', loc:'Hải Châu, Đà Nẵng', desc:'Đặc sản Đà Nẵng không thể bỏ qua: bánh tráng mỏng cuộn thịt heo luộc, rau sống và mắm nêm đặc trưng.', tags:['Ẩm thực','40–70k'], travel:'🚗 2km · 5 phút' },
+        { time:'14:00', dur:'2 giờ', icon:'🎨', name:'Phố bích họa Nguyễn Chí Thanh', loc:'Hải Châu, Đà Nẵng', desc:'Con phố tranh bích họa sống động nhất Đà Nẵng – mỗi góc tường là một tác phẩm nghệ thuật để check-in.', tags:['Nghệ thuật','Miễn phí'], travel:'🚗 3km · 7 phút' },
+        { time:'17:00', dur:'2 giờ', icon:'🌃', name:'Chợ đêm Sơn Trà', loc:'Sơn Trà, Đà Nẵng', desc:'Chợ đêm đặc sắc với hàng trăm gian hàng thủ công, ẩm thực đường phố và quà lưu niệm độc đáo.', tags:['Giải trí','Ẩm thực'], travel:'🚗 5km · 10 phút' },
+        { time:'21:00', dur:'45 phút', icon:'🎆', name:'Ngắm Cầu Rồng phun lửa', loc:'Sông Hàn, Đà Nẵng', desc:'Cuối tuần: Cầu Rồng phun lửa và phun nước lúc 21:00. Đây là màn trình diễn ngoài trời ấn tượng nhất Đà Nẵng.', tags:['Đặc sắc','Thứ 7 & CN'], travel:'🚗 4km · 8 phút' },
+      ],
+      // Ngày 3 — Hội An
+      [
+        { time:'06:30', dur:'45 phút', icon:'🚌', name:'Di chuyển Đà Nẵng – Hội An', loc:'Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Bắt xe buýt 01 hoặc thuê xe máy đi Hội An (30km), tốt nhất đến sớm để tránh đông khách.', tags:['Di chuyển','30km · 45 phút'], travel:'🚌 30km · 45 phút' },
+        { time:'07:30', dur:'2.5 giờ', icon:'🏮', name:'Phố Cổ Hội An buổi sáng', loc:'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Buổi sáng yên tĩnh nhất để khám phá: Chùa Cầu 400 năm tuổi, Nhà cổ Tấn Ký, Hội quán Phúc Kiến. Vé tham quan 120k.', tags:['Di sản UNESCO','Vé 120k'] },
+        { time:'10:30', dur:'1 giờ', icon:'🍜', name:'Cao Lầu Ông Hai & Mì Quảng Bà Vị', loc:'Hội An', desc:'Hai đặc sản huyền thoại của Hội An tại cùng khu phố: Cao Lầu chỉ ngon khi dùng nước giếng Bá Lễ thật.', tags:['Ẩm thực','35–60k'], travel:'🚶 5 phút đi bộ' },
+        { time:'12:00', dur:'2 giờ', icon:'🏺', name:'Làng Gốm Thanh Hà', loc:'Hội An', desc:'Tự tay nặn gốm cùng nghệ nhân tại làng gốm 500 năm tuổi. Mang về sản phẩm do chính tay mình làm.', tags:['Làng nghề','Trải nghiệm'], travel:'🏍 3km · 8 phút' },
+        { time:'14:30', dur:'1.5 giờ', icon:'🌱', name:'Làng Rau Trà Quế', loc:'Hội An', desc:'Tham gia làm vườn cùng nông dân và học nấu ăn truyền thống tại làng rau hữu cơ nổi tiếng nhất Hội An.', tags:['Văn hóa','Trải nghiệm'], travel:'🏍 2km · 5 phút' },
+        { time:'17:00', dur:'1.5 giờ', icon:'🌊', name:'Biển Cửa Đại', loc:'Hội An', desc:'Ngắm hoàng hôn trên bãi biển Cửa Đại với những chiếc thuyền gỗ truyền thống neo đậu xa xa.', tags:['Biển','Hoàng hôn'], travel:'🏍 5km · 10 phút' },
+        { time:'19:00', dur:'2 giờ', icon:'🏮', name:'Hội An ban đêm & Thả đèn lồng', loc:'Hội An', desc:'Thả đèn lồng trên sông Thu Bồn – trải nghiệm không thể quên. Mua đèn lồng 15k tại các gian hàng ven sông.', tags:['Văn hóa','Lễ hội'], travel:'🚶 Đi bộ' },
+      ]
+    ],
+    4: [
+      // Ngày 1 — VKU + Đà Nẵng biển
+      [
+        { time:'07:00', dur:'30 phút', icon:'🎓', name:'Trường ĐH VKU', loc:'Quận Ngũ Hành Sơn, Đà Nẵng', desc:'Xuất phát từ VKU – điểm khởi đầu hành trình.', tags:['Xuất phát VKU'], isVKU:true },
+        { time:'07:30', dur:'2 giờ', icon:'🗿', name:'Ngũ Hành Sơn', loc:'Ngũ Hành Sơn, Đà Nẵng', desc:'Tham quan quần thể núi đá cẩm thạch huyền bí với các hang động, chùa chiền và tượng Phật cổ xưa.', tags:['Di tích','3km từ VKU'], travel:'🏍 3km · 8 phút' },
+        { time:'10:00', dur:'2 giờ', icon:'🏖', name:'Biển Mỹ Khê', loc:'Sơn Trà, Đà Nẵng', desc:'Thư giãn trên bãi biển đẹp nhất Đà Nẵng, nước trong xanh, sóng vừa phải lý tưởng để bơi.', tags:['Biển','Miễn phí'], travel:'🚗 7km · 12 phút' },
+        { time:'12:30', dur:'1 giờ', icon:'🍜', name:'Bún bò Huế Bà Tuyết', loc:'Liên Chiểu, Đà Nẵng', desc:'Tô bún bò Huế cay nồng, đầy đặn với chân giò và chả cua – bữa trưa no bụng cho cả ngày dài.', tags:['Ẩm thực','30–50k'], travel:'🚗 5km · 10 phút' },
+        { time:'14:00', dur:'2 giờ', icon:'🐒', name:'Bán đảo Sơn Trà', loc:'Sơn Trà, Đà Nẵng', desc:'Chùa Linh Ứng, đàn voọc chà vá, rừng nguyên sinh. Mang theo ống nhòm để ngắm voọc tốt hơn.', tags:['Thiên nhiên'], travel:'🏍 8km · 15 phút' },
+        { time:'17:00', dur:'1 giờ', icon:'🌅', name:'Hoàng hôn đỉnh Sơn Trà', loc:'Đỉnh Bàn Cờ', desc:'View 360 độ từ đỉnh Bàn Cờ – toàn bộ đường bờ biển Đà Nẵng trong ánh sáng vàng của hoàng hôn.', tags:['Thiên nhiên','Miễn phí'], travel:'🚶 Tại chỗ' },
+        { time:'18:30', dur:'1.5 giờ', icon:'🦐', name:'Hải sản tươi Mỹ Khê', loc:'Võ Nguyên Giáp, Đà Nẵng', desc:'Hải sản tươi ngon ngay trên bờ biển, đặc biệt là cua rang muối và tôm tít hấp gừng.', tags:['Ẩm thực','150–400k'], travel:'🏍 3km · 8 phút' },
+      ],
+      // Ngày 2 — Đà Nẵng thành phố
+      [
+        { time:'07:30', dur:'1 giờ', icon:'☕', name:'Sáng ở phố cổ Đà Nẵng', loc:'Hải Châu, Đà Nẵng', desc:'Ăn sáng với bánh mì chả cá và cà phê sữa đá tại vỉa hè – hương vị bình dân mà khó quên.', tags:['Ẩm thực','20–35k'], travel:'🚗 10km · 15 phút' },
+        { time:'09:00', dur:'1.5 giờ', icon:'🐉', name:'Cầu Rồng & Bờ sông Hàn', loc:'Hải Châu', desc:'Dạo bộ dọc bờ sông Hàn thơ mộng, chụp ảnh cầu Rồng và cầu Tình Yêu với khóa tình yêu đầy màu sắc.', tags:['Biểu tượng Đà Nẵng'], travel:'🚶 Đi bộ' },
+        { time:'11:00', dur:'1.5 giờ', icon:'🏛', name:'Bảo tàng Chăm', loc:'Hải Châu, Đà Nẵng', desc:'Bộ sưu tập điêu khắc Chăm Pa lớn nhất thế giới. Hơn 300 hiện vật từ thế kỷ 7 đến 15 được trưng bày.', tags:['Lịch sử','Vé 40k'], travel:'🚶 10 phút đi bộ' },
+        { time:'13:00', dur:'1 giờ', icon:'🍖', name:'Bánh tráng cuốn thịt heo – Trần Cao Vân', loc:'Hải Châu', desc:'Đặc sản số một Đà Nẵng: bánh tráng mỏng, thịt heo luộc, rau sống tươi và mắm nêm cay đặc trưng miền Trung.', tags:['Ẩm thực','45–70k'], travel:'🚗 2km · 5 phút' },
+        { time:'14:30', dur:'2 giờ', icon:'🎨', name:'Bích họa & Phố nghệ thuật', loc:'Hải Châu, Đà Nẵng', desc:'Khám phá con phố tranh bích họa sống động, ghé thăm các gallery nghệ thuật và cửa hàng thủ công địa phương.', tags:['Nghệ thuật','Miễn phí'], travel:'🚗 3km · 7 phút' },
+        { time:'17:30', dur:'1.5 giờ', icon:'🌃', name:'Chợ đêm Sơn Trà', loc:'Sơn Trà', desc:'Hàng trăm gian hàng thủ công mỹ nghệ, đặc sản vùng miền và street food đặc sắc của Đà Nẵng.', tags:['Giải trí','Ẩm thực'], travel:'🚗 5km · 10 phút' },
+        { time:'21:00', dur:'45 phút', icon:'🎆', name:'Cầu Rồng phun lửa', loc:'Sông Hàn', desc:'Màn trình diễn huyền thoại chỉ có vào cuối tuần: Rồng khổng lồ phun lửa và phun nước trên sông Hàn.', tags:['Đặc sắc','Thứ 7 & CN'], travel:'🚗 4km · 8 phút' },
+      ],
+      // Ngày 3 — Bà Nà Hills
+      [
+        { time:'07:00', dur:'1 giờ', icon:'🚡', name:'Di chuyển lên Bà Nà Hills', loc:'Hòa Vang, Đà Nẵng', desc:'Mua vé cáp treo và lên đỉnh Bà Nà (1.487m) ngay khi mở cửa để tránh hàng dài chờ đợi. Vé trọn gói 980k.', tags:['Di chuyển','Vé 980k'], travel:'🚗 35km · 45 phút' },
+        { time:'08:30', dur:'1.5 giờ', icon:'🌉', name:'Cầu Vàng – Golden Bridge', loc:'Bà Nà Hills', desc:'Biểu tượng nổi tiếng thế giới: đôi bàn tay khổng lồ đỡ cây cầu vàng uốn lượn giữa mây trắng bồng bềnh.', tags:['Kiến trúc','Check-in nổi tiếng'] },
+        { time:'10:30', dur:'1.5 giờ', icon:'⛪', name:'Làng Pháp & Vườn hoa Le Jardin', loc:'Bà Nà Hills', desc:'Kiến trúc cổ điển Pháp thế kỷ 19 giữa đỉnh núi mây mờ, vườn hoa rực rỡ và tháp đồng hồ lãng mạn.', tags:['Kiến trúc','Nghệ thuật'] },
+        { time:'12:00', dur:'1 giờ', icon:'🍽', name:'Ăn trưa tại Bà Nà', loc:'Bà Nà Hills', desc:'Buffet hoặc nhà hàng trong khu nghỉ dưỡng. Thử các món ăn Âu-Á phục vụ tại độ cao gần 1.500m.', tags:['Ẩm thực','150–280k'] },
+        { time:'13:30', dur:'2 giờ', icon:'🎢', name:'Fantasy Park', loc:'Bà Nà Hills', desc:'Khu vui chơi trong nhà lớn nhất Việt Nam với các trò chơi cảm giác mạnh, 4D cinema và nhiều hoạt động hấp dẫn.', tags:['Giải trí','Đã bao gồm vé'] },
+        { time:'16:00', dur:'1 giờ', icon:'☁️', name:'Thăm Linh Ứng Tự – Bà Nà', loc:'Bà Nà Hills', desc:'Ngôi chùa thiêng giữa mây trời, không gian tĩnh lặng và linh thiêng với kiến trúc độc đáo trên đỉnh núi.', tags:['Tâm linh','Miễn phí'] },
+        { time:'17:30', dur:'45 phút', icon:'🚡', name:'Hạ sơn – Về Đà Nẵng', loc:'Bà Nà Hills', desc:'Ngắm cảnh hoàng hôn trên cáp treo khi hạ sơn – khung cảnh đẹp không kém gì khi lên núi.', tags:['Di chuyển'], travel:'🚡 Cáp treo' },
+      ],
+      // Ngày 4 — Hội An
+      [
+        { time:'06:30', dur:'45 phút', icon:'🚌', name:'Di chuyển đến Hội An', loc:'Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Xuất phát sớm để tận hưởng Hội An lúc bình minh – khi ánh nắng vàng chiếu lên những mái ngói rêu phong.', tags:['Di chuyển','30km'], travel:'🚌 30km · 45 phút' },
+        { time:'07:30', dur:'2 giờ', icon:'🏮', name:'Phố Cổ Hội An bình minh', loc:'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Giờ vàng chụp ảnh khi phố cổ vắng khách, ánh nắng sớm chiếu qua những ngôi nhà gỗ cổ kính 300-400 năm tuổi.', tags:['Di sản UNESCO','Vé 120k'] },
+        { time:'10:00', dur:'1 giờ', icon:'🍜', name:'Cơm gà bà Buội – huyền thoại Hội An', loc:'Hội An', desc:'Cơm gà vàng ươm, thịt gai mềm, cơm lá dứa thơm lừng – món ăn nổi tiếng nhất Hội An mà du khách không thể bỏ qua.', tags:['Ẩm thực','45–65k'], travel:'🚶 10 phút đi bộ' },
+        { time:'11:30', dur:'2 giờ', icon:'🏺', name:'Làng Gốm Thanh Hà', loc:'Hội An', desc:'Trải nghiệm nặn gốm tay cùng nghệ nhân. Sản phẩm được nung và bạn có thể mang về làm quà lưu niệm.', tags:['Làng nghề','Trải nghiệm'], travel:'🏍 3km · 8 phút' },
+        { time:'14:00', dur:'2 giờ', icon:'⛵', name:'Chèo thuyền thúng – Tour sông Thu Bồn', loc:'Hội An', desc:'Trải nghiệm độc đáo chèo thuyền thúng trên sông Thu Bồn, ghé thăm rừng dừa nước Bảy Mẫu yên tĩnh.', tags:['Trải nghiệm','150–200k/người'], travel:'🏍 5km · 10 phút' },
+        { time:'17:00', dur:'1.5 giờ', icon:'🌊', name:'Biển An Bàng', loc:'Hội An', desc:'Bãi biển yên tĩnh và đẹp hơn Cửa Đại, ít khách du lịch hơn, có nhiều quán beach bar với ghế nằm thoải mái.', tags:['Biển','Thư giãn'], travel:'🏍 4km · 8 phút' },
+        { time:'19:30', dur:'2 giờ', icon:'🏮', name:'Phố đèn lồng & Thả hoa đăng', loc:'Hội An', desc:'Kết thúc hành trình 4 ngày bằng tối phố cổ lung linh đèn lồng và nghi lễ thả hoa đăng trên sông Thu Bồn.', tags:['Văn hóa','Lễ hội'], travel:'🚶 Đi bộ' },
+      ]
+    ],
+    5: [
+      // Ngày 1 — VKU + Ngũ Hành Sơn + Mỹ Khê
+      [
+        { time:'07:00', dur:'30 phút', icon:'🎓', name:'Trường ĐH VKU', loc:'Quận Ngũ Hành Sơn, Đà Nẵng', desc:'Xuất phát từ VKU – điểm khởi đầu hành trình khám phá miền Trung.', tags:['Xuất phát VKU'], isVKU:true },
+        { time:'07:30', dur:'2 giờ', icon:'🗿', name:'Ngũ Hành Sơn', loc:'Ngũ Hành Sơn, Đà Nẵng', desc:'Quần thể 5 ngọn núi đá cẩm thạch huyền bí chỉ 3km từ VKU. Leo núi Thủy Sơn để vào hang Huyền Không thiêng liêng.', tags:['Di tích','3km từ VKU'], travel:'🏍 3km · 8 phút' },
+        { time:'10:00', dur:'2 giờ', icon:'🏖', name:'Biển Mỹ Khê', loc:'Sơn Trà, Đà Nẵng', desc:'Top 6 bãi biển đẹp nhất châu Á. Thuê ván lướt hoặc đơn giản ngắm sóng và tắm nắng.', tags:['Biển','Miễn phí'], travel:'🚗 7km · 12 phút' },
+        { time:'12:30', dur:'1 giờ', icon:'🍜', name:'Mì Quảng 1A – Quán lâu năm', loc:'Hải Châu, Đà Nẵng', desc:'Mì Quảng đậm chất Đà Nẵng với bánh đa vàng, nhân tôm thịt, rau sống và bánh tráng nướng giòn rụm.', tags:['Ẩm thực','25–45k'], travel:'🚗 8km · 12 phút' },
+        { time:'14:00', dur:'2 giờ', icon:'🐒', name:'Bán đảo Sơn Trà', loc:'Sơn Trà, Đà Nẵng', desc:'Rừng nguyên sinh, chùa Linh Ứng và đàn voọc chà vá chân nâu đặc hữu chỉ có ở Sơn Trà.', tags:['Thiên nhiên','Miễn phí'], travel:'🏍 8km · 15 phút' },
+        { time:'17:00', dur:'1 giờ', icon:'🌅', name:'Hoàng hôn Bàn Cờ', loc:'Đỉnh Sơn Trà', desc:'Cảnh hoàng hôn toàn cảnh Đà Nẵng từ đỉnh cao nhất bán đảo – khung ảnh không thể đẹp hơn.', tags:['Thiên nhiên','Miễn phí'], travel:'🚶 Tại chỗ' },
+        { time:'18:30', dur:'1.5 giờ', icon:'🦐', name:'Hải sản Mỹ Khê – Bờ đông', loc:'Võ Nguyên Giáp, Đà Nẵng', desc:'Đêm đầu tiên: thưởng thức hải sản tươi ngon nhất Đà Nẵng ngay sát bờ biển với giá cả phải chăng.', tags:['Ẩm thực','150–400k'], travel:'🏍 3km · 8 phút' },
+      ],
+      // Ngày 2 — Đà Nẵng thành phố
+      [
+        { time:'08:00', dur:'1 giờ', icon:'☕', name:'Sáng tại chợ Cồn', loc:'Hải Châu, Đà Nẵng', desc:'Chợ truyền thống lớn nhất Đà Nẵng, ăn sáng với bánh mì que, xôi bắp và cà phê vợt đặc trưng.', tags:['Ẩm thực','15–30k'], travel:'🚗 10km · 15 phút' },
+        { time:'09:30', dur:'1.5 giờ', icon:'🏛', name:'Bảo tàng Điêu khắc Chăm', loc:'Hải Châu, Đà Nẵng', desc:'Bộ sưu tập điêu khắc Chăm Pa lớn nhất thế giới – hơn 300 hiện vật từ thế kỷ 7 đến 15 kể chuyện vương quốc cổ đại.', tags:['Lịch sử','Vé 40k'], travel:'🚶 15 phút đi bộ' },
+        { time:'11:30', dur:'1 giờ', icon:'🐉', name:'Cầu Rồng & sông Hàn', loc:'Hải Châu', desc:'Biểu tượng thành phố hiện đại – chụp ảnh Cầu Rồng ban ngày và khám phá khu vực bờ tây sông Hàn sầm uất.', tags:['Biểu tượng Đà Nẵng'], travel:'🚶 10 phút đi bộ' },
+        { time:'13:00', dur:'1 giờ', icon:'🍖', name:'Bánh tráng cuốn thịt heo', loc:'Hải Châu', desc:'Đặc sản được CNN vinh danh: bánh tráng mỏng, thịt heo luộc, rau sống tươi, chấm mắm nêm cay đặc trưng.', tags:['Ẩm thực','45–70k'], travel:'🚗 2km · 5 phút' },
+        { time:'14:30', dur:'2 giờ', icon:'🎨', name:'Phố bích họa – Nghệ thuật đường phố', loc:'Hải Châu', desc:'Con phố tranh ngoài trời rực rỡ nhất Đà Nẵng, mỗi tường là một câu chuyện nghệ thuật về văn hóa miền Trung.', tags:['Nghệ thuật','Miễn phí'], travel:'🚗 3km · 7 phút' },
+        { time:'17:30', dur:'1.5 giờ', icon:'🌃', name:'Chợ đêm Sơn Trà', loc:'Sơn Trà', desc:'Mua sắm, ăn uống và tham quan hàng trăm gian hàng thủ công mỹ nghệ và đặc sản địa phương.', tags:['Giải trí','Ẩm thực'], travel:'🚗 5km · 10 phút' },
+        { time:'21:00', dur:'45 phút', icon:'🎆', name:'Cầu Rồng phun lửa', loc:'Sông Hàn', desc:'Màn trình diễn huyền thoại chỉ có cuối tuần: Rồng khổng lồ phun lửa và phun nước trên sông Hàn về đêm.', tags:['Đặc sắc','Thứ 7 & CN'], travel:'🚗 4km · 8 phút' },
+      ],
+      // Ngày 3 — Bà Nà Hills
+      [
+        { time:'07:00', dur:'1 giờ', icon:'🚡', name:'Lên Bà Nà Hills', loc:'Hòa Vang, Đà Nẵng', desc:'Cáp treo Bà Nà giữ 4 kỷ lục Guinness thế giới. Lên sớm để tránh hàng dài. Vé trọn gói 980k/người.', tags:['Di chuyển','Vé 980k'], travel:'🚗 35km · 45 phút' },
+        { time:'08:30', dur:'1.5 giờ', icon:'🌉', name:'Cầu Vàng – Golden Bridge', loc:'Bà Nà Hills', desc:'Đôi bàn tay khổng lồ đỡ cây cầu vàng giữa biển mây – hình ảnh nổi tiếng nhất Việt Nam trên mạng xã hội thế giới.', tags:['Biểu tượng','Check-in'] },
+        { time:'10:30', dur:'1.5 giờ', icon:'⛪', name:'Làng Pháp & Nhà thờ Bà Nà', loc:'Bà Nà Hills', desc:'Kiến trúc cổ điển Pháp phủ mây giữa đỉnh núi 1.487m, vườn hoa Le Jardin rực rỡ và nhà thờ đá phong cách Gothic.', tags:['Kiến trúc','Lãng mạn'] },
+        { time:'12:00', dur:'1 giờ', icon:'🍽', name:'Trưa tại Bà Nà', loc:'Bà Nà Hills', desc:'Thưởng thức các món ăn Âu-Á tại nhà hàng trong khu resort cao trên 1.400m so với mực nước biển.', tags:['Ẩm thực','150–280k'] },
+        { time:'13:30', dur:'2 giờ', icon:'🎢', name:'Fantasy Park', loc:'Bà Nà Hills', desc:'Khu vui chơi trong nhà lớn nhất Việt Nam: trò chơi cảm giác mạnh, rạp 4D và hàng chục hoạt động hấp dẫn.', tags:['Giải trí','Đã bao gồm vé'] },
+        { time:'16:00', dur:'1 giờ', icon:'☁️', name:'Thăm Linh Ứng Tự Bà Nà', loc:'Bà Nà Hills', desc:'Ngôi chùa giữa mây trắng, không gian tâm linh yên tĩnh trên đỉnh núi với kiến trúc truyền thống Việt Nam.', tags:['Tâm linh','Miễn phí'] },
+        { time:'17:30', dur:'45 phút', icon:'🚡', name:'Hạ sơn về Đà Nẵng', loc:'Bà Nà Hills', desc:'Ngắm cảnh chiều tà trên cáp treo khi hạ sơn, ánh sáng vàng chiều phủ toàn cảnh thành phố bên dưới.', tags:['Di chuyển'], travel:'🚡 Cáp treo' },
+      ],
+      // Ngày 4 — Hội An
+      [
+        { time:'06:30', dur:'45 phút', icon:'🚌', name:'Di chuyển đến Hội An', loc:'Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Xuất phát sớm, đến Hội An lúc bình minh để tận hưởng vẻ đẹp của phố cổ khi chưa đông khách du lịch.', tags:['Di chuyển','30km'], travel:'🚌 30km · 45 phút' },
+        { time:'07:30', dur:'2 giờ', icon:'🏮', name:'Phố Cổ Hội An – Giờ vàng', loc:'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Bình minh phố cổ: Chùa Cầu Nhật Bản 400 năm tuổi, Nhà cổ Tấn Ký, Hội quán Phúc Kiến trong ánh nắng sớm vàng ruộm.', tags:['Di sản UNESCO','Vé 120k'] },
+        { time:'10:00', dur:'1 giờ', icon:'🍜', name:'Cơm gà & Cao Lầu Hội An', loc:'Hội An', desc:'Hai đặc sản không thể thiếu: Cơm gà bà Buội vàng ươm và Cao Lầu chính hiệu với nước từ giếng Bá Lễ.', tags:['Ẩm thực','45–70k'], travel:'🚶 10 phút đi bộ' },
+        { time:'11:30', dur:'2 giờ', icon:'🏺', name:'Làng Gốm Thanh Hà', loc:'Hội An', desc:'Nặn gốm tay với nghệ nhân tại làng gốm 500 năm tuổi bên dòng sông Thu Bồn xanh mướt.', tags:['Làng nghề','Trải nghiệm'], travel:'🏍 3km · 8 phút' },
+        { time:'14:00', dur:'2 giờ', icon:'⛵', name:'Thuyền thúng sông Thu Bồn', loc:'Hội An', desc:'Chèo thuyền thúng truyền thống qua rừng dừa nước Bảy Mẫu, nghe nghệ nhân hát dân ca Quảng Nam.', tags:['Văn hóa','150–200k'], travel:'🏍 5km · 10 phút' },
+        { time:'17:00', dur:'1.5 giờ', icon:'🌊', name:'Biển An Bàng', loc:'Hội An', desc:'Bãi biển yên tĩnh, sóng nhẹ, có beach bar phong cách và nhiều ghế nằm ven biển giá 30–50k kèm nước uống.', tags:['Biển','Thư giãn'], travel:'🏍 4km · 8 phút' },
+        { time:'19:30', dur:'2 giờ', icon:'🏮', name:'Hội An đêm & Thả đèn lồng', loc:'Hội An', desc:'Kết ngày với phố cổ lung linh đèn lồng và thả hoa đăng cầu may trên sông Thu Bồn lúc về khuya.', tags:['Văn hóa','Lễ hội'], travel:'🚶 Đi bộ' },
+      ],
+      // Ngày 5 — Thánh địa Mỹ Sơn
+      [
+        { time:'06:30', dur:'1 giờ', icon:'🚗', name:'Di chuyển đến Mỹ Sơn', loc:'Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Xuất phát sớm từ Hội An hoặc Đà Nẵng đến Thánh địa Mỹ Sơn (40km). Nên mang theo nước và kem chống nắng.', tags:['Di chuyển','40km'], travel:'🚗 40km · 60 phút' },
+        { time:'08:00', dur:'2.5 giờ', icon:'🛕', name:'Thánh địa Mỹ Sơn – Di sản UNESCO', loc:'Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Quần thể đền tháp Chăm Pa 4-14 thế kỷ, Di sản Văn hóa Thế giới UNESCO từ năm 1999. Thuê hướng dẫn viên để hiểu rõ hơn lịch sử vương quốc Chăm Pa cổ đại. Vé 150k.', tags:['Di sản UNESCO','Vé 150k'] },
+        { time:'11:00', dur:'1 giờ', icon:'🍜', name:'Ăn trưa ẩm thực Duy Xuyên', loc:'Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Thưởng thức bữa trưa tại quán địa phương với các món ăn vùng Duy Xuyên: mì Quảng gà, bánh xèo Quảng Nam.', tags:['Ẩm thực','30–50k'], travel:'🚗 5km · 10 phút' },
+        { time:'13:00', dur:'1.5 giờ', icon:'🚗', name:'Quay về – Làng nghề trên đường', loc:'Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', desc:'Trên đường về ghé thăm Làng đá mỹ nghệ Non Nước (gần VKU) để mua quà lưu niệm đặc sắc từ đá cẩm thạch thật.', tags:['Làng nghề','Quà lưu niệm'], travel:'🚗 60km · 75 phút' },
+        { time:'15:30', dur:'1.5 giờ', icon:'🗿', name:'Làng đá mỹ nghệ Non Nước', loc:'Ngũ Hành Sơn, Đà Nẵng', desc:'Làng nghề đá cẩm thạch 400 năm tuổi ngay dưới chân Ngũ Hành Sơn. Hơn 500 hộ nghệ nhân tạo ra những tác phẩm tinh xảo.', tags:['Làng nghề','Quà lưu niệm'], travel:'🚗 Ngay đó' },
+        { time:'18:00', dur:'1.5 giờ', icon:'🍣', name:'Bữa tối tiệc kết thúc hành trình', loc:'Đà Nẵng', desc:'Bữa tối đặc biệt tổng kết 5 ngày: thưởng thức hải sản cao cấp hoặc buffet lẩu ngay trên bờ biển Mỹ Khê.', tags:['Ẩm thực','200–500k'], travel:'🚗 10km · 15 phút' },
+        { time:'20:00', dur:'1 giờ', icon:'🌙', name:'Dạo bờ biển Mỹ Khê về đêm', loc:'Mỹ Khê, Đà Nẵng', desc:'Kết thúc hành trình 5 ngày tuyệt vời bằng buổi tối thư giãn trên bờ biển, ngắm sóng và đếm sao trên bầu trời Đà Nẵng.', tags:['Thư giãn','Miễn phí'], travel:'🚶 Đi bộ' },
+      ]
+    ]
+  }
+};
+
+function selectDays(btn, n) {
+  selectedDays = n;
+  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function togglePref(btn) { btn.classList.toggle('selected'); }
+
+// ── LOADING HELPERS ──
+function setLoadingStep(text, pct) {
+  document.getElementById('aiLoadingStep').textContent = text;
+  document.getElementById('aiProgressBar').style.width = pct + '%';
+}
+
+// ── MAIN: GỌI GEMINI AI ──
+async function generateItinerary() {
+  const genBtn   = document.querySelector('.gen-btn');
+  const btnText  = document.getElementById('genBtnText');
+  const startSel = document.getElementById('startFrom');
+  const startLabel = startSel.options[startSel.selectedIndex].text.replace(/^[^ ]+ /, '');
+  const selectedPrefs = [...document.querySelectorAll('.pref-btn.selected')].map(b => b.textContent.trim());
+
+  // UI: trạng thái loading
+  btnText.textContent = '⏳ Đang kết nối AI...';
+  genBtn.disabled = true;
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('itineraryResult').style.display = 'none';
+  document.getElementById('aiLoadingEl').style.display = 'block';
+  setLoadingStep('Đang phân tích sở thích của bạn...', 15);
+
+  const hasRealKey = true;
+
+  if (!hasRealKey) {
+    // Không có key thật → dùng dữ liệu dự phòng có delay mô phỏng
+    await simulateAISteps();
+    useFallbackItinerary(startLabel);
+    return;
+  }
+
+  try {
+    setLoadingStep('Đang gửi yêu cầu đến Gemini AI...', 30);
+
+    const prompt = `Bạn là chuyên gia du lịch Đà Nẵng với 10 năm kinh nghiệm.
+Hãy tạo lịch trình du lịch CHI TIẾT ${selectedDays} ngày theo yêu cầu:
+
+Xuất phát từ: ${startLabel}
+Số ngày: ${selectedDays}
+Sở thích khách du lịch: ${selectedPrefs.length ? selectedPrefs.join(', ') : 'Tổng hợp'}
+Khu vực: Đà Nẵng (Hội An, Ngũ Hành Sơn, Mỹ Sơn, Bà Nà Hills...)
+
+Trả về JSON theo format sau — CHỈ JSON THUẦN, không markdown, không giải thích:
+{
+  "title": "Tên hành trình ngắn gọn hấp dẫn",
+  "days": [
+    {
+      "day": 1,
+      "items": [
+        {
+          "time": "07:00",
+          "duration": "1 giờ",
+          "icon": "emoji đại diện",
+          "name": "Tên địa điểm",
+          "location": "Quận/Huyện, Tỉnh/Thành phố",
+          "description": "Mô tả 2-3 câu hấp dẫn về địa điểm và trải nghiệm thực tế",
+          "tags": ["tag1", "tag2"],
+          "travel": "🏍 Xkm · Y phút từ điểm trước (bỏ qua với điểm đầu tiên ngày 1)"
+        }
+      ]
+    }
+  ]
+}
+
+Yêu cầu: Mỗi ngày 6-7 điểm, gồm bữa sáng/trưa/tối, ưu tiên địa điểm phù hợp sở thích, thêm tip thực tế vào description.`;
+
+    const res = await fetch(AI_API_BASE + '/api/ai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 4096
+      })
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    setLoadingStep('AI đang soạn lịch trình tốt nhất cho bạn...', 65);
+
+    const data  = await res.json();
+    const text  = data.content || '';
+
+    // Extract JSON từ response
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('Gemini trả về format không đúng');
+
+    const itinerary = JSON.parse(jsonMatch[0]);
+    setLoadingStep('Đang vẽ lịch trình lên giao diện...', 90);
+    await new Promise(r => setTimeout(r, 500));
+
+    renderAIItinerary(itinerary);
+    showToast('✨ Gemini AI đã tạo lịch trình cá nhân hóa cho bạn!');
+
+  } catch (err) {
+    console.warn('Gemini API lỗi:', err.message);
+    showToast('⚠️ Kết nối AI thất bại — hiển thị lịch trình mẫu.');
+    await simulateAISteps();
+    useFallbackItinerary(startLabel);
+  } finally {
+    btnText.textContent = '🤖 Tạo lịch trình AI ngay';
+    genBtn.disabled = false;
+    document.getElementById('aiLoadingEl').style.display = 'none';
+  }
+}
+
+// Mô phỏng bước AI khi không có key
+async function simulateAISteps() {
+  const steps = [
+    ['Đang phân tích sở thích của bạn...', 20],
+    ['Đang tra cứu địa điểm phù hợp...', 45],
+    ['Đang tối ưu lộ trình di chuyển...', 70],
+    ['Đang thêm gợi ý ẩm thực địa phương...', 88],
+    ['Hoàn tất! Đang hiển thị kết quả...', 98]
+  ];
+  for (const [msg, pct] of steps) {
+    setLoadingStep(msg, pct);
+    await new Promise(r => setTimeout(r, 420));
+  }
+}
+
+// Render lịch trình do Gemini trả về (JSON)
+function renderAIItinerary(itinerary) {
+  const schedule = itinerary.days || [];
+  document.getElementById('itineraryTitle').textContent = itinerary.title || `Hành trình ${selectedDays} ngày`;
+  document.getElementById('itineraryResult').style.display = 'block';
+
+  // AI badge trên tiêu đề
+  const label = document.querySelector('#itineraryResult .section-label');
+  if (label) label.innerHTML = '✨ Gemini AI · Lịch trình cá nhân hóa';
+
+  const tabs = document.getElementById('daysTabs');
+  tabs.innerHTML = '';
+  schedule.forEach((day, i) => {
+    const tab = document.createElement('button');
+    tab.className = 'day-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = `Ngày ${day.day}`;
+    tab.onclick = () => {
+      tabs.querySelectorAll('.day-tab').forEach((t, j) => t.classList.toggle('active', j === i));
+      renderDay(day.items);
+    };
+    tabs.appendChild(tab);
+  });
+
+  if (schedule.length > 0) renderDay(schedule[0].items);
+}
+
+// Dùng dữ liệu dự phòng cứng
+function useFallbackItinerary(startLabel) {
+  const data     = ITINERARIES['vku'];
+  const dayKey   = Math.min(selectedDays, 5);
+  const schedule = data[dayKey] || data[1];
+
+  document.getElementById('itineraryTitle').textContent = `Hành trình ${selectedDays} ngày từ ${startLabel || 'VKU'}`;
+  document.getElementById('itineraryResult').style.display = 'block';
+
+  const tabs = document.getElementById('daysTabs');
+  tabs.innerHTML = '';
+  for (let i = 0; i < Math.min(selectedDays, schedule.length); i++) {
+    const idx = i;
+    const tab = document.createElement('button');
+    tab.className = 'day-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = `Ngày ${i + 1}`;
+    tab.onclick = () => {
+      tabs.querySelectorAll('.day-tab').forEach((t, j) => t.classList.toggle('active', j === idx));
+      renderDay(schedule[idx]);
+    };
+    tabs.appendChild(tab);
+  }
+  currentDay = 0;
+  renderDay(schedule[0]);
+}
+
+let currentDayItems = [];
+function renderDay(items) {
+  currentDayItems = items.slice();
+  const tl = document.getElementById('timelineContent');
+  tl.innerHTML = '';
+  currentDayItems.forEach((item, i) => {
+    if (item.travel && i > 0) {
+      const tb = document.createElement('div');
+      tb.className = 'travel-bar';
+      tb.innerHTML = `<div class="travel-connector"></div><div class="travel-chip">${item.travel}</div><div class="travel-connector"></div>`;
+      tl.appendChild(tb);
+    }
+    const el = document.createElement('div');
+    el.className = 'tl-item';
+    el.draggable = true;
+    el.dataset.idx = i;
+    el.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', String(i)); el.classList.add('dragging'); });
+    el.addEventListener('dragend', () => el.classList.remove('dragging'));
+    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
+    el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+    el.addEventListener('drop', e => {
+      e.preventDefault(); el.classList.remove('drag-over');
+      const from = +e.dataTransfer.getData('text/plain'), to = i;
+      if (from === to) return;
+      const arr = currentDayItems.slice();
+      const [mv] = arr.splice(from, 1);
+      arr.splice(to, 0, mv);
+      renderDay(arr);
+      showToast('🔄 Đã sắp xếp lại lịch trình!');
+    });
+    el.innerHTML = `
+      <div class="tl-dot${item.isVKU ? ' vku' : ''}"></div>
+      <div class="tl-card${item.isVKU ? ' vku-card' : ''}">
+        <div class="tl-time-col">
+          <div class="tl-time">${item.time}</div>
+          <div class="tl-dur">${item.dur}</div>
+          <div class="tl-icon-big">${item.icon}</div>
+        </div>
+        <div class="tl-body">
+          ${item.isVKU ? '<div class="vku-badge">🎓 Điểm xuất phát VKU</div>' : ''}
+          <div class="tl-name">${item.name}</div>
+          <div class="tl-loc">📍 ${item.loc}</div>
+          <div class="tl-desc">${item.desc}</div>
+          <div class="tl-chips">${item.tags.map(t => `<span class="tl-chip${item.isVKU ? ' blue' : ''}">${t}</span>`).join('')}</div>
+        </div>
+      </div>`;
+    tl.appendChild(el);
+    setTimeout(() => el.classList.add('visible'), 80 * i);
+  });
+}
+
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+
+// ── WEATHER (Open-Meteo — free, no API key) ──
+const WMO_ICONS = {
+  0:'☀️',1:'🌤',2:'⛅',3:'☁️',
+  45:'🌫',48:'🌫',
+  51:'🌦',53:'🌦',55:'🌧',
+  61:'🌧',63:'🌧',65:'🌧',
+  71:'🌨',73:'🌨',75:'❄️',
+  80:'🌦',81:'🌧',82:'⛈',
+  95:'⛈',96:'⛈',99:'⛈'
+};
+const WMO_DESCS = {
+  0:'Trời quang',1:'Ít mây',2:'Nhiều mây',3:'Âm u',
+  45:'Sương mù',48:'Sương đá',
+  51:'Mưa phùn nhẹ',53:'Mưa phùn',55:'Mưa phùn nặng',
+  61:'Mưa nhỏ',63:'Mưa vừa',65:'Mưa to',
+  71:'Tuyết nhẹ',73:'Tuyết',75:'Tuyết dày',
+  80:'Mưa rào nhẹ',81:'Mưa rào',82:'Mưa rào to',
+  95:'Giông nhẹ',96:'Giông',99:'Giông mạnh'
+};
+const WEATHER_SUGGESTIONS = {
+  sunny: [
+    { icon:'🏖', name:'Biển Mỹ Khê', tag:'Lý tưởng cho ngày nắng', link:'kham-pha.html' },
+    { icon:'🐒', name:'Bán đảo Sơn Trà', tag:'Đi sáng sớm tránh nóng', link:'kham-pha.html' },
+    { icon:'🗿', name:'Ngũ Hành Sơn', tag:'Mát mẻ trong hang động', link:'di-tich.html' },
+  ],
+  cloudy: [
+    { icon:'🏛', name:'Phố Cổ Hội An', tag:'Dịu mát, dễ chịu', link:'di-tich.html' },
+    { icon:'🌿', name:'Bà Nà Hills', tag:'Mây mù thơ mộng', link:'kham-pha.html' },
+    { icon:'🏺', name:'Làng Gốm Thanh Hà', tag:'Trải nghiệm trong nhà', link:'lang-nghe.html' },
+  ],
+  rainy: [
+    { icon:'🍜', name:'Ẩm thực đường phố', tag:'Ăn uống trong quán', link:'am-thuc.html' },
+    { icon:'🏺', name:'Làng nghề thủ công', tag:'Trải nghiệm trong mái che', link:'lang-nghe.html' },
+    { icon:'🏮', name:'Hội An ban đêm', tag:'Mưa = đèn lồng đẹp hơn', link:'di-tich.html' },
+  ]
+};
+
+async function loadWeather() {
+  try {
+    // Da Nang coordinates
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=16.054&longitude=108.202&current=temperature_2m,relative_humidity_2m,windspeed_10m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FBangkok&forecast_days=5';
+    const res = await fetch(url);
+    const d = await res.json();
+    const cur = d.current;
+    const daily = d.daily;
+
+    const code = cur.weathercode;
+    const icon = WMO_ICONS[code] || '🌤';
+    const desc = WMO_DESCS[code] || 'Đang cập nhật';
+    const temp = Math.round(cur.temperature_2m);
+    const humid = cur.relative_humidity_2m;
+    const wind = Math.round(cur.windspeed_10m);
+
+    document.getElementById('wNow').textContent = icon;
+    document.getElementById('wNowTemp').textContent = temp + '°C';
+    document.getElementById('wNowDesc').textContent = desc;
+    document.getElementById('wWind').textContent = '💨 ' + wind + ' km/h';
+    document.getElementById('wHumid').textContent = '💧 ' + humid + '%';
+
+    // Advice
+    let advice = '', sugKey = 'sunny';
+    if (code >= 95) { advice = '⛈ Giông bão — nên ở trong nhà, thăm làng nghề hoặc nhà hàng ẩm thực.'; sugKey = 'rainy'; }
+    else if (code >= 61) { advice = '🌧 Trời mưa — mang áo mưa hoặc ô. Hội An ban đêm đẹp hơn khi mưa!'; sugKey = 'rainy'; }
+    else if (code >= 3) { advice = '⛅ Trời mát dịu — lý tưởng để khám phá phố cổ Hội An và làng nghề.'; sugKey = 'cloudy'; }
+    else { advice = '☀️ Trời đẹp — ra biển Mỹ Khê hoặc leo Sơn Trà buổi sáng sớm!'; sugKey = 'sunny'; }
+    document.getElementById('wAdvice').textContent = advice;
+
+    // 5-day forecast
+    const fc = document.getElementById('wForecast');
+    fc.innerHTML = '';
+    const days = ['CN','T2','T3','T4','T5','T6','T7'];
+    daily.time.slice(0,5).forEach((dateStr, i) => {
+      const d2 = new Date(dateStr);
+      const dayName = i === 0 ? 'Hôm nay' : days[d2.getDay()];
+      const hi = Math.round(daily.temperature_2m_max[i]);
+      const lo = Math.round(daily.temperature_2m_min[i]);
+      const fc_code = daily.weathercode[i];
+      fc.innerHTML += `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.12);border-radius:12px;padding:16px 10px;text-align:center;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600;">${dayName}</div>
+        <div style="font-size:32px;margin-bottom:8px;">${WMO_ICONS[fc_code]||'🌤'}</div>
+        <div style="font-size:12px;color:var(--cream);font-weight:600;">${hi}° <span style="color:var(--muted);font-weight:400;">/ ${lo}°</span></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">${WMO_DESCS[fc_code]||''}</div>
+      </div>`;
+    });
+
+    // Suggestions
+    const sug = WEATHER_SUGGESTIONS[sugKey];
+    const sugList = document.getElementById('wSugList');
+    sugList.innerHTML = sug.map(s => `
+      <a href="${s.link}" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.12);border-radius:10px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(74,144,217,0.3)'" onmouseout="this.style.borderColor='rgba(74,144,217,0.12)'">
+        <span style="font-size:24px;">${s.icon}</span>
+        <div><div style="font-size:13px;color:var(--cream);font-weight:600;">${s.name}</div><div style="font-size:11px;color:var(--ocean-light);">${s.tag}</div></div>
+      </a>`).join('');
+    document.getElementById('wSuggestions').style.display = 'block';
+
+  } catch(e) {
+    document.getElementById('wNowDesc').textContent = 'Không thể tải thời tiết';
+    document.getElementById('wAdvice').textContent = '📡 Kiểm tra kết nối mạng và thử lại.';
+  }
+}
+
+// Auto-load weather on page load
+window.addEventListener('DOMContentLoaded', () => { loadWeather(); });
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  requirePageAccess();
+  applyNavigationState();
+});
+</script>
+
+<!-- ── FOOTER ── -->
+<footer style="background:#060810;border-top:1px solid rgba(74,144,217,0.12);padding:48px 40px 28px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="footer-grid">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:0.05em;margin-bottom:8px;">CENTRAL CONNECT</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:240px;margin-bottom:16px;">Dự án bảo tồn di sản số Đà Nẵng bởi sinh viên VKU.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Khám phá</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="kham-pha.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🗺 Bản đồ di sản</a>
+          <a href="di-tich.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🏛 Di tích lịch sử</a>
+          <a href="lang-nghe.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🏺 Làng nghề</a>
+          <a href="am-thuc.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🍜 Ẩm thực</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Lịch Trình</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="lich-trinh.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">📅 Tự lên lịch AI</a>
+          <a href="lich-trinh.html#weather" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">☀ Thời tiết</a>
+          <a href="vku-corner.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🎒 Từ VKU</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Cộng đồng</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="su-kien.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">🎭 Sự kiện</a>
+          <a href="blog.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;">📝 Blog</a>
+          <a href="gay-quy.html" style="font-size:13px;color:#E8A020;text-decoration:none;">🌱 Gây Quỹ</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(74,144,217,0.1);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <span style="font-size:12px;color:var(--muted);">© 2026 Central Connect · VKU · Dữ liệu thời tiết từ <a href="https://open-meteo.com" target="_blank" style="color:var(--ocean-light);text-decoration:none;">Open-Meteo</a></span>
+      <a href="../index.html" style="font-size:12px;color:var(--muted);text-decoration:none;">← Trang chủ</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

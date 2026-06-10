@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bảng Xếp Hạng – Central Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/nav.css">
+<style>
+:root{--gold:#C9A84C;--cream:#F5F0E8;--ink:#1A1410;--muted:#8A7D6E;--ocean:#1A4F8C;--ocean-light:#4A90D9;--ocean-soft:rgba(74,144,217,0.1);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#080A0F;color:var(--cream);overflow-x:hidden;}
+.page{padding:104px 40px 80px;max-width:900px;margin:0 auto;}
+.page-hero{text-align:center;margin-bottom:48px;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--cream);margin-bottom:10px;}
+.page-hero p{color:var(--muted);font-size:15px;}
+.lb-tabs{display:flex;gap:0;border-bottom:1px solid rgba(74,144,217,0.12);margin-bottom:32px;}
+.lb-tab{padding:10px 24px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;transition:all 0.2s;}
+.lb-tab.active{color:var(--ocean-light);border-bottom-color:var(--ocean-light);}
+.lb-list{display:flex;flex-direction:column;gap:10px;}
+.lb-item{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.1);border-radius:12px;padding:16px 20px;transition:background 0.2s;}
+.lb-item:hover{background:rgba(74,144,217,0.06);}
+.lb-item.top1{border-color:rgba(201,168,76,0.35);background:rgba(201,168,76,0.05);}
+.lb-item.top2{border-color:rgba(192,192,192,0.3);background:rgba(192,192,192,0.04);}
+.lb-item.top3{border-color:rgba(180,110,60,0.3);background:rgba(180,110,60,0.04);}
+.lb-rank{width:36px;text-align:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--muted);flex-shrink:0;}
+.top1 .lb-rank{color:#C9A84C;}
+.top2 .lb-rank{color:#A0A8B0;}
+.top3 .lb-rank{color:#B46E3C;}
+.lb-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--ocean),var(--ocean-light));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0;}
+.lb-info{flex:1;}
+.lb-name{font-size:14px;font-weight:600;color:var(--cream);margin-bottom:3px;}
+.lb-badge{font-size:11px;color:var(--muted);}
+.lb-pts{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ocean-light);}
+.lb-pts-lbl{font-size:10px;color:var(--muted);text-align:right;}
+.my-rank-box{background:linear-gradient(135deg,rgba(26,79,140,0.15),rgba(74,144,217,0.08));border:1px solid rgba(74,144,217,0.3);border-radius:14px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;gap:16px;}
+.my-rank-label{font-size:12px;color:var(--muted);margin-bottom:4px;}
+.my-rank-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--ocean-light);}
+.loading-spinner{width:32px;height:32px;border:3px solid rgba(74,144,217,0.15);border-top-color:var(--ocean-light);border-radius:50%;animation:spin 0.8s linear infinite;margin:40px auto;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:600px){.page{padding:88px 16px 60px;}.lb-item{padding:12px 14px;gap:10px;}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img" alt="Central Connect">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none;position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a href="leaderboard.html" class="active">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <h1>🏅 Bảng Xếp Hạng</h1>
+    <p>Top người dùng tích điểm Hạt Bàu nhiều nhất — hành trình khám phá di sản Đà Nẵng</p>
+  </div>
+
+  <div id="myRankBox" class="my-rank-box" style="display:none">
+    <div style="font-size:36px;">🎖</div>
+    <div>
+      <div class="my-rank-label">Xếp hạng của bạn</div>
+      <div class="my-rank-val">#<span id="myRankNum">—</span></div>
+    </div>
+    <div style="margin-left:auto;text-align:right">
+      <div class="my-rank-label">Điểm Hạt Bàu</div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold)"><span id="myPtsVal">0</span> 🌾</div>
+    </div>
+  </div>
+
+  <div class="lb-tabs">
+    <button class="lb-tab active" onclick="loadLeaderboard('all',this)">🏆 Tổng hợp</button>
+    <button class="lb-tab" onclick="loadLeaderboard('week',this)">📆 Tuần này</button>
+    <button class="lb-tab" onclick="loadLeaderboard('month',this)">📅 Tháng này</button>
+  </div>
+
+  <div id="lbList"><div class="loading-spinner"></div></div>
+</div>
+
+<footer></footer>
+<script src="../js/nav.js"></script>
+<script src="../js/utils.js"></script>
+<script>
+const MOCK_LB = [
+  {rank:1,displayName:'Nguyễn Minh Khoa',initials:'NK',points:2840,badge:'🏆 Explorer Pro'},
+  {rank:2,displayName:'Trần Thị Thu Hương',initials:'TH',points:2310,badge:'🌟 Heritage Master'},
+  {rank:3,displayName:'Lê Văn Bảo',initials:'LB',points:1980,badge:'🗺 Map Pioneer'},
+  {rank:4,displayName:'Phạm Quỳnh Anh',initials:'PA',points:1650,badge:'🏛 History Lover'},
+  {rank:5,displayName:'Hoàng Đức Thịnh',initials:'HT',points:1420,badge:'🍜 Food Explorer'},
+  {rank:6,displayName:'Võ Thị Lan Anh',initials:'VA',points:1200,badge:'📸 Photographer'},
+  {rank:7,displayName:'Đinh Văn Hùng',initials:'DH',points:980,badge:'🌿 Nature Lover'},
+  {rank:8,displayName:'Bùi Thị Minh',initials:'BM',points:760,badge:'🎭 Culture Fan'},
+  {rank:9,displayName:'Ngô Tuấn Anh',initials:'TA',points:540,badge:'🔰 Explorer'},
+  {rank:10,displayName:'Lý Bảo Châu',initials:'BC',points:320,badge:'🔰 Explorer'},
+];
+
+async function loadLeaderboard(period, btn) {
+  document.querySelectorAll('.lb-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const list = document.getElementById('lbList');
+  list.innerHTML = '<div class="loading-spinner"></div>';
+
+  let data = [];
+  try {
+    const res = await fetch('http://localhost:3000/api/leaderboard?limit=10');
+    if (res.ok) {
+      const raw = await res.json();
+      data = raw.map((u, i) => ({rank: i+1, ...u, badge: i === 0 ? '🏆 Explorer Pro' : i === 1 ? '🌟 Heritage Master' : '🔰 Explorer'}));
+    } else throw new Error();
+  } catch {
+    data = MOCK_LB;
+  }
+
+  const user = ccGetUser();
+  if (user) {
+    const myEntry = data.find(d => d.uid === user.uid);
+    const myBox = document.getElementById('myRankBox');
+    if (myBox) {
+      if (myEntry) {
+        document.getElementById('myRankNum').textContent = myEntry.rank;
+        document.getElementById('myPtsVal').textContent = ccFormatPoints(user.points);
+        myBox.style.display = 'flex';
+      } else if (user.points != null) {
+        document.getElementById('myRankNum').textContent = data.length + '+';
+        document.getElementById('myPtsVal').textContent = ccFormatPoints(user.points);
+        myBox.style.display = 'flex';
+      }
+    }
+  }
+
+  const medals = ['🥇','🥈','🥉'];
+  list.innerHTML = '<div class="lb-list">' + data.map((u, i) => `
+    <div class="lb-item ${i<3?'top'+(i+1):''}">
+      <div class="lb-rank">${i < 3 ? medals[i] : u.rank}</div>
+      <div class="lb-avatar">${u.initials || (u.displayName||'?').substring(0,2).toUpperCase()}</div>
+      <div class="lb-info">
+        <div class="lb-name">${u.displayName || 'Ẩn danh'}</div>
+        <div class="lb-badge">${u.badge || '🔰 Explorer'}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="lb-pts">${ccFormatPoints(u.points)}</div>
+        <div class="lb-pts-lbl">Hạt Bàu 🌾</div>
+      </div>
+    </div>
+  `).join('') + '</div>';
+}
+
+window.addEventListener('DOMContentLoaded', () => loadLeaderboard('all', document.querySelector('.lb-tab')));
+</script>
+<script src="../js/auth-modal.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+</body>
+</html>

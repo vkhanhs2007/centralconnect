@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chính Sách Bảo Mật – Central Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/nav.css">
+<style>
+:root{--gold:#C9A84C;--cream:#F5F0E8;--ink:#1A1410;--muted:#8A7D6E;--ocean:#1A4F8C;--ocean-light:#4A90D9;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#080A0F;color:var(--cream);overflow-x:hidden;}
+.hero{padding:120px 40px 60px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(26,79,140,0.1) 0%,transparent 70%);}
+.hero-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:var(--cream);margin-bottom:12px;}
+.hero-meta{font-size:13px;color:var(--muted);}
+.content{max-width:800px;margin:0 auto;padding:48px 40px 80px;}
+.section{margin-bottom:40px;}
+.section h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cream);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(74,144,217,0.1);}
+.section p{font-size:14px;color:rgba(245,240,232,0.78);line-height:1.85;margin-bottom:12px;}
+.section ul{list-style:none;padding:0;margin-bottom:12px;}
+.section ul li{font-size:14px;color:rgba(245,240,232,0.78);line-height:1.8;padding-left:20px;position:relative;margin-bottom:6px;}
+.section ul li::before{content:'▸';position:absolute;left:0;color:var(--ocean-light);}
+.highlight{background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.18);border-radius:10px;padding:16px 18px;margin:16px 0;font-size:14px;color:rgba(245,240,232,0.85);line-height:1.7;}
+.contact-link{color:var(--ocean-light);text-decoration:none;}
+.contact-link:hover{text-decoration:underline;}
+@media(max-width:600px){.hero{padding:100px 20px 48px;}.hero h1{font-size:30px;}.content{padding:36px 20px 60px;}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img" alt="Central Connect">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none;position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Pháp lý · Quyền riêng tư</div>
+  <h1>Chính Sách Bảo Mật</h1>
+  <div class="hero-meta">Cập nhật lần cuối: 01/06/2026 · Central Connect – VKU</div>
+</div>
+
+<div class="content">
+  <div class="highlight">
+    Central Connect cam kết bảo vệ quyền riêng tư của bạn. Chính sách này mô tả cách chúng tôi thu thập, sử dụng và bảo vệ thông tin cá nhân khi bạn sử dụng dịch vụ của chúng tôi.
+  </div>
+
+  <div class="section">
+    <h2>1. Thông tin chúng tôi thu thập</h2>
+    <p>Khi bạn đăng ký và sử dụng Central Connect, chúng tôi có thể thu thập các thông tin sau:</p>
+    <ul>
+      <li><strong>Thông tin tài khoản:</strong> Họ tên, địa chỉ email, ảnh đại diện (nếu đăng nhập qua Google)</li>
+      <li><strong>Thông tin hành vi:</strong> Địa điểm đã xem, lịch trình đã tạo, điểm check-in, voucher sử dụng</li>
+      <li><strong>Dữ liệu kỹ thuật:</strong> Loại thiết bị, trình duyệt, địa chỉ IP (ẩn danh) để phân tích lỗi</li>
+      <li><strong>Nội dung người dùng tạo:</strong> Bình luận, đánh giá địa điểm, bài viết blog</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>2. Mục đích sử dụng thông tin</h2>
+    <p>Chúng tôi sử dụng thông tin của bạn để:</p>
+    <ul>
+      <li>Cung cấp và cải thiện các tính năng của nền tảng</li>
+      <li>Cá nhân hoá trải nghiệm khám phá di sản</li>
+      <li>Tính toán điểm Hạt Bàu và bảng xếp hạng</li>
+      <li>Gửi thông báo về sự kiện, địa điểm mới (nếu bạn đồng ý)</li>
+      <li>Phân tích tổng hợp để phát triển nội dung di sản</li>
+      <li>Xử lý giao dịch liên quan đến gây quỹ bảo tồn</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>3. Chia sẻ thông tin</h2>
+    <p>Chúng tôi <strong style="color:var(--cream)">không bán</strong> thông tin cá nhân của bạn. Thông tin chỉ được chia sẻ với:</p>
+    <ul>
+      <li><strong>Đối tác được uỷ quyền:</strong> Firebase (Google) để xác thực, lưu trữ dữ liệu an toàn</li>
+      <li><strong>Đối tác gây quỹ:</strong> Chỉ tên và điểm số (không gồm email) cho bảng xếp hạng công khai</li>
+      <li><strong>Cơ quan nhà nước:</strong> Khi có yêu cầu pháp lý hợp lệ</li>
+    </ul>
+    <p>Dữ liệu tổng hợp (không nhận diện cá nhân) có thể được chia sẻ với đơn vị nghiên cứu về du lịch và di sản.</p>
+  </div>
+
+  <div class="section">
+    <h2>4. Bảo mật dữ liệu</h2>
+    <ul>
+      <li>Mật khẩu được mã hoá bằng bcrypt trước khi lưu trữ</li>
+      <li>Kết nối HTTPS/TLS cho toàn bộ giao tiếp giữa trình duyệt và máy chủ</li>
+      <li>Xác thực hai bước (OTP email) khi đăng ký và đặt lại mật khẩu</li>
+      <li>Token phiên có thời hạn và tự động hết hạn</li>
+      <li>Dữ liệu được sao lưu định kỳ và mã hoá khi lưu trữ</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>5. Quyền của bạn</h2>
+    <p>Bạn có quyền:</p>
+    <ul>
+      <li><strong>Truy cập:</strong> Xem tất cả thông tin cá nhân chúng tôi lưu trữ về bạn</li>
+      <li><strong>Sửa đổi:</strong> Cập nhật thông tin tài khoản trong phần Cài đặt</li>
+      <li><strong>Xoá:</strong> Yêu cầu xoá tài khoản và toàn bộ dữ liệu liên quan</li>
+      <li><strong>Huỷ đăng ký:</strong> Tắt thông báo email bất kỳ lúc nào trong Cài đặt</li>
+      <li><strong>Xuất dữ liệu:</strong> Yêu cầu sao chép dữ liệu cá nhân qua email</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>6. Cookie và lưu trữ cục bộ</h2>
+    <p>Chúng tôi sử dụng <code style="background:rgba(74,144,217,0.12);padding:2px 6px;border-radius:4px;font-size:13px;">localStorage</code> để lưu thông tin phiên đăng nhập, lịch trình, và tuỳ chọn giao diện — không dùng cookies bên thứ ba cho quảng cáo.</p>
+  </div>
+
+  <div class="section">
+    <h2>7. Liên hệ về quyền riêng tư</h2>
+    <p>Nếu bạn có câu hỏi về chính sách này hoặc muốn thực hiện quyền của mình, vui lòng liên hệ:</p>
+    <div class="highlight">
+      📧 <a class="contact-link" href="mailto:khanhnv.25itb@vku.udn.vn">khanhnv.25itb@vku.udn.vn</a><br>
+      🏛 Nhóm phát triển Central Connect – VKU, Đà Nẵng<br>
+      ⏱ Chúng tôi cam kết phản hồi trong vòng <strong>7 ngày làm việc</strong>.
+    </div>
+  </div>
+</div>
+
+<footer></footer>
+<script src="../js/nav.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+</body>
+</html>

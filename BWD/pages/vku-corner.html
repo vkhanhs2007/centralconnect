@@ -1,0 +1,1450 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Góc VKU – Central Connect</title>
+<meta name="description" content="Góc VKU trên Central Connect: blog sinh viên, bản đồ tuyến đường từ ĐH VKU đến các điểm di sản Đà Nẵng, dự án số hóa di sản của sinh viên CNTT.">
+<meta name="keywords" content="VKU, đại học VKU, sinh viên Đà Nẵng, di sản số, CNTT">
+<meta property="og:title" content="VKU Corner – Central Connect">
+<meta property="og:description" content="Không gian số hóa di sản của sinh viên ĐH Công nghệ VKU Đà Nẵng.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#1E4D8C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Leaflet for interactive map -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #9A7A30;
+    --cream: #F5F0E8;
+    --ink: #1A1410;
+    --ink-soft: #3D3530;
+    --muted: #8A7D6E;
+    --surface: #FDFAF5;
+    --glass: rgba(245,240,232,0.05);
+    --vku-blue: #1A4F8C;
+    --vku-blue-light: #4A90D9;
+    --vku-accent: #4A90D9;
+    --ocean: #1A4F8C;
+    --ocean-light: #4A90D9;
+    --ocean-soft: rgba(74,144,217,0.1);
+    --sunset: #B8532E;
+    --sunset-light: #D4744A;
+    --sunset-soft: rgba(212,116,74,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--ink); color: var(--cream); overflow-x: hidden; }
+
+  /* ── NAVBAR ── */
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 40px;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+  nav.scrolled {
+    background: rgba(10,13,20,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,144,217,0.25);
+  }
+
+ .nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-logo-img{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+    border-radius:50%;
+}
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+    margin-top: -2px;
+  }
+
+  .nav-menu {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none;
+  }
+  .nav-menu li { position: relative; }
+  .nav-menu a {
+    text-decoration: none;
+    color: rgba(245,240,232,0.72);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 4px;
+    cursor: pointer;
+  }
+  .nav-menu a:hover { color: var(--ocean-light); background: var(--ocean-soft); }
+  .nav-menu .fund-link { color: #E8A020; }
+  .nav-menu .fund-link:hover { color: #F0B840; background: rgba(232,160,32,0.1); }
+
+  /* Dropdown */
+  .dropdown-menu {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    background: rgba(10,13,20,0.95);
+    border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 10px;
+    padding: 8px;
+    min-width: 180px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+    backdrop-filter: blur(20px);
+  }
+  .nav-menu li:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown-menu a {
+    display: block; padding: 8px 12px;
+    font-size: 13px; color: var(--cream);
+    border-radius: 6px;
+  }
+  .dropdown-menu a:hover { background: rgba(74,144,217,0.12); color: var(--ocean-light); }
+
+  .nav-actions {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-notify {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 15px;
+    transition: all 0.2s;
+    color: var(--muted);
+    opacity: 0.5;
+    position: relative;
+  }
+  .nav-notify.active { opacity: 1; color: var(--ocean-light); }
+  .notif-dot {
+    position: absolute; top: 6px; right: 6px;
+    width: 7px; height: 7px;
+    background: #E8A020; border-radius: 50%;
+    border: 1.5px solid var(--ink);
+  }
+
+  .btn-login {
+    background: transparent;
+    border: 1px solid rgba(74,144,217,0.4);
+    color: var(--cream);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-login:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+
+  .btn-register {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    border: none;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.25s;
+  }
+  .btn-register:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-1px); }
+
+  /* User dropdown after login */
+  .user-pill {
+    display: none;
+    align-items: center; gap: 8px;
+    padding: 5px 12px 5px 5px;
+    background: var(--glass);
+    border: 1px solid rgba(74,144,217,0.35);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .user-pill:hover { border-color: var(--ocean-light); }
+  .user-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: #fff;
+  }
+  .user-points {
+    font-size: 12px; color: var(--ocean-light);
+    font-weight: 600;
+  }
+  .user-name { font-size: 13px; color: var(--cream); }
+
+  .user-dropdown {
+    position: absolute; top: calc(100% + 10px); right: 0;
+    background: rgba(10,13,20,0.97);
+    border: 1px solid rgba(74,144,217,0.25);
+    border-radius: 10px; padding: 8px;
+    min-width: 200px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s;
+    backdrop-filter: blur(20px);
+  }
+  .user-pill:hover .user-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .user-dropdown a {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px;
+    text-decoration: none; font-size: 13.5px; color: var(--cream);
+    border-radius: 6px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .user-dropdown a:hover { background: rgba(74,144,217,0.1); color: var(--ocean-light); }
+  .user-dropdown .divider { height: 1px; background: rgba(74,144,217,0.12); margin: 6px 0; }
+  .user-dropdown .logout { color: #E05C5C !important; }
+  .user-dropdown .logout:hover { background: rgba(224,92,92,0.1) !important; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 40px; height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,13,20,0.92); backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,144,217,0.25);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+  .nav-logo-icon { width: 36px; height: 36px; border: 1.5px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
+  .nav-logo-sub { font-size: 9px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; display: block; margin-top: -2px; }
+  .nav-back { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--ocean-light); }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    padding-top: 72px;
+    min-height: 500px;
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #050810 0%, #0A1020 40%, #0D0A06 100%);
+  }
+  .hero-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(ellipse 60% 80% at 70% 40%, rgba(74,158,212,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 50% at 20% 60%, rgba(74,144,217,0.06) 0%, transparent 60%);
+    animation: heroFloat 10s ease-in-out infinite alternate;
+  }
+  @keyframes heroFloat { from{transform:scale(1)} to{transform:scale(1.04) translateY(-8px)} }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(74,158,212,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,158,212,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  /* Floating particles */
+  .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .particle { position: absolute; border-radius: 50%; opacity: 0; animation: rise linear infinite; }
+  @keyframes rise { 0%{opacity:0;transform:translateY(0) scale(0)} 10%{opacity:0.7} 90%{opacity:0.2} 100%{opacity:0;transform:translateY(-400px) scale(0.3)} }
+
+  .hero-inner {
+    position: relative; z-index: 5;
+    max-width: 1200px; width: 100%; margin: 0 auto;
+    padding: 80px 40px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-left { }
+  .page-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(74,158,212,0.5); border-radius: 24px;
+    padding: 6px 16px; font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--vku-accent);
+    margin-bottom: 24px; background: rgba(74,158,212,0.06);
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .page-badge-dot { width: 5px; height: 5px; background: var(--vku-accent); border-radius: 50%; animation: pulseDot 2s ease infinite; }
+  @keyframes pulseDot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 72px); font-weight: 900;
+    line-height: 1.05; margin-bottom: 20px;
+    animation: fadeUp 0.7s 0.15s ease forwards; opacity: 0;
+  }
+  .title-line1 { display: block; color: var(--cream); }
+  .title-line2 {
+    display: block;
+    background: linear-gradient(90deg, var(--vku-blue-light), var(--vku-accent), var(--ocean-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    font-size: 16px; color: rgba(245,240,232,0.60); line-height: 1.75;
+    margin-bottom: 36px; animation: fadeUp 0.7s 0.3s ease forwards; opacity: 0;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; animation: fadeUp 0.7s 0.45s ease forwards; opacity: 0; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); color: #fff; border: none;
+    padding: 13px 28px; border-radius: 8px; font-size: 14px; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: all 0.3s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(74,144,217,0.35); }
+  .btn-ghost {
+    background: transparent; border: 1px solid rgba(74,158,212,0.4);
+    color: var(--vku-accent); padding: 13px 28px; border-radius: 8px;
+    font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit;
+    transition: all 0.3s; display: flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost:hover { border-color: var(--vku-accent); transform: translateY(-3px); }
+
+  /* VKU Card */
+  .vku-hero-card {
+    background: rgba(30,77,140,0.1);
+    border: 1px solid rgba(74,158,212,0.2);
+    border-radius: 20px; padding: 32px;
+    animation: fadeUp 0.7s 0.3s ease forwards; opacity: 0;
+    position: relative; overflow: hidden;
+  }
+  .vku-hero-card::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: radial-gradient(rgba(74,158,212,0.15), transparent);
+  }
+  .vku-shield { font-size: 52px; margin-bottom: 16px; line-height: 1; }
+  .vku-uni-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+  .vku-uni-en { font-size: 12px; color: var(--vku-accent); letter-spacing: 0.06em; margin-bottom: 20px; }
+  .vku-stats-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .vku-stat-mini { background: rgba(74,158,212,0.06); border: 1px solid rgba(74,158,212,0.12); border-radius: 10px; padding: 12px 14px; }
+  .vku-stat-num { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--vku-accent); }
+  .vku-stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .vku-mission { font-size: 13px; color: rgba(245,240,232,0.60); line-height: 1.65; font-style: italic; border-left: 2px solid var(--vku-accent); padding-left: 12px; }
+
+  /* ── TABS ── */
+  .tabs-bar {
+    position: sticky; top: 72px; z-index: 90;
+    background: rgba(20,15,10,0.95); backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,144,217,0.15);
+    padding: 0 40px;
+    display: flex; align-items: center; gap: 0;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .tabs-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 18px 28px; font-size: 14px; font-weight: 500;
+    color: var(--muted); cursor: pointer; border: none; background: none;
+    font-family: inherit; border-bottom: 2px solid transparent;
+    white-space: nowrap; transition: all 0.25s;
+  }
+  .tab-btn:hover { color: var(--cream); }
+  .tab-btn.active { color: var(--ocean-light); border-bottom-color: var(--ocean-light); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── SECTION SHARED ── */
+  .section { padding: 90px 40px; }
+  .section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ocean-light); margin-bottom: 12px; }
+  /* VKU: blog/map=ocean, about/heritage=sunset */
+  #blog .section-label, #map .section-label { color: var(--ocean-light); }
+  #about .section-label { color: var(--sunset-light); }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; color: var(--cream); line-height: 1.2; margin-bottom: 16px; }
+  .section-desc { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 520px; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; flex-wrap: wrap; gap: 20px; }
+
+  /* ─────────── BLOG SECTION ─────────── */
+  #blog { background: rgba(245,240,232,0.04); }
+
+  /* Filter pills */
+  .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+  .filter-pill {
+    padding: 8px 18px; border-radius: 24px; font-size: 13px; font-weight: 500;
+    cursor: pointer; border: 1px solid rgba(74,144,217,0.2);
+    color: var(--muted); background: transparent; font-family: inherit;
+    transition: all 0.25s; display: flex; align-items: center; gap: 6px;
+  }
+  .filter-pill:hover { border-color: rgba(74,144,217,0.4); color: var(--cream); }
+  .filter-pill.active { background: var(--ocean); color: #fff; border-color: var(--ocean); font-weight: 600; }
+
+  /* Featured post */
+  .blog-featured {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(74,144,217,0.15);
+    border-radius: 20px; overflow: hidden;
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    margin-bottom: 32px; cursor: pointer;
+    transition: all 0.35s;
+  }
+  .blog-featured:hover { border-color: rgba(74,144,217,0.4); transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+  .blog-featured-img {
+    min-height: 340px; background-size: cover; background-position: center;
+    position: relative; overflow: hidden;
+  }
+  .blog-featured-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right, transparent 60%, rgba(15,10,5,0.6));
+  }
+  .featured-tag {
+    position: absolute; top: 20px; left: 20px; z-index: 2;
+    background: var(--sunset-light); color: #fff;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .lang-badge {
+    position: absolute; top: 20px; right: 20px; z-index: 2;
+    background: rgba(20,15,10,0.85); font-size: 12px;
+    padding: 5px 12px; border-radius: 20px; backdrop-filter: blur(8px);
+  }
+  .blog-featured-body { padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+  .blog-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .blog-cat { font-size: 11px; color: var(--vku-accent); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  .blog-date { font-size: 11px; color: var(--muted); }
+  .blog-sep { width: 4px; height: 4px; background: var(--muted); border-radius: 50%; }
+  .blog-title-big { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--cream); line-height: 1.3; margin-bottom: 14px; }
+  .blog-excerpt { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+  .blog-author-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .author-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--vku-blue), var(--vku-accent)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .author-name { font-size: 14px; font-weight: 600; color: var(--cream); }
+  .author-info { font-size: 11px; color: var(--muted); }
+  .blog-stats { display: flex; gap: 18px; }
+  .blog-stat { font-size: 12px; color: var(--muted); }
+  .read-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--ocean-light); font-size: 13px; font-weight: 600;
+    cursor: pointer; border: none; background: none; font-family: inherit;
+    padding: 0; transition: gap 0.2s;
+  }
+  .read-btn:hover { gap: 14px; }
+
+  /* Blog grid */
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+  .blog-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(74,144,217,0.12);
+    border-radius: 16px; overflow: hidden; cursor: pointer;
+    transition: all 0.35s;
+  }
+  .blog-card:hover { transform: translateY(-6px); border-color: rgba(74,144,217,0.35); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+  .blog-card-img { height: 200px; background-size: cover; background-position: center; position: relative; overflow: hidden; }
+  .blog-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,10,5,0.7) 0%, transparent 50%); }
+  .blog-card-lang { position: absolute; top: 12px; right: 12px; z-index: 2; background: rgba(20,15,10,0.85); font-size: 11px; padding: 4px 10px; border-radius: 20px; backdrop-filter: blur(8px); }
+  .blog-card-cat { position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(74,158,212,0.85); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; }
+  .blog-card-body { padding: 22px 22px 24px; }
+  .blog-card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .blog-card-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--cream); line-height: 1.3; margin-bottom: 10px; }
+  .blog-card-excerpt { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 18px; }
+  .blog-card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .blog-card-author { font-size: 12px; color: rgba(245,240,232,0.60); }
+  .blog-card-read { font-size: 12px; color: var(--ocean-light); font-weight: 600; }
+
+  /* Write CTA */
+  .write-cta {
+    margin-top: 48px;
+    background: linear-gradient(135deg, rgba(30,77,140,0.12) 0%, rgba(74,158,212,0.06) 100%);
+    border: 1px solid rgba(74,158,212,0.2); border-radius: 16px;
+    padding: 36px 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+  }
+  .write-cta-icon { font-size: 48px; flex-shrink: 0; }
+  .write-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--cream); margin-bottom: 8px; }
+  .write-cta-text p { font-size: 14px; color: var(--muted); max-width: 400px; line-height: 1.65; }
+  .btn-write {
+    margin-left: auto; background: var(--vku-blue-light); color: #fff;
+    border: none; padding: 13px 28px; border-radius: 8px;
+    font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit;
+    transition: all 0.3s; white-space: nowrap;
+  }
+  .btn-write:hover { background: var(--vku-accent); transform: translateY(-2px); }
+
+  /* ─────────── MAP SECTION ─────────── */
+  #map-section { background: rgba(255,255,255,0.04); }
+
+  .map-layout { display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid rgba(74,144,217,0.15); border-radius: 16px; overflow: hidden; min-height: 600px; }
+
+  /* Sidebar */
+  .map-sidebar { background: rgba(13,16,24,0.98); border-right: 1px solid rgba(74,144,217,0.12); padding: 0; display: flex; flex-direction: column; }
+  .map-sidebar-header { padding: 24px 24px 0; border-bottom: 1px solid rgba(74,144,217,0.1); padding-bottom: 20px; }
+  .map-sidebar-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+  .map-sidebar-sub { font-size: 12px; color: var(--muted); }
+  .map-vku-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(30,77,140,0.2); border: 1px solid rgba(74,158,212,0.25); color: var(--vku-accent); font-size: 11px; padding: 4px 10px; border-radius: 20px; margin-top: 10px; }
+
+  .route-tabs { display: flex; padding: 16px 24px 0; gap: 0; border-bottom: 1px solid rgba(74,144,217,0.1); }
+  .route-tab { flex: 1; padding: 10px 4px; text-align: center; font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; border: none; background: none; font-family: inherit; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .route-tab.active { color: var(--ocean-light); border-bottom-color: var(--ocean-light); }
+
+  .route-list { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--ocean) transparent; }
+  .route-item {
+    padding: 18px 24px; border-bottom: 1px solid rgba(74,144,217,0.08);
+    cursor: pointer; transition: all 0.2s; display: flex; gap: 14px; align-items: flex-start;
+  }
+  .route-item:hover { background: rgba(74,144,217,0.04); }
+  .route-item.active { background: rgba(74,144,217,0.07); border-left: 3px solid var(--ocean-light); }
+  .route-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .route-item-info { flex: 1; }
+  .route-item-name { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 4px; }
+  .route-item-meta { font-size: 11px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+  .route-dist { font-size: 11px; color: var(--ocean-light); font-weight: 600; }
+
+  /* Map container */
+  .map-wrap { position: relative; }
+  #leaflet-map { height: 600px; width: 100%; }
+  #map-loading-vku { position: absolute; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center; background: rgba(10,13,20,0.65); pointer-events: none; transition: opacity 0.5s; border-radius: 16px; }
+  #map-loading-vku.hidden { opacity: 0; pointer-events: none; }
+  .map-spinner-vku { width: 36px; height: 36px; border: 3px solid rgba(74,144,217,0.2); border-top-color: var(--ocean-light); border-radius: 50%; animation: spin-vku 0.8s linear infinite; }
+  @keyframes spin-vku { to { transform: rotate(360deg); } }
+  .map-legend {
+    position: absolute; bottom: 20px; right: 20px; z-index: 800;
+    background: rgba(10,13,20,0.92); border: 1px solid rgba(74,144,217,0.2);
+    border-radius: 12px; padding: 14px 18px; backdrop-filter: blur(12px);
+    min-width: 160px;
+  }
+  .legend-title { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--cream); margin-bottom: 7px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  .map-controls {
+    position: absolute; top: 16px; left: 16px; z-index: 800;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .map-control-btn {
+    background: rgba(10,13,20,0.92); border: 1px solid rgba(74,144,217,0.25);
+    color: var(--cream); padding: 8px 14px; border-radius: 8px;
+    font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit;
+    backdrop-filter: blur(12px); transition: all 0.2s; white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .map-control-btn:hover { border-color: var(--ocean-light); color: var(--ocean-light); }
+  .map-control-btn.active { background: var(--ocean); color: #fff; border-color: var(--ocean); }
+
+  /* Leaflet custom styles */
+  .leaflet-container { background: #1A1410 !important; }
+  .custom-popup .leaflet-popup-content-wrapper {
+    background: rgba(10,13,20,0.97) !important;
+    border: 1px solid rgba(74,144,217,0.3) !important;
+    border-radius: 12px !important;
+    color: var(--cream) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+  }
+  .custom-popup .leaflet-popup-tip-container { display: none; }
+  .custom-popup .leaflet-popup-content { margin: 14px 18px; }
+  .popup-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+  .popup-meta { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .popup-dist { font-size: 12px; color: var(--ocean-light); font-weight: 600; }
+
+  /* VKU marker style */
+  .vku-marker { background: #1E4D8C; border: 3px solid var(--vku-accent); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 4px 16px rgba(30,77,140,0.6); }
+  .dest-marker { background: rgba(255,255,255,0.04); border: 2px solid var(--ocean-light); border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+
+  /* Timeline section below map */
+  .routes-timeline { margin-top: 56px; }
+  .timeline-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; flex-wrap: wrap; }
+  .timeline-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--cream); }
+  .timeline-select {
+    background: rgba(74,144,217,0.07); border: 1px solid rgba(74,144,217,0.25);
+    color: var(--cream); padding: 8px 16px; border-radius: 8px;
+    font-size: 13px; font-family: inherit; cursor: pointer; outline: none;
+  }
+  .timeline-select option { background: #0A0D14; }
+
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before { content: ''; position: absolute; left: 14px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--vku-accent), var(--ocean-light), rgba(74,144,217,0.1)); }
+  .timeline-stop { position: relative; margin-bottom: 32px; }
+  .timeline-dot {
+    position: absolute; left: -33px; top: 4px;
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid; display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: 700;
+  }
+  .timeline-dot.vku { background: var(--vku-blue); border-color: var(--vku-accent); color: #fff; }
+  .timeline-dot.stop { background: rgba(255,255,255,0.04); border-color: var(--ocean-light); color: var(--ocean-light); }
+  .timeline-dot.end { background: var(--ocean); border-color: var(--ocean-light); color: #fff; }
+  .timeline-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(74,144,217,0.12);
+    border-radius: 12px; padding: 18px 22px;
+    transition: all 0.25s; cursor: pointer;
+  }
+  .timeline-card:hover { border-color: rgba(74,144,217,0.35); }
+  .timeline-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .timeline-stop-name { font-size: 16px; font-weight: 700; color: var(--cream); }
+  .timeline-time { font-size: 11px; color: var(--ocean-light); background: rgba(74,144,217,0.1); padding: 3px 8px; border-radius: 20px; }
+  .timeline-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .timeline-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .timeline-tag { font-size: 11px; color: var(--vku-accent); border: 1px solid rgba(74,158,212,0.25); padding: 3px 10px; border-radius: 20px; background: rgba(74,158,212,0.06); }
+  .timeline-distance { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin-top: 12px; }
+  .timeline-arrow { position: absolute; left: -27px; bottom: -20px; color: var(--muted); font-size: 16px; }
+
+  /* ── PROJECT SECTION ── */
+  #project { background: rgba(255,255,255,0.04); }
+  .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .project-about { }
+  .project-about p { font-size: 15px; color: rgba(245,240,232,0.75); line-height: 1.8; margin-bottom: 16px; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .tech-tag { font-size: 12px; color: var(--ocean-light); border: 1px solid rgba(74,144,217,0.2); padding: 6px 14px; border-radius: 20px; background: rgba(74,144,217,0.06); }
+  .team-cards { display: flex; flex-direction: column; gap: 14px; }
+  .team-card { background: rgba(245,240,232,0.04); border: 1px solid rgba(74,144,217,0.1); border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; transition: all 0.25s; }
+  .team-card:hover { border-color: rgba(74,144,217,0.3); }
+  .team-avatar { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .team-name { font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 3px; }
+  .team-role { font-size: 12px; color: var(--muted); }
+  .team-badge { margin-left: auto; font-size: 11px; color: var(--ocean-light); background: rgba(74,144,217,0.08); border: 1px solid rgba(74,144,217,0.15); padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+
+  /* ── FOOTER ── */
+  footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.15); padding: 56px 40px 32px; }
+  .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 14px; }
+  .footer-col h4 { font-size: 13px; font-weight: 600; color: var(--cream); letter-spacing: 0.06em; margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 13px; color: var(--muted); cursor: pointer; margin-bottom: 10px; transition: color 0.2s; text-decoration: none; }
+  .footer-col a:hover { color: var(--ocean-light); }
+  .footer-bottom { border-top: 1px solid rgba(74,144,217,0.1); padding-top: 24px; text-align: center; }
+  .footer-copy { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: rgba(10,13,20,0.95); border: 1px solid rgba(74,144,217,0.3); color: var(--cream); padding: 12px 24px; border-radius: 10px; font-size: 14px; z-index: 9999; backdrop-filter: blur(16px); transition: transform 0.4s ease; white-space: nowrap; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Modal */
+  .modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; padding: 20px; }
+  .modal-overlay.open { opacity: 1; visibility: visible; }
+  .modal-box { background: #0A0D14; border: 1px solid rgba(74,144,217,0.25); border-radius: 16px; padding: 36px; max-width: 520px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; animation: modalIn 0.3s ease; }
+  @keyframes modalIn { from{transform:scale(0.95) translateY(20px)} to{transform:scale(1) translateY(0)} }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .modal-close:hover { background: rgba(26,79,140,0.08); color: var(--cream); }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--cream); margin-bottom: 8px; }
+  .modal-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(74,144,217,0.07); border: 1px solid rgba(74,144,217,0.2); border-radius: 8px; padding: 11px 14px; color: var(--cream); font-size: 14px; font-family: inherit; transition: border-color 0.2s; outline: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--ocean-light); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select option { background: #1E1810; }
+  .btn-modal { width: 100%; padding: 13px; background: linear-gradient(135deg, var(--ocean), var(--ocean-light)); border: none; color: #fff; font-size: 15px; font-weight: 700; border-radius: 8px; cursor: pointer; font-family: inherit; transition: all 0.25s; margin-top: 6px; }
+  .btn-modal:hover { background: linear-gradient(135deg, var(--ocean-light), #6AAAE8); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .blog-featured { grid-template-columns: 1fr; }
+    .map-layout { grid-template-columns: 1fr; }
+    .map-sidebar { max-height: 50vw; min-height: 220px; }
+    #leaflet-map { height: 55vw; min-height: 300px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .section { padding: 56px 24px; }
+    .tabs-bar { padding: 0 16px; }
+    .tab-btn { padding: 16px 14px; font-size: 13px; }
+    .route-tabs { padding: 12px 16px 0; }
+    .timeline-header { flex-direction: column; gap: 10px; }
+  }
+  @media (max-width: 600px) {
+    nav, .tabs-bar { padding-left: 16px; padding-right: 16px; }
+    .hero-inner { padding: 56px 16px 40px; }
+    .map-controls { display: none; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .filter-pills { gap: 6px; }
+    .filter-pill { padding: 5px 12px; font-size: 12px; }
+    .route-item { padding: 14px 16px; }
+  }
+
+  /* ── LIGHT THEME HERO FIXES ── */
+  .page-hero { color: var(--cream); }
+  .page-hero * { color: inherit; }
+  .page-hero .page-label { color: var(--gold); }
+  .page-hero .page-desc { color: rgba(245,240,232,0.75); }
+  .page-hero .hero-chip { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+       <img src= "../assets/images/logo.jpg"  class="nav-logo-img">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+
+  <ul class="nav-menu">
+    <li>
+      <a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html#weather">☀ Gợi ý theo thời tiết</a>
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="vku-corner.html" class="active">🎒 Từ VKU</a>
+      </div>
+    </li>
+    <li>
+      <a href="doi-tac.html">Đối tác ▾</a>
+      <div class="dropdown-menu">
+        <a href="doi-tac.html#transport">🚌 Vận tải</a>
+        <a href="doi-tac.html#hostels">🏡 Homestay xanh</a>
+        <a href="doi-tac.html#business">💼 Doanh nghiệp</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="nav-notify" id="notifyBtn" title="Thông báo">🔔</div>
+    
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+
+    <div class="user-pill" id="userPill" style="display:none; position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🪙 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="page-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-grid"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="page-badge"><div class="page-badge-dot"></div>Góc VKU · VKU Corner</div>
+      <h1 class="page-title">
+        <span class="title-line1">Sinh viên kể</span>
+        <span class="title-line2">chuyện di sản</span>
+      </h1>
+      <p class="hero-sub">Blog tiếng Anh, bản đồ du lịch xuất phát từ VKU — nơi IT gặp gỡ văn hoá miền Trung. Dự án của sinh viên Đại học Việt-Hàn.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="document.getElementById('blog').scrollIntoView({behavior:'smooth', block:'start'})">📖 Đọc blog sinh viên</button>
+        <button class="btn-ghost" onclick="document.getElementById('map-section').scrollIntoView({behavior:'smooth', block:'start'})">🗺️ Bản đồ từ VKU</button>
+      </div>
+    </div>
+    <div class="vku-hero-card">
+      <div class="vku-shield">🎓</div>
+      <div class="vku-uni-name">Đại học Việt-Hàn</div>
+      <div class="vku-uni-en">Vietnam – Korea University of Information and Communication Technology</div>
+      <div class="vku-stats-mini">
+        <div class="vku-stat-mini"><div class="vku-stat-num">12K+</div><div class="vku-stat-label">Sinh viên</div></div>
+        <div class="vku-stat-mini"><div class="vku-stat-num">2025</div><div class="vku-stat-label">Dự án Central Connect</div></div>
+        <div class="vku-stat-mini"><div class="vku-stat-num">48</div><div class="vku-stat-label">Bài blog sinh viên</div></div>
+        <div class="vku-stat-mini"><div class="vku-stat-num">6</div><div class="vku-stat-label">Tuyến từ VKU</div></div>
+      </div>
+      <p class="vku-mission">"Công nghệ phục vụ văn hoá — bảo tồn di sản cho các thế hệ tương lai"</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs-bar">
+  <button class="tab-btn active" onclick="scrollToSection('blog', this)">📖 Blog sinh viên</button>
+  <button class="tab-btn" onclick="scrollToSection('map-section', this)">🗺️ Bản đồ từ VKU</button>
+  <button class="tab-btn" onclick="scrollToSection('project', this)">🎓 Về dự án</button>
+</div>
+
+<!-- ─────────── BLOG ─────────── -->
+<section class="section" id="blog">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">📖 Blog sinh viên VKU</div>
+      <h2 class="section-title">Những câu chuyện từ quê hương</h2>
+      <p class="section-desc">Sinh viên VKU viết bằng tiếng Anh (và tiếng Hàn) — chia sẻ góc nhìn trẻ về di sản văn hoá miền Trung</p>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar reveal">
+    <button class="filter-pill active" onclick="filterBlog('all', this)">🌟 Tất cả</button>
+    <button class="filter-pill" onclick="filterBlog('heritage', this)">🏛️ Di sản</button>
+    <button class="filter-pill" onclick="filterBlog('food', this)">🍜 Ẩm thực</button>
+    <button class="filter-pill" onclick="filterBlog('nature', this)">🌿 Thiên nhiên</button>
+    <button class="filter-pill" onclick="filterBlog('craft', this)">🏺 Làng nghề</button>
+    <button class="filter-pill" onclick="filterBlog('guide', this)">🗺️ Hướng dẫn</button>
+    <button class="filter-pill" onclick="filterBlog('ko', this)">🇰🇷 한국어</button>
+  </div>
+
+  <!-- Featured post -->
+  <div class="blog-featured reveal" onclick="openPost('5 Hidden Gems in Da Nang No Tourists Know About')">
+    <div class="blog-featured-img" style="background-image:url('../image/ban-dao-son-tra.jpg')">
+      <span class="featured-tag">⭐ Bài nổi bật</span>
+      <span class="lang-badge">🇬🇧 English</span>
+    </div>
+    <div class="blog-featured-body">
+      <div class="blog-meta">
+        <span class="blog-cat">🌿 Thiên nhiên · Di sản</span>
+        <span class="blog-sep"></span>
+        <span class="blog-date">14 tháng 5, 2025</span>
+      </div>
+      <h2 class="blog-title-big">5 Hidden Gems in Da Nang No Tourists Know About</h2>
+      <p class="blog-excerpt">Beyond the famous Dragon Bridge and marble mountains, Da Nang hides extraordinary places that even locals rarely visit. As a VKU student who's spent years exploring every corner of this city, I've mapped routes to five breathtaking spots that will leave you speechless...</p>
+      <div class="blog-author-row">
+        <div class="author-avatar">MK</div>
+        <div>
+          <div class="author-name">Nguyễn Minh Khoa</div>
+          <div class="author-info">VKU K22 · Khoa CNTT</div>
+        </div>
+      </div>
+      <div class="blog-stats">
+        <span class="blog-stat">👁 2.4k lượt xem</span>
+        <span class="blog-stat">❤️ 186 thích</span>
+        <span class="blog-stat">💬 34 bình luận</span>
+        <span class="blog-stat">⏱ 8 phút đọc</span>
+      </div>
+      <br>
+      <button class="read-btn">Đọc bài viết →</button>
+    </div>
+  </div>
+
+  <!-- Blog grid -->
+  <div class="blog-grid" id="blogGrid">
+    <div class="blog-card reveal" data-cat="heritage" onclick="openPost('The Ancient Craft Villages of Quang Nam')">
+      <div class="blog-card-img" style="background-image:url('../image/thanh-dia-moi.jpg')">
+        <span class="blog-card-cat">🏛️ Di sản</span>
+        <span class="blog-card-lang">🇬🇧 EN</span>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-date" style="font-size:11px;color:var(--muted)">10 tháng 5, 2025</span>
+          <span class="blog-sep" style="width:3px;height:3px;background:var(--muted);border-radius:50%;display:inline-block"></span>
+          <span style="font-size:11px;color:var(--muted)">6 phút đọc</span>
+        </div>
+        <h3 class="blog-card-title">The Ancient Craft Villages of Quang Nam</h3>
+        <p class="blog-card-excerpt">From Thanh Ha pottery to Ma Chau silk weaving — a student's journey through 500-year-old traditions still alive today.</p>
+        <div class="blog-card-footer">
+          <span class="blog-card-author">Trần Thị Lan · K23</span>
+          <span class="blog-card-read">Đọc →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-card reveal" data-cat="ko" onclick="openPost('다낭의 역사적 명소 탐방 가이드')">
+      <div class="blog-card-img" style="background-image:url('../image/cau-rong-moi.jpg')">
+        <span class="blog-card-cat" style="background:rgba(200,50,50,0.85)">🇰🇷 한국어</span>
+        <span class="blog-card-lang">KO</span>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-date" style="font-size:11px;color:var(--muted)">8 tháng 5, 2025</span>
+        </div>
+        <h3 class="blog-card-title">다낭의 역사적 명소 탐방 가이드</h3>
+        <p class="blog-card-excerpt">VKU 학생이 직접 다낭의 숨겨진 역사 유적지를 탐방하며 작성한 완벽 가이드. 용교부터 오행산까지.</p>
+        <div class="blog-card-footer">
+          <span class="blog-card-author">Lê Văn Hùng · K22</span>
+          <span class="blog-card-read">읽기 →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-card reveal" data-cat="food" onclick="openPost('A Complete Guide to Hoi An Street Food')">
+      <div class="blog-card-img" style="background-image:url('../image/tra-que.jpg')">
+        <span class="blog-card-cat" style="background:rgba(200,100,30,0.85)">🍜 Ẩm thực</span>
+        <span class="blog-card-lang">🇬🇧 EN</span>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-date" style="font-size:11px;color:var(--muted)">5 tháng 5, 2025</span>
+          <span class="blog-sep" style="width:3px;height:3px;background:var(--muted);border-radius:50%;display:inline-block"></span>
+          <span style="font-size:11px;color:var(--muted)">10 phút đọc</span>
+        </div>
+        <h3 class="blog-card-title">A Complete Guide to Hoi An Street Food</h3>
+        <p class="blog-card-excerpt">Cao lau, white rose dumplings, bánh mì Phượng — every dish you MUST try in Hoi An, and exactly where to find them.</p>
+        <div class="blog-card-footer">
+          <span class="blog-card-author">Phạm Thu Hà · K23</span>
+          <span class="blog-card-read">Đọc →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-card reveal" data-cat="nature" onclick="openPost('Sunrise at Son Tra Peninsula')">
+      <div class="blog-card-img" style="background-image:url('../image/my-khe-moi.jpg')">
+        <span class="blog-card-cat" style="background:rgba(30,100,140,0.85)">🌊 Thiên nhiên</span>
+        <span class="blog-card-lang">🇬🇧 EN</span>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-date" style="font-size:11px;color:var(--muted)">2 tháng 5, 2025</span>
+        </div>
+        <h3 class="blog-card-title">Sunrise at Son Tra: Why We Wake Up at 4AM</h3>
+        <p class="blog-card-excerpt">The story of a midnight motorbike ride with friends from VKU, chasing the most breathtaking sunrise in Da Nang.</p>
+        <div class="blog-card-footer">
+          <span class="blog-card-author">Hoàng Đức Anh · K22</span>
+          <span class="blog-card-read">Đọc →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-card reveal" data-cat="craft" onclick="openPost('Learning to Make Pottery in Thanh Ha')">
+      <div class="blog-card-img" style="background-image:url('../image/hoi-an-moi.jpg')">
+        <span class="blog-card-cat" style="background:rgba(140,80,30,0.85)">🏺 Làng nghề</span>
+        <span class="blog-card-lang">🇬🇧 EN</span>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-date" style="font-size:11px;color:var(--muted)">28 tháng 4, 2025</span>
+        </div>
+        <h3 class="blog-card-title">Learning to Make Pottery in Thanh Ha Village</h3>
+        <p class="blog-card-excerpt">Southeast Asia's oldest pottery village, just 3km from Hoi An. A hands-on afternoon that changed how I see tradition.</p>
+        <div class="blog-card-footer">
+          <span class="blog-card-author">Nguyễn Thị Ngọc · K24</span>
+          <span class="blog-card-read">Đọc →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-card reveal" data-cat="guide" onclick="openPost('The Perfect VKU to My Khe Weekend')">
+      <div class="blog-card-img" style="background-image:url('../image/my-khe-moi.jpg')">
+        <span class="blog-card-cat" style="background:rgba(30,77,140,0.85)">🗺️ Hướng dẫn</span>
+        <span class="blog-card-lang">🇬🇧 EN</span>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-date" style="font-size:11px;color:var(--muted)">22 tháng 4, 2025</span>
+        </div>
+        <h3 class="blog-card-title">The Perfect VKU → Mỹ Khê Weekend</h3>
+        <p class="blog-card-excerpt">Budget 0 đồng, motorbike borrowed from a friend, and the most beautiful beach in Vietnam waiting 15 minutes away. Here's everything you need.</p>
+        <div class="blog-card-footer">
+          <span class="blog-card-author">Trần Quốc Bảo · K22</span>
+          <span class="blog-card-read">Đọc →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Write CTA -->
+  <div class="write-cta reveal">
+    <div class="write-cta-icon">✍️</div>
+    <div class="write-cta-text">
+      <h3>Bạn là sinh viên VKU?</h3>
+      <p>Hãy chia sẻ câu chuyện của bạn bằng tiếng Anh — mỗi bài viết giúp du khách quốc tế hiểu hơn về quê hương ta và được tính vào điểm Hạt Bàu của bạn!</p>
+    </div>
+    <button class="btn-write" onclick="openWriteModal()">✍️ Gửi bài viết</button>
+  </div>
+</section>
+
+<!-- ─────────── MAP SECTION ─────────── -->
+<section class="section" id="map-section">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">🗺️ Bản đồ tuyến du lịch</div>
+      <h2 class="section-title">Khởi hành từ VKU</h2>
+      <p class="section-desc">Tất cả tuyến đường xuất phát từ cổng trường VKU — được tính khoảng cách và thời gian thực tế bởi sinh viên VKU</p>
+    </div>
+  </div>
+
+  <div class="map-layout reveal">
+    <!-- Sidebar -->
+    <div class="map-sidebar">
+      <div class="map-sidebar-header">
+        <div class="map-sidebar-title">🏫 Tuyến từ VKU</div>
+        <div class="map-sidebar-sub">Nhấn vào điểm đến để xem trên bản đồ</div>
+        <div class="map-vku-tag">📍 VKU, Nguyễn Lương Bằng, Đà Nẵng</div>
+      </div>
+      <div class="route-tabs">
+        <button class="route-tab active" onclick="switchRouteTab('all', this)">Tất cả</button>
+        <button class="route-tab" onclick="switchRouteTab('beach', this)">🏖 Biển</button>
+        <button class="route-tab" onclick="switchRouteTab('heritage', this)">🏛 Di sản</button>
+        <button class="route-tab" onclick="switchRouteTab('food', this)">🍜 Ẩm thực</button>
+      </div>
+      <div class="route-list" id="routeList">
+        <!-- Routes filled by JS -->
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="map-wrap">
+      <div id="map-loading-vku"><div class="map-spinner-vku"></div></div>
+      <div id="leaflet-map"></div>
+      <div class="map-controls">
+        <button class="map-control-btn active" id="btnSat" onclick="switchLayer('sat', this)">🛰 Vệ tinh</button>
+        <button class="map-control-btn" id="btnStreet" onclick="switchLayer('street', this)">🗺 Đường phố</button>
+      </div>
+      <div class="map-legend">
+        <div class="legend-title">Chú giải</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1E4D8C"></div>Trường VKU</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C9A84C"></div>Bãi biển</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5A9E6F"></div>Di sản văn hoá</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C85A3A"></div>Ẩm thực</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4A9ED4"></div>Thiên nhiên</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline routes -->
+  <div class="routes-timeline reveal">
+    <div class="timeline-header">
+      <div class="timeline-title">Lộ trình mẫu từ VKU</div>
+      <select class="timeline-select" id="routeSelect" onchange="switchTimeline(this.value)">
+        <option value="beach">🏖 VKU → Bãi biển Mỹ Khê</option>
+        <option value="hoian">🏛 VKU → Phố cổ Hội An</option>
+        <option value="son-tra">🌿 VKU → Sơn Trà</option>
+      </select>
+    </div>
+
+    <div class="timeline" id="timeline">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── PROJECT ─────────── -->
+<section class="section" id="project">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">🎓 Về dự án</div>
+      <h2 class="section-title">Central Connect</h2>
+      <p class="section-desc">Câu chuyện đằng sau dự án — sứ mệnh, công nghệ và những con người xây dựng nên nó</p>
+    </div>
+  </div>
+
+  <div class="project-grid">
+    <div class="project-about reveal">
+      <p>Central Connect được xây dựng bởi sinh viên Đại học Việt-Hàn (VKU) trong khuôn khổ dự án tốt nghiệp 2025. Mục tiêu của chúng em là dùng công nghệ thông tin để bảo tồn và quảng bá di sản văn hoá của Đà Nẵng đến với du khách trong và ngoài nước.</p>
+
+            <p>Dự án kết hợp bản đồ di sản tương tác, hệ thống gây quỹ cộng đồng, blog sinh viên đa ngôn ngữ và mạng lưới đối tác doanh nghiệp địa phương — tất cả trong một nền tảng duy nhất.</p>
+      <p>Chúng em tin rằng mỗi sinh viên VKU đều có thể trở thành một đại sứ văn hoá — bằng cách kể chuyện theo cách của thế hệ mình, bằng ngôn ngữ của công nghệ hiện đại.</p>
+      <div class="project-tech">
+        <span class="tech-tag">HTML5 / CSS3</span>
+        <span class="tech-tag">JavaScript ES6+</span>
+        <span class="tech-tag">Leaflet.js</span>
+        <span class="tech-tag">GSAP</span>
+        <span class="tech-tag">AOS</span>
+        <span class="tech-tag">Figma</span>
+        <span class="tech-tag">GitHub</span>
+        <span class="tech-tag">Vercel</span>
+      </div>
+    </div>
+
+    <div class="team-cards reveal">
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg, #1E4D8C, #4A9ED4)">MK</div>
+        <div>
+          <div class="team-name">Nguyễn Minh Khoa</div>
+          <div class="team-role">VKU K22 · Trưởng nhóm & Frontend Dev</div>
+        </div>
+        <div class="team-badge">⚡ Lead Dev</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg, #9A7A30, #C9A84C)">TL</div>
+        <div>
+          <div class="team-name">Trần Thị Lan</div>
+          <div class="team-role">VKU K23 · Content & Blog Editor</div>
+        </div>
+        <div class="team-badge">✍️ Content</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg, #3D5030, #5A9E6F)">LH</div>
+        <div>
+          <div class="team-name">Lê Văn Hùng</div>
+          <div class="team-role">VKU K22 · UI/UX & Bản đồ</div>
+        </div>
+        <div class="team-badge">🎨 Design</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg, #3A1A10, #8A4030)">PH</div>
+        <div>
+          <div class="team-name">Phạm Thu Hà</div>
+          <div class="team-role">VKU K23 · Research & Đối tác</div>
+        </div>
+        <div class="team-badge">🤝 Partners</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg, #1A0A2E, #4A2A8C)">ĐA</div>
+        <div>
+          <div class="team-name">Hoàng Đức Anh</div>
+          <div class="team-role">VKU K22 · Photography & Media</div>
+        </div>
+        <div class="team-badge">📸 Media</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px">
+        <div class="nav-logo-icon">🌊</div>
+        <div>
+          <span class="nav-logo-text">CENTRAL CONNECT</span>
+          <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+        </div>
+      </div>
+      <p>"Dùng công nghệ để bảo tồn những giá trị xưa cũ và mở ra cánh cửa kết nối hiện đại cho du lịch miền Trung."</p>
+    </div>
+    <div class="footer-col">
+      <h4>Góc VKU</h4>
+      <a href="#blog">Blog sinh viên</a>
+      <a href="#map-section">Bản đồ từ VKU</a>
+      <a href="#project">Về dự án</a>
+      <a onclick="openWriteModal()">Gửi bài viết</a>
+    </div>
+    <div class="footer-col">
+      <h4>Khám phá</h4>
+      <a href="kham-pha.html">Bản đồ di sản</a>
+      <a href="di-tich.html">Di tích lịch sử</a>
+      <a href="lang-nghe.html">Làng nghề</a>
+      <a href="am-thuc.html">Ẩm thực</a>
+    </div>
+    <div class="footer-col">
+      <h4>Liên hệ</h4>
+      <a>📧 vku@centralconnect.vn</a>
+      <a>📍 VKU, Nguyễn Lương Bằng, ĐN</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Central Connect · Được xây dựng bởi sinh viên VKU · Đà Nẵng, Việt Nam</div>
+  </div>
+</footer>
+
+<!-- ── MODAL: Write ── -->
+<div class="modal-overlay" id="writeModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('writeModal')">✕</button>
+    <div class="section-label" style="margin-bottom:8px">Blog sinh viên VKU</div>
+    <h2 class="modal-title">Gửi bài viết</h2>
+    <p class="modal-sub">Chia sẻ câu chuyện của bạn về quê hương bằng tiếng Anh — và nhận 20 Hạt Bàu khi bài được duyệt!</p>
+    <div class="form-group"><label>Họ & Tên + Khoá học</label><input type="text" placeholder="Nguyễn Văn A · VKU K22"></div>
+    <div class="form-group"><label>Tiêu đề bài viết (tiếng Anh)</label><input type="text" placeholder="My Weekend at Son Tra Peninsula..."></div>
+    <div class="form-group"><label>Chủ đề</label>
+      <select>
+        <option>-- Chọn chủ đề --</option>
+        <option>🏛️ Di sản & Lịch sử</option>
+        <option>🍜 Ẩm thực</option>
+        <option>🌿 Thiên nhiên</option>
+        <option>🏺 Làng nghề</option>
+        <option>🗺️ Hướng dẫn du lịch</option>
+        <option>🎓 Câu chuyện VKU</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Nội dung tóm tắt (tiếng Anh)</label><textarea placeholder="Write a brief summary of your article..."></textarea></div>
+    <div class="form-group"><label>Email VKU</label><input type="email" placeholder="yourname@vku.udn.vn"></div>
+    <button class="btn-modal" onclick="submitPost()">📤 Gửi bài viết</button>
+  </div>
+</div>
+
+<!-- ── MODAL: Blog post ── -->
+<div class="modal-overlay" id="postModal">
+  <div class="modal-box" style="max-width:600px">
+    <button class="modal-close" onclick="closeModal('postModal')">✕</button>
+    <div class="section-label" style="margin-bottom:8px">Blog sinh viên VKU</div>
+    <h2 class="modal-title" id="postTitle">Bài viết</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Đây là bản xem trước nội dung bài viết. Bài đầy đủ sẽ hiển thị khi trang blog hoàn chỉnh.</p>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.12);border-radius:10px;padding:20px;font-size:14px;color:rgba(245,240,232,0.75);line-height:1.8">
+      <p>✨ <em>Central Connect is built for the competition — this blog section demonstrates how student content would integrate into the full platform. Each post contributes to the cultural preservation mission and earns the author Hạt Bàu reward points.</em></p>
+      <br>
+      <p>The complete blog engine will support rich text, embedded maps, photo galleries, multilingual display (VI / EN / KO), and direct social sharing to Facebook and TikTok.</p>
+    </div>
+    <br>
+    <button class="btn-modal" style="background:var(--vku-blue-light)" onclick="closeModal('postModal')">Đóng</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Chatbot -->
+<button onclick="showToast('🤖 Trợ lý đang khởi động...')" style="position:fixed;bottom:24px;right:24px;z-index:500;width:56px;height:56px;border-radius:50%;background:var(--vku-blue-light);border:none;font-size:22px;cursor:pointer;box-shadow:0 8px 24px rgba(30,77,140,0.5);transition:all 0.3s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🤖</button>
+
+<script>
+  // ── Particles ──
+  (function(){
+    const c = document.getElementById('particles');
+    const colors = ['#C9A84C','#4A9ED4','#5A9E6F'];
+    for(let i=0;i<25;i++){
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = 1+Math.random()*2.5;
+      p.style.cssText = `left:${Math.random()*100}%;bottom:${Math.random()*30}%;animation-duration:${5+Math.random()*8}s;animation-delay:${Math.random()*8}s;width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*3)]}`;
+      c.appendChild(p);
+    }
+  })();
+
+  // ── Reveal ──
+  const revObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.07});
+  document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+  // ── Toast ──
+  function showToast(msg, dur=3000){
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),dur);
+  }
+
+  // ── Modals ──
+  function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('.modal-overlay').forEach(m=>{
+    m.addEventListener('click', e=>{ if(e.target===m) m.classList.remove('open'); });
+  });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('open')); });
+
+  function openWriteModal(){ document.getElementById('writeModal').classList.add('open'); }
+  function submitPost(){ closeModal('writeModal'); showToast('🎉 Bài viết đã được gửi! Chờ duyệt và nhận 20 Hạt Bàu'); }
+  function openPost(title){ document.getElementById('postTitle').textContent=title; document.getElementById('postModal').classList.add('open'); }
+
+  // ── Tab scroll ──
+  function scrollToSection(id, btn){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const el = document.getElementById(id);
+    window.scrollTo({ top: el.offsetTop - 72 - 56, behavior: 'smooth' });
+  }
+
+  // ── Blog filter ──
+  function filterBlog(cat, btn){
+    document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.blog-card').forEach(card=>{
+      if(cat==='all' || card.dataset.cat===cat){
+        card.style.display='';
+      } else {
+        card.style.display='none';
+      }
+    });
+  }
+
+  // ── MAP SETUP ──
+  const VKU = [16.0720, 108.1521];
+
+  const destinations = [
+    { id:'my-khe', name:'Bãi biển Mỹ Khê', cat:'beach', icon:'🏖', lat:16.0617, lng:108.2473, dist:'6km', time:'15 phút', transport:'Xe máy / Grab', color:'#C9A84C', desc:'Một trong những bãi biển đẹp nhất hành tinh theo Forbes. Cát trắng, sóng xanh.' },
+    { id:'hoi-an', name:'Phố cổ Hội An', cat:'heritage', icon:'🏛', lat:15.8801, lng:108.3380, dist:'30km', time:'40 phút', transport:'Xe máy / Taxi', color:'#5A9E6F', desc:'Di sản thế giới UNESCO — phố cổ, đèn lồng và ẩm thực huyền thoại.' },
+    { id:'son-tra', name:'Bán đảo Sơn Trà', cat:'beach', icon:'🦁', lat:16.1060, lng:108.2718, dist:'14km', time:'25 phút', transport:'Xe máy', color:'#4A9ED4', desc:'Rừng nguyên sinh, voọc Chà Vá, bãi Tiên Sa và tầm nhìn panorama.' },
+    { id:'ba-na', name:'Bà Nà Hills', cat:'heritage', icon:'🏰', lat:15.9943, lng:107.9895, dist:'25km', time:'45 phút', transport:'Xe riêng', color:'#5A9E6F', desc:'Cầu Vàng huyền thoại, thị trấn Pháp cổ và cáp treo kỷ lục thế giới.' },
+    { id:'my-son', name:'Thánh địa Mỹ Sơn', cat:'heritage', icon:'⛩', lat:15.7626, lng:108.1285, dist:'68km', time:'90 phút', transport:'Xe đò / Xe riêng', color:'#5A9E6F', desc:'Đền tháp Chăm 4 thế kỷ, di sản UNESCO huyền bí nhất miền Trung.' },
+    { id:'nam-o', name:'Làng chài Nam Ô', cat:'food', icon:'🎣', lat:16.1043, lng:108.1167, dist:'12km', time:'20 phút', transport:'Xe máy', color:'#C85A3A', desc:'Làng nghề nước mắm lâu đời nhất Đà Nẵng, bãi đá độc đáo và hải sản tươi.' },
+  ];
+
+  let map, tileStreet, tileSat, currentLayer='sat', activeMarkers=[];
+
+  function initMap(){
+    map = L.map('leaflet-map', { zoomControl: false, center: VKU, zoom: 12 });
+
+    tileStreet = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    });
+    tileSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '© Esri'
+    });
+    tileSat.addTo(map);
+    tileSat.once('load', () => {
+      const ov = document.getElementById('map-loading-vku');
+      if (ov) { ov.classList.add('hidden'); setTimeout(() => ov.remove(), 600); }
+    });
+    setTimeout(() => {
+      const ov = document.getElementById('map-loading-vku');
+      if (ov) { ov.classList.add('hidden'); setTimeout(() => ov.remove(), 600); }
+    }, 4000);
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    // VKU Marker
+    const vkuIcon = L.divIcon({
+      className: '',
+      html: '<div style="background:#1E4D8C;border:3px solid #4A9ED4;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 16px rgba(30,77,140,0.7);cursor:pointer">🎓</div>',
+      iconSize: [42,42], iconAnchor: [21,21]
+    });
+    L.marker(VKU, { icon: vkuIcon })
+      .addTo(map)
+      .bindPopup('<div class="popup-name">🎓 Trường Đại học Việt-Hàn (VKU)</div><div class="popup-meta">📍 Nguyễn Lương Bằng, Đà Nẵng</div><div class="popup-dist">🏁 Điểm xuất phát</div>', { className: 'custom-popup' })
+      .openPopup();
+
+    // Destination markers
+    destinations.forEach(dest=>{
+      const icon = L.divIcon({
+        className: '',
+        html: `<div style="background:#1A1410;border:2px solid ${dest.color};border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 4px 12px rgba(0,0,0,0.6);cursor:pointer;transition:transform 0.2s">${dest.icon}</div>`,
+        iconSize: [36,36], iconAnchor: [18,18]
+      });
+      const marker = L.marker([dest.lat, dest.lng], { icon })
+        .addTo(map)
+        .bindPopup(`<div class="popup-name">${dest.icon} ${dest.name}</div><div class="popup-meta">${dest.desc}</div><div class="popup-dist">📏 ${dest.dist} · ⏱ ${dest.time} · ${dest.transport}</div>`, { className: 'custom-popup' });
+
+      // Draw line from VKU
+      const line = L.polyline([VKU, [dest.lat, dest.lng]], {
+        color: dest.color, weight: 2, opacity: 0.5, dashArray: '6,8'
+      }).addTo(map);
+
+      activeMarkers.push({ marker, line, dest });
+    });
+
+    renderRouteList('all');
+    renderTimeline('beach');
+  }
+
+  function switchLayer(layer, btn){
+    document.querySelectorAll('.map-control-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    if(layer==='sat'){ map.removeLayer(tileStreet); tileSat.addTo(map); }
+    else { map.removeLayer(tileSat); tileStreet.addTo(map); }
+  }
+
+  function renderRouteList(cat){
+    const list = document.getElementById('routeList');
+    const filtered = cat==='all' ? destinations : destinations.filter(d=>d.cat===cat);
+    list.innerHTML = filtered.map((d,i)=>`
+      <div class="route-item${i===0?' active':''}" onclick="focusDest('${d.id}', this)">
+        <div class="route-num" style="background:${d.color}22;color:${d.color}">${d.icon}</div>
+        <div class="route-item-info">
+          <div class="route-item-name">${d.name}</div>
+          <div class="route-item-meta">
+            <span>📏 ${d.dist}</span>
+            <span>⏱ ${d.time}</span>
+          </div>
+          <div class="route-dist">${d.transport}</div>
+          <button onclick="event.stopPropagation();window.open('https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}','_blank','noopener,noreferrer')" style="margin-top:8px;background:rgba(74,144,217,0.1);border:1px solid rgba(74,144,217,0.35);color:var(--ocean-light);padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;">🗺 Chỉ đường</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function focusDest(id, el){
+    document.querySelectorAll('.route-item').forEach(r=>r.classList.remove('active'));
+    el.classList.add('active');
+    const dest = destinations.find(d=>d.id===id);
+    if(dest && map){
+      map.setView([dest.lat, dest.lng], 13, {animate:true});
+      const m = activeMarkers.find(a=>a.dest.id===id);
+      if(m) m.marker.openPopup();
+    }
+  }
+
+  function switchRouteTab(cat, btn){
+    document.querySelectorAll('.route-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderRouteList(cat);
+  }
+
+  // ── Timeline ──
+  const timelineData = {
+    beach: [
+      { name:'🎓 VKU – Điểm xuất phát', time:'6:45 SA', dot:'vku', desc:'Tập trung tại cổng B trường VKU. Kiểm tra xe máy, đội mũ bảo hiểm, sẵn sàng lên đường!', tags:['Xe máy','Miễn phí bãi xe'], dist:'' },
+      { name:'🌊 Bãi biển Mỹ Khê', time:'7:00 SA', dot:'stop', desc:'Tận hưởng bình minh trên bãi biển đẹp nhất Đà Nẵng. Bơi lội, chạy bộ ven biển hoặc uống nước dừa ngắm sóng.', tags:['Bơi lội','Cà phê ven biển','Chụp ảnh'], dist:'📏 6km từ VKU · 15 phút' },
+      { name:'🍜 Bánh mì Bà Lan – Bữa sáng', time:'8:30 SA', dot:'stop', desc:'Ghé bánh mì nổi tiếng ngay gần bãi biển. Bánh mì Đà Nẵng đặc trưng với thịt nướng và pate gia truyền.', tags:['Ẩm thực','~20k đ'], dist:'📍 Gần Mỹ Khê' },
+      { name:'☀️ Nghỉ trưa – Bãi tắm chính', time:'9:00 SA - 11:30 SA', dot:'stop', desc:'Thời gian tự do tại bãi biển. Thuê dù + ghế bố (~50k), chơi bóng chuyền bãi biển hoặc thử lướt sóng.', tags:['Lướt sóng','Bóng chuyền','Bơi lặn'], dist:'' },
+      { name:'🏠 Về trường', time:'12:00 TR', dot:'end', desc:'Tổng chi phí cả chuyến: ~80-100k đồng/người bao gồm xăng, đồ ăn sáng và thuê ghế biển.', tags:['Tiết kiệm','Vui vẻ'], dist:'📏 Về VKU: 15 phút' },
+    ],
+    hoian: [
+      { name:'🎓 VKU – Điểm xuất phát', time:'7:00 SA', dot:'vku', desc:'Xuất phát sớm để có cả ngày ở Hội An. Nhóm có thể đi xe máy hoặc đặt xe 7 chỗ chia tiền.', tags:['Xe 7 chỗ chia','~60k/người'], dist:'' },
+      { name:'🌸 Làng rau Trà Quế', time:'7:45 SA', dot:'stop', desc:'Ghé ngang làng rau hữu cơ nổi tiếng của Hội An — tour cuốc đất hái rau thú vị trước khi vào phố cổ.', tags:['Nông nghiệp','Trải nghiệm'], dist:'📏 28km từ VKU · 35 phút' },
+      { name:'🏛 Phố cổ Hội An', time:'9:00 SA', dot:'stop', desc:'Dạo bộ phố cổ, thăm Chùa Cầu, chụp ảnh đèn lồng, mua đồ lưu niệm và ăn Cao Lầu.', tags:['Di sản UNESCO','Phố đèn lồng','Cao lầu'], dist:'📏 30km · 40 phút' },
+      { name:'🍜 Cơm gà Bà Buội – Trưa', time:'12:30 CH', dot:'stop', desc:'Quán cơm gà Hội An lâu đời nhất — nổi tiếng toàn quốc. Giá ~35k/suất.', tags:['Cơm gà','~35k đ'], dist:'📍 Đường Phan Châu Trinh' },
+      { name:'🎓 Về VKU', time:'6:00 CH', dot:'end', desc:'Chuyến tham quan trọn vẹn. Tổng: ~180-220k đ/người bao gồm xăng + vé phố cổ + ăn uống.', tags:['Trọn ngày'], dist:'📏 Về VKU: 40 phút' },
+    ],
+    'son-tra': [
+      { name:'🎓 VKU – Điểm xuất phát', time:'5:00 SA', dot:'vku', desc:'Xuất phát sớm để kịp bình minh trên đỉnh Sơn Trà. Mang theo áo khoác mỏng vì sáng sớm se lạnh.', tags:['Xe máy','Đèn pin'], dist:'' },
+      { name:'🌅 Đỉnh Bàn Cờ', time:'5:50 SA', dot:'stop', desc:'Bình minh Đà Nẵng từ đỉnh cao 696m — cả thành phố trải dài dưới chân bạn. Khoảnh khắc không thể quên!', tags:['Bình minh','Toàn cảnh ĐN','Chụp ảnh'], dist:'📏 14km · 25 phút' },
+      { name:'🦁 Gặp voọc Chà Vá Chân Nâu', time:'7:00 SA', dot:'stop', desc:'Linh trưởng quý hiếm nhất Đông Nam Á sống tự nhiên tại Sơn Trà. Thường xuất hiện sáng sớm.', tags:['Bảo tồn','Động vật hoang dã'], dist:'📍 Khu vực rừng Sơn Trà' },
+      { name:'🏖 Bãi Bụt – Tắm biển', time:'9:00 SA', dot:'stop', desc:'Bãi biển trong veo ít người biết tại chân bán đảo Sơn Trà. Nước trong như kính, cát mịn.', tags:['Bơi lặn','Ít khách','Yên tĩnh'], dist:'' },
+      { name:'🎓 Về VKU', time:'11:30 SA', dot:'end', desc:'Nửa ngày trọn vẹn với thiên nhiên. Tổng chi phí: ~50-70k đ/người chỉ xăng và đồ ăn sáng.', tags:['Nửa ngày','Siêu tiết kiệm'], dist:'📏 Về VKU: 25 phút' },
+    ]
+  };
+
+  function renderTimeline(route){
+    const stops = timelineData[route] || timelineData.beach;
+    const tl = document.getElementById('timeline');
+    tl.innerHTML = stops.map((stop,i)=>`
+      <div class="timeline-stop">
+        <div class="timeline-dot ${stop.dot}">${i+1}</div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <div class="timeline-stop-name">${stop.name}</div>
+            <div class="timeline-time">🕐 ${stop.time}</div>
+          </div>
+          <div class="timeline-desc">${stop.desc}</div>
+          <div class="timeline-tags">${stop.tags.map(t=>`<span class="timeline-tag">${t}</span>`).join('')}</div>
+          ${stop.dist ? `<div class="timeline-distance">📏 ${stop.dist}</div>` : ''}
+          ${stop.dot==='stop' ? `<button onclick="window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(stop.name.replace(/\p{Emoji}/gu,'').trim() + ', Đà Nẵng')}','_blank','noopener,noreferrer')" style="margin-top:8px;background:rgba(74,144,217,0.1);border:1px solid rgba(74,144,217,0.35);color:var(--ocean-light);padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">🗺 Chỉ đường</button>` : ''}
+        </div>
+        ${i<stops.length-1 ? `<div class="timeline-arrow">↓</div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  function switchTimeline(val){
+    renderTimeline(val);
+  }
+
+  // ── Init ──
+  window.addEventListener('load', ()=>{
+    initMap();
+  });
+
+  // Active tab on scroll
+  const sections = ['blog','map-section','project'];
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  window.addEventListener('scroll', ()=>{
+    const offset = 72+56+100;
+    sections.forEach((id,i)=>{
+      const el = document.getElementById(id);
+      if(el && el.offsetTop - offset <= scrollY && (sections[i+1] ? document.getElementById(sections[i+1]).offsetTop - offset > scrollY : true)){
+        tabBtns.forEach(b=>b.classList.remove('active'));
+        tabBtns[i].classList.add('active');
+      }
+    });
+  });
+</script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="../js/effects.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  requirePageAccess();
+  applyNavigationState();
+});
+</script>
+
+</body>
+</html>

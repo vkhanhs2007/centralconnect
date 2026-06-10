@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lịch Trình Của Tôi – Central Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/nav.css">
+<style>
+:root{--gold:#C9A84C;--cream:#F5F0E8;--ink:#1A1410;--muted:#8A7D6E;--ocean:#1A4F8C;--ocean-light:#4A90D9;--ocean-soft:rgba(74,144,217,0.1);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#080A0F;color:var(--cream);overflow-x:hidden;}
+.page{padding:104px 40px 80px;max-width:1000px;margin:0 auto;}
+.page-hero{margin-bottom:36px;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--cream);margin-bottom:6px;}
+.page-hero p{color:var(--muted);font-size:14px;}
+.action-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+.btn-new{background:linear-gradient(135deg,var(--ocean),var(--ocean-light));color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;display:flex;align-items:center;gap:8px;}
+.btn-new:hover{background:linear-gradient(135deg,var(--ocean-light),#6AAAE8);transform:translateY(-1px);}
+.sch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
+.sch-card{background:rgba(255,255,255,0.03);border:1px solid rgba(74,144,217,0.12);border-radius:14px;overflow:hidden;transition:all 0.2s;cursor:pointer;}
+.sch-card:hover{background:rgba(74,144,217,0.06);border-color:rgba(74,144,217,0.3);transform:translateY(-2px);}
+.sch-thumb{height:140px;background:linear-gradient(135deg,rgba(26,79,140,0.4),rgba(74,144,217,0.2));display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;}
+.sch-duration{position:absolute;bottom:10px;right:12px;background:rgba(10,13,20,0.85);border:1px solid rgba(74,144,217,0.25);border-radius:6px;padding:3px 10px;font-size:11px;color:var(--ocean-light);font-weight:600;}
+.sch-body{padding:16px 18px;}
+.sch-title{font-size:15px;font-weight:700;color:var(--cream);margin-bottom:6px;}
+.sch-meta{display:flex;gap:12px;font-size:12px;color:var(--muted);margin-bottom:10px;flex-wrap:wrap;}
+.sch-stops{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.sch-stop{font-size:11px;background:rgba(74,144,217,0.08);border:1px solid rgba(74,144,217,0.2);border-radius:20px;padding:3px 10px;color:var(--ocean-light);}
+.sch-actions{display:flex;gap:8px;}
+.btn-sm{flex:1;padding:7px 12px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;border:1px solid rgba(74,144,217,0.3);background:transparent;color:var(--ocean-light);transition:all 0.2s;text-align:center;}
+.btn-sm:hover{background:rgba(74,144,217,0.1);}
+.btn-sm.danger{border-color:rgba(224,92,92,0.35);color:#E05C5C;}
+.btn-sm.danger:hover{background:rgba(224,92,92,0.1);}
+.empty-state{text-align:center;padding:72px 20px;color:var(--muted);}
+.empty-state .big{font-size:56px;margin-bottom:16px;}
+.empty-state h3{font-size:18px;color:var(--cream);margin-bottom:8px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:600px){.page{padding:88px 16px 60px;}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img" alt="Central Connect">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+    <li class="auth-only" style="display:none">
+      <a href="lich-trinh.html">Lịch Trình ▾</a>
+      <div class="dropdown-menu">
+        <a href="lich-trinh.html">📅 Tự lên lịch</a>
+        <a href="my-schedule.html">🗂 Lịch trình của tôi</a>
+      </div>
+    </li>
+  </ul>
+  <div class="nav-actions">
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none;position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a href="my-schedule.html" class="active">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <h1>🗂 Lịch Trình Của Tôi</h1>
+    <p>Quản lý các lịch trình du lịch đã tạo hoặc lưu</p>
+  </div>
+
+  <div class="action-bar">
+    <span style="font-size:13px;color:var(--muted)">Đã lưu: <strong id="schCount" style="color:var(--cream)">0</strong> lịch trình</span>
+    <button class="btn-new" onclick="window.location.href='lich-trinh.html'">+ Tạo lịch trình mới</button>
+  </div>
+
+  <div id="schGrid" class="sch-grid"></div>
+</div>
+
+<div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(60px);background:rgba(10,13,20,0.95);border:1px solid rgba(74,144,217,0.35);color:#F5F0E8;padding:12px 24px;border-radius:10px;font-size:14px;backdrop-filter:blur(12px);transition:all 0.35s;z-index:10000;pointer-events:none;white-space:nowrap;"></div>
+
+<footer></footer>
+<script src="../js/nav.js"></script>
+<script src="../js/utils.js"></script>
+<script>
+const MOCK = [
+  {id:1,title:'Hội An – Mỹ Sơn 2 ngày',icon:'🏮',duration:'2 ngày 1 đêm',date:'10/05/2025',stops:['Hội An','Mỹ Sơn','Cù Lao Chàm'],people:3},
+  {id:2,title:'Đà Nẵng City Tour 1 ngày',icon:'🐉',duration:'1 ngày',date:'15/04/2025',stops:['Cầu Rồng','Bà Nà','Sơn Trà'],people:2},
+  {id:3,title:'VKU → Biển Mỹ Khê buổi sáng',icon:'🏖',duration:'Nửa ngày',date:'20/03/2025',stops:['Mỹ Khê','Bánh mì Bà Lan'],people:5},
+];
+
+function renderSchedules() {
+  const saved = JSON.parse(localStorage.getItem('cc_schedules') || '[]');
+  const all = [...saved, ...MOCK];
+  document.getElementById('schCount').textContent = all.length;
+  const grid = document.getElementById('schGrid');
+
+  if (!all.length) {
+    grid.innerHTML = '<div class="empty-state"><div class="big">🗺</div><h3>Chưa có lịch trình nào</h3><p>Tạo lịch trình AI để khám phá Đà Nẵng theo cách của bạn!</p></div>';
+    return;
+  }
+
+  grid.innerHTML = all.map(s => `
+    <div class="sch-card">
+      <div class="sch-thumb">${s.icon || '🗺'}<div class="sch-duration">${s.duration}</div></div>
+      <div class="sch-body">
+        <div class="sch-title">${s.title}</div>
+        <div class="sch-meta">
+          <span>📅 ${s.date}</span>
+          <span>👥 ${s.people || 1} người</span>
+        </div>
+        <div class="sch-stops">${(s.stops||[]).map(st=>`<span class="sch-stop">📍 ${st}</span>`).join('')}</div>
+        <div class="sch-actions">
+          <button class="btn-sm" onclick="viewSch(${s.id})">👁 Xem</button>
+          <button class="btn-sm" onclick="copySch(${s.id})">📋 Sao chép</button>
+          <button class="btn-sm danger" onclick="deleteSch(${s.id})">🗑</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function viewSch(id) { window.location.href = 'lich-trinh.html'; }
+function copySch(id) { showToast('📋 Đã sao chép lịch trình!'); }
+function deleteSch(id) {
+  if (!confirm('Xoá lịch trình này?')) return;
+  let saved = JSON.parse(localStorage.getItem('cc_schedules') || '[]');
+  saved = saved.filter(s => s.id !== id);
+  localStorage.setItem('cc_schedules', JSON.stringify(saved));
+  renderSchedules();
+  showToast('🗑 Đã xoá lịch trình');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(60px)'; }, 2800);
+}
+
+window.addEventListener('DOMContentLoaded', renderSchedules);
+</script>
+<script src="../js/auth-modal.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+</body>
+</html>

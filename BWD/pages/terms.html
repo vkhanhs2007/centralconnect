@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Điều Khoản Sử Dụng – Central Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/nav.css">
+<style>
+:root{--gold:#C9A84C;--cream:#F5F0E8;--ink:#1A1410;--muted:#8A7D6E;--ocean:#1A4F8C;--ocean-light:#4A90D9;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#080A0F;color:var(--cream);overflow-x:hidden;}
+.hero{padding:120px 40px 60px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(26,79,140,0.1) 0%,transparent 70%);}
+.hero-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:var(--cream);margin-bottom:12px;}
+.hero-meta{font-size:13px;color:var(--muted);}
+.content{max-width:800px;margin:0 auto;padding:48px 40px 80px;}
+.section{margin-bottom:40px;}
+.section h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cream);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(74,144,217,0.1);}
+.section p{font-size:14px;color:rgba(245,240,232,0.78);line-height:1.85;margin-bottom:12px;}
+.section ul{list-style:none;padding:0;margin-bottom:12px;}
+.section ul li{font-size:14px;color:rgba(245,240,232,0.78);line-height:1.8;padding-left:20px;position:relative;margin-bottom:6px;}
+.section ul li::before{content:'▸';position:absolute;left:0;color:var(--ocean-light);}
+.highlight{background:rgba(74,144,217,0.07);border:1px solid rgba(74,144,217,0.18);border-radius:10px;padding:16px 18px;margin:16px 0;font-size:14px;color:rgba(245,240,232,0.85);line-height:1.7;}
+.warn{background:rgba(224,92,92,0.05);border:1px solid rgba(224,92,92,0.2);border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13.5px;color:rgba(245,240,232,0.8);line-height:1.7;}
+.contact-link{color:var(--ocean-light);text-decoration:none;}
+.contact-link:hover{text-decoration:underline;}
+@media(max-width:600px){.hero{padding:100px 20px 48px;}.hero h1{font-size:30px;}.content{padding:36px 20px 60px;}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">
+    <img src="../assets/images/logo.jpg" class="nav-logo-img" alt="Central Connect">
+    <div>
+      <span class="nav-logo-text">CENTRAL CONNECT</span>
+      <span class="nav-logo-sub">Di sản số Đà Nẵng</span>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="kham-pha.html">Khám Phá ▾</a>
+      <div class="dropdown-menu">
+        <a href="kham-pha.html">🗺 Bản đồ di sản</a>
+        <a href="di-tich.html">🏛 Di tích lịch sử</a>
+        <a href="lang-nghe.html">🏺 Làng nghề thủ công</a>
+      </div>
+    </li>
+    <li><a href="am-thuc.html">Ẩm Thực</a></li>
+    <li><a href="su-kien.html">Sự Kiện</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gay-quy.html" class="fund-link">Gây Quỹ</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div id="guestActions">
+      <button class="btn-login" id="openLogin">Đăng nhập</button>
+      <button class="btn-register" id="openRegister">Đăng ký</button>
+    </div>
+    <div class="user-pill" id="userPill" style="display:none;position:relative">
+      <div class="user-avatar" id="userAvatar">TK</div>
+      <span class="user-points" id="userPoints">🌾 50</span>
+      <span class="user-name" id="userName">Tài khoản</span>
+      <div class="user-dropdown">
+        <a href="profile.html">👤 Hồ sơ cá nhân</a>
+        <a onclick="openItinerary()">🗺 Lịch trình của tôi</a>
+        <a onclick="openVouchers()">🎟 Voucher của tôi</a>
+        <a onclick="openLeaderboard()">🏅 Bảng xếp hạng</a>
+        <div class="divider"></div>
+        <a onclick="openSettings()">⚙ Cài đặt</a>
+        <div class="divider"></div>
+        <a class="logout" onclick="logout()">↩ Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Pháp lý · Điều khoản</div>
+  <h1>Điều Khoản Sử Dụng</h1>
+  <div class="hero-meta">Cập nhật lần cuối: 01/06/2026 · Central Connect – VKU</div>
+</div>
+
+<div class="content">
+  <div class="highlight">
+    Bằng cách đăng ký hoặc sử dụng Central Connect, bạn đồng ý với các điều khoản dưới đây. Vui lòng đọc kỹ trước khi sử dụng dịch vụ.
+  </div>
+
+  <div class="section">
+    <h2>1. Giới thiệu dịch vụ</h2>
+    <p>Central Connect ("Nền tảng") là dự án phần mềm phi lợi nhuận, được phát triển bởi sinh viên Trường Đại học Việt-Hàn (VKU) nhằm mục đích bảo tồn và quảng bá di sản văn hoá vùng Đà Nẵng – Quảng Nam. Nền tảng cung cấp bản đồ tương tác, lịch trình du lịch AI, cộng đồng blog và tính năng gây quỹ bảo tồn.</p>
+  </div>
+
+  <div class="section">
+    <h2>2. Điều kiện sử dụng tài khoản</h2>
+    <ul>
+      <li>Bạn phải cung cấp thông tin chính xác khi đăng ký</li>
+      <li>Một địa chỉ email chỉ được đăng ký một tài khoản</li>
+      <li>Bạn chịu trách nhiệm bảo mật mật khẩu của mình</li>
+      <li>Không được chia sẻ tài khoản với người khác</li>
+      <li>Thông báo ngay cho chúng tôi nếu tài khoản bị xâm phạm</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>3. Quy tắc cộng đồng</h2>
+    <p>Khi đăng nội dung lên Central Connect (bài blog, bình luận, đánh giá), bạn cam kết:</p>
+    <ul>
+      <li>Nội dung trung thực, liên quan đến di sản và du lịch Đà Nẵng – Quảng Nam</li>
+      <li>Không đăng nội dung xúc phạm, phân biệt, thù địch, hoặc vi phạm pháp luật Việt Nam</li>
+      <li>Không sao chép nội dung có bản quyền khi chưa được phép</li>
+      <li>Không quảng cáo, spam hoặc phát tán thông tin sai lệch về di tích</li>
+      <li>Tôn trọng chủ quyền lãnh thổ Việt Nam (bao gồm Hoàng Sa, Trường Sa)</li>
+    </ul>
+    <div class="warn">
+      ⚠ Nội dung vi phạm sẽ bị xoá và tài khoản có thể bị tạm ngừng hoặc khoá vĩnh viễn.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>4. Hệ thống điểm Hạt Bàu</h2>
+    <ul>
+      <li>Điểm Hạt Bàu được tặng thưởng khi hoàn thành các hoạt động trên nền tảng</li>
+      <li>Điểm không có giá trị tiền tệ và không thể quy đổi thành tiền mặt</li>
+      <li>Điểm có thể dùng đổi voucher từ đối tác (theo số lượng có hạn)</li>
+      <li>Chúng tôi có quyền điều chỉnh hệ thống điểm và voucher theo từng giai đoạn</li>
+      <li>Hành vi gian lận điểm sẽ dẫn đến khoá tài khoản</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>5. Gây quỹ bảo tồn di sản</h2>
+    <p>Tính năng gây quỹ trên Central Connect là cầu nối cộng đồng, không phải tổ chức tài chính:</p>
+    <ul>
+      <li>Tất cả đóng góp đều tự nguyện và không hoàn lại trừ trường hợp lỗi kỹ thuật</li>
+      <li>Quỹ được công khai minh bạch và sử dụng đúng mục đích bảo tồn</li>
+      <li>Chúng tôi hợp tác với các tổ chức di sản có uy tín để triển khai dự án</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>6. Quyền sở hữu trí tuệ</h2>
+    <p>Toàn bộ giao diện, thiết kế, logo và mã nguồn của Central Connect thuộc sở hữu của nhóm phát triển VKU. Dữ liệu di sản được tổng hợp từ các nguồn công khai có trích dẫn.</p>
+    <p>Khi đăng nội dung lên nền tảng, bạn cấp cho chúng tôi quyền sử dụng phi thương mại để hiển thị trong cộng đồng Central Connect.</p>
+  </div>
+
+  <div class="section">
+    <h2>7. Giới hạn trách nhiệm</h2>
+    <p>Central Connect là dự án phi lợi nhuận dành cho mục đích giáo dục và thi đấu học thuật. Chúng tôi không chịu trách nhiệm cho:</p>
+    <ul>
+      <li>Sự không chính xác trong dữ liệu di sản (mọi nội dung chỉ mang tính tham khảo)</li>
+      <li>Gián đoạn dịch vụ do bảo trì hoặc sự cố kỹ thuật</li>
+      <li>Thiệt hại gián tiếp phát sinh từ việc sử dụng nền tảng</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>8. Sửa đổi điều khoản</h2>
+    <p>Chúng tôi có thể cập nhật điều khoản này. Thay đổi sẽ được thông báo qua email đăng ký hoặc thông báo trên nền tảng. Tiếp tục sử dụng dịch vụ sau khi thay đổi có hiệu lực đồng nghĩa với việc bạn chấp thuận điều khoản mới.</p>
+  </div>
+
+  <div class="section">
+    <h2>9. Liên hệ</h2>
+    <div class="highlight">
+      Câu hỏi về điều khoản? Liên hệ: <a class="contact-link" href="contact.html">trang Liên hệ</a> hoặc email trực tiếp <a class="contact-link" href="mailto:khanhnv.25itb@vku.udn.vn">khanhnv.25itb@vku.udn.vn</a>
+    </div>
+  </div>
+</div>
+
+<footer></footer>
+<script src="../js/nav.js"></script>
+<script src="../js/auth-modal.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/db.js"></script>
+</body>
+</html>
