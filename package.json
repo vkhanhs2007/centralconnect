@@ -1,0 +1,8 @@
+{
+  "name": "central-connect",
+  "version": "1.0.0",
+  "description": "Du lich Da Nang - Central Connect",
+  "engines": {
+    "node": ">=18"
+  }
+}

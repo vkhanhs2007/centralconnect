@@ -173,11 +173,18 @@ Nếu câu hỏi ngoài phạm vi du lịch Đà Nẵng, hãy lịch sự hướ
           max_tokens: 300
         })
       });
-      if (!res.ok) throw new Error('API ' + res.status);
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        // Lỗi cấu hình key → hiển thị rõ, không dùng fallback chung chung
+        if (res.status === 503) return '⚙️ AI chưa được cấu hình. Vui lòng liên hệ quản trị viên.';
+        if (res.status === 401 || res.status === 403) return '🔑 API key không hợp lệ. Cần cập nhật GROQ_KEY.';
+        return '⚠️ AI lỗi tạm thời (' + res.status + '). ' + (data.error || 'Hãy thử lại sau!');
+      }
       return data.content || 'Xin lỗi, tôi gặp lỗi khi xử lý. Hãy thử lại nhé!';
-    } catch {
-      return 'Kết nối AI tạm thời gián đoạn. Tôi biết rằng: ' + (getLocalAnswer(userMsg) || 'Hãy thử hỏi về Ngũ Hành Sơn, Hội An hoặc ẩm thực địa phương!');
+    } catch (err) {
+      const local = getLocalAnswer(userMsg);
+      if (local) return '📚 ' + local;
+      return '🔌 Kết nối AI gián đoạn. Hãy thử hỏi về Ngũ Hành Sơn, Hội An hoặc ẩm thực Đà Nẵng!';
     }
   }
 
