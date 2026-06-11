@@ -300,7 +300,9 @@
     animation: fadeSlideUp 0.8s ease forwards;
     background: rgba(74,144,217,0.07);
   }
-  .hero-badge span { width: 5px; height: 5px; background: var(--ocean-light); border-radius: 50%; }
+  .hero-badge span:first-child,
+  .hero-badge span:last-child { width: 5px; height: 5px; flex-shrink: 0; background: var(--ocean-light); border-radius: 50%; }
+  .hero-badge span[data-i18n] { width: auto; height: auto; white-space: nowrap; }
 
   .hero-title {
     font-family: 'Playfair Display', serif;
