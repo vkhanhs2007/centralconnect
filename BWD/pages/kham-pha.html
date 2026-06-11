@@ -568,19 +568,19 @@ body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--ink); color:
 <div class="page-hero">
   <div class="page-hero-inner">
     <div class="breadcrumb">
-      <a href="../index.html">Trang chủ</a>
+      <a href="../index.html" data-i18n="breadcrumb_home">Trang chủ</a>
       <span>›</span>
-      <span>Khám phá di sản</span>
+      <span data-i18n="explore_breadcrumb">Khám phá di sản</span>
     </div>
-    <h1>Bản đồ<br><em>Di sản Tương tác</em></h1>
-    <p>Chạm vào từng điểm, lắng nghe câu chuyện – kéo thanh trượt để thấy quá khứ hòa vào hiện tại.</p>
+    <h1><span data-i18n="explore_hero_h1">Bản đồ</span><br><em data-i18n="explore_hero_h1_em">Di sản Tương tác</em></h1>
+    <p data-i18n="explore_hero_p">Chạm vào từng điểm, lắng nghe câu chuyện – kéo thanh trượt để thấy quá khứ hòa vào hiện tại.</p>
   </div>
 </div>
 
 <!-- ── EXPLORE STRIP ── -->
 <div style="background:rgba(201,168,76,0.05);border-bottom:1px solid rgba(201,168,76,0.1);padding:14px 40px;">
   <div style="max-width:1200px;margin:0 auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-right:4px;">Khám phá theo chuyên đề</span>
+    <span data-i18n="explore_strip_label" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-right:4px;">Khám phá theo chuyên đề</span>
     <a href="di-tich.html" style="display:flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:22px;text-decoration:none;color:var(--gold);font-size:13px;font-weight:600;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(201,168,76,0.2)'" onmouseout="this.style.background='rgba(201,168,76,0.1)'">
       🏛 Di tích lịch sử <span style="font-size:11px;background:rgba(201,168,76,0.2);padding:2px 8px;border-radius:10px;margin-left:2px;">47 di tích</span>
     </a>
@@ -594,29 +594,29 @@ body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--ink); color:
 <!-- ── FILTERS ── -->
 <div class="filters-bar">
   <div class="filters-inner">
-    <span class="filter-label">Tỉnh</span>
-    <button class="filter-chip active" onclick="filterBy(this,'province','all')">Tất cả</button>
+    <span class="filter-label" data-i18n="explore_filter_province">Tỉnh</span>
+    <button class="filter-chip active" onclick="filterBy(this,'province','all')" data-i18n="explore_filter_all">Tất cả</button>
     <button class="filter-chip" onclick="filterBy(this,'province','danang')">🌊 Đà Nẵng</button>
     <button class="filter-chip" onclick="filterBy(this,'province','quangnam')">🏺 Khu vực Quảng Nam</button>
     <div class="filter-sep"></div>
-    <span class="filter-label">Loại</span>
-    <button class="filter-chip active" onclick="filterBy(this,'type','all')">Tất cả</button>
-    <button class="filter-chip" onclick="filterBy(this,'type','lich-su')">🏛 Lịch sử</button>
-    <button class="filter-chip" onclick="filterBy(this,'type','thien-nhien')">🌿 Thiên nhiên</button>
-    <button class="filter-chip" onclick="filterBy(this,'type','lang-nghe')">🏺 Làng nghề</button>
-    <button class="filter-chip" onclick="filterBy(this,'type','bien')">🏖 Bãi biển</button>
+    <span class="filter-label" data-i18n="explore_filter_type">Loại</span>
+    <button class="filter-chip active" onclick="filterBy(this,'type','all')" data-i18n="explore_filter_all">Tất cả</button>
+    <button class="filter-chip" onclick="filterBy(this,'type','lich-su')" data-i18n="explore_filter_history">🏛 Lịch sử</button>
+    <button class="filter-chip" onclick="filterBy(this,'type','thien-nhien')" data-i18n="explore_filter_nature">🌿 Thiên nhiên</button>
+    <button class="filter-chip" onclick="filterBy(this,'type','lang-nghe')" data-i18n="explore_filter_craft">🏺 Làng nghề</button>
+    <button class="filter-chip" onclick="filterBy(this,'type','bien')" data-i18n="explore_filter_beach">🏖 Bãi biển</button>
     <div class="filter-sep"></div>
-    <button class="filter-chip" onclick="filterVKU()">📍 Gần VKU</button>
+    <button class="filter-chip" onclick="filterVKU()" data-i18n="explore_filter_near_vku">📍 Gần VKU</button>
     <div class="filter-search">
       <span style="color:var(--muted)">🔍</span>
-      <input type="text" placeholder="Tìm địa điểm..." id="searchInput" oninput="handleSearch()">
+      <input type="text" data-i18n-placeholder="explore_search_placeholder" placeholder="Tìm địa điểm..." id="searchInput" oninput="handleSearch()">
     </div>
   </div>
 </div>
 
 <!-- ── SIDEBAR TOGGLE (mobile) ── -->
 <div class="sidebar-toggle-bar" id="sidebarToggle" onclick="toggleSidebar()">
-  <span>📋 <span id="toggleLabel">Xem danh sách địa điểm</span></span>
+  <span>📋 <span id="toggleLabel" data-i18n="explore_sidebar_toggle">Xem danh sách địa điểm</span></span>
   <span id="toggleIcon">▼</span>
 </div>
 

@@ -238,6 +238,7 @@
     const s = document.createElement('style');
     s.id = 'cc-theme-style';
     s.textContent = `
+      html.cc-light { --cream: #1A1410; --muted: #5A4D3E; --ink: #F5F0E8; }
       html.cc-light body { background: #F5F0E8 !important; color: #1A1410 !important; }
       html.cc-light nav#navbar { background: rgba(245,240,232,0.95) !important; }
       html.cc-light nav#navbar.scrolled {
@@ -247,7 +248,10 @@
       }
       html.cc-light .nav-menu a { color: rgba(26,20,16,0.75) !important; }
       html.cc-light .nav-menu a:hover { background: rgba(26,79,140,0.07) !important; color: #4A90D9 !important; }
-      html.cc-light .nav-menu .fund-link { color: #D47A10 !important; }
+      html.cc-light .nav-menu .fund-link { color: #B86000 !important; }
+      html.cc-light .nav-menu .fund-link:hover { background: rgba(184,96,0,0.08) !important; color: #9A4E00 !important; }
+      html.cc-light .nav-menu .fund-link.active,
+      html.cc-light .nav-menu .fund-link.nav-active { background: rgba(184,96,0,0.1) !important; color: #9A4E00 !important; }
       html.cc-light .dropdown-menu {
         background: rgba(245,240,232,0.98) !important;
         border-color: rgba(26,79,140,0.15) !important;
@@ -527,6 +531,34 @@
       html.cc-light #back-to-top { background: rgba(245,240,232,0.95) !important; border-color: rgba(26,79,140,0.2) !important; color: #1A4F8C !important; }
       /* Toast */
       html.cc-light .toast { background: rgba(245,240,232,0.98) !important; border-color: rgba(144,212,138,0.4) !important; }
+      /* ══ PAGE-LEVEL LIGHT MODE — about & contact page ══ */
+      html.cc-light .hero h1 { color: #1A1410 !important; }
+      html.cc-light .hero h1 em { color: var(--gold) !important; }
+      html.cc-light .hero p { color: #5A4D3E !important; }
+      html.cc-light .hero-label { color: var(--gold) !important; }
+      html.cc-light .card h3 { color: #1A1410 !important; }
+      html.cc-light .card p { color: #5A4D3E !important; }
+      html.cc-light .member-name { color: #1A1410 !important; }
+      html.cc-light .info-val { color: #1A1410 !important; }
+      html.cc-light .form-title { color: #1A1410 !important; }
+      html.cc-light .fi { background: rgba(26,79,140,0.04) !important; color: #1A1410 !important; border-color: rgba(26,79,140,0.16) !important; }
+      html.cc-light .fi:focus { background: #fff !important; border-color: #4A90D9 !important; }
+      html.cc-light .success-msg { color: #1A1410 !important; }
+      html.cc-light .info-block h3 { color: #7A6D5E !important; }
+      html.cc-light .form-card { background: rgba(26,79,140,0.04) !important; border-color: rgba(26,79,140,0.12) !important; }
+      /* ══ PAGE-LEVEL LIGHT MODE — filter bars (kham-pha, di-tich, am-thuc) ══ */
+      html.cc-light .filter-label, html.cc-light .filter-lbl { color: #7A6D5E !important; }
+      html.cc-light .filter-chip { color: #5A4D3E !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .filter-chip:hover { color: #1A4F8C !important; border-color: rgba(26,79,140,0.45) !important; }
+      html.cc-light .filter-search { background: rgba(26,79,140,0.04) !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .filter-search input { color: #1A1410 !important; }
+      html.cc-light .filter-search input::placeholder { color: rgba(26,20,16,0.4) !important; }
+      /* di-tich era chips */
+      html.cc-light .era-chip { color: #5A4D3E !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .era-chip:hover { color: #1A1410 !important; border-color: rgba(26,79,140,0.45) !important; }
+      html.cc-light .era-chip.active { background: rgba(26,79,140,0.1) !important; border-color: #4A90D9 !important; color: #1A4F8C !important; }
+      /* di-tich hero stats */
+      html.cc-light .hstat-lbl { color: #7A6D5E !important; }
     `;
     document.head.appendChild(s);
   }

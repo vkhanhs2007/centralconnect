@@ -89,51 +89,51 @@ textarea.fi{resize:vertical;min-height:120px;}
 </nav>
 
 <div class="hero">
-  <div class="hero-label">Hỗ trợ & Liên hệ</div>
-  <h1>Chúng tôi <em>lắng nghe</em> bạn</h1>
-  <p>Có câu hỏi về dự án, góp ý về nội dung hay muốn hợp tác? Liên hệ với nhóm phát triển Central Connect.</p>
+  <div class="hero-label" data-i18n="contact_badge">Hỗ trợ & Liên hệ</div>
+  <h1><span data-i18n="contact_title_main">Chúng tôi</span> <em data-i18n="contact_title_em">lắng nghe</em> bạn</h1>
+  <p data-i18n="contact_hero_p">Có câu hỏi về dự án, góp ý về nội dung hay muốn hợp tác? Liên hệ với nhóm phát triển Central Connect.</p>
 </div>
 
 <div class="main">
   <div class="info-col">
     <div class="info-block">
-      <h3>Thông tin liên hệ</h3>
+      <h3 data-i18n="contact_info_hdr">Thông tin liên hệ</h3>
       <div class="info-item">
         <div class="info-icon">📧</div>
         <div class="info-text">
-          <div class="info-label">Email</div>
+          <div class="info-label" data-i18n="contact_email_label">Email</div>
           <div class="info-val"><a href="mailto:khanhnv.25itb@vku.udn.vn">khanhnv.25itb@vku.udn.vn</a></div>
         </div>
       </div>
       <div class="info-item">
         <div class="info-icon">🏛</div>
         <div class="info-text">
-          <div class="info-label">Đơn vị</div>
+          <div class="info-label" data-i18n="contact_org_label">Đơn vị</div>
           <div class="info-val">Trường Đại học Việt-Hàn (VKU)<br><span style="color:var(--muted);font-size:13px;">Đại học Đà Nẵng</span></div>
         </div>
       </div>
       <div class="info-item">
         <div class="info-icon">📍</div>
         <div class="info-text">
-          <div class="info-label">Địa chỉ</div>
+          <div class="info-label" data-i18n="contact_address_label">Địa chỉ</div>
           <div class="info-val">470 Trần Đại Nghĩa, Hoà Khánh Bắc,<br>Liên Chiểu, Đà Nẵng</div>
         </div>
       </div>
     </div>
 
     <div class="info-block">
-      <h3>Dự án & Cuộc thi</h3>
+      <h3 data-i18n="contact_project_hdr">Dự án & Cuộc thi</h3>
       <div class="info-item">
         <div class="info-icon">🏆</div>
         <div class="info-text">
-          <div class="info-label">Cuộc thi</div>
+          <div class="info-label" data-i18n="contact_contest_label">Cuộc thi</div>
           <div class="info-val">BWD (Best Web Design) 2026<br><span style="color:var(--muted);font-size:13px;">Bán kết: 13/06/2026</span></div>
         </div>
       </div>
       <div class="info-item">
         <div class="info-icon">💡</div>
         <div class="info-text">
-          <div class="info-label">Chủ đề</div>
+          <div class="info-label" data-i18n="contact_topic_label">Chủ đề</div>
           <div class="info-val">Bảo tồn & phát huy di sản văn hóa<br><span style="color:var(--muted);font-size:13px;">vùng Đà Nẵng – Quảng Nam</span></div>
         </div>
       </div>
@@ -142,28 +142,28 @@ textarea.fi{resize:vertical;min-height:120px;}
 
   <div class="form-col">
     <div class="form-card">
-      <div class="form-title">Gửi tin nhắn cho chúng tôi</div>
+      <div class="form-title" data-i18n="contact_form_title">Gửi tin nhắn cho chúng tôi</div>
       <form id="contactForm" onsubmit="submitContact(event)">
         <div class="form-row">
-          <div class="fg"><label class="fl">Họ tên</label><input class="fi" id="cName" placeholder="Nguyễn Văn A" required></div>
-          <div class="fg"><label class="fl">Email</label><input class="fi" id="cEmail" type="email" placeholder="email@example.com" required></div>
+          <div class="fg"><label class="fl" data-i18n="contact_form_name">Họ tên</label><input class="fi" id="cName" data-i18n-placeholder="contact_form_name_placeholder" placeholder="Nguyễn Văn A" required></div>
+          <div class="fg"><label class="fl" data-i18n="contact_form_email_label">Email</label><input class="fi" id="cEmail" type="email" data-i18n-placeholder="contact_form_email_placeholder" placeholder="email@example.com" required></div>
         </div>
-        <div class="fg"><label class="fl">Chủ đề</label>
+        <div class="fg"><label class="fl" data-i18n="contact_form_subject">Chủ đề</label>
           <select class="fi" id="cSubject">
-            <option value="feedback">Góp ý về website</option>
-            <option value="content">Đóng góp nội dung / dữ liệu</option>
-            <option value="partner">Hợp tác / tài trợ</option>
-            <option value="bug">Báo lỗi kỹ thuật</option>
-            <option value="other">Khác</option>
+            <option value="feedback" data-i18n="contact_form_subj_feedback">Góp ý về website</option>
+            <option value="content" data-i18n="contact_form_subj_content">Đóng góp nội dung / dữ liệu</option>
+            <option value="partner" data-i18n="contact_form_subj_partner">Hợp tác / tài trợ</option>
+            <option value="bug" data-i18n="contact_form_subj_bug">Báo lỗi kỹ thuật</option>
+            <option value="other" data-i18n="contact_form_subj_other">Khác</option>
           </select>
         </div>
-        <div class="fg"><label class="fl">Nội dung</label><textarea class="fi" id="cMsg" placeholder="Viết nội dung tin nhắn..." required></textarea></div>
-        <button type="submit" class="submit-btn">✉ Gửi tin nhắn</button>
+        <div class="fg"><label class="fl" data-i18n="contact_form_msg">Nội dung</label><textarea class="fi" id="cMsg" data-i18n-placeholder="contact_form_msg_placeholder" placeholder="Viết nội dung tin nhắn..." required></textarea></div>
+        <button type="submit" class="submit-btn" data-i18n="contact_form_submit">✉ Gửi tin nhắn</button>
       </form>
       <div class="success-msg" id="successMsg">
         <div style="font-size:48px;margin-bottom:10px;">✅</div>
-        <div style="font-size:16px;font-weight:700;color:var(--cream);margin-bottom:6px;">Đã gửi thành công!</div>
-        <div style="font-size:14px;color:var(--muted);">Chúng tôi sẽ phản hồi sớm nhất có thể.</div>
+        <div data-i18n="contact_success_title" style="font-size:16px;font-weight:700;color:var(--cream);margin-bottom:6px;">Đã gửi thành công!</div>
+        <div data-i18n="contact_success_sub" style="font-size:14px;color:var(--muted);">Chúng tôi sẽ phản hồi sớm nhất có thể.</div>
       </div>
     </div>
   </div>

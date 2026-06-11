@@ -494,16 +494,16 @@ radial-gradient(ellipse 40% 60% at 20% 80%, rgba(74,144,217,0.06) 0%, transparen
 <div class="page-hero">
 
     <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="../index.html">Trang chủ</a><span>›</span><span>Ẩm thực vỉa hè</span></div>
-    <h1>Bản đồ<br><em>Ẩm Thực Địa Phương </em></h1>
-    <p>Từng món ăn là một câu chuyện gia truyền. Quét QR để khám phá menu số và nguồn gốc văn hóa đằng sau mỗi tô, mỗi đĩa.</p>
+    <div class="breadcrumb"><a href="../index.html" data-i18n="breadcrumb_home">Trang chủ</a><span>›</span><span data-i18n="food_breadcrumb">Ẩm thực vỉa hè</span></div>
+    <h1><span data-i18n="food_hero_h1">Bản đồ</span><br><em data-i18n="food_hero_h1_em">Ẩm Thực Địa Phương</em></h1>
+    <p data-i18n="food_hero_p">Từng món ăn là một câu chuyện gia truyền. Quét QR để khám phá menu số và nguồn gốc văn hóa đằng sau mỗi tô, mỗi đĩa.</p>
   </div>
 </div>
 
 <!-- ── CATEGORY TABS ── -->
 <div class="cat-tabs">
   <div class="cat-inner">
-    <button class="cat-btn all active" onclick="setCat(this,'all')">🍽 Tất cả</button>
+    <button class="cat-btn all active" onclick="setCat(this,'all')" data-i18n="food_tab_all">🍽 Tất cả</button>
     <button class="cat-btn" onclick="setCat(this,'mi-quang')">🍜 Mì Quảng</button>
     <button class="cat-btn" onclick="setCat(this,'cao-lau')">🥢 Cao Lầu</button>
     <button class="cat-btn" onclick="setCat(this,'banh-mi')">🥖 Bánh Mì</button>
@@ -514,7 +514,7 @@ radial-gradient(ellipse 40% 60% at 20% 80%, rgba(74,144,217,0.06) 0%, transparen
 </div>
 
 <div class="sidebar-toggle-bar" id="sidebarToggle" onclick="toggleSidebar()">
-  <span>🍜 <span id="toggleLabel">Xem danh sách quán ăn</span></span>
+  <span>🍜 <span id="toggleLabel" data-i18n="food_sidebar_toggle">Xem danh sách quán ăn</span></span>
   <span id="toggleIcon">▼</span>
 </div>
 
@@ -525,9 +525,9 @@ radial-gradient(ellipse 40% 60% at 20% 80%, rgba(74,144,217,0.06) 0%, transparen
 
               <span class="sidebar-count"><strong id="countNum">10</strong> quán đặc sản</span>
       <select class="sort-select" onchange="showToast('🔃 Đang sắp xếp...')">
-        <option>Đánh giá cao nhất</option>
-        <option>Gần nhất</option>
-        <option>Giá thấp nhất</option>
+        <option data-i18n="food_sort_highest">Đánh giá cao nhất</option>
+        <option data-i18n="food_sort_nearest">Gần nhất</option>
+        <option data-i18n="food_sort_cheapest">Giá thấp nhất</option>
       </select>
     </div>
     <div id="foodList"></div>
@@ -536,7 +536,7 @@ radial-gradient(ellipse 40% 60% at 20% 80%, rgba(74,144,217,0.06) 0%, transparen
     <div id="map-loading"><div class="map-spinner"></div></div>
     <div class="map-geocoder">
       <div class="geocoder-row">
-        <input class="geocoder-input" id="geocoderInput" type="text" placeholder="Tìm quán ăn, địa điểm..."
+        <input class="geocoder-input" id="geocoderInput" type="text" data-i18n-placeholder="food_search_placeholder" placeholder="Tìm quán ăn, địa điểm..."
           onkeydown="if(event.key==='Enter') geocodeSearch()"
           oninput="if(!this.value) document.getElementById('geocoderResults').style.display='none'">
         <button class="geocoder-btn" onclick="geocodeSearch()" title="Tìm kiếm">🔍</button>

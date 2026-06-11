@@ -443,9 +443,9 @@ footer { background: #0A0C10; border-top: 1px solid rgba(201,168,76,0.1); paddin
 <section class="page-hero">
   <div class="hero-motif">🏛</div>
   <div class="hero-wrap">
-    <div class="page-era">📜 Di sản lịch sử · Đà Nẵng</div>
-    <h1 class="page-title">Di Tích<br><em>Lịch Sử</em></h1>
-    <p class="page-desc">Hành trình xuyên 1.800 năm — từ tháp Chăm huyền bí đến chiến lũy Điện Hải kiên cường. Kéo thanh trượt để thấy quá khứ sống lại, trò chuyện với nhân vật lịch sử và ghi dấu hành trình của bạn tại mỗi di tích.</p>
+    <div class="page-era">📜 <span data-i18n="relic_era_badge">Di sản lịch sử · Đà Nẵng</span></div>
+    <h1 class="page-title"><span data-i18n="relic_hero_title_part">Di Tích</span><br><em data-i18n="relic_hero_title_em">Lịch Sử</em></h1>
+    <p class="page-desc" data-i18n="relic_hero_desc">Hành trình xuyên 1.800 năm — từ tháp Chăm huyền bí đến chiến lũy Điện Hải kiên cường. Kéo thanh trượt để thấy quá khứ sống lại, trò chuyện với nhân vật lịch sử và ghi dấu hành trình của bạn tại mỗi di tích.</p>
     <div class="hero-quick-links">
       <a class="ql ql-gold" href="#xn-section">↔ So sánh Xưa – Nay</a>
       <a class="ql ql-ocean" href="#tl-section">📅 Timeline 1.800 năm</a>
@@ -453,10 +453,10 @@ footer { background: #0A0C10; border-top: 1px solid rgba(201,168,76,0.1); paddin
       <a class="ql ql-ocean" href="#ci-section">🏆 Bảng xếp hạng</a>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-num" data-target="47">0</div><div class="hstat-lbl">Di tích xếp hạng</div></div>
-      <div class="hstat"><div class="hstat-num" data-target="1800">0</div><div class="hstat-lbl">Năm lịch sử</div></div>
-      <div class="hstat"><div class="hstat-num" data-target="3">0</div><div class="hstat-lbl">Di sản UNESCO</div></div>
-      <div class="hstat"><div class="hstat-num" data-target="38">0</div><div class="hstat-lbl">Di tích quốc gia đặc biệt</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="47">0</div><div class="hstat-lbl" data-i18n="relic_stat_ranked">Di tích xếp hạng</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="1800">0</div><div class="hstat-lbl" data-i18n="relic_stat_years">Năm lịch sử</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="3">0</div><div class="hstat-lbl" data-i18n="relic_stat_unesco">Di sản UNESCO</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="38">0</div><div class="hstat-lbl" data-i18n="relic_stat_national">Di tích quốc gia đặc biệt</div></div>
     </div>
   </div>
 </section>
@@ -464,14 +464,14 @@ footer { background: #0A0C10; border-top: 1px solid rgba(201,168,76,0.1); paddin
 <!-- ── FILTER BAR ── -->
 <div class="filter-bar">
   <div class="filter-inner">
-    <span class="filter-lbl">Thời kỳ</span>
-    <button class="era-chip active" onclick="filterSites(this,'all')">Tất cả</button>
-    <button class="era-chip" onclick="filterSites(this,'champa')">🗼 Champa</button>
-    <button class="era-chip" onclick="filterSites(this,'viet')">👑 Đại Việt</button>
-    <button class="era-chip" onclick="filterSites(this,'phap')">⚔ Kháng Pháp</button>
-    <button class="era-chip" onclick="filterSites(this,'khang')">🌿 Kháng Chiến</button>
+    <span class="filter-lbl" data-i18n="relic_filter_label">Thời kỳ</span>
+    <button class="era-chip active" onclick="filterSites(this,'all')" data-i18n="relic_filter_all">Tất cả</button>
+    <button class="era-chip" onclick="filterSites(this,'champa')">🗼 <span data-i18n="relic_filter_champa">Champa</span></button>
+    <button class="era-chip" onclick="filterSites(this,'viet')">👑 <span data-i18n="relic_filter_viet">Đại Việt</span></button>
+    <button class="era-chip" onclick="filterSites(this,'phap')">⚔ <span data-i18n="relic_filter_phap">Kháng Pháp</span></button>
+    <button class="era-chip" onclick="filterSites(this,'khang')">🌿 <span data-i18n="relic_filter_khang">Kháng Chiến</span></button>
     <div class="filter-search">
-      <input type="text" id="siteSearch" placeholder="🔍 Tìm di tích..." oninput="filterSites(null,'current')">
+      <input type="text" id="siteSearch" placeholder="🔍 Tìm di tích..." data-i18n-placeholder="relic_search_placeholder" oninput="filterSites(null,'current')">
     </div>
   </div>
 </div>
