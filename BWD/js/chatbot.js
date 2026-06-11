@@ -1,10 +1,5 @@
 (function () {
   const ROOT = window.location.href.includes('/pages/') ? '../' : '';
-  // API_BASE: localhost khi dev, rỗng (relative) khi production
-  const API_BASE = (typeof CC_API_URL !== 'undefined')
-    ? CC_API_URL
-    : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3000' : '');
   const HAS_KEY = true; // key được giữ an toàn trên server
 
   // Tri thức nền về di sản Đà Nẵng (dùng khi không có API)
@@ -162,18 +157,21 @@ Phong cách: thân thiện, ngắn gọn (2-4 câu), có dùng emoji phù hợp.
 Nếu câu hỏi ngoài phạm vi du lịch Đà Nẵng, hãy lịch sự hướng dẫn người dùng quay lại chủ đề.`;
 
     try {
-      const res = await fetch(API_BASE + '/api/chat', {
+      const requestData = {
+        messages: [
+          { role: 'system', content: systemCtx },
+          { role: 'user', content: userMsg }
+        ],
+        max_tokens: 300
+      };
+      console.log("AI Request:", requestData);
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [
-            { role: 'system', content: systemCtx },
-            { role: 'user', content: userMsg }
-          ],
-          max_tokens: 300
-        })
+        body: JSON.stringify(requestData)
       });
       const data = await res.json().catch(() => ({}));
+      console.log("AI Response:", data);
       if (!res.ok) {
         // Lỗi cấu hình key → hiển thị rõ, không dùng fallback chung chung
         if (res.status === 503) return '⚙️ AI chưa được cấu hình. Vui lòng liên hệ quản trị viên.';

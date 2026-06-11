@@ -24,8 +24,12 @@
 // Đặt true khi server Node.js (server/server.js) đang chạy
 const CC_USE_API = true;
 
-// URL của backend API (mặc định localhost:3000)
-const CC_API_URL = "http://localhost:3000";
+// URL của backend API — tự động detect môi trường
+// localhost → http://localhost:3000 | Vercel/production → '' (relative URL)
+const CC_API_URL = (typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+  ? 'http://localhost:3000'
+  : '';
 
 // ══ Chế độ B: Firebase ═══════════════════════════════════════════════
 const CC_FIREBASE_CONFIG = {
