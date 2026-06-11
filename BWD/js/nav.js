@@ -230,19 +230,347 @@
     onScroll();
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      injectMobileMenu();
-      injectFooter();
-      setNavActive();
-      setTimeout(syncAuthState, 50);
-      addScrollEffect();
+  // ════════════════════════════════════════════════════
+  // DARK / LIGHT MODE
+  // ════════════════════════════════════════════════════
+  function injectThemeCSS() {
+    if (document.getElementById('cc-theme-style')) return;
+    const s = document.createElement('style');
+    s.id = 'cc-theme-style';
+    s.textContent = `
+      html.cc-light body { background: #F5F0E8 !important; color: #1A1410 !important; }
+      html.cc-light nav#navbar { background: rgba(245,240,232,0.95) !important; }
+      html.cc-light nav#navbar.scrolled {
+        background: rgba(245,240,232,0.97) !important;
+        border-bottom-color: rgba(26,79,140,0.2) !important;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.08) !important;
+      }
+      html.cc-light .nav-menu a { color: rgba(26,20,16,0.75) !important; }
+      html.cc-light .nav-menu a:hover { background: rgba(26,79,140,0.07) !important; color: #4A90D9 !important; }
+      html.cc-light .nav-menu .fund-link { color: #D47A10 !important; }
+      html.cc-light .dropdown-menu {
+        background: rgba(245,240,232,0.98) !important;
+        border-color: rgba(26,79,140,0.15) !important;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1) !important;
+      }
+      html.cc-light .dropdown-menu a { color: #1A1410 !important; }
+      html.cc-light .dropdown-menu a:hover { background: rgba(26,79,140,0.07) !important; color: #4A90D9 !important; }
+      html.cc-light .user-pill { background: rgba(26,20,16,0.05) !important; border-color: rgba(26,79,140,0.3) !important; }
+      html.cc-light .user-name { color: #1A1410 !important; }
+      html.cc-light .user-dropdown { background: rgba(245,240,232,0.98) !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .user-dropdown a { color: #1A1410 !important; }
+      html.cc-light .btn-login { border-color: rgba(26,20,16,0.3) !important; color: #1A1410 !important; }
+      html.cc-light .mobile-menu { background: #EDE8E0 !important; border-right-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .mobile-menu-logo { background: rgba(26,79,140,0.04) !important; border-bottom-color: rgba(26,20,16,0.08) !important; }
+      html.cc-light .mobile-menu-logo-name { color: #C9A84C !important; }
+      html.cc-light .mobile-menu-logo-sub { color: #5A4D3E !important; }
+      html.cc-light .mobile-close-btn { border-color: rgba(26,20,16,0.15) !important; color: #5A4D3E !important; }
+      html.cc-light .mobile-nav-item { color: rgba(26,20,16,0.82) !important; border-bottom-color: rgba(26,20,16,0.08) !important; }
+      html.cc-light .mobile-nav-item:hover { background: rgba(201,168,76,0.06) !important; }
+      html.cc-light .mobile-nav-sub { background: rgba(26,20,16,0.03) !important; }
+      html.cc-light .mobile-nav-sub a { color: rgba(26,20,16,0.65) !important; }
+      html.cc-light .mobile-btn-login { border-color: rgba(26,20,16,0.2) !important; color: #1A1410 !important; }
+      html.cc-light #cc-utility-mobile { border-top-color: rgba(26,20,16,0.1) !important; }
+      html.cc-light .cc-mobile-util-btn { border-color: rgba(26,20,16,0.2) !important; color: #1A1410 !important; }
+      html.cc-light .cc-mobile-lang-select { border-color: rgba(26,20,16,0.2) !important; color: #1A1410 !important; background: rgba(26,20,16,0.04) !important; }
+      /* ── Theme toggle button ── */
+      .cc-theme-toggle {
+        width: 34px; height: 34px; flex-shrink: 0;
+        border: 1px solid rgba(245,240,232,0.15); background: transparent;
+        border-radius: 8px; cursor: pointer; font-size: 16px;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s; line-height: 1;
+      }
+      .cc-theme-toggle:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+      html.cc-light .cc-theme-toggle { border-color: rgba(26,20,16,0.2); }
+      /* ── Language selector ── */
+      .cc-lang-selector { position: relative; flex-shrink: 0; }
+      .cc-lang-btn {
+        display: flex; align-items: center; gap: 4px;
+        height: 34px; padding: 0 10px;
+        border: 1px solid rgba(245,240,232,0.15); background: transparent;
+        border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 500;
+        color: rgba(245,240,232,0.8); font-family: inherit;
+        transition: all 0.2s; white-space: nowrap;
+      }
+      .cc-lang-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); color: var(--gold); }
+      html.cc-light .cc-lang-btn { color: rgba(26,20,16,0.72); border-color: rgba(26,20,16,0.2); }
+      html.cc-light .cc-lang-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+      .cc-lang-dropdown {
+        position: absolute; top: calc(100% + 6px); right: 0;
+        background: rgba(10,13,20,0.97); border: 1px solid rgba(74,144,217,0.15);
+        border-radius: 10px; padding: 6px; min-width: 155px;
+        opacity: 0; visibility: hidden; transform: translateY(-6px);
+        transition: all 0.22s ease; backdrop-filter: blur(20px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 500;
+      }
+      .cc-lang-selector.open .cc-lang-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+      .cc-lang-dropdown button {
+        display: block; width: 100%; padding: 8px 12px;
+        background: transparent; border: none; text-align: left;
+        font-size: 13px; color: rgba(245,240,232,0.85); border-radius: 6px;
+        cursor: pointer; font-family: inherit; transition: all 0.15s;
+      }
+      .cc-lang-dropdown button:hover { background: rgba(74,144,217,0.1); color: #4A90D9; }
+      .cc-lang-dropdown button.cc-lang-active { color: #C9A84C; font-weight: 600; }
+      html.cc-light .cc-lang-dropdown { background: rgba(245,240,232,0.98) !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .cc-lang-dropdown button { color: rgba(26,20,16,0.85) !important; }
+      html.cc-light .cc-lang-dropdown button:hover { background: rgba(26,79,140,0.07) !important; color: #4A90D9 !important; }
+      @media (max-width: 860px) { .cc-theme-toggle, .cc-lang-selector { display: none !important; } }
+    `;
+    document.head.appendChild(s);
+  }
+
+  function initDarkMode() {
+    injectThemeCSS();
+    if (localStorage.getItem('cc_theme') === 'light') {
+      document.documentElement.classList.add('cc-light');
+    }
+  }
+
+  window.ccToggleDarkMode = function () {
+    const isLight = document.documentElement.classList.toggle('cc-light');
+    localStorage.setItem('cc_theme', isLight ? 'light' : 'dark');
+    const icon = isLight ? '🌙' : '☀️';
+    const desktopBtn = document.getElementById('ccThemeToggle');
+    if (desktopBtn) { desktopBtn.textContent = icon; desktopBtn.title = isLight ? 'Dark Mode' : 'Light Mode'; }
+    const mobileLbl = document.getElementById('ccMobileThemeLbl');
+    if (mobileLbl) mobileLbl.textContent = isLight ? '🌙 Dark' : '☀️ Light';
+  };
+
+  // ════════════════════════════════════════════════════
+  // INTERNATIONALIZATION (i18n)
+  // ════════════════════════════════════════════════════
+  const CC_TRANSLATIONS = {
+    vi: {
+      nav_explore: 'Khám Phá', nav_food: 'Ẩm Thực', nav_events: 'Sự Kiện',
+      nav_blog: 'Blog', nav_fund: 'Gây Quỹ', nav_schedule: 'Lịch Trình', nav_partners: 'Đối Tác',
+      nav_login: 'Đăng nhập', nav_register: 'Đăng ký',
+      hero_badge: 'Đà Nẵng · Di sản ngàn năm',
+      hero_line1: 'Chạm vào quá khứ', hero_line2: 'Kết nối tương lai',
+      hero_cta_primary: '🗺 Khám phá ngay', hero_cta_ghost: '📅 Lên lịch trình AI',
+    },
+    en: {
+      nav_explore: 'Explore', nav_food: 'Cuisine', nav_events: 'Events',
+      nav_blog: 'Blog', nav_fund: 'Fundraise', nav_schedule: 'Itinerary', nav_partners: 'Partners',
+      nav_login: 'Log in', nav_register: 'Sign up',
+      hero_badge: 'Da Nang · Thousand-year Heritage',
+      hero_line1: 'Touch the Past', hero_line2: 'Connect the Future',
+      hero_cta_primary: '🗺 Explore Now', hero_cta_ghost: '📅 Plan with AI',
+    },
+    ko: {
+      nav_explore: '탐험', nav_food: '음식', nav_events: '이벤트',
+      nav_blog: '블로그', nav_fund: '기금 모금', nav_schedule: '일정', nav_partners: '파트너',
+      nav_login: '로그인', nav_register: '회원가입',
+      hero_badge: '다낭 · 천년의 문화유산',
+      hero_line1: '과거를 만지다', hero_line2: '미래를 연결하다',
+      hero_cta_primary: '🗺 지금 탐험하기', hero_cta_ghost: '📅 AI 일정 계획',
+    },
+    zh: {
+      nav_explore: '探索', nav_food: '美食', nav_events: '活动',
+      nav_blog: '博客', nav_fund: '募款', nav_schedule: '行程', nav_partners: '合作伙伴',
+      nav_login: '登录', nav_register: '注册',
+      hero_badge: '岘港 · 千年文化遗产',
+      hero_line1: '触摸过去', hero_line2: '连接未来',
+      hero_cta_primary: '🗺 立即探索', hero_cta_ghost: '📅 AI行程规划',
+    },
+    ja: {
+      nav_explore: '探索', nav_food: '料理', nav_events: 'イベント',
+      nav_blog: 'ブログ', nav_fund: '募金', nav_schedule: 'スケジュール', nav_partners: 'パートナー',
+      nav_login: 'ログイン', nav_register: '登録',
+      hero_badge: 'ダナン・千年の文化遺産',
+      hero_line1: '過去に触れる', hero_line2: '未来を繋ぐ',
+      hero_cta_primary: '🗺 今すぐ探索', hero_cta_ghost: '📅 AIで旅程計画',
+    }
+  };
+
+  const CC_LANG_FLAGS  = { vi: '🇻🇳', en: '🇺🇸', ko: '🇰🇷', zh: '🇨🇳', ja: '🇯🇵' };
+  const CC_LANG_LABELS = { vi: 'VI',   en: 'EN',   ko: 'KO',   zh: 'ZH',   ja: 'JA'  };
+
+  const NAV_I18N_MAP = [
+    { match: 'kham-pha',   key: 'nav_explore',  arrow: true  },
+    { match: 'am-thuc',    key: 'nav_food',     arrow: false },
+    { match: 'su-kien',    key: 'nav_events',   arrow: false },
+    { match: 'blog',       key: 'nav_blog',     arrow: false },
+    { match: 'gay-quy',    key: 'nav_fund',     arrow: false },
+    { match: 'lich-trinh', key: 'nav_schedule', arrow: true  },
+    { match: 'doi-tac',    key: 'nav_partners', arrow: true  },
+  ];
+
+  function applyTranslations(lang) {
+    const t = CC_TRANSLATIONS[lang] || CC_TRANSLATIONS.vi;
+
+    // Dịch nav links desktop
+    NAV_I18N_MAP.forEach(function(item) {
+      const link = document.querySelector('#navbar .nav-menu a[href*="' + item.match + '"]');
+      if (link && t[item.key]) link.textContent = t[item.key] + (item.arrow ? ' ▾' : '');
     });
+
+    // Nút login / register
+    const loginBtn = document.getElementById('openLogin');
+    const regBtn   = document.getElementById('openRegister');
+    if (loginBtn && t.nav_login)    loginBtn.textContent  = t.nav_login;
+    if (regBtn   && t.nav_register) regBtn.textContent    = t.nav_register;
+
+    // Các phần tử có data-i18n (hero, v.v.)
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+
+    // Cập nhật nhãn nút ngôn ngữ trên desktop
+    var langBtn = document.getElementById('ccLangToggle');
+    if (langBtn) langBtn.textContent = (CC_LANG_FLAGS[lang] || '🌐') + ' ' + (CC_LANG_LABELS[lang] || lang.toUpperCase());
+
+    // Đánh dấu ngôn ngữ đang active
+    document.querySelectorAll('#ccLangSelector .cc-lang-dropdown button').forEach(function(btn) {
+      btn.classList.toggle('cc-lang-active', btn.dataset.lang === lang);
+    });
+
+    // Đồng bộ select trên mobile
+    var mSel = document.getElementById('ccMobileLangSelect');
+    if (mSel) mSel.value = lang;
+  }
+
+  window.ccSetLang = function (lang) {
+    if (!CC_TRANSLATIONS[lang]) return;
+    localStorage.setItem('cc_lang', lang);
+    applyTranslations(lang);
+    var sel = document.getElementById('ccLangSelector');
+    if (sel) sel.classList.remove('open');
+  };
+
+  window.ccToggleLangMenu = function () {
+    var sel = document.getElementById('ccLangSelector');
+    if (sel) sel.classList.toggle('open');
+  };
+
+  // Đóng dropdown ngôn ngữ khi click ra ngoài
+  document.addEventListener('click', function (e) {
+    var sel = document.getElementById('ccLangSelector');
+    if (sel && sel.classList.contains('open') && !sel.contains(e.target)) {
+      sel.classList.remove('open');
+    }
+  });
+
+  function initI18n() {
+    var lang = localStorage.getItem('cc_lang') || 'vi';
+    applyTranslations(lang);
+  }
+
+  // ════════════════════════════════════════════════════
+  // INJECT UTILITY BUTTONS (Theme + Language)
+  // ════════════════════════════════════════════════════
+  function injectUtilityButtons() {
+    var navActions = document.querySelector('#navbar .nav-actions');
+    if (!navActions || document.getElementById('ccThemeToggle')) return;
+
+    var lang    = localStorage.getItem('cc_lang') || 'vi';
+    var isLight = document.documentElement.classList.contains('cc-light');
+
+    // Nút dark/light mode
+    var themeBtn = document.createElement('button');
+    themeBtn.id          = 'ccThemeToggle';
+    themeBtn.className   = 'cc-theme-toggle';
+    themeBtn.title       = isLight ? 'Dark Mode' : 'Light Mode';
+    themeBtn.textContent = isLight ? '🌙' : '☀️';
+    themeBtn.onclick     = window.ccToggleDarkMode;
+
+    // Dropdown chọn ngôn ngữ
+    var langSel = document.createElement('div');
+    langSel.className = 'cc-lang-selector';
+    langSel.id        = 'ccLangSelector';
+    langSel.innerHTML  = '<button class="cc-lang-btn" id="ccLangToggle" onclick="ccToggleLangMenu()">' +
+      (CC_LANG_FLAGS[lang] || '🌐') + ' ' + (CC_LANG_LABELS[lang] || 'VI') +
+      '</button>' +
+      '<div class="cc-lang-dropdown">' +
+        '<button data-lang="vi" onclick="ccSetLang(\'vi\')">🇻🇳 Tiếng Việt</button>' +
+        '<button data-lang="en" onclick="ccSetLang(\'en\')">🇺🇸 English</button>' +
+        '<button data-lang="ko" onclick="ccSetLang(\'ko\')">🇰🇷 한국어</button>' +
+        '<button data-lang="zh" onclick="ccSetLang(\'zh\')">🇨🇳 中文</button>' +
+        '<button data-lang="ja" onclick="ccSetLang(\'ja\')">🇯🇵 日本語</button>' +
+      '</div>';
+
+    // Chèn vào trước nút đăng nhập (hoặc trước user pill nếu đã login)
+    var ref = document.getElementById('guestActions') || document.getElementById('userPill') || null;
+    if (ref) {
+      navActions.insertBefore(themeBtn, ref);
+      navActions.insertBefore(langSel, ref);
+    } else {
+      navActions.prepend(langSel);
+      navActions.prepend(themeBtn);
+    }
+  }
+
+  function injectMobileUtilityButtons() {
+    var mobileMenu = document.getElementById('mobileMenu');
+    if (!mobileMenu || document.getElementById('cc-utility-mobile')) return;
+
+    var lang    = localStorage.getItem('cc_lang') || 'vi';
+    var isLight = document.documentElement.classList.contains('cc-light');
+
+    var div = document.createElement('div');
+    div.id = 'cc-utility-mobile';
+    div.style.cssText = 'padding:10px 20px 16px;border-top:1px solid rgba(74,144,217,0.1);display:flex;gap:8px;flex-wrap:wrap;';
+    div.innerHTML =
+      '<button class="cc-mobile-util-btn" style="flex:1;min-width:90px;padding:9px 6px;background:transparent;border:1px solid rgba(245,240,232,0.18);color:var(--cream);border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap;" onclick="ccToggleDarkMode()">' +
+        '<span id="ccMobileThemeLbl">' + (isLight ? '🌙 Dark' : '☀️ Light') + '</span>' +
+      '</button>' +
+      '<select id="ccMobileLangSelect" class="cc-mobile-lang-select" onchange="ccSetLang(this.value)" style="flex:2;min-width:110px;padding:9px 8px;background:rgba(245,240,232,0.08);border:1px solid rgba(245,240,232,0.18);color:var(--cream);border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit;outline:none;">' +
+        '<option value="vi"' + (lang==='vi'?' selected':'') + '>🇻🇳 Tiếng Việt</option>' +
+        '<option value="en"' + (lang==='en'?' selected':'') + '>🇺🇸 English</option>' +
+        '<option value="ko"' + (lang==='ko'?' selected':'') + '>🇰🇷 한국어</option>' +
+        '<option value="zh"' + (lang==='zh'?' selected':'') + '>🇨🇳 中文</option>' +
+        '<option value="ja"' + (lang==='ja'?' selected':'') + '>🇯🇵 日本語</option>' +
+      '</select>';
+    mobileMenu.appendChild(div);
+  }
+
+  // ════════════════════════════════════════════════════
+  // NAV AUTH GUARDS — Blog, Gây Quỹ, Đối Tác yêu cầu đăng nhập
+  // ════════════════════════════════════════════════════
+  var GUARDED_PAGES = ['blog.html', 'gay-quy.html', 'doi-tac.html'];
+
+  function addNavAuthGuards() {
+    // Capture phase → chạy trước bubble listener của effects.js
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href]');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (!GUARDED_PAGES.some(function(p) { return href.indexOf(p) !== -1; })) return;
+
+      var user = null;
+      try { user = JSON.parse(localStorage.getItem('cc_user')); } catch (_) {}
+      var isLoggedIn = !!user || localStorage.getItem('isLoggedIn') === 'true';
+      if (!isLoggedIn) {
+        e.preventDefault();
+        e.stopImmediatePropagation(); // Ngăn effects.js chuyển trang
+        var modal = document.getElementById('loginModal');
+        if (modal) modal.classList.add('open');
+        else { var btn = document.getElementById('openLogin'); if (btn) btn.click(); }
+      }
+    }, true);
+  }
+
+  // ════════════════════════════════════════════════════
+  // KHỞI CHẠY
+  // ════════════════════════════════════════════════════
+  function initAll() {
+    initDarkMode();        // 1. Khôi phục theme đã lưu
+    initI18n();            // 2. Dịch nav links (trước khi build mobile menu)
+    injectMobileMenu();    // 3. Build mobile menu từ nav links (đã dịch)
+    injectUtilityButtons(); // 4. Thêm nút theme + ngôn ngữ vào desktop nav
+    injectMobileUtilityButtons(); // 5. Thêm nút theme + ngôn ngữ vào mobile menu
+    injectFooter();        // 6. Inject footer
+    setNavActive();        // 7. Đánh dấu trang hiện tại
+    setTimeout(syncAuthState, 50); // 8. Đồng bộ trạng thái đăng nhập
+    addScrollEffect();     // 9. Hiệu ứng scroll navbar
+    addNavAuthGuards();    // 10. Bảo vệ Blog / Gây Quỹ / Đối Tác
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
   } else {
-    injectMobileMenu();
-    injectFooter();
-    setNavActive();
-    setTimeout(syncAuthState, 50);
-    addScrollEffect();
+    initAll();
   }
 })();

@@ -200,12 +200,15 @@
     overlay.id = 'page-transition';
     document.body.appendChild(overlay);
 
-    // Fade in khi trang load xong
-    requestAnimationFrame(() => {
+    // Bắt đầu đục (opacity 1) → fade to transparent = hiệu ứng "trang hiện ra"
+    overlay.style.transition = 'none';
+    overlay.style.opacity = '1';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      overlay.style.transition = 'opacity 0.4s ease';
       overlay.style.opacity = '0';
-    });
+    }));
 
-    // Fade out khi click link nội bộ
+    // Fade to đục khi click link nội bộ → chuyển trang
     document.addEventListener('click', e => {
       const a = e.target.closest('a[href]');
       if (!a) return;
@@ -216,7 +219,7 @@
       e.preventDefault();
       overlay.style.transition = 'opacity 0.3s ease';
       overlay.style.opacity = '1';
-      setTimeout(() => { window.location.href = href; }, 300);
+      setTimeout(() => { window.location.href = href; }, 320);
     });
   }
 
