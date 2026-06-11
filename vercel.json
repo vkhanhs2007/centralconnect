@@ -2,13 +2,7 @@
   "version": 2,
   "outputDirectory": "BWD",
   "functions": {
-    "api/ai.js": {
-      "maxDuration": 30,
-      "runtime": "nodejs20.x"
-    }
-  },
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
+    "api/chat.js": { "maxDuration": 30, "runtime": "nodejs20.x" },
+    "api/ai.js":   { "maxDuration": 30, "runtime": "nodejs20.x" }
+  }
 }

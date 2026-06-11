@@ -162,7 +162,7 @@ Phong cách: thân thiện, ngắn gọn (2-4 câu), có dùng emoji phù hợp.
 Nếu câu hỏi ngoài phạm vi du lịch Đà Nẵng, hãy lịch sự hướng dẫn người dùng quay lại chủ đề.`;
 
     try {
-      const res = await fetch(API_BASE + '/api/ai', {
+      const res = await fetch(API_BASE + '/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

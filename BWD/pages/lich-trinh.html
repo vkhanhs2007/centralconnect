@@ -836,7 +836,7 @@ Trả về JSON theo format sau — CHỈ JSON THUẦN, không markdown, không 
 
 Yêu cầu: Mỗi ngày 6-7 điểm, gồm bữa sáng/trưa/tối, ưu tiên địa điểm phù hợp sở thích, thêm tip thực tế vào description.`;
 
-    const res = await fetch(AI_API_BASE + '/api/ai', {
+    const res = await fetch(AI_API_BASE + '/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
