@@ -1,7 +1,7 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/",             "destination": "/BWD/index.html" },
+    { "source": "/", "destination": "/BWD/index.html" },
     { "source": "/((?!api/).*)", "destination": "/BWD/$1" }
   ],
   "functions": {
