@@ -559,6 +559,23 @@
       html.cc-light .era-chip.active { background: rgba(26,79,140,0.1) !important; border-color: #4A90D9 !important; color: #1A4F8C !important; }
       /* di-tich hero stats */
       html.cc-light .hstat-lbl { color: #7A6D5E !important; }
+      /* search-chip (blog, su-kien) */
+      html.cc-light .search-chip { background: rgba(26,79,140,0.04) !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .search-chip input { color: #1A1410 !important; background: transparent !important; }
+      html.cc-light .search-chip input::placeholder { color: rgba(26,20,16,0.4) !important; }
+      /* newsletter input (su-kien) */
+      html.cc-light .nl-input { color: #1A1410 !important; background: rgba(26,79,140,0.04) !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .nl-input::placeholder { color: rgba(26,20,16,0.4) !important; }
+      /* vku-corner tab buttons */
+      html.cc-light .tab-btn { color: #5A4D3E !important; }
+      html.cc-light .tab-btn:hover { color: #1A4F8C !important; background: rgba(26,79,140,0.05) !important; }
+      html.cc-light .tab-btn.active { color: #1A4F8C !important; }
+      /* donate modal (gay-quy) */
+      html.cc-light .modal-field label { color: #5A4D3E !important; }
+      html.cc-light .modal-field input, html.cc-light .modal-field select { color: #1A1410 !important; background: rgba(26,79,140,0.04) !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .modal-field input::placeholder { color: rgba(26,20,16,0.4) !important; }
+      html.cc-light .amount-btn { color: #1A1410 !important; background: rgba(26,79,140,0.05) !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .amount-btn:hover, html.cc-light .amount-btn.selected { color: #1A4F8C !important; background: rgba(26,79,140,0.12) !important; border-color: #4A90D9 !important; }
     `;
     document.head.appendChild(s);
   }

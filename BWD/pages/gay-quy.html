@@ -665,7 +665,7 @@
   <div class="hero-grid-lines"></div>
   <div class="page-hero-content">
     <div class="page-badge"><span></span> <span data-i18n="fundraise_badge">Hành trình – Điểm thưởng – Bảo tồn</span></div>
-    <h1 class="page-title">Gây Quỹ &<br><em>Hạt Bàu</em></h1>
+    <h1 class="page-title" data-i18n-html="fundraise_page_title_html">Gây Quỹ &amp;<br><em>Hạt Bàu</em></h1>
     <p class="page-sub" data-i18n="fundraise_page_subtitle">Check-in địa điểm di sản, tích lũy Hạt Bàu, đổi voucher hấp dẫn — mỗi bước chân của bạn góp phần bảo tồn văn hóa Đà Nẵng.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation: fadeUp 0.7s 0.45s ease both;opacity:0">
       <button class="btn-donate" data-i18n="fundraise_donate_btn" onclick="document.getElementById('donateModal').classList.add('open')">💛 Đóng góp Quỹ Bảo tồn</button>
@@ -726,7 +726,7 @@
           </div>
           <div class="progress-wrap">
             <div class="progress-meta">
-              <span class="progress-raised">64 triệu / 100 triệu</span>
+              <span class="progress-raised"><span data-price-vnd="64000000">64 triệu</span> / <span data-price-vnd="100000000">100 triệu</span></span>
               <span class="progress-goal">Mục tiêu tu bổ gạch ngói</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" style="width:64%"></div></div>
@@ -751,7 +751,7 @@
           </div>
           <div class="progress-wrap">
             <div class="progress-meta">
-              <span class="progress-raised">82 triệu / 120 triệu</span>
+              <span class="progress-raised"><span data-price-vnd="82000000">82 triệu</span> / <span data-price-vnd="120000000">120 triệu</span></span>
               <span class="progress-goal">Phục dựng đèn lồng cổ</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" style="width:68%"></div></div>
@@ -776,7 +776,7 @@
           </div>
           <div class="progress-wrap">
             <div class="progress-meta">
-              <span class="progress-raised">31 triệu / 80 triệu</span>
+              <span class="progress-raised"><span data-price-vnd="31000000">31 triệu</span> / <span data-price-vnd="80000000">80 triệu</span></span>
               <span class="progress-goal">Lắp bảng thông tin sinh thái</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" style="width:39%"></div></div>
@@ -801,7 +801,7 @@
           </div>
           <div class="progress-wrap">
             <div class="progress-meta">
-              <span class="progress-raised">55 triệu / 70 triệu</span>
+              <span class="progress-raised"><span data-price-vnd="55000000">55 triệu</span> / <span data-price-vnd="70000000">70 triệu</span></span>
               <span class="progress-goal">Trùng tu hang động</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
@@ -826,7 +826,7 @@
           </div>
           <div class="progress-wrap">
             <div class="progress-meta">
-              <span class="progress-raised">22 triệu / 60 triệu</span>
+              <span class="progress-raised"><span data-price-vnd="22000000">22 triệu</span> / <span data-price-vnd="60000000">60 triệu</span></span>
               <span class="progress-goal">Trồng rừng dương liễu ven biển</span>
             </div>
             <div class="progress-bar"><div class="progress-fill" style="width:37%"></div></div>
@@ -1216,11 +1216,11 @@
 <div class="modal-overlay" id="donateModal">
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('donateModal').classList.remove('open')">✕</button>
-    <div class="modal-title">💛 Đóng góp Quỹ Bảo tồn</div>
-    <div class="modal-sub">100% số tiền được dùng trực tiếp cho địa điểm bạn chọn</div>
+    <div class="modal-title" data-i18n="donate_modal_title">💛 Đóng góp Quỹ Bảo tồn</div>
+    <div class="modal-sub" data-i18n="donate_modal_sub">100% số tiền được dùng trực tiếp cho địa điểm bạn chọn</div>
 
     <div class="modal-field">
-      <label>Chọn địa điểm</label>
+      <label data-i18n="donate_dest_label">Chọn địa điểm</label>
       <select id="donateDestination">
         <option value="my-son">🏛 Thánh địa Mỹ Sơn</option>
         <option value="hoi-an">🏮 Phố cổ Hội An</option>
@@ -1230,28 +1230,28 @@
       </select>
     </div>
     <div class="modal-field">
-      <label>Số tiền đóng góp</label>
+      <label data-i18n="donate_amount_label">Số tiền đóng góp</label>
       <div class="amount-row">
-        <button class="amount-btn selected" onclick="selectAmount(this)">50.000đ</button>
-        <button class="amount-btn" onclick="selectAmount(this)">100.000đ</button>
-        <button class="amount-btn" onclick="selectAmount(this)">200.000đ</button>
-        <button class="amount-btn" onclick="selectAmount(this)">500.000đ</button>
-        <button class="amount-btn" onclick="selectAmount(this)">1.000.000đ</button>
-        <button class="amount-btn" onclick="selectAmount(this)">Khác</button>
+        <button class="amount-btn selected" data-price-vnd="50000" onclick="selectAmount(this)">50.000đ</button>
+        <button class="amount-btn" data-price-vnd="100000" onclick="selectAmount(this)">100.000đ</button>
+        <button class="amount-btn" data-price-vnd="200000" onclick="selectAmount(this)">200.000đ</button>
+        <button class="amount-btn" data-price-vnd="500000" onclick="selectAmount(this)">500.000đ</button>
+        <button class="amount-btn" data-price-vnd="1000000" onclick="selectAmount(this)">1.000.000đ</button>
+        <button class="amount-btn" data-i18n="donate_other" onclick="selectAmount(this)">Khác</button>
       </div>
     </div>
     <div class="modal-field">
-      <label>Họ và tên</label>
-      <input type="text" id="donateName" placeholder="Nhập tên của bạn">
+      <label data-i18n="donate_name_label">Họ và tên</label>
+      <input type="text" id="donateName" data-i18n-placeholder="donate_name_placeholder" placeholder="Nhập tên của bạn">
     </div>
     <div class="modal-field">
-      <label>Email nhận xác nhận</label>
+      <label data-i18n="donate_email_label">Email nhận xác nhận</label>
       <input type="email" id="donateEmail" placeholder="email@example.com">
     </div>
     <div style="font-size:12px;color:var(--muted);background:rgba(74,144,217,0.06);padding:12px 14px;border-radius:8px;border:1px solid rgba(74,144,217,0.12)">
       💡 Khi đóng góp, bạn cũng nhận được <strong style="color:var(--ocean-light)">+20 Hạt Bàu</strong> như lời cảm ơn từ Central Connect.
     </div>
-    <button class="btn-full" id="confirmDonateBtn" onclick="confirmDonate()">💛 Xác nhận đóng góp</button>
+    <button class="btn-full" id="confirmDonateBtn" data-i18n="donate_btn" onclick="confirmDonate()">💛 Xác nhận đóng góp</button>
 
     <!-- SUCCESS SCREEN (ẩn ban đầu) -->
     <div id="donateSuccess" style="display:none;text-align:center;padding:20px 0">

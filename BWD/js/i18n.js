@@ -219,7 +219,9 @@
       blog_form_image_label: 'URL ảnh đại diện (tuỳ chọn)', blog_form_submit: '🚀 Đăng bài',
       blog_no_results: 'Không tìm thấy bài viết phù hợp',
       blog_read_more: 'Đọc thêm', blog_follow_btn: 'Theo dõi',
+      blog_page_title_html: 'Blog<br>Du <span>Lịch</span>',
       // ── Events page ──
+      events_page_title_html: 'Sự Kiện &amp; <span>Lễ Hội</span>',
       events_schedule_label: 'Lịch sự kiện 2026', events_page_subtitle: 'Không bỏ lỡ bất kỳ lễ hội truyền thống, hoạt động văn hóa hay sự kiện cộng đồng nào tại Đà Nẵng.',
       events_stats_this_month: 'Sự kiện tháng này', events_stats_unesco: 'Lễ hội UNESCO', events_stats_attendees: 'Người tham dự',
       events_filter_category: 'Danh mục', events_filter_all: 'Tất cả',
@@ -234,6 +236,7 @@
       events_newsletter_email_placeholder: 'email@example.com',
       events_newsletter_subscribe: 'Đăng ký', events_sold_out: 'Hết chỗ',
       // ── Fundraising page ──
+      fundraise_page_title_html: 'Gây Quỹ &amp;<br><em>Hạt Bàu</em>',
       fundraise_badge: 'Hành trình – Điểm thưởng – Bảo tồn',
       fundraise_page_subtitle: 'Check-in địa điểm di sản, tích lũy Hạt Bàu, đổi voucher hấp dẫn — mỗi bước chân của bạn góp phần bảo tồn văn hóa Đà Nẵng.',
       fundraise_donate_btn: '💛 Đóng góp Quỹ Bảo tồn', fundraise_share_btn: '📤 Chia sẻ hành trình',
@@ -244,6 +247,10 @@
       fundraise_campaigns_subtitle: 'Mỗi địa điểm là một câu chuyện. Ghé thăm, check-in và nhận Hạt Bàu.',
       fundraise_all_locations: 'Tất cả địa điểm', fundraise_suggest_location: '+ Đề xuất địa điểm',
       fundraise_days_remaining: 'Còn {n} ngày', fundraise_checkin_btn: 'Check-in',
+      donate_modal_title: '💛 Đóng góp Quỹ Bảo tồn', donate_modal_sub: '100% số tiền được dùng trực tiếp cho địa điểm bạn chọn',
+      donate_dest_label: 'Chọn địa điểm', donate_amount_label: 'Số tiền đóng góp',
+      donate_name_label: 'Họ và tên', donate_email_label: 'Email nhận xác nhận',
+      donate_btn: '💛 Xác nhận đóng góp', donate_name_placeholder: 'Nhập tên của bạn', donate_other: 'Khác',
       // ── Partners page ──
       partners_page_title: 'Đối Tác Chiến Lược', partners_badge: 'Mạng lưới đối tác',
       partners_page_sub: 'Hệ sinh thái kết nối — từ phương tiện di chuyển đến chỗ nghỉ xanh và cộng đồng doanh nghiệp địa phương',
@@ -546,7 +553,9 @@
       blog_form_image_label: 'Avatar image URL (optional)', blog_form_submit: '🚀 Publish',
       blog_no_results: 'No matching posts found',
       blog_read_more: 'Read more', blog_follow_btn: 'Follow',
+      blog_page_title_html: 'Travel<br><span>Blog</span>',
       // ── Events page ──
+      events_page_title_html: 'Events &amp; <span>Festivals</span>',
       events_schedule_label: 'Event Calendar 2026', events_page_subtitle: "Don't miss any traditional festivals, cultural activities or community events in Da Nang.",
       events_stats_this_month: 'Events this month', events_stats_unesco: 'UNESCO Festivals', events_stats_attendees: 'Attendees',
       events_filter_category: 'Category', events_filter_all: 'All',
@@ -561,6 +570,7 @@
       events_newsletter_email_placeholder: 'email@example.com',
       events_newsletter_subscribe: 'Subscribe', events_sold_out: 'Sold Out',
       // ── Fundraising page ──
+      fundraise_page_title_html: 'Fundraise &amp;<br><em>Hạt Bàu</em>',
       fundraise_badge: 'Journey – Points – Conservation',
       fundraise_page_subtitle: 'Check-in at heritage sites, earn Hat Bau points, redeem vouchers — every step you take helps preserve Da Nang culture.',
       fundraise_donate_btn: '💛 Donate to Conservation Fund', fundraise_share_btn: '📤 Share Journey',
@@ -571,6 +581,10 @@
       fundraise_campaigns_subtitle: 'Every site is a story. Visit, check-in and earn Hat Bau.',
       fundraise_all_locations: 'All locations', fundraise_suggest_location: '+ Suggest location',
       fundraise_days_remaining: '{n} days left', fundraise_checkin_btn: 'Check-in',
+      donate_modal_title: '💛 Donate to Conservation Fund', donate_modal_sub: '100% of funds go directly to your chosen site',
+      donate_dest_label: 'Choose a destination', donate_amount_label: 'Donation amount',
+      donate_name_label: 'Full name', donate_email_label: 'Confirmation email',
+      donate_btn: '💛 Confirm donation', donate_name_placeholder: 'Enter your name', donate_other: 'Other',
       // ── Partners page ──
       partners_page_title: 'Strategic Partners', partners_badge: 'Partner Network',
       partners_page_sub: 'Connected ecosystem — from transportation to eco-stays and local business community',
@@ -875,7 +889,9 @@
       blog_form_image_label: '커버 이미지 (URL)', blog_form_submit: '게시',
       blog_no_results: '게시글을 찾을 수 없습니다',
       blog_read_more: '더 읽기', blog_follow_btn: '팔로우',
+      blog_page_title_html: '커뮤니티<br><span>블로그</span>',
       // ── Events page ──
+      events_page_title_html: '이벤트 &amp; <span>축제</span>',
       events_schedule_label: '이벤트', events_page_title: '이벤트 캘린더',
       events_page_subtitle: '다낭 & 호이안의 축제, 전시회 및 문화 행사를 확인하세요',
       events_stats_this_month: '이번 달 이벤트', events_stats_unesco: 'UNESCO 유산', events_stats_attendees: '참가자',
@@ -891,6 +907,7 @@
       events_newsletter_email_placeholder: '이메일 주소',
       events_newsletter_subscribe: '구독하기', events_sold_out: '마감',
       // ── Fundraising page ──
+      fundraise_page_title_html: '모금 &amp;<br><em>핫 바우</em>',
       fundraise_badge: '기금 모금', fundraise_page_title: '문화유산 보전 기금',
       fundraise_page_subtitle: '의미 있는 체크인 – 방문할 때마다 문화유산에 기여',
       fundraise_donate_btn: '💛 기부하기', fundraise_share_btn: '📢 공유',
@@ -901,6 +918,10 @@
       fundraise_campaigns_subtitle: '각 체크인은 보전 프로젝트에 직접 기여합니다',
       fundraise_all_locations: '모든 장소', fundraise_suggest_location: '+ 장소 제안',
       fundraise_days_remaining: '일 남음', fundraise_checkin_btn: '📍 체크인',
+      donate_modal_title: '💛 보전 기금 기부', donate_modal_sub: '100%의 기금이 선택한 장소에 직접 사용됩니다',
+      donate_dest_label: '목적지 선택', donate_amount_label: '기부 금액',
+      donate_name_label: '이름', donate_email_label: '확인 이메일',
+      donate_btn: '💛 기부 확인', donate_name_placeholder: '이름을 입력하세요', donate_other: '기타',
       // ── Partners page ──
       partners_page_title: '전략적 파트너', partners_badge: '파트너 네트워크',
       partners_page_sub: '연결된 생태계 — 교통수단부터 친환경 숙소와 현지 비즈니스 커뮤니티까지',
@@ -1205,7 +1226,9 @@
       blog_form_image_label: '封面图片 (URL)', blog_form_submit: '发布',
       blog_no_results: '未找到匹配的文章',
       blog_read_more: '阅读更多', blog_follow_btn: '关注',
+      blog_page_title_html: '社区<br><span>博客</span>',
       // ── Events page ──
+      events_page_title_html: '活动 &amp; <span>节日</span>',
       events_schedule_label: '活动', events_page_title: '活动日历',
       events_page_subtitle: '及时了解岘港和会安的节日、展览和文化活动',
       events_stats_this_month: '本月活动', events_stats_unesco: 'UNESCO遗产', events_stats_attendees: '参与者',
@@ -1221,6 +1244,7 @@
       events_newsletter_email_placeholder: '您的邮箱',
       events_newsletter_subscribe: '订阅', events_sold_out: '已售罄',
       // ── Fundraising page ──
+      fundraise_page_title_html: '募款 &amp;<br><em>核宝积分</em>',
       fundraise_badge: '募款', fundraise_page_title: '文化遗产保护基金',
       fundraise_page_subtitle: '有意义的打卡 – 每次到访都是对文化遗产的贡献',
       fundraise_donate_btn: '💛 立即捐款', fundraise_share_btn: '📢 分享',
@@ -1231,6 +1255,10 @@
       fundraise_campaigns_subtitle: '每次打卡直接贡献于保护项目',
       fundraise_all_locations: '所有地点', fundraise_suggest_location: '+ 建议地点',
       fundraise_days_remaining: '天剩余', fundraise_checkin_btn: '📍 打卡',
+      donate_modal_title: '💛 捐款保护基金', donate_modal_sub: '100%的款项直接用于您选择的地点',
+      donate_dest_label: '选择目的地', donate_amount_label: '捐款金额',
+      donate_name_label: '姓名', donate_email_label: '确认邮箱',
+      donate_btn: '💛 确认捐款', donate_name_placeholder: '请输入您的姓名', donate_other: '其他',
       // ── Partners page ──
       partners_page_title: '战略合作伙伴', partners_badge: '合作伙伴网络',
       partners_page_sub: '互联生态系统 — 从交通工具到生态住宿和本地企业社区',
@@ -1535,7 +1563,9 @@
       blog_form_image_label: 'カバー画像 (URL)', blog_form_submit: '投稿',
       blog_no_results: '記事が見つかりません',
       blog_read_more: '続きを読む', blog_follow_btn: 'フォロー',
+      blog_page_title_html: 'コミュニティ<br><span>ブログ</span>',
       // ── Events page ──
+      events_page_title_html: 'イベント &amp; <span>祭り</span>',
       events_schedule_label: 'イベント', events_page_title: 'イベントカレンダー',
       events_page_subtitle: 'ダナン & ホイアンの祭り、展示会、文化活動を確認しよう',
       events_stats_this_month: '今月のイベント', events_stats_unesco: 'UNESCO遺産', events_stats_attendees: '参加者',
@@ -1551,6 +1581,7 @@
       events_newsletter_email_placeholder: 'メールアドレス',
       events_newsletter_subscribe: '登録する', events_sold_out: '満席',
       // ── Fundraising page ──
+      fundraise_page_title_html: '募金 &amp;<br><em>ハットバウ</em>',
       fundraise_badge: '募金', fundraise_page_title: '文化遺産保全基金',
       fundraise_page_subtitle: '意味のあるチェックイン – 訪問するたびに文化遺産に貢献',
       fundraise_donate_btn: '💛 寄付する', fundraise_share_btn: '📢 シェア',
@@ -1561,6 +1592,10 @@
       fundraise_campaigns_subtitle: '各チェックインが保全プロジェクトに直接貢献します',
       fundraise_all_locations: 'すべての場所', fundraise_suggest_location: '+ 場所を提案',
       fundraise_days_remaining: '日残り', fundraise_checkin_btn: '📍 チェックイン',
+      donate_modal_title: '💛 保全基金に寄付', donate_modal_sub: '100%の資金が選択した場所に直接使われます',
+      donate_dest_label: '目的地を選択', donate_amount_label: '寄付金額',
+      donate_name_label: '氏名', donate_email_label: '確認メール',
+      donate_btn: '💛 寄付を確認', donate_name_placeholder: 'お名前を入力してください', donate_other: 'その他',
       // ── Partners page ──
       partners_page_title: '戦略的パートナー', partners_badge: 'パートナーネットワーク',
       partners_page_sub: 'つながるエコシステム — 交通手段からエコ宿泊、地元のビジネスコミュニティまで',
@@ -1662,6 +1697,35 @@
     }
   };
 
+  // Currency conversion module
+  window.CC_CURRENCY = (function () {
+    var RATES = { VND: 1, USD: 26000, KRW: 19, CNY: 3600, JPY: 180 };
+    var LANG_CURRENCY = { vi: 'VND', en: 'USD', ko: 'KRW', zh: 'CNY', ja: 'JPY' };
+    var LOCALES = { VND: 'vi-VN', USD: 'en-US', KRW: 'ko-KR', CNY: 'zh-CN', JPY: 'ja-JP' };
+
+    function format(vndAmount, lang) {
+      var currency = LANG_CURRENCY[lang] || 'VND';
+      if (currency === 'VND') {
+        if (vndAmount >= 1000000) {
+          var mil = vndAmount / 1000000;
+          return (Number.isInteger(mil) ? mil : parseFloat(mil.toFixed(1))) + ' triệu ₫';
+        }
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(vndAmount);
+      }
+      var converted = Math.round(vndAmount / RATES[currency]);
+      return new Intl.NumberFormat(LOCALES[currency], { style: 'currency', currency: currency, maximumFractionDigits: 0 }).format(converted);
+    }
+
+    function updateAll(lang) {
+      document.querySelectorAll('[data-price-vnd]').forEach(function (el) {
+        var vnd = parseFloat(el.getAttribute('data-price-vnd'));
+        if (!isNaN(vnd)) el.textContent = format(vnd, lang);
+      });
+    }
+
+    return { format: format, updateAll: updateAll };
+  })();
+
   // Apply translations to page elements
   window.ccApplyPageTranslations = function (lang) {
     var t = window.CC_I18N[lang] || window.CC_I18N.vi;
@@ -1678,11 +1742,20 @@
       }
     });
 
+    // data-i18n-html (innerHTML for elements with HTML markup in translation)
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+
     // data-i18n-placeholder
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-placeholder');
       if (t[key] !== undefined) el.placeholder = t[key];
     });
+
+    // Currency conversion
+    if (window.CC_CURRENCY) window.CC_CURRENCY.updateAll(lang);
   };
 
   // Auto-apply on load based on saved language
