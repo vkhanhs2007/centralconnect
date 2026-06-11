@@ -25,43 +25,43 @@
     <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;">
       <div>
         <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold,#C9A84C);letter-spacing:0.05em;margin-bottom:8px;">CENTRAL CONNECT</div>
-        <p style="font-size:13px;color:var(--muted,#8A7D6E);line-height:1.7;max-width:240px;margin-bottom:16px;">Bản đồ di sản tương tác – khám phá văn hoá Đà Nẵng &amp; miền Trung.</p>
+        <p data-i18n="footer_tagline" style="font-size:13px;color:var(--muted,#8A7D6E);line-height:1.7;max-width:240px;margin-bottom:16px;">Bản đồ di sản tương tác – khám phá văn hoá Đà Nẵng &amp; miền Trung.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <a href="${ROOT}pages/about.html" style="font-size:11px;color:var(--muted,#8A7D6E);text-decoration:none;border:1px solid rgba(138,125,110,0.25);padding:4px 10px;border-radius:20px;transition:color 0.2s;">Giới thiệu</a>
-          <a href="${ROOT}pages/contact.html" style="font-size:11px;color:var(--muted,#8A7D6E);text-decoration:none;border:1px solid rgba(138,125,110,0.25);padding:4px 10px;border-radius:20px;transition:color 0.2s;">Liên hệ</a>
+          <a href="${ROOT}pages/about.html" data-i18n="footer_about_link" style="font-size:11px;color:var(--muted,#8A7D6E);text-decoration:none;border:1px solid rgba(138,125,110,0.25);padding:4px 10px;border-radius:20px;transition:color 0.2s;">Giới thiệu</a>
+          <a href="${ROOT}pages/contact.html" data-i18n="footer_contact_link" style="font-size:11px;color:var(--muted,#8A7D6E);text-decoration:none;border:1px solid rgba(138,125,110,0.25);padding:4px 10px;border-radius:20px;transition:color 0.2s;">Liên hệ</a>
         </div>
       </div>
       <div>
-        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted,#8A7D6E);margin-bottom:14px;">Khám phá</div>
+        <div data-i18n="footer_col1_hdr" style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted,#8A7D6E);margin-bottom:14px;">Khám phá</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <a href="${ROOT}pages/kham-pha.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🗺 Bản đồ di sản</a>
-          <a href="${ROOT}pages/di-tich.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🏛 Di tích lịch sử</a>
-          <a href="${ROOT}pages/lang-nghe.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🏺 Làng nghề</a>
-          <a href="${ROOT}pages/am-thuc.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🍜 Ẩm thực</a>
+          <a href="${ROOT}pages/kham-pha.html" data-i18n="footer_link_map" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🗺 Bản đồ di sản</a>
+          <a href="${ROOT}pages/di-tich.html" data-i18n="footer_link_relics" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🏛 Di tích lịch sử</a>
+          <a href="${ROOT}pages/lang-nghe.html" data-i18n="footer_link_crafts" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🏺 Làng nghề</a>
+          <a href="${ROOT}pages/am-thuc.html" data-i18n="footer_link_food" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🍜 Ẩm thực</a>
         </div>
       </div>
       <div>
-        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted,#8A7D6E);margin-bottom:14px;">Lịch Trình</div>
+        <div data-i18n="footer_col2_hdr" style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted,#8A7D6E);margin-bottom:14px;">Lịch Trình</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <a href="${ROOT}pages/lich-trinh.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">📅 Lên lịch AI</a>
-          <a href="${ROOT}pages/su-kien.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🎭 Sự kiện</a>
-          <a href="${ROOT}pages/vku-corner.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🎒 Từ VKU</a>
-          <a href="${ROOT}pages/my-schedule.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🗂 Lịch trình của tôi</a>
+          <a href="${ROOT}pages/lich-trinh.html" data-i18n="footer_link_ai_plan" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">📅 Lên lịch AI</a>
+          <a href="${ROOT}pages/su-kien.html" data-i18n="footer_link_events" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🎭 Sự kiện</a>
+          <a href="${ROOT}pages/vku-corner.html" data-i18n="footer_link_vku" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🎒 Từ VKU</a>
+          <a href="${ROOT}pages/my-schedule.html" data-i18n="footer_link_my_schedule" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🗂 Lịch trình của tôi</a>
         </div>
       </div>
       <div>
-        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted,#8A7D6E);margin-bottom:14px;">Cộng đồng</div>
+        <div data-i18n="footer_col3_hdr" style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted,#8A7D6E);margin-bottom:14px;">Cộng đồng</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <a href="${ROOT}pages/blog.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">📝 Blog</a>
-          <a href="${ROOT}pages/gay-quy.html" style="font-size:13px;color:#D47A10;text-decoration:none;font-weight:600;transition:color 0.2s;" onmouseover="this.style.color='#F0B840'" onmouseout="this.style.color='#D47A10'">🌱 Gây Quỹ</a>
-          <a href="${ROOT}pages/leaderboard.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🏅 Bảng xếp hạng</a>
-          <a href="${ROOT}pages/doi-tac.html" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--ocean-light,#4A90D9)'" onmouseout="this.style.color='rgba(245,240,232,0.6)'">🤝 Đối tác</a>
+          <a href="${ROOT}pages/blog.html" data-i18n="footer_link_blog" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">📝 Blog</a>
+          <a href="${ROOT}pages/gay-quy.html" data-i18n="footer_link_fund" class="footer-nav-link footer-fund-link" style="font-size:13px;color:#D47A10;text-decoration:none;font-weight:600;transition:color 0.2s;">🌱 Gây Quỹ</a>
+          <a href="${ROOT}pages/leaderboard.html" data-i18n="footer_link_rank" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🏅 Bảng xếp hạng</a>
+          <a href="${ROOT}pages/doi-tac.html" data-i18n="footer_link_partners" class="footer-nav-link" style="font-size:13px;color:rgba(245,240,232,0.6);text-decoration:none;transition:color 0.2s;">🤝 Đối tác</a>
         </div>
       </div>
     </div>
     <div style="border-top:1px solid rgba(74,144,217,0.1);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-      <span style="font-size:12px;color:var(--muted,#8A7D6E);">© 2026 Central Connect · <a href="${ROOT}pages/privacy.html" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(138,125,110,0.3);">Chính sách bảo mật</a> · <a href="${ROOT}pages/terms.html" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(138,125,110,0.3);">Điều khoản</a></span>
-      <span style="font-size:12px;color:var(--muted,#8A7D6E);">Bản đồ: <a href="https://leafletjs.com" target="_blank" rel="noopener" style="color:var(--ocean-light,#4A90D9);text-decoration:none;">Leaflet</a> &amp; <a href="https://www.openstreetmap.org" target="_blank" rel="noopener" style="color:var(--ocean-light,#4A90D9);text-decoration:none;">OpenStreetMap</a></span>
+      <span style="font-size:12px;color:var(--muted,#8A7D6E);"><span data-i18n="footer_copy1">© 2026 Central Connect</span> · <a href="${ROOT}pages/privacy.html" data-i18n="footer_privacy" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(138,125,110,0.3);">Chính sách bảo mật</a> · <a href="${ROOT}pages/terms.html" data-i18n="footer_terms" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(138,125,110,0.3);">Điều khoản</a></span>
+      <span style="font-size:12px;color:var(--muted,#8A7D6E);"><span data-i18n="footer_map_label">Bản đồ:</span> <a href="https://leafletjs.com" target="_blank" rel="noopener" style="color:var(--ocean-light,#4A90D9);text-decoration:none;">Leaflet</a> &amp; <a href="https://www.openstreetmap.org" target="_blank" rel="noopener" style="color:var(--ocean-light,#4A90D9);text-decoration:none;">OpenStreetMap</a></span>
     </div>
   </div>`;
 
@@ -381,13 +381,99 @@
       html.cc-light .newsletter-form input { background: #fff !important; color: #1A1410 !important; border-color: rgba(26,79,140,0.25) !important; }
       /* Footer */
       html.cc-light footer { background: #E8E0D4 !important; border-top-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light footer p[data-i18n], html.cc-light footer div[data-i18n], html.cc-light footer span[data-i18n] { color: #5A4D3E !important; }
+      html.cc-light footer .footer-nav-link { color: #5A4D3E !important; }
+      html.cc-light footer .footer-nav-link:hover { color: #1A4F8C !important; }
+      html.cc-light footer .footer-fund-link { color: #B85C00 !important; }
+      html.cc-light footer a[href*="privacy"], html.cc-light footer a[href*="terms"] { color: #5A4D3E !important; }
+      html.cc-light footer a[href*="leafletjs"], html.cc-light footer a[href*="openstreetmap"] { color: #1A4F8C !important; }
       html.cc-light .footer-col h4 { color: #1A4F8C !important; }
       html.cc-light .footer-col a { color: #5A4D3E !important; }
-      html.cc-light .footer-col a:hover { color: #1A1410 !important; }
       html.cc-light .footer-brand p { color: #5A4D3E !important; }
-      html.cc-light .footer-copy { color: #5A4D3E !important; }
-      html.cc-light .footer-bottom { border-top-color: rgba(26,79,140,0.12) !important; }
-      html.cc-light .social-btn { border-color: rgba(26,79,140,0.2) !important; color: #5A4D3E !important; }
+      /* ══ PAGE-LEVEL LIGHT MODE — Blog ══ */
+      html.cc-light .post-card, html.cc-light .blog-card-item { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important; }
+      html.cc-light .post-title, html.cc-light .card-title { color: #1A1410 !important; }
+      html.cc-light .post-excerpt, html.cc-light .card-excerpt { color: #5A4D3E !important; }
+      html.cc-light .post-meta, html.cc-light .card-meta { color: #7A6D5E !important; }
+      html.cc-light .post-tag, html.cc-light .tag-item { background: rgba(26,79,140,0.07) !important; color: #1A4F8C !important; }
+      html.cc-light .sidebar-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .sidebar-title { color: #1A1410 !important; }
+      html.cc-light .trending-item { border-bottom-color: rgba(26,79,140,0.08) !important; }
+      html.cc-light .trending-title { color: #1A1410 !important; }
+      html.cc-light .trending-meta { color: #7A6D5E !important; }
+      html.cc-light .author-item { border-bottom-color: rgba(26,79,140,0.08) !important; }
+      html.cc-light .author-name { color: #1A1410 !important; }
+      html.cc-light .author-count { color: #7A6D5E !important; }
+      html.cc-light .filter-bar { background: rgba(245,240,232,0.7) !important; border-bottom-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .fchip { background: rgba(26,20,16,0.05) !important; border-color: rgba(26,79,140,0.15) !important; color: #5A4D3E !important; }
+      html.cc-light .fchip.active, html.cc-light .fchip:hover { background: rgba(26,79,140,0.1) !important; border-color: #4A90D9 !important; color: #1A4F8C !important; }
+      html.cc-light .search-input { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; color: #1A1410 !important; }
+      html.cc-light .search-input::placeholder { color: rgba(26,20,16,0.4) !important; }
+      /* ══ PAGE-LEVEL LIGHT MODE — Events ══ */
+      html.cc-light .event-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important; }
+      html.cc-light .event-title { color: #1A1410 !important; }
+      html.cc-light .event-desc { color: #5A4D3E !important; }
+      html.cc-light .event-meta { color: #7A6D5E !important; }
+      html.cc-light .event-date { color: #1A4F8C !important; }
+      html.cc-light .event-badge { background: rgba(26,79,140,0.08) !important; color: #1A4F8C !important; }
+      html.cc-light .calendar-cell { border-color: rgba(26,79,140,0.12) !important; color: #1A1410 !important; }
+      html.cc-light .calendar-cell:hover { background: rgba(26,79,140,0.06) !important; }
+      html.cc-light .calendar-header { color: #1A1410 !important; }
+      /* ══ PAGE-LEVEL LIGHT MODE — Fundraising ══ */
+      html.cc-light .campaign-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important; }
+      html.cc-light .campaign-title { color: #1A1410 !important; }
+      html.cc-light .campaign-desc { color: #5A4D3E !important; }
+      html.cc-light .campaign-meta { color: #7A6D5E !important; }
+      html.cc-light .fund-status { background: rgba(26,79,140,0.07) !important; color: #1A4F8C !important; }
+      html.cc-light .goal-bar-bg { background: rgba(26,20,16,0.1) !important; }
+      html.cc-light .days-remaining { color: #7A6D5E !important; }
+      html.cc-light .checkin-btn { border-color: rgba(26,79,140,0.3) !important; color: #1A4F8C !important; }
+      html.cc-light .live-badge { background: rgba(26,79,140,0.08) !important; color: #1A4F8C !important; }
+      /* ══ PAGE-LEVEL LIGHT MODE — Partners ══ */
+      html.cc-light .partner-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important; }
+      html.cc-light .partner-name { color: #1A1410 !important; }
+      html.cc-light .partner-desc { color: #5A4D3E !important; }
+      html.cc-light .partner-tag { background: rgba(26,79,140,0.07) !important; color: #1A4F8C !important; }
+      html.cc-light .partner-category { color: #7A6D5E !important; }
+      /* ══ PAGE-LEVEL LIGHT MODE — Generic page hero ══ */
+      html.cc-light .page-label { color: #4A90D9 !important; }
+      html.cc-light .page-title { color: #1A1410 !important; }
+      html.cc-light .page-subtitle, html.cc-light .page-desc { color: #5A4D3E !important; }
+      html.cc-light .page-stats-bar { background: rgba(26,79,140,0.05) !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .stat-num { color: #1A4F8C !important; }
+      html.cc-light .stat-lbl { color: #7A6D5E !important; }
+      html.cc-light .page-badge { background: rgba(26,79,140,0.08) !important; color: #1A4F8C !important; }
+      /* ══ Explore / Discovery pages ══ */
+      html.cc-light .map-card, html.cc-light .place-detail-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .place-detail-name { color: #1A1410 !important; }
+      html.cc-light .place-detail-desc { color: #5A4D3E !important; }
+      html.cc-light .map-popup { background: #fff !important; color: #1A1410 !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .detail-label { color: #4A90D9 !important; }
+      html.cc-light .cat-btn { background: rgba(26,20,16,0.05) !important; border-color: rgba(26,79,140,0.15) !important; color: #5A4D3E !important; }
+      html.cc-light .cat-btn.active, html.cc-light .cat-btn:hover { background: rgba(26,79,140,0.1) !important; border-color: #4A90D9 !important; color: #1A4F8C !important; }
+      /* ══ Heritage / Craft / Food pages ══ */
+      html.cc-light .relic-card, html.cc-light .craft-card, html.cc-light .dish-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .relic-title, html.cc-light .craft-title, html.cc-light .dish-title { color: #1A1410 !important; }
+      html.cc-light .relic-desc, html.cc-light .craft-desc, html.cc-light .dish-desc { color: #5A4D3E !important; }
+      html.cc-light .relic-period, html.cc-light .craft-location { color: #7A6D5E !important; }
+      html.cc-light .tabs-bar { border-bottom-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .tab-btn { color: #7A6D5E !important; }
+      html.cc-light .tab-btn.active { color: #1A4F8C !important; border-bottom-color: #4A90D9 !important; }
+      /* ══ Schedule page ══ */
+      html.cc-light .step-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .step-title { color: #1A1410 !important; }
+      html.cc-light .step-desc { color: #5A4D3E !important; }
+      html.cc-light .day-label { color: #1A4F8C !important; background: rgba(26,79,140,0.07) !important; }
+      /* ══ VKU Corner page ══ */
+      html.cc-light .corner-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .corner-title { color: #1A1410 !important; }
+      html.cc-light .corner-desc { color: #5A4D3E !important; }
+      /* ══ Profile / Leaderboard pages ══ */
+      html.cc-light .profile-card, html.cc-light .rank-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .profile-name, html.cc-light .rank-name { color: #1A1410 !important; }
+      html.cc-light .profile-stat, html.cc-light .rank-points { color: #1A4F8C !important; }
+      html.cc-light .rank-row { border-bottom-color: rgba(26,79,140,0.08) !important; }
+      html.cc-light .rank-row:hover { background: rgba(26,79,140,0.04) !important; }
       /* Modals */
       html.cc-light .modal-overlay { background: rgba(245,240,232,0.7) !important; }
       html.cc-light .modal { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; box-shadow: 0 16px 48px rgba(0,0,0,0.15) !important; }
@@ -473,6 +559,16 @@
       hero_badge: 'Đà Nẵng · Di sản ngàn năm',
       hero_line1: 'Chạm vào quá khứ', hero_line2: 'Kết nối tương lai',
       hero_cta_primary: '🗺 Khám phá ngay', hero_cta_ghost: '📅 Lên lịch trình AI',
+      footer_tagline: 'Bản đồ di sản tương tác – khám phá văn hoá Đà Nẵng & miền Trung.',
+      footer_about_link: 'Giới thiệu', footer_contact_link: 'Liên hệ',
+      footer_col1_hdr: 'Khám phá', footer_link_map: '🗺 Bản đồ di sản',
+      footer_link_relics: '🏛 Di tích lịch sử', footer_link_crafts: '🏺 Làng nghề', footer_link_food: '🍜 Ẩm thực',
+      footer_col2_hdr: 'Lịch Trình', footer_link_ai_plan: '📅 Lên lịch AI',
+      footer_link_events: '🎭 Sự kiện', footer_link_vku: '🎒 Từ VKU', footer_link_my_schedule: '🗂 Lịch trình của tôi',
+      footer_col3_hdr: 'Cộng đồng', footer_link_blog: '📝 Blog', footer_link_fund: '🌱 Gây Quỹ',
+      footer_link_rank: '🏅 Bảng xếp hạng', footer_link_partners: '🤝 Đối tác',
+      footer_copy1: '© 2026 Central Connect', footer_privacy: 'Chính sách bảo mật', footer_terms: 'Điều khoản',
+      footer_map_label: 'Bản đồ:',
     },
     en: {
       nav_explore: 'Explore', nav_food: 'Cuisine', nav_events: 'Events',
@@ -481,6 +577,16 @@
       hero_badge: 'Da Nang · Thousand-year Heritage',
       hero_line1: 'Touch the Past', hero_line2: 'Connect the Future',
       hero_cta_primary: '🗺 Explore Now', hero_cta_ghost: '📅 Plan with AI',
+      footer_tagline: 'Interactive heritage map – explore culture of Da Nang & Central Vietnam.',
+      footer_about_link: 'About', footer_contact_link: 'Contact',
+      footer_col1_hdr: 'Explore', footer_link_map: '🗺 Heritage Map',
+      footer_link_relics: '🏛 Historical Sites', footer_link_crafts: '🏺 Craft Villages', footer_link_food: '🍜 Cuisine',
+      footer_col2_hdr: 'Itinerary', footer_link_ai_plan: '📅 AI Planner',
+      footer_link_events: '🎭 Events', footer_link_vku: '🎒 From VKU', footer_link_my_schedule: '🗂 My Schedule',
+      footer_col3_hdr: 'Community', footer_link_blog: '📝 Blog', footer_link_fund: '🌱 Fundraise',
+      footer_link_rank: '🏅 Leaderboard', footer_link_partners: '🤝 Partners',
+      footer_copy1: '© 2026 Central Connect', footer_privacy: 'Privacy Policy', footer_terms: 'Terms',
+      footer_map_label: 'Map:',
     },
     ko: {
       nav_explore: '탐험', nav_food: '음식', nav_events: '이벤트',
@@ -489,6 +595,16 @@
       hero_badge: '다낭 · 천년의 문화유산',
       hero_line1: '과거를 만지다', hero_line2: '미래를 연결하다',
       hero_cta_primary: '🗺 지금 탐험하기', hero_cta_ghost: '📅 AI 일정 계획',
+      footer_tagline: '인터랙티브 문화유산 지도 – 다낭 & 중부 베트남 문화 탐험.',
+      footer_about_link: '소개', footer_contact_link: '연락처',
+      footer_col1_hdr: '탐험', footer_link_map: '🗺 문화유산 지도',
+      footer_link_relics: '🏛 역사 유적지', footer_link_crafts: '🏺 공예 마을', footer_link_food: '🍜 음식',
+      footer_col2_hdr: '일정', footer_link_ai_plan: '📅 AI 플래너',
+      footer_link_events: '🎭 이벤트', footer_link_vku: '🎒 VKU 소식', footer_link_my_schedule: '🗂 내 일정',
+      footer_col3_hdr: '커뮤니티', footer_link_blog: '📝 블로그', footer_link_fund: '🌱 기금 모금',
+      footer_link_rank: '🏅 리더보드', footer_link_partners: '🤝 파트너',
+      footer_copy1: '© 2026 Central Connect', footer_privacy: '개인정보 처리방침', footer_terms: '이용약관',
+      footer_map_label: '지도:',
     },
     zh: {
       nav_explore: '探索', nav_food: '美食', nav_events: '活动',
@@ -497,6 +613,16 @@
       hero_badge: '岘港 · 千年文化遗产',
       hero_line1: '触摸过去', hero_line2: '连接未来',
       hero_cta_primary: '🗺 立即探索', hero_cta_ghost: '📅 AI行程规划',
+      footer_tagline: '互动文化遗产地图 – 探索岘港和中越文化。',
+      footer_about_link: '关于我们', footer_contact_link: '联系我们',
+      footer_col1_hdr: '探索', footer_link_map: '🗺 遗产地图',
+      footer_link_relics: '🏛 历史遗址', footer_link_crafts: '🏺 工艺村', footer_link_food: '🍜 美食',
+      footer_col2_hdr: '行程', footer_link_ai_plan: '📅 AI规划',
+      footer_link_events: '🎭 活动', footer_link_vku: '🎒 VKU专区', footer_link_my_schedule: '🗂 我的行程',
+      footer_col3_hdr: '社区', footer_link_blog: '📝 博客', footer_link_fund: '🌱 募款',
+      footer_link_rank: '🏅 排行榜', footer_link_partners: '🤝 合作伙伴',
+      footer_copy1: '© 2026 Central Connect', footer_privacy: '隐私政策', footer_terms: '条款',
+      footer_map_label: '地图:',
     },
     ja: {
       nav_explore: '探索', nav_food: '料理', nav_events: 'イベント',
@@ -505,6 +631,16 @@
       hero_badge: 'ダナン・千年の文化遺産',
       hero_line1: '過去に触れる', hero_line2: '未来を繋ぐ',
       hero_cta_primary: '🗺 今すぐ探索', hero_cta_ghost: '📅 AIで旅程計画',
+      footer_tagline: 'インタラクティブ文化遺産マップ – ダナン・中部ベトナム文化を探索。',
+      footer_about_link: '概要', footer_contact_link: 'お問い合わせ',
+      footer_col1_hdr: '探索', footer_link_map: '🗺 文化遺産マップ',
+      footer_link_relics: '🏛 歴史的遺跡', footer_link_crafts: '🏺 工芸村', footer_link_food: '🍜 料理',
+      footer_col2_hdr: '旅程', footer_link_ai_plan: '📅 AIプランナー',
+      footer_link_events: '🎭 イベント', footer_link_vku: '🎒 VKUから', footer_link_my_schedule: '🗂 マイスケジュール',
+      footer_col3_hdr: 'コミュニティ', footer_link_blog: '📝 ブログ', footer_link_fund: '🌱 募金',
+      footer_link_rank: '🏅 リーダーボード', footer_link_partners: '🤝 パートナー',
+      footer_copy1: '© 2026 Central Connect', footer_privacy: 'プライバシーポリシー', footer_terms: '利用規約',
+      footer_map_label: '地図:',
     }
   };
 
@@ -685,6 +821,7 @@
     injectUtilityButtons(); // 4. Thêm nút theme + ngôn ngữ vào desktop nav
     injectMobileUtilityButtons(); // 5. Thêm nút theme + ngôn ngữ vào mobile menu
     injectFooter();        // 6. Inject footer
+    applyTranslations(localStorage.getItem('cc_lang') || 'vi'); // 6b. Re-apply so footer gets translated
     setNavActive();        // 7. Đánh dấu trang hiện tại
     setTimeout(syncAuthState, 50); // 8. Đồng bộ trạng thái đăng nhập
     addScrollEffect();     // 9. Hiệu ứng scroll navbar

@@ -814,17 +814,17 @@
   <div class="page-hero-pattern"></div>
   <div class="page-hero-grid"></div>
   <div class="page-hero-content">
-    <div class="page-badge"><span></span>Mạng lưới đối tác<span></span></div>
+    <div class="page-badge"><span></span><span data-i18n="partners_badge">Mạng lưới đối tác</span><span></span></div>
     <h1 class="page-title">Cổng <span class="accent">Đối Tác</span></h1>
-    <p class="page-sub">Hệ sinh thái kết nối — từ phương tiện di chuyển đến chỗ nghỉ xanh và cộng đồng doanh nghiệp địa phương</p>
+    <p class="page-sub" data-i18n="partners_page_sub">Hệ sinh thái kết nối — từ phương tiện di chuyển đến chỗ nghỉ xanh và cộng đồng doanh nghiệp địa phương</p>
   </div>
 </div>
 
 <!-- ── TABS ── -->
 <div class="tabs-bar" id="tabsBar">
-  <button class="tab-btn active" onclick="scrollToSection('transport', this)">🚌 Phương tiện di chuyển</button>
-  <button class="tab-btn" onclick="scrollToSection('hostels', this)">🌿 Homestay Xanh</button>
-  <button class="tab-btn" onclick="scrollToSection('business', this)">🤝 Doanh nghiệp đối tác</button>
+  <button class="tab-btn active" onclick="scrollToSection('transport', this)">🚌 <span data-i18n="partners_tab_transport">Phương tiện di chuyển</span></button>
+  <button class="tab-btn" onclick="scrollToSection('hostels', this)">🌿 <span data-i18n="partners_tab_hostels">Homestay Xanh</span></button>
+  <button class="tab-btn" onclick="scrollToSection('business', this)">🤝 <span data-i18n="partners_tab_business">Doanh nghiệp đối tác</span></button>
 </div>
 
 <!-- ─────────── TRANSPORT ─────────── -->
@@ -1360,14 +1360,14 @@
 <div class="modal-overlay" id="bookingModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('bookingModal')">✕</button>
-    <div class="section-label" style="margin-bottom:8px">Đặt dịch vụ</div>
-    <h2 class="modal-title" id="bookingTitle">Đặt chỗ</h2>
-    <p class="modal-sub">Yêu cầu của bạn sẽ được gửi tới đối tác — xác nhận trong vòng 30 phút</p>
-    <div class="form-group"><label>Họ & Tên</label><input type="text" placeholder="Nguyễn Văn A"></div>
-    <div class="form-group"><label>Số điện thoại</label><input type="tel" placeholder="0905 xxx xxx"></div>
-    <div class="form-group"><label>Ngày sử dụng</label><input type="date"></div>
-    <div class="form-group"><label>Ghi chú</label><textarea placeholder="Yêu cầu đặc biệt..."></textarea></div>
-    <button class="btn-modal" onclick="confirmBooking()">✅ Xác nhận đặt chỗ</button>
+    <div class="section-label" data-i18n="partners_booking_modal_label" style="margin-bottom:8px">Đặt dịch vụ</div>
+    <h2 class="modal-title" id="bookingTitle" data-i18n="partners_booking_modal_title">Đặt chỗ</h2>
+    <p class="modal-sub" data-i18n="partners_booking_modal_subtitle">Yêu cầu của bạn sẽ được gửi tới đối tác — xác nhận trong vòng 30 phút</p>
+    <div class="form-group"><label data-i18n="partners_form_name_label">Họ & Tên</label><input type="text" placeholder="Nguyễn Văn A"></div>
+    <div class="form-group"><label data-i18n="partners_form_phone_label">Số điện thoại</label><input type="tel" placeholder="0905 xxx xxx"></div>
+    <div class="form-group"><label data-i18n="partners_form_date_label">Ngày sử dụng</label><input type="date"></div>
+    <div class="form-group"><label data-i18n="partners_form_notes_label">Ghi chú</label><textarea data-i18n-placeholder="partners_form_notes_placeholder" placeholder="Yêu cầu đặc biệt..."></textarea></div>
+    <button class="btn-modal" onclick="confirmBooking()">✅ <span data-i18n="partners_booking_confirm">Xác nhận đặt chỗ</span></button>
   </div>
 </div>
 
@@ -1375,25 +1375,25 @@
 <div class="modal-overlay" id="partnerModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('partnerModal')">✕</button>
-    <div class="section-label" style="margin-bottom:8px">Cổng đối tác</div>
-    <h2 class="modal-title">Đăng ký đối tác</h2>
-    <p class="modal-sub">Tham gia hệ sinh thái Central Connect — tiếp cận du khách, tăng doanh thu và cùng bảo tồn di sản</p>
-    <div class="form-group"><label>Tên doanh nghiệp</label><input type="text" placeholder="Công ty / Cửa hàng của bạn"></div>
-    <div class="form-group"><label>Loại hình</label>
+    <div class="section-label" data-i18n="partners_register_modal_label" style="margin-bottom:8px">Cổng đối tác</div>
+    <h2 class="modal-title" data-i18n="partners_register_modal_title">Đăng ký đối tác</h2>
+    <p class="modal-sub" data-i18n="partners_register_modal_subtitle">Tham gia hệ sinh thái Central Connect — tiếp cận du khách, tăng doanh thu và cùng bảo tồn di sản</p>
+    <div class="form-group"><label data-i18n="partners_form_business_name_label">Tên doanh nghiệp</label><input type="text" placeholder="Công ty / Cửa hàng của bạn"></div>
+    <div class="form-group"><label data-i18n="partners_form_type_label">Loại hình</label>
       <select>
-        <option>-- Chọn loại hình --</option>
-        <option>Phương tiện di chuyển</option>
-        <option>Lưu trú / Homestay</option>
-        <option>Nhà hàng / Quán ăn</option>
-        <option>Tour & Trải nghiệm</option>
-        <option>Mua sắm & Đặc sản</option>
-        <option>Khác</option>
+        <option data-i18n="partners_form_type_select">-- Chọn loại hình --</option>
+        <option data-i18n="partners_type_transport">Phương tiện di chuyển</option>
+        <option data-i18n="partners_type_hotel">Lưu trú / Homestay</option>
+        <option data-i18n="partners_type_restaurant">Nhà hàng / Quán ăn</option>
+        <option data-i18n="partners_type_tour">Tour & Trải nghiệm</option>
+        <option data-i18n="partners_type_craft">Mua sắm & Đặc sản</option>
+        <option data-i18n="partners_type_other">Khác</option>
       </select>
     </div>
-    <div class="form-group"><label>Email liên hệ</label><input type="email" placeholder="business@email.com"></div>
-    <div class="form-group"><label>Số điện thoại</label><input type="tel" placeholder="0905 xxx xxx"></div>
-    <div class="form-group"><label>Địa chỉ kinh doanh</label><input type="text" placeholder="Số nhà, đường, phường, quận..."></div>
-    <button class="btn-modal" onclick="submitPartner()">🤝 Gửi đăng ký</button>
+    <div class="form-group"><label data-i18n="partners_form_email_label">Email liên hệ</label><input type="email" placeholder="business@email.com"></div>
+    <div class="form-group"><label data-i18n="partners_form_phone_label">Số điện thoại</label><input type="tel" placeholder="0905 xxx xxx"></div>
+    <div class="form-group"><label data-i18n="partners_form_address_label">Địa chỉ kinh doanh</label><input type="text" placeholder="Số nhà, đường, phường, quận..."></div>
+    <button class="btn-modal" onclick="submitPartner()">🤝 <span data-i18n="partners_register_submit">Gửi đăng ký</span></button>
   </div>
 </div>
 
@@ -1472,7 +1472,8 @@
 <script src="../js/auth.js"></script>
 <script src="../js/auth-modal.js"></script>
 <script src="../js/effects.js"></script>
-<script src="../js/nav.js"></script>
+<script src="../js/i18n.js"></script>
+  <script src="../js/nav.js"></script>
 <script src="../js/chatbot.js"></script>
 </body>
 </html>

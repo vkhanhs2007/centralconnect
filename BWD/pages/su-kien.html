@@ -275,13 +275,13 @@ footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.1); paddin
 <!-- ── PAGE HERO ── -->
 <section class="page-hero">
   <div class="hero-wrap">
-    <div class="page-label">📅 Lịch sự kiện 2026</div>
+    <div class="page-label">📅 <span data-i18n="events_schedule_label">Lịch sự kiện 2026</span></div>
     <h1 class="page-title">Sự Kiện &amp; <span>Lễ Hội</span></h1>
-    <p class="page-desc">Không bỏ lỡ bất kỳ lễ hội truyền thống, hoạt động văn hóa hay sự kiện cộng đồng nào tại Đà Nẵng.</p>
+    <p class="page-desc" data-i18n="events_page_subtitle">Không bỏ lỡ bất kỳ lễ hội truyền thống, hoạt động văn hóa hay sự kiện cộng đồng nào tại Đà Nẵng.</p>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-num" data-target="24">0</div><div class="hstat-label">Sự kiện tháng này</div></div>
-      <div class="hstat"><div class="hstat-num" data-target="8">0</div><div class="hstat-label">Lễ hội UNESCO</div></div>
-      <div class="hstat"><div class="hstat-num" data-target="5200">0</div><div class="hstat-label">Người tham dự</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="24">0</div><div class="hstat-label" data-i18n="events_stats_this_month">Sự kiện tháng này</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="8">0</div><div class="hstat-label" data-i18n="events_stats_unesco">Lễ hội UNESCO</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="5200">0</div><div class="hstat-label" data-i18n="events_stats_attendees">Người tham dự</div></div>
     </div>
   </div>
 </section>
@@ -289,15 +289,15 @@ footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.1); paddin
 <!-- ── FILTER ── -->
 <div class="filter-section">
   <div class="filter-inner">
-    <span class="filter-label">Danh mục</span>
-    <button class="fchip active" onclick="filterEvents(this,'all')">Tất cả</button>
-    <button class="fchip" onclick="filterEvents(this,'le-hoi')">🎊 Lễ hội</button>
-    <button class="fchip" onclick="filterEvents(this,'nghe-thuat')">🎨 Nghệ thuật</button>
-    <button class="fchip" onclick="filterEvents(this,'the-thao')">⚽ Thể thao</button>
-    <button class="fchip" onclick="filterEvents(this,'am-thuc')">🍜 Ẩm thực</button>
-    <button class="fchip" onclick="filterEvents(this,'bao-ton')">🌿 Bảo tồn</button>
+    <span class="filter-label" data-i18n="events_filter_category">Danh mục</span>
+    <button class="fchip active" onclick="filterEvents(this,'all')" data-i18n="events_filter_all">Tất cả</button>
+    <button class="fchip" onclick="filterEvents(this,'le-hoi')">🎊 <span data-i18n="events_filter_festivals">Lễ hội</span></button>
+    <button class="fchip" onclick="filterEvents(this,'nghe-thuat')">🎨 <span data-i18n="events_filter_art">Nghệ thuật</span></button>
+    <button class="fchip" onclick="filterEvents(this,'the-thao')">⚽ <span data-i18n="events_filter_sports">Thể thao</span></button>
+    <button class="fchip" onclick="filterEvents(this,'am-thuc')">🍜 <span data-i18n="events_filter_food">Ẩm thực</span></button>
+    <button class="fchip" onclick="filterEvents(this,'bao-ton')">🌿 <span data-i18n="events_filter_conservation">Bảo tồn</span></button>
     <div class="search-chip">
-      <input type="text" id="eventSearch" placeholder="🔍 Tìm sự kiện..." oninput="renderEvents()">
+      <input type="text" id="eventSearch" placeholder="🔍 Tìm sự kiện..." data-i18n-placeholder="events_search_placeholder" oninput="renderEvents()">
     </div>
   </div>
 </div>
@@ -308,8 +308,8 @@ footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.1); paddin
   <!-- Featured -->
   <div class="section-header reveal">
     <div>
-      <div class="section-label">Nổi bật</div>
-      <div class="section-title">Sự kiện đặc biệt tháng 6</div>
+      <div class="section-label" data-i18n="events_featured_label">Nổi bật</div>
+      <div class="section-title" data-i18n="events_special_title">Sự kiện đặc biệt tháng 6</div>
     </div>
   </div>
 
@@ -328,8 +328,8 @@ footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.1); paddin
         <div class="fe-meta-row"><div class="fe-meta-icon">👥</div><span>Ước tính 3.000+ người tham dự</span></div>
       </div>
       <div class="fe-btns">
-        <button class="btn-reg" onclick="event.stopPropagation(); registerEvent(this, 0, 'Lễ Hội Đèn Lồng Hội An – Đêm Rằm Tháng 5')">📅 Đăng ký tham dự</button>
-        <button class="btn-save" onclick="event.stopPropagation(); saveEvent('Lễ Hội Đèn Lồng Hội An')">🔔 Nhắc nhở</button>
+        <button class="btn-reg" data-i18n="events_register_btn" onclick="event.stopPropagation(); registerEvent(this, 0, 'Lễ Hội Đèn Lồng Hội An – Đêm Rằm Tháng 5')">📅 Đăng ký tham dự</button>
+        <button class="btn-save" data-i18n="events_remind_btn" onclick="event.stopPropagation(); saveEvent('Lễ Hội Đèn Lồng Hội An')">🔔 Nhắc nhở</button>
       </div>
     </div>
   </div>
@@ -337,8 +337,8 @@ footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.1); paddin
   <!-- Grid -->
   <div class="section-header reveal">
     <div>
-      <div class="section-label">Sắp diễn ra</div>
-      <div class="section-title">Tất cả sự kiện</div>
+      <div class="section-label" data-i18n="events_upcoming_label">Sắp diễn ra</div>
+      <div class="section-title" data-i18n="events_all_title">Tất cả sự kiện</div>
     </div>
     <span class="count-badge" id="eventCount">8 sự kiện</span>
   </div>
@@ -348,7 +348,7 @@ footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.1); paddin
   <!-- Calendar -->
   <div class="section-header reveal">
     <div>
-      <div class="section-label">Lịch tháng</div>
+      <div class="section-label" data-i18n="events_calendar_label">Lịch tháng</div>
       <div class="section-title">Tháng 6 năm 2026</div>
     </div>
     <div class="cal-nav">
@@ -364,11 +364,11 @@ footer { background: #0A0C10; border-top: 1px solid rgba(74,144,217,0.1); paddin
 
   <!-- Newsletter -->
   <div class="newsletter-section reveal">
-    <div class="nl-title">📩 Không bỏ lỡ sự kiện nào</div>
-    <div class="nl-sub">Đăng ký nhận thông báo sự kiện hằng tuần qua email</div>
+    <div class="nl-title" data-i18n="events_newsletter_title">📩 Không bỏ lỡ sự kiện nào</div>
+    <div class="nl-sub" data-i18n="events_newsletter_subtitle">Đăng ký nhận thông báo sự kiện hằng tuần qua email</div>
     <div class="nl-row">
-      <input class="nl-input" type="email" id="nlEmail" placeholder="email@example.com">
-      <button class="nl-btn" onclick="subscribeNl()">Đăng ký</button>
+      <input class="nl-input" type="email" id="nlEmail" placeholder="email@example.com" data-i18n-placeholder="events_newsletter_email_placeholder">
+      <button class="nl-btn" data-i18n="events_newsletter_subscribe" onclick="subscribeNl()">Đăng ký</button>
     </div>
   </div>
 
@@ -650,7 +650,8 @@ renderCalendar();
 <script src="../js/auth.js"></script>
 <script src="../js/auth-modal.js"></script>
 <script src="../js/effects.js"></script>
-<script src="../js/nav.js"></script>
+<script src="../js/i18n.js"></script>
+  <script src="../js/nav.js"></script>
 <script src="../js/chatbot.js"></script>
 </body>
 </html>

@@ -664,12 +664,12 @@
   <div class="page-hero-bg"></div>
   <div class="hero-grid-lines"></div>
   <div class="page-hero-content">
-    <div class="page-badge"><span></span> Hành trình – Điểm thưởng – Bảo tồn</div>
+    <div class="page-badge"><span></span> <span data-i18n="fundraise_badge">Hành trình – Điểm thưởng – Bảo tồn</span></div>
     <h1 class="page-title">Gây Quỹ &<br><em>Hạt Bàu</em></h1>
-    <p class="page-sub">Check-in địa điểm di sản, tích lũy Hạt Bàu, đổi voucher hấp dẫn — mỗi bước chân của bạn góp phần bảo tồn văn hóa Đà Nẵng.</p>
+    <p class="page-sub" data-i18n="fundraise_page_subtitle">Check-in địa điểm di sản, tích lũy Hạt Bàu, đổi voucher hấp dẫn — mỗi bước chân của bạn góp phần bảo tồn văn hóa Đà Nẵng.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation: fadeUp 0.7s 0.45s ease both;opacity:0">
-      <button class="btn-donate" onclick="document.getElementById('donateModal').classList.add('open')">💛 Đóng góp Quỹ Bảo tồn</button>
-      <button class="btn-share" onclick="showToast('🔗 Đã sao chép link chia sẻ!')">📤 Chia sẻ hành trình</button>
+      <button class="btn-donate" data-i18n="fundraise_donate_btn" onclick="document.getElementById('donateModal').classList.add('open')">💛 Đóng góp Quỹ Bảo tồn</button>
+      <button class="btn-share" data-i18n="fundraise_share_btn" onclick="showToast('🔗 Đã sao chép link chia sẻ!')">📤 Chia sẻ hành trình</button>
     </div>
   </div>
 </div>
@@ -679,22 +679,22 @@
   <div class="live-bar-inner">
     <div>
       <div class="live-stat-num" data-target="2847">0</div>
-      <div class="live-stat-label">Lượt check-in tuần này</div>
+      <div class="live-stat-label" data-i18n="fundraise_checkins_week">Lượt check-in tuần này</div>
     </div>
     <div>
       <div class="live-stat-num green" data-target="184">0</div>
-      <div class="live-stat-label">Triệu đồng đã gây quỹ</div>
+      <div class="live-stat-label" data-i18n="fundraise_raised">Triệu đồng đã gây quỹ</div>
     </div>
     <div>
       <div class="live-stat-num orange" data-target="12">0</div>
-      <div class="live-stat-label">Địa điểm đang cần hỗ trợ</div>
+      <div class="live-stat-label" data-i18n="fundraise_needing_support">Địa điểm đang cần hỗ trợ</div>
     </div>
     <div>
       <div class="live-stat-num" data-target="531">0</div>
-      <div class="live-stat-label">Đại sứ tích cực tháng này</div>
+      <div class="live-stat-label" data-i18n="fundraise_active_ambassadors">Đại sứ tích cực tháng này</div>
     </div>
   </div>
-  <div class="live-bar-live"><span class="live-dot"></span> TRỰC TIẾP &middot; Cập nhật liên tục</div>
+  <div class="live-bar-live"><span class="live-dot"></span> <span data-i18n="fundraise_live_update">TRỰC TIẾP · Cập nhật liên tục</span></div>
 </div>
 
 <!-- ── ACTIVE CAMPAIGNS ── -->
@@ -702,13 +702,13 @@
   <div class="container">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:16px">
       <div>
-        <div class="section-label">Đang diễn ra</div>
-        <h2 class="section-title">Chiến dịch Check-in<br>Đang Mở</h2>
-        <p class="section-desc">Mỗi địa điểm là một câu chuyện. Ghé thăm, check-in và nhận Hạt Bàu.</p>
+        <div class="section-label" data-i18n="fundraise_campaigns_label">Đang diễn ra</div>
+        <h2 class="section-title" data-i18n="fundraise_campaigns_title">Chiến dịch Check-in<br>Đang Mở</h2>
+        <p class="section-desc" data-i18n="fundraise_campaigns_subtitle">Mỗi địa điểm là một câu chuyện. Ghé thăm, check-in và nhận Hạt Bàu.</p>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn-share" style="font-size:12px;padding:8px 14px">Tất cả địa điểm</button>
-        <button class="btn-donate" style="font-size:12px;padding:8px 14px" onclick="document.getElementById('donateModal').classList.add('open')">+ Đề xuất địa điểm</button>
+        <button class="btn-share" data-i18n="fundraise_all_locations" style="font-size:12px;padding:8px 14px">Tất cả địa điểm</button>
+        <button class="btn-donate" data-i18n="fundraise_suggest_location" style="font-size:12px;padding:8px 14px" onclick="document.getElementById('donateModal').classList.add('open')">+ Đề xuất địa điểm</button>
       </div>
     </div>
 
@@ -1540,7 +1540,8 @@
 <script src="../js/auth.js"></script>
 <script src="../js/auth-modal.js"></script>
 <script src="../js/effects.js"></script>
-<script src="../js/nav.js"></script>
+<script src="../js/i18n.js"></script>
+  <script src="../js/nav.js"></script>
 <script src="../js/chatbot.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {

@@ -280,15 +280,15 @@ footer { background: #0A0C10; border-top: 1px solid rgba(184,83,46,0.1); padding
 <section class="page-hero">
   <div class="hero-wrap">
     <div class="hero-left">
-      <div class="page-label">✍ Cộng đồng chia sẻ</div>
+      <div class="page-label">✍ <span data-i18n="blog_community_label">Cộng đồng chia sẻ</span></div>
       <h1 class="page-title">Blog<br>Du <span>Lịch</span></h1>
-      <p class="page-desc">Câu chuyện thật, trải nghiệm thật từ những người đã khám phá vùng đất di sản Đà Nẵng.</p>
-      <button class="write-btn" onclick="openWriteModal()">✍ Viết bài chia sẻ</button>
+      <p class="page-desc" data-i18n="blog_page_subtitle">Câu chuyện thật, trải nghiệm thật từ những người đã khám phá vùng đất di sản Đà Nẵng.</p>
+      <button class="write-btn" data-i18n="blog_write_btn" onclick="openWriteModal()">✍ Viết bài chia sẻ</button>
     </div>
     <div class="hero-right">
-      <div class="hstat"><div class="hstat-num" data-target="148">0</div><div class="hstat-label">Bài viết</div></div>
-      <div class="hstat"><div class="hstat-num" data-target="3200">0</div><div class="hstat-label">Lượt đọc</div></div>
-      <div class="hstat"><div class="hstat-num" data-target="62">0</div><div class="hstat-label">Tác giả</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="148">0</div><div class="hstat-label" data-i18n="blog_stats_articles">Bài viết</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="3200">0</div><div class="hstat-label" data-i18n="blog_stats_reads">Lượt đọc</div></div>
+      <div class="hstat"><div class="hstat-num" data-target="62">0</div><div class="hstat-label" data-i18n="blog_stats_authors">Tác giả</div></div>
     </div>
   </div>
 </section>
@@ -296,15 +296,15 @@ footer { background: #0A0C10; border-top: 1px solid rgba(184,83,46,0.1); padding
 <!-- ── FILTER ── -->
 <div class="filter-section">
   <div class="filter-inner">
-    <span class="filter-label">Chủ đề</span>
-    <button class="fchip active" onclick="filterPosts(this,'all')">Tất cả</button>
-    <button class="fchip" onclick="filterPosts(this,'trai-nghiem')">🗺 Trải nghiệm</button>
-    <button class="fchip" onclick="filterPosts(this,'am-thuc')">🍜 Ẩm thực</button>
-    <button class="fchip" onclick="filterPosts(this,'di-tich')">🏛 Di tích</button>
-    <button class="fchip" onclick="filterPosts(this,'tip')">💡 Tip du lịch</button>
-    <button class="fchip" onclick="filterPosts(this,'lang-nghe')">🏺 Làng nghề</button>
+    <span class="filter-label" data-i18n="blog_filter_topic">Chủ đề</span>
+    <button class="fchip active" onclick="filterPosts(this,'all')" data-i18n="blog_filter_all">Tất cả</button>
+    <button class="fchip" onclick="filterPosts(this,'trai-nghiem')">🗺 <span data-i18n="blog_filter_experience">Trải nghiệm</span></button>
+    <button class="fchip" onclick="filterPosts(this,'am-thuc')">🍜 <span data-i18n="blog_filter_food">Ẩm thực</span></button>
+    <button class="fchip" onclick="filterPosts(this,'di-tich')">🏛 <span data-i18n="blog_filter_heritage">Di tích</span></button>
+    <button class="fchip" onclick="filterPosts(this,'tip')">💡 <span data-i18n="blog_filter_tips">Tip du lịch</span></button>
+    <button class="fchip" onclick="filterPosts(this,'lang-nghe')">🏺 <span data-i18n="blog_filter_crafts">Làng nghề</span></button>
     <div class="search-chip">
-      <input type="text" id="postSearch" placeholder="🔍 Tìm bài viết..." oninput="renderPosts()">
+      <input type="text" id="postSearch" placeholder="🔍 Tìm bài viết..." data-i18n-placeholder="blog_search_placeholder" oninput="renderPosts()">
     </div>
   </div>
 </div>
@@ -312,23 +312,23 @@ footer { background: #0A0C10; border-top: 1px solid rgba(184,83,46,0.1); padding
 <!-- ── MAIN ── -->
 <div class="main-layout">
   <div class="blog-main">
-    <div class="section-label">Nổi bật</div>
-    <div class="section-title">Bài viết mới nhất</div>
+    <div class="section-label" data-i18n="blog_featured_label">Nổi bật</div>
+    <div class="section-title" data-i18n="blog_newest_title">Bài viết mới nhất</div>
     <div id="blogGrid" class="blog-grid"></div>
-    <button class="load-more-btn" onclick="loadMore()">⟳ Xem thêm bài viết</button>
+    <button class="load-more-btn" data-i18n="blog_load_more" onclick="loadMore()">⟳ Xem thêm bài viết</button>
   </div>
 
   <aside class="sidebar">
     <div class="sidebar-card">
-      <div class="sidebar-title">🔥 Đang hot</div>
+      <div class="sidebar-title">🔥 <span data-i18n="blog_trending_title">Đang hot</span></div>
       <div id="trendingList"></div>
     </div>
     <div class="sidebar-card">
-      <div class="sidebar-title">🏷 Từ khoá</div>
+      <div class="sidebar-title">🏷 <span data-i18n="blog_tags_title">Từ khoá</span></div>
       <div class="tag-cloud" id="tagCloud"></div>
     </div>
     <div class="sidebar-card">
-      <div class="sidebar-title">✍ Top tác giả</div>
+      <div class="sidebar-title">✍ <span data-i18n="blog_top_authors_title">Top tác giả</span></div>
       <div id="writerList"></div>
     </div>
   </aside>
@@ -359,14 +359,14 @@ footer { background: #0A0C10; border-top: 1px solid rgba(184,83,46,0.1); padding
 <div class="write-modal" id="writeModal">
   <div class="wm-box">
     <button class="wm-close" onclick="closeWriteModal()">✕</button>
-    <div class="wm-title">✍ Chia sẻ câu chuyện</div>
-    <div class="wm-sub">Câu chuyện của bạn sẽ truyền cảm hứng cho hàng nghìn du khách khác</div>
+    <div class="wm-title" data-i18n="blog_write_modal_title">✍ Chia sẻ câu chuyện</div>
+    <div class="wm-sub" data-i18n="blog_write_modal_subtitle">Câu chuyện của bạn sẽ truyền cảm hứng cho hàng nghìn du khách khác</div>
     <div class="form-row">
-      <label>Tiêu đề bài viết</label>
-      <input class="form-input" id="wTitle" placeholder="Tiêu đề hấp dẫn của bạn...">
+      <label data-i18n="blog_form_title_label">Tiêu đề bài viết</label>
+      <input class="form-input" id="wTitle" placeholder="Tiêu đề hấp dẫn của bạn..." data-i18n-placeholder="blog_form_title_placeholder">
     </div>
     <div class="form-row">
-      <label>Danh mục</label>
+      <label data-i18n="blog_form_category_label">Danh mục</label>
       <select class="form-select" id="wCat">
         <option value="trai-nghiem">🗺 Trải nghiệm</option>
         <option value="am-thuc">🍜 Ẩm thực</option>
@@ -376,14 +376,14 @@ footer { background: #0A0C10; border-top: 1px solid rgba(184,83,46,0.1); padding
       </select>
     </div>
     <div class="form-row">
-      <label>Nội dung bài viết</label>
-      <textarea class="form-textarea" id="wContent" placeholder="Kể câu chuyện du lịch của bạn tại Đà Nẵng..."></textarea>
+      <label data-i18n="blog_form_content_label">Nội dung bài viết</label>
+      <textarea class="form-textarea" id="wContent" placeholder="Kể câu chuyện du lịch của bạn tại Đà Nẵng..." data-i18n-placeholder="blog_form_content_placeholder"></textarea>
     </div>
     <div class="form-row">
-      <label>URL ảnh đại diện (tuỳ chọn)</label>
+      <label data-i18n="blog_form_image_label">URL ảnh đại diện (tuỳ chọn)</label>
       <input class="form-input" id="wImg" placeholder="https://...">
     </div>
-    <button class="form-submit" onclick="submitPost()">🚀 Đăng bài</button>
+    <button class="form-submit" data-i18n="blog_form_submit" onclick="submitPost()">🚀 Đăng bài</button>
   </div>
 </div>
 
@@ -650,7 +650,8 @@ renderPosts();
 <script src="../js/auth.js"></script>
 <script src="../js/auth-modal.js"></script>
 <script src="../js/effects.js"></script>
-<script src="../js/nav.js"></script>
+<script src="../js/i18n.js"></script>
+  <script src="../js/nav.js"></script>
 <script src="../js/chatbot.js"></script>
 </body>
 </html>
