@@ -317,6 +317,130 @@
       html.cc-light .cc-lang-dropdown button { color: rgba(26,20,16,0.85) !important; }
       html.cc-light .cc-lang-dropdown button:hover { background: rgba(26,79,140,0.07) !important; color: #4A90D9 !important; }
       @media (max-width: 860px) { .cc-theme-toggle, .cc-lang-selector { display: none !important; } }
+
+      /* ══ PAGE CONTENT LIGHT MODE ══ */
+      /* Stats */
+      html.cc-light #stats { background: #EDE8E0 !important; }
+      html.cc-light .stat-label { color: #5A4D3E !important; }
+      html.cc-light .stat-number { color: #1A4F8C !important; }
+      html.cc-light .stat-divider { background: rgba(26,20,16,0.1) !important; }
+      /* Section labels & text */
+      html.cc-light .section-label { color: #4A90D9 !important; }
+      html.cc-light .section-title { color: #1A1410 !important; }
+      html.cc-light .section-desc { color: #5A4D3E !important; }
+      html.cc-light .see-all { color: #1A4F8C !important; border-color: rgba(26,79,140,0.3) !important; }
+      html.cc-light .see-all:hover { background: rgba(26,79,140,0.07) !important; }
+      /* Explore cats */
+      html.cc-light #explore-cats { background: rgba(245,240,232,0.6) !important; border-top-color: rgba(26,79,140,0.12) !important; }
+      /* Place cards */
+      html.cc-light .place-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important; }
+      html.cc-light .place-card:hover { border-color: rgba(26,79,140,0.3) !important; box-shadow: 0 8px 28px rgba(0,0,0,0.1) !important; }
+      html.cc-light .card-name { color: #1A1410 !important; }
+      html.cc-light .card-loc { color: #5A4D3E !important; }
+      html.cc-light .card-body { background: #fff !important; }
+      /* Heritage */
+      html.cc-light #heritage { background: linear-gradient(180deg, #EDE8E0 0%, #F5F0E8 100%) !important; border-color: rgba(26,79,140,0.1) !important; }
+      /* Fund cards */
+      html.cc-light #fundraising { background: linear-gradient(180deg, #EDE8E0 0%, #F5F0E8 100%) !important; }
+      html.cc-light .fund-card { background: #fff !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .fund-name { color: #1A1410 !important; }
+      html.cc-light .fund-desc { color: #5A4D3E !important; }
+      html.cc-light .progress-bar { background: rgba(26,79,140,0.1) !important; }
+      html.cc-light .progress-raised { color: #1A4F8C !important; }
+      html.cc-light .progress-goal { color: #5A4D3E !important; }
+      /* Food */
+      html.cc-light #food { background: #F5F0E8 !important; }
+      html.cc-light .food-item { border-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .food-info { background: rgba(245,240,232,0.97) !important; }
+      html.cc-light .food-name { color: #1A1410 !important; }
+      html.cc-light .food-place { color: #5A4D3E !important; }
+      /* VKU */
+      html.cc-light #vku { background: linear-gradient(180deg, #EDE8E0 0%, #F5F0E8 100%) !important; }
+      html.cc-light .vku-full { color: #5A4D3E !important; }
+      html.cc-light .blog-item { background: rgba(26,20,16,0.03) !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .blog-item:hover { background: rgba(26,79,140,0.05) !important; }
+      html.cc-light .blog-title { color: #1A1410 !important; }
+      html.cc-light .blog-author { color: #5A4D3E !important; }
+      html.cc-light .vku-banner { background: rgba(26,79,140,0.06) !important; border-color: rgba(26,79,140,0.2) !important; }
+      /* AI guide */
+      html.cc-light #local-guide { background: linear-gradient(180deg, #EDE8E0 0%, #E8E0D4 100%) !important; }
+      html.cc-light .guide-chat-window { background: rgba(245,240,232,0.9) !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .guide-chat-header { background: rgba(26,79,140,0.05) !important; border-bottom-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .guide-header-name { color: #1A1410 !important; }
+      html.cc-light .guide-chip { color: #5A4D3E !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .guide-chip:hover { color: #4A90D9 !important; border-color: #4A90D9 !important; }
+      html.cc-light .guide-messages { background: rgba(245,240,232,0.5) !important; }
+      html.cc-light .guide-msg:not(.user) .guide-bubble { background: rgba(26,79,140,0.05) !important; border-color: rgba(26,79,140,0.1) !important; color: #1A1410 !important; }
+      html.cc-light .guide-msg.user .guide-bubble { background: rgba(184,83,46,0.07) !important; border-color: rgba(184,83,46,0.15) !important; color: #1A1410 !important; }
+      html.cc-light .guide-input-row { border-top-color: rgba(26,79,140,0.1) !important; background: rgba(245,240,232,0.9) !important; }
+      html.cc-light .guide-input { background: #fff !important; color: #1A1410 !important; border-color: rgba(26,79,140,0.2) !important; }
+      /* Newsletter */
+      html.cc-light #newsletter { background: linear-gradient(135deg, rgba(26,79,140,0.04) 0%, rgba(184,83,46,0.03) 100%) !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .newsletter-title { color: #1A1410 !important; }
+      html.cc-light .newsletter-sub { color: #5A4D3E !important; }
+      html.cc-light .newsletter-form input { background: #fff !important; color: #1A1410 !important; border-color: rgba(26,79,140,0.25) !important; }
+      /* Footer */
+      html.cc-light footer { background: #E8E0D4 !important; border-top-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .footer-col h4 { color: #1A4F8C !important; }
+      html.cc-light .footer-col a { color: #5A4D3E !important; }
+      html.cc-light .footer-col a:hover { color: #1A1410 !important; }
+      html.cc-light .footer-brand p { color: #5A4D3E !important; }
+      html.cc-light .footer-copy { color: #5A4D3E !important; }
+      html.cc-light .footer-bottom { border-top-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .social-btn { border-color: rgba(26,79,140,0.2) !important; color: #5A4D3E !important; }
+      /* Modals */
+      html.cc-light .modal-overlay { background: rgba(245,240,232,0.7) !important; }
+      html.cc-light .modal { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; box-shadow: 0 16px 48px rgba(0,0,0,0.15) !important; }
+      html.cc-light .modal-title { color: #1A1410 !important; }
+      html.cc-light .modal-sub { color: #5A4D3E !important; }
+      html.cc-light .modal-logo-name { color: #1A4F8C !important; }
+      html.cc-light .form-group label { color: #5A4D3E !important; }
+      html.cc-light .form-group input { background: #F5F0E8 !important; border-color: rgba(26,79,140,0.2) !important; color: #1A1410 !important; }
+      html.cc-light .form-group input:focus { background: #fff !important; border-color: #4A90D9 !important; }
+      html.cc-light .form-group input::placeholder { color: rgba(26,20,16,0.4) !important; }
+      html.cc-light .remember { color: #5A4D3E !important; }
+      html.cc-light .forgot { color: #1A4F8C !important; }
+      html.cc-light .modal-switch { color: #5A4D3E !important; }
+      html.cc-light .modal-switch button { color: #1A4F8C !important; }
+      html.cc-light .modal-close { background: rgba(26,79,140,0.06) !important; border-color: rgba(26,79,140,0.15) !important; color: #1A1410 !important; }
+      html.cc-light .divider-text::before, html.cc-light .divider-text::after { background: rgba(26,79,140,0.15) !important; }
+      html.cc-light .divider-text span { color: #5A4D3E !important; }
+      html.cc-light .social-login-btn { background: #F5F0E8 !important; border-color: rgba(26,79,140,0.15) !important; color: #1A1410 !important; }
+      html.cc-light .social-login-btn:hover { background: #fff !important; }
+      html.cc-light .pref-item { background: rgba(26,79,140,0.04) !important; border-color: rgba(26,79,140,0.12) !important; color: #5A4D3E !important; }
+      html.cc-light .pref-item.selected { background: rgba(26,79,140,0.1) !important; border-color: #4A90D9 !important; color: #1A1410 !important; }
+      html.cc-light .bonus-box { background: rgba(26,79,140,0.05) !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .bonus-text strong { color: #1A4F8C !important; }
+      html.cc-light .bonus-text span { color: #5A4D3E !important; }
+      html.cc-light .btn-back { border-color: rgba(26,79,140,0.2) !important; color: #5A4D3E !important; }
+      html.cc-light .btn-back:hover { border-color: #4A90D9 !important; color: #4A90D9 !important; }
+      /* Settings modal */
+      html.cc-light .settings-nav-item { color: #5A4D3E !important; }
+      html.cc-light .settings-nav-item:hover { background: rgba(26,79,140,0.05) !important; color: #1A1410 !important; }
+      html.cc-light .settings-nav-item.active { background: rgba(26,79,140,0.08) !important; color: #1A4F8C !important; }
+      html.cc-light .settings-nav { border-right-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .settings-panel h3 { color: #1A1410 !important; }
+      html.cc-light .toggle-label { color: #1A1410 !important; }
+      html.cc-light .toggle-sub { color: #5A4D3E !important; }
+      html.cc-light .toggle-row { border-bottom-color: rgba(26,79,140,0.08) !important; }
+      html.cc-light .lang-btn { background: #F5F0E8 !important; border-color: rgba(26,79,140,0.15) !important; color: #5A4D3E !important; }
+      html.cc-light .lang-btn.active { background: rgba(26,79,140,0.08) !important; border-color: #4A90D9 !important; color: #1A4F8C !important; }
+      /* Chatbot */
+      html.cc-light #ai-chat-window { background: #fff !important; border-color: rgba(26,79,140,0.15) !important; }
+      html.cc-light .chat-header { background: rgba(26,79,140,0.05) !important; border-bottom-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .chat-header-name { color: #1A1410 !important; }
+      html.cc-light .msg:not(.user) .msg-bubble { background: rgba(26,79,140,0.05) !important; border-color: rgba(26,79,140,0.1) !important; color: #1A1410 !important; }
+      html.cc-light .msg.user .msg-bubble { background: rgba(184,83,46,0.07) !important; color: #1A1410 !important; }
+      html.cc-light .chat-input { background: #F5F0E8 !important; color: #1A1410 !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .chat-input::placeholder { color: rgba(26,20,16,0.4) !important; }
+      html.cc-light .chat-input-bar { background: #fff !important; border-top-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .chat-chips { background: rgba(245,240,232,0.8) !important; border-top-color: rgba(26,79,140,0.08) !important; }
+      html.cc-light .chat-chip { border-color: rgba(26,79,140,0.2) !important; color: #5A4D3E !important; background: #fff !important; }
+      html.cc-light .chat-chip:hover { border-color: #4A90D9 !important; color: #4A90D9 !important; }
+      /* Scroll progress & back-to-top */
+      html.cc-light #back-to-top { background: rgba(245,240,232,0.95) !important; border-color: rgba(26,79,140,0.2) !important; color: #1A4F8C !important; }
+      /* Toast */
+      html.cc-light .toast { background: rgba(245,240,232,0.98) !important; border-color: rgba(144,212,138,0.4) !important; }
     `;
     document.head.appendChild(s);
   }
@@ -412,12 +536,6 @@
     if (loginBtn && t.nav_login)    loginBtn.textContent  = t.nav_login;
     if (regBtn   && t.nav_register) regBtn.textContent    = t.nav_register;
 
-    // Các phần tử có data-i18n (hero, v.v.)
-    document.querySelectorAll('[data-i18n]').forEach(function(el) {
-      var key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) el.textContent = t[key];
-    });
-
     // Cập nhật nhãn nút ngôn ngữ trên desktop
     var langBtn = document.getElementById('ccLangToggle');
     if (langBtn) langBtn.textContent = (CC_LANG_FLAGS[lang] || '🌐') + ' ' + (CC_LANG_LABELS[lang] || lang.toUpperCase());
@@ -430,6 +548,11 @@
     // Đồng bộ select trên mobile
     var mSel = document.getElementById('ccMobileLangSelect');
     if (mSel) mSel.value = lang;
+
+    // Gọi i18n.js nếu đã load
+    if (typeof window.ccApplyPageTranslations === 'function') {
+      window.ccApplyPageTranslations(lang);
+    }
   }
 
   window.ccSetLang = function (lang) {

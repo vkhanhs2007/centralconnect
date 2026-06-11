@@ -1413,22 +1413,22 @@
   <div class="stats-grid">
     <div class="stat-item reveal">
       <div class="stat-number" data-target="127">0</div>
-      <div class="stat-label">Di sản & địa điểm</div>
+      <div class="stat-label" data-i18n="stat_heritage">Di sản & địa điểm</div>
     </div>
     <div class="stat-divider"></div>
     <div class="stat-item reveal">
       <div class="stat-number" data-target="340">0</div>
-      <div class="stat-label">Quán ẩm thực đặc sản</div>
+      <div class="stat-label" data-i18n="stat_food">Quán ẩm thực đặc sản</div>
     </div>
     <div class="stat-divider"></div>
     <div class="stat-item reveal">
       <div class="stat-number" id="statMembers" data-target="89">0</div>
-      <div class="stat-label">Thành viên cộng đồng</div>
+      <div class="stat-label" data-i18n="stat_members">Thành viên cộng đồng</div>
     </div>
     <div class="stat-divider"></div>
     <div class="stat-item reveal">
       <div class="stat-number" id="statStories" data-target="12">0</div>
-      <div class="stat-label">Câu chuyện chia sẻ</div>
+      <div class="stat-label" data-i18n="stat_stories">Câu chuyện chia sẻ</div>
     </div>
   </div>
     <a class="scroll-arrow" href="#explore-cats">▼</a>
@@ -1440,46 +1440,46 @@
   <div style="max-width:1100px;margin:0 auto">
     <div class="section-header reveal">
       <div class="left">
-        <div class="section-label">Khám phá theo chủ đề</div>
-        <h2 class="section-title">Di sản theo từng cảnh</h2>
-        <p class="section-desc">Chọn chủ đề bạn quan tâm để khám phá sâu hơn</p>
+        <div class="section-label" data-i18n="sec_explore_label">Khám phá theo chủ đề</div>
+        <h2 class="section-title" data-i18n="sec_explore_title">Di sản theo từng cảnh</h2>
+        <p class="section-desc" data-i18n="sec_explore_desc">Chọn chủ đề bạn quan tâm để khám phá sâu hơn</p>
       </div>
     </div>
     <div class="reveal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
       <!-- Di tích Lịch sử -->
       <a href="pages/di-tich.html" style="text-decoration:none;display:block;background:linear-gradient(135deg,rgba(201,168,76,0.09),rgba(201,168,76,0.03));border:1px solid rgba(201,168,76,0.22);border-radius:20px;padding:30px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(201,168,76,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(201,168,76,0.22)'">
         <div style="font-size:40px;margin-bottom:14px">🏛</div>
-        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">47 di tích</div>
-        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3">Di Tích Lịch Sử</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Champa, Thành Điện Hải, Hội An — 1.800 năm qua công nghệ Xuưa–Nay</div>
-        <div style="font-size:12px;font-weight:700;color:var(--gold)">Khám phá →</div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px" data-i18n="cat_historic_count">47 di tích</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3" data-i18n="cat_historic_title">Di Tích Lịch Sử</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px" data-i18n="cat_historic_desc">Champa, Thành Điện Hải, Hội An — 1.800 năm qua công nghệ Xưa–Nay</div>
+        <div style="font-size:12px;font-weight:700;color:var(--gold)" data-i18n="cat_historic_cta">Khám phá →</div>
         <div style="position:absolute;bottom:-10px;right:-10px;font-size:70px;opacity:0.05;pointer-events:none">🏛</div>
       </a>
       <!-- Bản đồ Di sản -->
       <a href="pages/kham-pha.html" style="text-decoration:none;display:block;background:linear-gradient(135deg,rgba(74,144,217,0.09),rgba(74,144,217,0.03));border:1px solid rgba(74,144,217,0.22);border-radius:20px;padding:30px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(74,144,217,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(74,144,217,0.22)'">
         <div style="font-size:40px;margin-bottom:14px">🗺</div>
-        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ocean-light);margin-bottom:8px">12 địa điểm</div>
-        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3">Bản Đồ Di Sản</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Tương tác trực tiếp trên bản đồ, nghe audio thuyết minh và so sánh Ngày ấy – Bây giờ</div>
-        <div style="font-size:12px;font-weight:700;color:var(--ocean-light)">Xem bản đồ →</div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ocean-light);margin-bottom:8px" data-i18n="cat_map_count">12 địa điểm</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3" data-i18n="cat_map_title">Bản Đồ Di Sản</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px" data-i18n="cat_map_desc">Tương tác trực tiếp trên bản đồ, nghe audio thuyết minh và so sánh Ngày ấy – Bây giờ</div>
+        <div style="font-size:12px;font-weight:700;color:var(--ocean-light)" data-i18n="cat_map_cta">Xem bản đồ →</div>
         <div style="position:absolute;bottom:-10px;right:-10px;font-size:70px;opacity:0.05;pointer-events:none">🗺</div>
       </a>
       <!-- Làng Nghề -->
       <a href="pages/lang-nghe.html" style="text-decoration:none;display:block;background:linear-gradient(135deg,rgba(220,140,80,0.09),rgba(220,140,80,0.03));border:1px solid rgba(220,140,80,0.22);border-radius:20px;padding:30px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(220,140,80,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(220,140,80,0.22)'">
         <div style="font-size:40px;margin-bottom:14px">🏺</div>
-        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#E8A040;margin-bottom:8px">8 làng nghề</div>
-        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3">Làng Nghề Thủ Công</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Gốm Thanh Hà, Lụa Mã Châu, Rau Trà Quế — trải nghiệm làm nghề</div>
-        <div style="font-size:12px;font-weight:700;color:#E8A040">Khám phá →</div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#E8A040;margin-bottom:8px" data-i18n="cat_craft_count">8 làng nghề</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3" data-i18n="cat_craft_title">Làng Nghề Thủ Công</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px" data-i18n="cat_craft_desc">Gốm Thanh Hà, Lụa Mã Châu, Rau Trà Quế — trải nghiệm làm nghề</div>
+        <div style="font-size:12px;font-weight:700;color:#E8A040" data-i18n="cat_craft_cta">Khám phá →</div>
         <div style="position:absolute;bottom:-10px;right:-10px;font-size:70px;opacity:0.05;pointer-events:none">🏺</div>
       </a>
       <!-- Ẩm Thực -->
       <a href="pages/am-thuc.html" style="text-decoration:none;display:block;background:linear-gradient(135deg,rgba(184,83,46,0.09),rgba(184,83,46,0.03));border:1px solid rgba(184,83,46,0.22);border-radius:20px;padding:30px 22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden" onmouseover="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(184,83,46,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(184,83,46,0.22)'">
         <div style="font-size:40px;margin-bottom:14px">🍜</div>
-        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--sunset-light);margin-bottom:8px">340 quán ngon</div>
-        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3">Ẩm Thực Địa Phương</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Mì Quảng, Cao Lầu, Bánh Mì Phượng — câu chuyện đằng sau mỗi món</div>
-        <div style="font-size:12px;font-weight:700;color:var(--sunset-light)">Khám phá →</div>
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--sunset-light);margin-bottom:8px" data-i18n="cat_food_count">340 quán ngon</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3" data-i18n="cat_food_title">Ẩm Thực Địa Phương</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px" data-i18n="cat_food_desc">Mì Quảng, Cao Lầu, Bánh Mì Phượng — câu chuyện đằng sau mỗi món</div>
+        <div style="font-size:12px;font-weight:700;color:var(--sunset-light)" data-i18n="cat_food_cta">Khám phá →</div>
         <div style="position:absolute;bottom:-10px;right:-10px;font-size:70px;opacity:0.05;pointer-events:none">🍜</div>
       </a>
     </div>
@@ -1489,17 +1489,17 @@
 <section id="places">
   <div class="section-header reveal">
     <div class="left">
-      <div class="section-label">Khám phá di sản</div>
-      <h2 class="section-title">Địa điểm nổi bật tuần này</h2>
-      <p class="section-desc">Những điểm đến được yêu thích nhất, được bình chọn bởi cộng đồng du khách</p>
+      <div class="section-label" data-i18n="sec_places_label">Khám phá di sản</div>
+      <h2 class="section-title" data-i18n="sec_places_title">Địa điểm nổi bật tuần này</h2>
+      <p class="section-desc" data-i18n="sec_places_desc">Những điểm đến được yêu thích nhất, được bình chọn bởi cộng đồng du khách</p>
     </div>
-    <button class="see-all" onclick="window.location.href='pages/kham-pha.html'">Xem tất cả →</button>
+    <button class="see-all" data-i18n="sec_places_seeall" onclick="window.location.href='pages/kham-pha.html'">Xem tất cả →</button>
   </div>
   <div class="places-scroll">
     <div class="place-card" onclick="window.location.href='pages/di-tich.html'" style="cursor:pointer">
       <div class="card-img" style="background-image:url('image/hoi-an-moi.jpg')">
-        <span class="card-tag sunset">Di tích</span>
-        <div class="card-overlay"><span>Khám phá</span></div>
+        <span class="card-tag sunset" data-i18n="card_tag_relic">Di tích</span>
+        <div class="card-overlay"><span data-i18n="card_overlay_explore">Khám phá</span></div>
       </div>
       <div class="card-body">
         <div class="card-name">Chùa Cầu Hội An</div>
@@ -1509,8 +1509,8 @@
     </div>
     <div class="place-card" onclick="window.location.href='pages/kham-pha.html'" style="cursor:pointer">
       <div class="card-img" style="background-image:url('image/cau-rong-moi.jpg')">
-        <span class="card-tag ocean">Biểu tượng</span>
-        <div class="card-overlay"><span>Khám phá</span></div>
+        <span class="card-tag ocean" data-i18n="card_tag_icon">Biểu tượng</span>
+        <div class="card-overlay"><span data-i18n="card_overlay_explore">Khám phá</span></div>
       </div>
       <div class="card-body">
         <div class="card-name">Cầu Rồng Đà Nẵng</div>
@@ -1520,8 +1520,8 @@
     </div>
     <div class="place-card" onclick="window.location.href='pages/di-tich.html'" style="cursor:pointer">
       <div class="card-img" style="background-image:url('image/thanh-dia-moi.jpg')">
-        <span class="card-tag sunset">Di sản UNESCO</span>
-        <div class="card-overlay"><span>Khám phá</span></div>
+        <span class="card-tag sunset" data-i18n="card_tag_unesco">Di sản UNESCO</span>
+        <div class="card-overlay"><span data-i18n="card_overlay_explore">Khám phá</span></div>
       </div>
       <div class="card-body">
         <div class="card-name">Thánh địa Mỹ Sơn</div>
@@ -1531,7 +1531,7 @@
     </div>
     <div class="place-card" onclick="window.location.href='pages/kham-pha.html'" style="cursor:pointer">
       <div class="card-img" style="background-image:url('image/ban-dao-son-tra.jpg')">
-        <div class="card-overlay"><span>Khám phá</span></div>
+        <div class="card-overlay"><span data-i18n="card_overlay_explore">Khám phá</span></div>
       </div>
       <div class="card-body">
         <div class="card-name">Bán đảo Sơn Trà</div>
@@ -1541,8 +1541,8 @@
     </div>
     <div class="place-card" onclick="window.location.href='pages/kham-pha.html'" style="cursor:pointer">
       <div class="card-img" style="background-image:url('image/my-khe-moi.jpg')">
-        <span class="card-tag ocean">Đảo</span>
-        <div class="card-overlay"><span>Khám phá</span></div>
+        <span class="card-tag ocean" data-i18n="card_tag_island">Đảo</span>
+        <div class="card-overlay"><span data-i18n="card_overlay_explore">Khám phá</span></div>
       </div>
       <div class="card-body">
         <div class="card-name">Cù Lao Chàm</div>
@@ -1559,14 +1559,14 @@
 <section id="heritage">
   <div class="heritage-inner">
     <div class="reveal">
-      <div class="section-label">Dấu ấn thời gian</div>
-      <h2 class="section-title">Ngày ấy &amp; Bây giờ</h2>
-      <p class="section-desc" style="margin-bottom:24px">
-        Kéo thanh trượt để cảm nhận sự thay đổi qua thời gian của những địa điểm huyền thoại. 
+      <div class="section-label" data-i18n="sec_heritage_label">Dấu ấn thời gian</div>
+      <h2 class="section-title" data-i18n="sec_heritage_title">Ngày ấy &amp; Bây giờ</h2>
+      <p class="section-desc" style="margin-bottom:24px" data-i18n="sec_heritage_desc">
+        Kéo thanh trượt để cảm nhận sự thay đổi qua thời gian của những địa điểm huyền thoại.
         Mỗi hình ảnh là một câu chuyện đang chờ được kể lại.
       </p>
-      <p style="font-size:13px; color:var(--ocean-light); margin-bottom:16px">← Kéo để so sánh →</p>
-      <button class="cta-primary" style="display:inline-flex" onclick="window.location.href='pages/kham-pha.html'">
+      <p style="font-size:13px; color:var(--ocean-light); margin-bottom:16px" data-i18n="sec_heritage_hint">← Kéo để so sánh →</p>
+      <button class="cta-primary" style="display:inline-flex" data-i18n="sec_heritage_btn" onclick="window.location.href='pages/kham-pha.html'">
         🗺 Xem toàn bộ bản đồ di sản
       </button>
     </div>
@@ -1574,8 +1574,8 @@
       <div class="slider-before"></div>
       <div class="slider-after" id="sliderAfter"></div>
       <div class="slider-handle" id="sliderHandle"></div>
-      <span class="slider-label label-before">Ngày ấy</span>
-      <span class="slider-label label-after">Bây giờ</span>
+      <span class="slider-label label-before" data-i18n="slider_before">Ngày ấy</span>
+      <span class="slider-label label-after" data-i18n="slider_after">Bây giờ</span>
     </div>
   </div>
 
@@ -1587,62 +1587,62 @@
 <section id="fundraising">
   <div class="section-header reveal">
     <div class="left">
-      <div class="section-label">🌱 Cùng nhau gây quỹ</div>
-      <h2 class="section-title">Hành trình bảo tồn di sản</h2>
-      <p class="section-desc">Check-in, chia sẻ và tích điểm Hạt Bàu — cùng nhau giữ gìn những giá trị văn hoá quê hương</p>
+      <div class="section-label" data-i18n="sec_fund_label">🌱 Cùng nhau gây quỹ</div>
+      <h2 class="section-title" data-i18n="sec_fund_title">Hành trình bảo tồn di sản</h2>
+      <p class="section-desc" data-i18n="sec_fund_desc">Check-in, chia sẻ và tích điểm Hạt Bàu — cùng nhau giữ gìn những giá trị văn hoá quê hương</p>
     </div>
-    <button class="see-all" onclick="window.location.href='pages/gay-quy.html'">Xem tất cả dự án →</button>
+    <button class="see-all" data-i18n="sec_fund_seeall" onclick="window.location.href='pages/gay-quy.html'">Xem tất cả dự án →</button>
   </div>
   <div class="fund-grid">
     <div class="fund-card reveal">
       <div class="fund-img" style="background-image:url('image/thanh-dia-moi.jpg')">
-        <span class="fund-status status-urgent">Cần hỗ trợ gấp</span>
+        <span class="fund-status status-urgent" data-i18n="fund_status_urgent">Cần hỗ trợ gấp</span>
       </div>
       <div class="fund-body">
-        <div class="fund-name">Trùng tu Thánh địa Mỹ Sơn</div>
-        <div class="fund-desc">Khu tháp Chăm cổ đại đang xuống cấp, cần nguồn lực để bảo tồn 2 tháp đang sạt lở nghiêm trọng.</div>
+        <div class="fund-name" data-i18n="fund1_name">Trùng tu Thánh địa Mỹ Sơn</div>
+        <div class="fund-desc" data-i18n="fund1_desc">Khu tháp Chăm cổ đại đang xuống cấp, cần nguồn lực để bảo tồn 2 tháp đang sạt lở nghiêm trọng.</div>
         <div class="progress-wrap">
           <div class="progress-bar"><div class="progress-fill" style="width:64%"></div></div>
           <div class="progress-info">
             <span class="progress-raised">32 triệu đ</span>
-            <span class="progress-goal">Mục tiêu: 50 triệu đ</span>
+            <span class="progress-goal"><span data-i18n="fund_goal_prefix">Mục tiêu:</span> 50 triệu đ</span>
           </div>
         </div>
-        <button class="fund-btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
+        <button class="fund-btn" data-i18n="fund_btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
       </div>
     </div>
     <div class="fund-card reveal">
       <div class="fund-img" style="background-image:url('image/hoi-an-moi.jpg')">
-        <span class="fund-status status-active">Đang hoạt động</span>
+        <span class="fund-status status-active" data-i18n="fund_status_active">Đang hoạt động</span>
       </div>
       <div class="fund-body">
-        <div class="fund-name">Phố cổ Hội An xanh hơn</div>
-        <div class="fund-desc">Dự án trồng cây, giảm rác thải nhựa và tô màu lại những góc phố cổ bị phai màu.</div>
+        <div class="fund-name" data-i18n="fund2_name">Phố cổ Hội An xanh hơn</div>
+        <div class="fund-desc" data-i18n="fund2_desc">Dự án trồng cây, giảm rác thải nhựa và tô màu lại những góc phố cổ bị phai màu.</div>
         <div class="progress-wrap">
           <div class="progress-bar"><div class="progress-fill" style="width:81%"></div></div>
           <div class="progress-info">
             <span class="progress-raised">40.5 triệu đ</span>
-            <span class="progress-goal">Mục tiêu: 50 triệu đ</span>
+            <span class="progress-goal"><span data-i18n="fund_goal_prefix">Mục tiêu:</span> 50 triệu đ</span>
           </div>
         </div>
-        <button class="fund-btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
+        <button class="fund-btn" data-i18n="fund_btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
       </div>
     </div>
     <div class="fund-card reveal">
       <div class="fund-img" style="background-image:url('image/my-khe-moi.jpg')">
-        <span class="fund-status status-active">Đang hoạt động</span>
+        <span class="fund-status status-active" data-i18n="fund_status_active">Đang hoạt động</span>
       </div>
       <div class="fund-body">
-        <div class="fund-name">Làng chài Mân Thái — hồi sinh</div>
-        <div class="fund-desc">Khôi phục nghề đan lưới truyền thống và xây dựng không gian trưng bày văn hoá làng chài.</div>
+        <div class="fund-name" data-i18n="fund3_name">Làng chài Mân Thái — hồi sinh</div>
+        <div class="fund-desc" data-i18n="fund3_desc">Khôi phục nghề đan lưới truyền thống và xây dựng không gian trưng bày văn hoá làng chài.</div>
         <div class="progress-wrap">
           <div class="progress-bar"><div class="progress-fill" style="width:38%"></div></div>
           <div class="progress-info">
             <span class="progress-raised">11.4 triệu đ</span>
-            <span class="progress-goal">Mục tiêu: 30 triệu đ</span>
+            <span class="progress-goal"><span data-i18n="fund_goal_prefix">Mục tiêu:</span> 30 triệu đ</span>
           </div>
         </div>
-        <button class="fund-btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
+        <button class="fund-btn" data-i18n="fund_btn" onclick="requireLogin()">🪙 Tham gia hành trình</button>
       </div>
     </div>
   </div>
@@ -1654,36 +1654,36 @@
 <section id="food">
   <div class="section-header reveal">
     <div class="left">
-      <div class="section-label">Ẩm thực địa phương</div>
-      <h2 class="section-title">Vị ngon vỉa hè</h2>
-      <p class="section-desc">Những món ăn mang hồn đất Quảng — được truyền qua nhiều thế hệ</p>
+      <div class="section-label" data-i18n="sec_food_label">Ẩm thực địa phương</div>
+      <h2 class="section-title" data-i18n="sec_food_title">Vị ngon vỉa hè</h2>
+      <p class="section-desc" data-i18n="sec_food_desc">Những món ăn mang hồn đất Quảng — được truyền qua nhiều thế hệ</p>
     </div>
-    <button class="see-all">Xem bản đồ ẩm thực →</button>
+    <button class="see-all" data-i18n="sec_food_seeall">Xem bản đồ ẩm thực →</button>
   </div>
   <div class="food-masonry reveal">
     <div class="food-item" style="height:220px">
       <img src="image/My_quang.png" alt="Mì Quảng" class="food-thumb">
-      <div class="food-info"><div class="food-name">Mì Quảng</div><div class="food-place">Đặc sản Đà Nẵng</div></div>
+      <div class="food-info"><div class="food-name">Mì Quảng</div><div class="food-place" data-i18n="food_place1">Đặc sản Đà Nẵng</div></div>
     </div>
     <div class="food-item" style="height:160px">
       <img src="image/cau_lau_hoi_an.png" alt="Cao Lầu" class="food-thumb">
-      <div class="food-info"><div class="food-name">Cao Lầu Hội An</div><div class="food-place">Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)</div></div>
+      <div class="food-info"><div class="food-name">Cao Lầu Hội An</div><div class="food-place" data-i18n="food_place2">Hội An, Đà Nẵng</div></div>
     </div>
     <div class="food-item" style="height:190px">
       <img src="image/banh_mi_phuong.png" alt="Bánh Mì Phượng" class="food-thumb">
-      <div class="food-info"><div class="food-name">Bánh Mì Phượng</div><div class="food-place">Hội An — nổi tiếng thế giới</div></div>
+      <div class="food-info"><div class="food-name">Bánh Mì Phượng</div><div class="food-place" data-i18n="food_place3">Hội An — nổi tiếng thế giới</div></div>
     </div>
     <div class="food-item" style="height:200px">
       <img src="image/banh_xeo.png" alt="Bánh Xèo" class="food-thumb">
-      <div class="food-info"><div class="food-name">Bánh Xèo</div><div class="food-place">Đặc sản miền Trung</div></div>
+      <div class="food-info"><div class="food-name">Bánh Xèo</div><div class="food-place" data-i18n="food_place4">Đặc sản miền Trung</div></div>
     </div>
     <div class="food-item" style="height:170px">
       <img src="image/com_ga.png" alt="Cơm Gà" class="food-thumb">
-      <div class="food-info"><div class="food-name">Cơm Gà Hội An</div><div class="food-place">Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)</div></div>
+      <div class="food-info"><div class="food-name">Cơm Gà Hội An</div><div class="food-place" data-i18n="food_place5">Hội An, Đà Nẵng</div></div>
     </div>
     <div class="food-item" style="height:210px">
       <img src="image/banh_trang_cuon.png" alt="Bánh Tráng Cuốn" class="food-thumb">
-      <div class="food-info"><div class="food-name">Bánh Tráng Cuốn Thịt Heo</div><div class="food-place">Đà Nẵng</div></div>
+      <div class="food-info"><div class="food-name">Bánh Tráng Cuốn Thịt Heo</div><div class="food-place" data-i18n="food_place6">Đà Nẵng</div></div>
     </div>
   </div>
     <a class="scroll-arrow" href="#vku">▼</a>
@@ -1694,10 +1694,10 @@
 <section id="vku">
   <div class="vku-inner">
     <div class="reveal">
-      <div class="section-label">VKU Corner</div>
-      <h2 class="section-title">Được xây dựng bởi sinh viên VKU</h2>
-      <p class="section-desc" style="margin-bottom:28px">
-         Trường Đại học Công Nghệ Thông Tin và Truyền Thông Việt-Hàn — nơi công nghệ gặp gỡ văn hoá. 
+      <div class="section-label" data-i18n="sec_vku_label">VKU Corner</div>
+      <h2 class="section-title" data-i18n="sec_vku_title">Được xây dựng bởi sinh viên VKU</h2>
+      <p class="section-desc" style="margin-bottom:28px" data-i18n="sec_vku_desc">
+        Trường Đại học Công Nghệ Thông Tin và Truyền Thông Việt-Hàn — nơi công nghệ gặp gỡ văn hoá.
         Dự án Central Connect là tâm huyết của chúng em trong việc dùng IT để bảo tồn di sản quê hương.
       </p>
       <div class="blog-list">
@@ -1726,11 +1726,11 @@
     </div>
     <div class="vku-banner reveal">
       <div class="vku-logo">VKU</div>
-      <div class="vku-full">Trường Đại học Việt-Hàn<br>Vietnam – Korea University</div>
-      <p style="font-size:13px; color:var(--muted); margin-bottom:20px; line-height:1.6">
+      <div class="vku-full" data-i18n="vku_full_name">Trường Đại học Việt-Hàn<br>Vietnam – Korea University</div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:20px; line-height:1.6" data-i18n="vku_sub">
         Xem lộ trình du lịch xuất phát từ trường — khám phá Đà Nẵng & Hội An ngay từ cổng trường
       </p>
-      <button class="vku-map-btn" onclick="window.location.href='pages/vku-corner.html'">🗺 Lộ trình từ VKU</button>
+      <button class="vku-map-btn" data-i18n="vku_btn" onclick="window.location.href='pages/vku-corner.html'">🗺 Lộ trình từ VKU</button>
     </div>
   </div>
 
@@ -1743,36 +1743,36 @@
   <div class="guide-inner">
     <div class="section-header reveal">
       <div class="left">
-        <div class="section-label">🤖 AI • Người dẫn đường bản địa</div>
-        <h2 class="section-title">Hỏi gì về miền Trung?</h2>
-        <p class="section-desc">Trợ lý thông minh của chúng tôi hiểu rõ từng con ngõ, từng quán ăn, từng lễ hội ở Đà Nẵng</p>
+        <div class="section-label" data-i18n="sec_ai_label">🤖 AI • Người dẫn đường bản địa</div>
+        <h2 class="section-title" data-i18n="sec_ai_title">Hỏi gì về miền Trung?</h2>
+        <p class="section-desc" data-i18n="sec_ai_desc">Trợ lý thông minh của chúng tôi hiểu rõ từng con ngõ, từng quán ăn, từng lễ hội ở Đà Nẵng</p>
       </div>
     </div>
     <div class="guide-chat-window reveal">
       <div class="guide-chat-header">
         <div class="guide-avatar">🌊</div>
         <div class="guide-header-info">
-          <div class="guide-header-name">Trợ lý Central Connect</div>
-          <div class="guide-header-status">Đang hoạt động · Trả lời trong vài giây</div>
+          <div class="guide-header-name" data-i18n="ai_header_name">Trợ lý Central Connect</div>
+          <div class="guide-header-status" data-i18n="ai_header_status">Đang hoạt động · Trả lời trong vài giây</div>
         </div>
         <div class="guide-quick-chips">
-          <button class="guide-chip" onclick="askGuide('Hội An nên đi lúc nào đẹp nhất?')">📅 Thời điểm lý tưởng</button>
-          <button class="guide-chip" onclick="askGuide('Ăn gì ngon ở Đà Nẵng?')">🍜 Ẩm thực gợi ý</button>
-          <button class="guide-chip" onclick="askGuide('Lịch trình 3 ngày ở Hội An')">🗺 Lịch trình 3 ngày</button>
-          <button class="guide-chip" onclick="askGuide('Phương tiện đi lại tốt nhất ở Đà Nẵng')">🛵 Di chuyển</button>
+          <button class="guide-chip" data-i18n="ai_chip1" onclick="askGuide('Hội An nên đi lúc nào đẹp nhất?')">📅 Thời điểm lý tưởng</button>
+          <button class="guide-chip" data-i18n="ai_chip2" onclick="askGuide('Ăn gì ngon ở Đà Nẵng?')">🍜 Ẩm thực gợi ý</button>
+          <button class="guide-chip" data-i18n="ai_chip3" onclick="askGuide('Lịch trình 3 ngày ở Hội An')">🗺 Lịch trình 3 ngày</button>
+          <button class="guide-chip" data-i18n="ai_chip4" onclick="askGuide('Phương tiện đi lại tốt nhất ở Đà Nẵng')">🛵 Di chuyển</button>
         </div>
       </div>
       <div class="guide-messages" id="guideMessages">
         <div class="guide-msg">
           <div class="guide-msg-avatar">🌊</div>
-          <div class="guide-bubble">
+          <div class="guide-bubble" data-i18n="ai_welcome">
             Xin chào! Tôi là trợ lý du lịch của Central Connect 👋<br><br>
             Tôi có thể giúp bạn về <strong style="color:var(--ocean-light)">địa điểm tham quan, ẩm thực, lịch trình, phương tiện di chuyển</strong> và mọi thứ về Đà Nẵng. Hỏi tôi bất cứ điều gì nhé!
           </div>
         </div>
       </div>
       <div class="guide-input-row">
-        <input class="guide-input" id="guideInput" placeholder="Hỏi về địa điểm, ẩm thực, lịch trình..." onkeydown="if(event.key==='Enter') sendGuideMsg()">
+        <input class="guide-input" id="guideInput" data-i18n-placeholder="ai_input_ph" placeholder="Hỏi về địa điểm, ẩm thực, lịch trình..." onkeydown="if(event.key==='Enter') sendGuideMsg()">
         <button class="guide-send-btn" onclick="sendGuideMsg()">➤</button>
       </div>
     </div>
@@ -1784,15 +1784,15 @@
 <!-- ─────────── NEWSLETTER ─────────── -->
 <section id="newsletter">
   <div class="newsletter-wrap reveal">
-    <div class="section-label" style="text-align:center">Cộng đồng</div>
-    <h2 class="newsletter-title">Nhận gợi ý mỗi tuần</h2>
-    <p class="newsletter-sub">
-      Cập nhật địa điểm mới, voucher độc quyền từ đối tác và thông báo hành trình gây quỹ — 
+    <div class="section-label" style="text-align:center" data-i18n="sec_news_label">Cộng đồng</div>
+    <h2 class="newsletter-title" data-i18n="sec_news_title">Nhận gợi ý mỗi tuần</h2>
+    <p class="newsletter-sub" data-i18n="sec_news_desc">
+      Cập nhật địa điểm mới, voucher độc quyền từ đối tác và thông báo hành trình gây quỹ —
       tất cả trong một email mỗi thứ Hai
     </p>
     <div class="newsletter-form">
-      <input type="email" placeholder="Email của bạn..." id="newsletterEmail">
-      <button class="newsletter-submit" onclick="subscribeNewsletter()">Đăng ký ngay</button>
+      <input type="email" data-i18n-placeholder="news_email_ph" placeholder="Email của bạn..." id="newsletterEmail">
+      <button class="newsletter-submit" data-i18n="news_btn" onclick="subscribeNewsletter()">Đăng ký ngay</button>
     </div>
   </div>
     <a class="scroll-arrow" href="#footer-brand">▼</a>
@@ -1852,7 +1852,7 @@
 <!-- ─────────── CHATBOT BTN ─────────── -->
 <button class="chatbot-btn" onclick="openLocalGuide()">
   🤖
-  <span class="chatbot-label">Người dẫn đường bản địa</span>
+  <span class="chatbot-label" data-i18n="chatbot_label">Người dẫn đường bản địa</span>
 </button>
 
 <!-- ─────────── MODAL: ĐĂNG NHẬP ─────────── -->
@@ -1863,31 +1863,31 @@
            <img src= "assets/images/logo.jpg"  class="nav-logo-img">
       <div class="modal-logo-name">CENTRAL CONNECT</div>
     </div>
-    <h2 class="modal-title">Chào mừng trở lại!</h2>
-    <p class="modal-sub">Đăng nhập để tích điểm Hạt Bàu và nhận ưu đãi</p>
+    <h2 class="modal-title" data-i18n="login_title">Chào mừng trở lại!</h2>
+    <p class="modal-sub" data-i18n="login_sub">Đăng nhập để tích điểm Hạt Bàu và nhận ưu đãi</p>
     <div class="form-group">
-      <label>Email hoặc Tên đăng nhập</label>
-      <input type="text" placeholder="example@email.com" id="loginEmail">
+      <label data-i18n="login_label_email">Email hoặc Tên đăng nhập</label>
+      <input type="text" data-i18n-placeholder="login_ph_email" placeholder="example@email.com" id="loginEmail">
     </div>
     <div class="form-group">
-      <label>Mật khẩu</label>
+      <label data-i18n="login_label_pw">Mật khẩu</label>
       <div class="input-wrap">
         <input type="password" placeholder="••••••••" id="loginPw">
         <button class="toggle-pw" onclick="togglePw('loginPw', this)">👁</button>
       </div>
     </div>
     <div class="form-row">
-      <label class="remember"><input type="checkbox"> Ghi nhớ tôi</label>
-      <button class="forgot">Quên mật khẩu?</button>
+      <label class="remember"><input type="checkbox"> <span data-i18n="login_remember">Ghi nhớ tôi</span></label>
+      <button class="forgot" data-i18n="login_forgot">Quên mật khẩu?</button>
     </div>
-    <button class="btn-modal-primary" onclick="doLogin()">ĐĂNG NHẬP</button>
-    <div class="divider-text"><span>hoặc đăng nhập bằng</span></div>
+    <button class="btn-modal-primary" data-i18n="login_btn" onclick="doLogin()">ĐĂNG NHẬP</button>
+    <div class="divider-text"><span data-i18n="login_or">hoặc đăng nhập bằng</span></div>
     <div class="social-login">
-      <button class="social-login-btn" onclick="doLogin()">🇬 Google</button>
-      <button class="social-login-btn" onclick="doLogin()">📘 Facebook</button>
+      <button class="social-login-btn" data-i18n="login_google" onclick="doLogin()">🇬 Google</button>
+      <button class="social-login-btn" data-i18n="login_facebook" onclick="doLogin()">📘 Facebook</button>
     </div>
     <div class="modal-switch">
-      Chưa có tài khoản? <button onclick="switchToRegister()">Đăng ký ngay</button>
+      <span data-i18n="login_no_account">Chưa có tài khoản?</span> <button data-i18n="login_signup" onclick="switchToRegister()">Đăng ký ngay</button>
     </div>
   </div>
 </div>
@@ -1912,76 +1912,78 @@
 
     <!-- Step 1 -->
     <div id="regStep1">
-      <h2 class="modal-title">Tạo tài khoản</h2>
-      <p class="modal-sub">Bước 1/3 · Thông tin cơ bản</p>
+      <h2 class="modal-title" data-i18n="reg1_title">Tạo tài khoản</h2>
+      <p class="modal-sub" data-i18n="reg1_sub">Bước 1/3 · Thông tin cơ bản</p>
       <div class="form-group">
-        <label>Họ và Tên</label>
-        <input type="text" placeholder="Nguyễn Văn A" id="regName">
+        <label data-i18n="reg1_label_name">Họ và Tên</label>
+        <input type="text" data-i18n-placeholder="reg1_ph_name" placeholder="Nguyễn Văn A" id="regName">
       </div>
       <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="email@example.com" id="regEmail">
+        <label data-i18n="reg1_label_email">Email</label>
+        <input type="email" data-i18n-placeholder="reg1_ph_email" placeholder="email@example.com" id="regEmail">
       </div>
       <div class="form-group">
-        <label>Mật khẩu</label>
+        <label data-i18n="reg1_label_pw">Mật khẩu</label>
         <div class="input-wrap">
-          <input type="password" placeholder="Tối thiểu 8 ký tự" id="regPw">
+          <input type="password" data-i18n-placeholder="reg1_ph_pw" placeholder="Tối thiểu 8 ký tự" id="regPw">
           <button class="toggle-pw" onclick="togglePw('regPw', this)">👁</button>
         </div>
       </div>
       <div class="form-group">
-        <label>Nhập lại mật khẩu</label>
+        <label data-i18n="reg1_label_pw2">Nhập lại mật khẩu</label>
         <input type="password" placeholder="••••••••" id="regPw2">
       </div>
-      <button class="btn-modal-primary" onclick="goStep(2)">Tiếp theo →</button>
-      <div class="modal-switch">Đã có tài khoản? <button onclick="switchToLogin()">Đăng nhập</button></div>
+      <button class="btn-modal-primary" data-i18n="reg1_next" onclick="goStep(2)">Tiếp theo →</button>
+      <div class="modal-switch"><span data-i18n="reg1_have_account">Đã có tài khoản?</span> <button data-i18n="reg1_login" onclick="switchToLogin()">Đăng nhập</button></div>
     </div>
 
     <!-- Step 2 -->
     <div id="regStep2" style="display:none">
-      <h2 class="modal-title">Sở thích của bạn</h2>
-      <p class="modal-sub">Bước 2/3 · Cá nhân hoá hành trình</p>
+      <h2 class="modal-title" data-i18n="reg2_title">Sở thích của bạn</h2>
+      <p class="modal-sub" data-i18n="reg2_sub">Bước 2/3 · Cá nhân hoá hành trình</p>
       <div class="pref-grid">
-        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏖</span>Biển & Nghỉ dưỡng</div>
-        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏛</span>Di tích lịch sử</div>
-        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🍜</span>Ẩm thực</div>
-        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🌿</span>Thiên nhiên</div>
-        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏺</span>Làng nghề</div>
-        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🎭</span>Lễ hội văn hoá</div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏖</span><span data-i18n="pref_beach">Biển & Nghỉ dưỡng</span></div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏛</span><span data-i18n="pref_relic">Di tích lịch sử</span></div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🍜</span><span data-i18n="pref_food">Ẩm thực</span></div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🌿</span><span data-i18n="pref_nature">Thiên nhiên</span></div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🏺</span><span data-i18n="pref_craft">Làng nghề</span></div>
+        <div class="pref-item" onclick="togglePref(this)"><span class="pref-icon">🎭</span><span data-i18n="pref_festival">Lễ hội văn hoá</span></div>
       </div>
       <div class="btn-row">
-        <button class="btn-back" onclick="goStep(1)">← Quay lại</button>
-        <button class="btn-modal-primary" style="margin:0" onclick="goStep(3)">Tiếp theo →</button>
+        <button class="btn-back" data-i18n="reg_back" onclick="goStep(1)">← Quay lại</button>
+        <button class="btn-modal-primary" style="margin:0" data-i18n="reg2_next" onclick="goStep(3)">Tiếp theo →</button>
       </div>
     </div>
 
     <!-- Step 3 -->
     <div id="regStep3" style="display:none">
-      <h2 class="modal-title">Gần xong rồi! 🎉</h2>
-      <p class="modal-sub">Bước 3/3 · Thêm thông tin (tuỳ chọn)</p>
+      <h2 class="modal-title" data-i18n="reg3_title">Gần xong rồi! 🎉</h2>
+      <p class="modal-sub" data-i18n="reg3_sub">Bước 3/3 · Thêm thông tin (tuỳ chọn)</p>
       <div class="bonus-box">
         <span class="bonus-icon">🪙</span>
         <div class="bonus-text">
-          <strong>Tặng ngay 50 Hạt Bàu khi đăng ký!</strong>
-          <span>Đổi lấy voucher từ các đối tác của chúng tôi</span>
+          <strong data-i18n="reg3_bonus_title">Tặng ngay 50 Hạt Bàu khi đăng ký!</strong>
+          <span data-i18n="reg3_bonus_sub">Đổi lấy voucher từ các đối tác của chúng tôi</span>
         </div>
       </div>
       <div class="form-group">
-        <label>Số điện thoại (tuỳ chọn)</label>
-        <input type="tel" placeholder="0901 234 567" id="regPhone">
+        <label data-i18n="reg3_label_phone">Số điện thoại (tuỳ chọn)</label>
+        <input type="tel" data-i18n-placeholder="reg3_ph_phone" placeholder="0901 234 567" id="regPhone">
       </div>
       <div class="form-group">
-        <label>Bạn đến từ đâu?</label>
-        <input type="text" placeholder="Hà Nội, TP.HCM, Nước ngoài..." id="regFrom">
+        <label data-i18n="reg3_label_from">Bạn đến từ đâu?</label>
+        <input type="text" data-i18n-placeholder="reg3_ph_from" placeholder="Hà Nội, TP.HCM, Nước ngoài..." id="regFrom">
       </div>
       <div style="font-size:12px; color:var(--muted); margin-bottom:18px; line-height:1.6">
-        Bằng cách đăng ký, bạn đồng ý với 
-        <span style="color:var(--ocean-light); cursor:pointer">Điều khoản sử dụng</span> và 
-        <span style="color:var(--ocean-light); cursor:pointer">Chính sách bảo mật</span> của chúng tôi.
+        <span data-i18n="reg3_terms">Bằng cách đăng ký, bạn đồng ý với</span>
+        <span style="color:var(--ocean-light); cursor:pointer" data-i18n="reg3_terms_link">Điều khoản sử dụng</span>
+        <span data-i18n="reg3_and">và</span>
+        <span style="color:var(--ocean-light); cursor:pointer" data-i18n="reg3_privacy_link">Chính sách bảo mật</span>
+        <span data-i18n="reg3_of_us">của chúng tôi.</span>
       </div>
       <div class="btn-row">
-        <button class="btn-back" onclick="goStep(2)">← Quay lại</button>
-        <button class="btn-modal-primary" style="margin:0" onclick="doRegister()">Hoàn tất 🎉</button>
+        <button class="btn-back" data-i18n="reg_back" onclick="goStep(2)">← Quay lại</button>
+        <button class="btn-modal-primary" style="margin:0" data-i18n="reg3_finish" onclick="doRegister()">Hoàn tất 🎉</button>
       </div>
     </div>
   </div>
@@ -1991,66 +1993,66 @@
 <div class="modal-overlay" id="settingsModal">
   <div class="modal" style="max-width:580px">
     <button class="modal-close" onclick="closeModals()">✕</button>
-    <h2 class="modal-title" style="text-align:left; margin-bottom:24px; font-size:22px">⚙ Cài đặt tài khoản</h2>
+    <h2 class="modal-title" style="text-align:left; margin-bottom:24px; font-size:22px" data-i18n="settings_title">⚙ Cài đặt tài khoản</h2>
     <div class="settings-layout">
       <div class="settings-nav">
-        <button class="settings-nav-item active" onclick="switchSetting(this,'profile')">👤 Hồ sơ</button>
-        <button class="settings-nav-item" onclick="switchSetting(this,'security')">🔐 Bảo mật</button>
-        <button class="settings-nav-item" onclick="switchSetting(this,'notify')">🔔 Thông báo</button>
-        <button class="settings-nav-item" onclick="switchSetting(this,'display')">🎨 Giao diện</button>
-        <button class="settings-nav-item" onclick="switchSetting(this,'lang')">🌐 Ngôn ngữ</button>
-        <button class="settings-nav-item" onclick="switchSetting(this,'social')">🔗 MXH</button>
+        <button class="settings-nav-item active" data-i18n="settings_nav_profile" onclick="switchSetting(this,'profile')">👤 Hồ sơ</button>
+        <button class="settings-nav-item" data-i18n="settings_nav_security" onclick="switchSetting(this,'security')">🔐 Bảo mật</button>
+        <button class="settings-nav-item" data-i18n="settings_nav_notify" onclick="switchSetting(this,'notify')">🔔 Thông báo</button>
+        <button class="settings-nav-item" data-i18n="settings_nav_display" onclick="switchSetting(this,'display')">🎨 Giao diện</button>
+        <button class="settings-nav-item" data-i18n="settings_nav_lang" onclick="switchSetting(this,'lang')">🌐 Ngôn ngữ</button>
+        <button class="settings-nav-item" data-i18n="settings_nav_social" onclick="switchSetting(this,'social')">🔗 MXH</button>
       </div>
       <div class="settings-content">
         <div class="settings-panel active" id="panel-profile">
-          <h3>Hồ sơ cá nhân</h3>
-          <div class="form-group"><label>Họ và Tên</label><input type="text" id="settingName" value="Tài khoản"></div>
-          <div class="form-group"><label>Bio ngắn</label><input type="text" placeholder="Mô tả về bản thân..."></div>
-          <div class="form-group"><label>Quê quán</label><input type="text" placeholder="Đà Nẵng..."></div>
-          <button class="btn-modal-primary" style="margin-top:8px" onclick="saveSettings()">Lưu thay đổi</button>
+          <h3 data-i18n="settings_panel_profile">Hồ sơ cá nhân</h3>
+          <div class="form-group"><label data-i18n="settings_label_name">Họ và Tên</label><input type="text" id="settingName" value="Tài khoản"></div>
+          <div class="form-group"><label data-i18n="settings_label_bio">Bio ngắn</label><input type="text" data-i18n-placeholder="settings_ph_bio" placeholder="Mô tả về bản thân..."></div>
+          <div class="form-group"><label data-i18n="settings_label_hometown">Quê quán</label><input type="text" data-i18n-placeholder="settings_ph_hometown" placeholder="Đà Nẵng..."></div>
+          <button class="btn-modal-primary" style="margin-top:8px" data-i18n="settings_save" onclick="saveSettings()">Lưu thay đổi</button>
         </div>
         <div class="settings-panel" id="panel-security">
-          <h3>Bảo mật</h3>
-          <div class="form-group"><label>Mật khẩu mới</label><input type="password" placeholder="••••••••"></div>
-          <div class="form-group"><label>Xác nhận mật khẩu</label><input type="password" placeholder="••••••••"></div>
+          <h3 data-i18n="settings_panel_security">Bảo mật</h3>
+          <div class="form-group"><label data-i18n="settings_label_newpw">Mật khẩu mới</label><input type="password" placeholder="••••••••"></div>
+          <div class="form-group"><label data-i18n="settings_label_confirmpw">Xác nhận mật khẩu</label><input type="password" placeholder="••••••••"></div>
           <div class="toggle-row">
-            <div><div class="toggle-label">Xác thực 2 lớp (2FA)</div><div class="toggle-sub">Bảo vệ tài khoản an toàn hơn</div></div>
+            <div><div class="toggle-label" data-i18n="settings_2fa">Xác thực 2 lớp (2FA)</div><div class="toggle-sub" data-i18n="settings_2fa_sub">Bảo vệ tài khoản an toàn hơn</div></div>
             <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
           </div>
-          <button class="btn-modal-primary" style="margin-top:16px" onclick="saveSettings()">Lưu thay đổi</button>
+          <button class="btn-modal-primary" style="margin-top:16px" data-i18n="settings_save" onclick="saveSettings()">Lưu thay đổi</button>
         </div>
         <div class="settings-panel" id="panel-notify">
-          <h3>Thông báo</h3>
+          <h3 data-i18n="settings_panel_notify">Thông báo</h3>
           <div class="toggle-row">
-            <div><div class="toggle-label">Thông báo lịch trình</div></div>
+            <div><div class="toggle-label" data-i18n="settings_notify_schedule">Thông báo lịch trình</div></div>
             <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
           </div>
           <div class="toggle-row">
-            <div><div class="toggle-label">Voucher sắp hết hạn</div></div>
+            <div><div class="toggle-label" data-i18n="settings_notify_voucher">Voucher sắp hết hạn</div></div>
             <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
           </div>
           <div class="toggle-row">
-            <div><div class="toggle-label">Địa điểm mới</div></div>
+            <div><div class="toggle-label" data-i18n="settings_notify_places">Địa điểm mới</div></div>
             <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
           </div>
           <div class="toggle-row">
-            <div><div class="toggle-label">Email newsletter</div></div>
+            <div><div class="toggle-label" data-i18n="settings_notify_email">Email newsletter</div></div>
             <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
           </div>
         </div>
         <div class="settings-panel" id="panel-display">
-          <h3>Giao diện</h3>
+          <h3 data-i18n="settings_panel_display">Giao diện</h3>
           <div class="toggle-row">
-            <div><div class="toggle-label">Chế độ tối (Dark mode)</div><div class="toggle-sub">Mặc định đang bật</div></div>
+            <div><div class="toggle-label" data-i18n="settings_darkmode">Chế độ tối (Dark mode)</div><div class="toggle-sub" data-i18n="settings_darkmode_sub">Mặc định đang bật</div></div>
             <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
           </div>
           <div class="toggle-row">
-            <div><div class="toggle-label">Hiệu ứng chuyển động</div></div>
+            <div><div class="toggle-label" data-i18n="settings_motion">Hiệu ứng chuyển động</div></div>
             <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
           </div>
         </div>
         <div class="settings-panel" id="panel-lang">
-          <h3>Ngôn ngữ</h3>
+          <h3 data-i18n="settings_panel_lang">Ngôn ngữ</h3>
           <div class="lang-grid">
             <button class="lang-btn active" onclick="setLang(this)">🇻🇳 Tiếng Việt</button>
             <button class="lang-btn" onclick="setLang(this)">🇬🇧 English</button>
@@ -2059,17 +2061,17 @@
           </div>
         </div>
         <div class="settings-panel" id="panel-social">
-          <h3>Liên kết mạng xã hội</h3>
+          <h3 data-i18n="settings_panel_social">Liên kết mạng xã hội</h3>
           <div class="toggle-row">
-            <div><div class="toggle-label">Facebook</div><div class="toggle-sub">Chia sẻ checkin tự động</div></div>
+            <div><div class="toggle-label">Facebook</div><div class="toggle-sub" data-i18n="settings_fb_sub">Chia sẻ checkin tự động</div></div>
             <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
           </div>
           <div class="toggle-row">
-            <div><div class="toggle-label">Google</div><div class="toggle-sub">Đăng nhập nhanh</div></div>
+            <div><div class="toggle-label">Google</div><div class="toggle-sub" data-i18n="settings_google_sub">Đăng nhập nhanh</div></div>
             <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
           </div>
           <div class="toggle-row">
-            <div><div class="toggle-label">TikTok</div><div class="toggle-sub">Đăng video hành trình</div></div>
+            <div><div class="toggle-label">TikTok</div><div class="toggle-sub" data-i18n="settings_tiktok_sub">Đăng video hành trình</div></div>
             <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
           </div>
         </div>
@@ -2801,6 +2803,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="js/auth.js"></script>
 <script src="js/auth-modal.js"></script>
 <script src="js/effects.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/chatbot.js"></script>
 </body>
