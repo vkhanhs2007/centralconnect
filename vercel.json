@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "outputDirectory": "BWD",
+  "rewrites": [
+    { "source": "/",             "destination": "/BWD/index.html" },
+    { "source": "/((?!api/).*)", "destination": "/BWD/$1" }
+  ],
   "functions": {
-    "api/chat.js": { "maxDuration": 30, "runtime": "nodejs20.x" },
-    "api/ai.js":   { "maxDuration": 30, "runtime": "nodejs20.x" }
+    "api/chat.js": { "maxDuration": 30 }
   }
 }

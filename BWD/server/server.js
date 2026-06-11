@@ -9,8 +9,8 @@ const https   = require('https');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
-const GROQ_KEY   = process.env.GROQ_KEY   || '';
-const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
+const GROQ_API_KEY = process.env.GROQ_API_KEY || process.env.GROQ_KEY || '';
+const GROQ_MODEL   = process.env.GROQ_MODEL   || 'llama-3.1-8b-instant';
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 app.use(express.json());
@@ -437,17 +437,18 @@ app.post('/api/auth/reset-password', wrap(async (req, res) => {
 }));
 
 // ════════════════════════════════════════════════════════════════
-//  AI PROXY — giữ GROQ_KEY an toàn phía server
+//  AI PROXY — /api/chat (Vercel) & /api/ai (legacy) đều hoạt động
 // ════════════════════════════════════════════════════════════════
-app.post('/api/ai', wrap(async (req, res) => {
-  if (!GROQ_KEY) return res.status(503).json({ error: 'AI chưa được cấu hình trên server' });
+async function handleAI(req, res) {
+  if (!GROQ_API_KEY) return res.status(503).json({ error: 'GROQ_API_KEY chưa được cấu hình' });
 
-  const { messages, max_tokens = 800 } = req.body;
-  if (!messages || !Array.isArray(messages)) {
+  const { messages, max_tokens = 800 } = req.body || {};
+  if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'messages là bắt buộc' });
   }
 
-  const payload = JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.7, max_tokens });
+  const tokens  = Math.min(parseInt(max_tokens) || 800, 4096);
+  const payload = JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.7, max_tokens: tokens });
 
   const result = await new Promise((resolve, reject) => {
     const opts = {
@@ -455,8 +456,8 @@ app.post('/api/ai', wrap(async (req, res) => {
       path: '/openai/v1/chat/completions',
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_KEY}`,
+        'Content-Type':   'application/json',
+        'Authorization':  `Bearer ${GROQ_API_KEY}`,
         'Content-Length': Buffer.byteLength(payload)
       }
     };
@@ -469,6 +470,7 @@ app.post('/api/ai', wrap(async (req, res) => {
       });
     });
     req2.on('error', reject);
+    req2.setTimeout(25000, () => { req2.destroy(); reject(new Error('Groq timeout')); });
     req2.write(payload);
     req2.end();
   });
@@ -476,9 +478,11 @@ app.post('/api/ai', wrap(async (req, res) => {
   if (result.status !== 200) {
     return res.status(result.status).json({ error: result.data?.error?.message || 'Groq API error' });
   }
-  const content = result.data?.choices?.[0]?.message?.content || '';
-  res.json({ content });
-}));
+  res.json({ content: result.data?.choices?.[0]?.message?.content || '' });
+}
+
+app.post('/api/chat', wrap(handleAI));
+app.post('/api/ai',   wrap(handleAI));
 
 // ── Global error handler ──────────────────────────────────────
 app.use((err, req, res, _next) => {
