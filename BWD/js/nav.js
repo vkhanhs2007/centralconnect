@@ -578,6 +578,30 @@
       html.cc-light .modal-field input::placeholder { color: rgba(26,20,16,0.4) !important; }
       html.cc-light .amount-btn { color: #1A1410 !important; background: rgba(26,79,140,0.05) !important; border-color: rgba(26,79,140,0.15) !important; }
       html.cc-light .amount-btn:hover, html.cc-light .amount-btn.selected { color: #1A4F8C !important; background: rgba(26,79,140,0.12) !important; border-color: #4A90D9 !important; }
+
+      /* ══ HERO & PAGE-HERO: nền tối → giữ chữ sáng trong light mode ══ */
+      html.cc-light #hero { color: rgba(245,240,232,0.90) !important; }
+      html.cc-light #hero .hero-badge { color: #4A90D9 !important; border-color: rgba(74,144,217,0.5) !important; background: rgba(74,144,217,0.1) !important; }
+      html.cc-light #hero .hero-badge span:first-child,
+      html.cc-light #hero .hero-badge span:last-child { background: #4A90D9 !important; }
+      html.cc-light #hero .hero-title .line1 { color: rgba(245,240,232,0.95) !important; -webkit-text-fill-color: rgba(245,240,232,0.95) !important; }
+      html.cc-light #hero .hero-sub { color: rgba(245,240,232,0.65) !important; }
+      html.cc-light #hero .cta-ghost { color: rgba(245,240,232,0.85) !important; border-color: rgba(74,144,217,0.4) !important; }
+      html.cc-light #hero .scroll-arrow { color: rgba(245,240,232,0.45) !important; }
+
+      /* Weather widget (nền tối cố định) */
+      html.cc-light .weather-widget .weather-city { color: rgba(245,240,232,0.55) !important; }
+      html.cc-light .weather-widget .weather-temp { color: #4A90D9 !important; }
+      html.cc-light .weather-widget .weather-desc { color: rgba(245,240,232,0.65) !important; }
+      html.cc-light .weather-widget .weather-suggest { color: #7ED07A !important; }
+
+      /* Page hero (tất cả trang con — nền tối cố định) */
+      html.cc-light .page-hero { color: rgba(245,240,232,0.90) !important; }
+      html.cc-light .page-hero .page-badge { color: var(--orange) !important; border-color: rgba(232,160,32,0.45) !important; background: rgba(232,160,32,0.08) !important; }
+      html.cc-light .page-hero .page-title { color: rgba(245,240,232,0.95) !important; }
+      html.cc-light .page-hero .page-title em { color: #4A90D9 !important; -webkit-text-fill-color: #4A90D9 !important; }
+      html.cc-light .page-hero .page-sub { color: rgba(245,240,232,0.65) !important; }
+      html.cc-light .page-hero .hero-grid-lines { opacity: 0.6; }
     `;
     document.head.appendChild(s);
   }
