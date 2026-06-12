@@ -678,7 +678,7 @@ body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--ink); color:
 
 <script>
 let PLACES = [
-  { id: 1, video: '../mp4/pho_co_hoi_an.mp4', name: 'Hội An Cổ Phố', loc: 'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lich-su', icon: '🏮', lat: 15.8801, lng: 108.3380, rating: 4.9, reviews: 2840, hours: '06:00 – 22:00', price: '120.000đ', desc: 'Phố cổ Hội An là Di sản Văn hóa Thế giới UNESCO từ năm 1999, nổi tiếng với những ngôi nhà gỗ cổ kính, đèn lồng rực rỡ và dòng sông Thu Bồn hiền hòa. Nơi đây lưu giữ hơn 1.000 công trình kiến trúc từ thế kỷ XV–XIX.', audio: 'Nhạc bài chòi Hội An', beforeImg: '../image/hoi-an-cu.jpg', nowImg: '../image/hoi-an-moi.jpg' },
+  { id: 1, video: '../mp4/pho_co_hoi_an.mp4', name: 'Hội An Cổ Phố', loc: 'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lich-su', icon: '🏮', lat: 15.8801, lng: 108.3380, rating: 4.9, reviews: 2840, hours: 'Không có', price: 'Không có', desc: 'Phố cổ Hội An là Di sản Văn hóa Thế giới UNESCO từ năm 1999, nổi tiếng với những ngôi nhà gỗ cổ kính, đèn lồng rực rỡ và dòng sông Thu Bồn hiền hòa. Nơi đây lưu giữ hơn 1.000 công trình kiến trúc từ thế kỷ XV–XIX.', audio: 'Nhạc bài chòi Hội An', beforeImg: '../image/hoi-an-cu.jpg', nowImg: '../image/hoi-an-moi.jpg' },
   { id: 2, video: '../mp4/thanh_dia_my_son.mp4', name: 'Thánh Địa Mỹ Sơn', loc: 'Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lich-su', icon: '🏛', lat: 15.7710, lng: 108.1240, rating: 4.8, reviews: 1560, hours: '06:30 – 17:00', price: '150.000đ', desc: 'Quần thể tháp Chăm Mỹ Sơn được UNESCO công nhận năm 1999, là thánh địa Ấn Độ giáo tuyệt đẹp của vương quốc Champa cổ đại từ thế kỷ IV–XIII. Kiến trúc đá độc đáo giữa thung lũng xanh.', audio: 'Nhạc trống Chăm cổ', beforeImg: '../image/thanh-dia-cu.jpg', nowImg: '../image/thanh-dia-moi.jpg' },
   { id: 3, name: 'Bà Nà Hills', loc: 'Hòa Vang, Đà Nẵng', province: 'danang', type: 'thien-nhien', icon: '🌿', lat: 15.9970, lng: 107.9880, rating: 4.7, reviews: 3200, hours: '08:00 – 21:00', price: '550.000đ–900.000đ', desc: 'Khu du lịch Bà Nà Hills tọa lạc ở độ cao 1.487m, nơi có Cầu Vàng nổi tiếng thế giới với hai bàn tay khổng lồ đỡ cầu. Khí hậu mát mẻ quanh năm, cảnh quan núi rừng hùng vĩ.', audio: 'Tiếng suối và chim rừng Bà Nà', beforeImg: '../image/ba-na-hill-cu.jpg', nowImg: '../image/ba-na-hill-moi.jpg' },
   { id: 4, video: '../mp4/lang_gom_thanh_ha_hoi_an.mp4', name: 'Làng Gốm Thanh Hà', loc: 'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', province: 'quangnam', type: 'lang-nghe', icon: '🏺', lat: 15.8920, lng: 108.3100, rating: 4.6, reviews: 890, hours: '07:00 – 18:00', price: 'Miễn phí', desc: 'Làng gốm Thanh Hà có lịch sử hơn 500 năm, là một trong những làng gốm lâu đời nhất Việt Nam. Du khách có thể trực tiếp ngồi bàn xoay và nặn gốm theo hướng dẫn của nghệ nhân.', audio: 'Tiếng bàn xoay gốm truyền thống', beforeImg: '../image/tra-que.jpg', nowImg: '../image/worshop_gom_thanh_ha.png' },
@@ -922,12 +922,40 @@ function openPlace(p) {
       <button class="mcta-btn mcta-ghost" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}','_blank','noopener,noreferrer')">🗺 Chỉ đường</button>
     </div>`;
 
+  _currentPlace = p;
+  stopAudio();
+  audioPlaying = false;
+  _audioEl = null;
+
   document.getElementById('placeModal').classList.add('open');
   initModalSlider();
+
+  // Đồng bộ wave animation với video player
+  requestAnimationFrame(() => {
+    const video = document.querySelector('.modal-video');
+    if (!video) return;
+    video.addEventListener('play', () => {
+      audioPlaying = true;
+      const btn = document.getElementById('audioBtn');
+      if (btn) btn.textContent = '⏸';
+      const waves = document.getElementById('audioWaves');
+      if (waves) waves.querySelectorAll('.audio-wave').forEach(w => w.classList.add('playing'));
+    });
+    video.addEventListener('pause', () => {
+      audioPlaying = false;
+      const btn = document.getElementById('audioBtn');
+      if (btn) btn.textContent = '▶';
+      const waves = document.getElementById('audioWaves');
+      if (waves) waves.querySelectorAll('.audio-wave').forEach(w => w.classList.remove('playing'));
+    });
+  });
 }
 
 function closeModal() {
   document.getElementById('placeModal').classList.remove('open');
+  stopAudio();
+  const vid = document.querySelector('.modal-video');
+  if (vid) vid.pause();
 }
 
 async function doCheckin(placeId, placeName) {
@@ -957,12 +985,49 @@ async function doCheckin(placeId, placeName) {
 }
 
 let audioPlaying = false;
-function toggleAudio(btn) {
-  audioPlaying = !audioPlaying;
-  btn.textContent = audioPlaying ? '⏸' : '▶';
+let _audioEl = null;
+let _currentPlace = null;
+
+function stopAudio() {
+  if (_audioEl) { _audioEl.pause(); _audioEl.currentTime = 0; _audioEl = null; }
+  audioPlaying = false;
+  const btn = document.getElementById('audioBtn');
+  if (btn) btn.textContent = '▶';
   const waves = document.getElementById('audioWaves');
-  if (waves) waves.querySelectorAll('.audio-wave').forEach(w => w.classList.toggle('playing', audioPlaying));
-  showToast(audioPlaying ? '🎵 Đang phát âm thanh truyền thống...' : '⏸ Đã dừng');
+  if (waves) waves.querySelectorAll('.audio-wave').forEach(w => w.classList.remove('playing'));
+}
+
+function toggleAudio(btn) {
+  const video = document.querySelector('.modal-video');
+  if (video) {
+    // Đồng bộ với video: bật/tắt âm thanh video + tua về đầu nếu cần
+    if (audioPlaying) {
+      video.pause();
+      audioPlaying = false;
+      btn.textContent = '▶';
+    } else {
+      video.play().catch(() => {});
+      audioPlaying = true;
+      btn.textContent = '⏸';
+    }
+    const waves = document.getElementById('audioWaves');
+    if (waves) waves.querySelectorAll('.audio-wave').forEach(w => w.classList.toggle('playing', audioPlaying));
+    return;
+  }
+  // Không có video: dùng Audio() với src mp4 nếu có
+  if (_currentPlace && _currentPlace.video) {
+    if (!_audioEl) {
+      _audioEl = new Audio(_currentPlace.video);
+      _audioEl.addEventListener('ended', () => stopAudio());
+    }
+    audioPlaying = !audioPlaying;
+    audioPlaying ? _audioEl.play().catch(() => {}) : _audioEl.pause();
+    btn.textContent = audioPlaying ? '⏸' : '▶';
+    const waves = document.getElementById('audioWaves');
+    if (waves) waves.querySelectorAll('.audio-wave').forEach(w => w.classList.toggle('playing', audioPlaying));
+    return;
+  }
+  showToast('🎵 File audio đang được cập nhật...');
 }
 
 function initModalSlider() {
