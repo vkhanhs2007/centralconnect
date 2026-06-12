@@ -1,4 +1,4 @@
--- ============================================================
+﻿-- ============================================================
 --  CENTRAL CONNECT — MySQL Setup (Schema + Seed Data)
 --  Chạy 1 lần duy nhất để khởi tạo toàn bộ database:
 --
@@ -222,14 +222,14 @@ INSERT IGNORE INTO projects (id, name, goal, raised, img, status, description) V
 -- ============================================================
 INSERT IGNORE INTO places (id, name, loc, province, type, icon, lat, lng, rating, reviews, hours, price, description, audio, img) VALUES
 (1,  'Hội An Cổ Phố',
-     'Hội An, Quảng Nam',         'quangnam', 'lich-su',     '🏮', 15.880100, 108.338000, 4.9, 2840,
+     'Hội An, Quảng Nam cũ',         'quangnam', 'lich-su',     '🏮', 15.880100, 108.338000, 4.9, 2840,
      '06:00 – 22:00', '120.000đ',
      'Phố cổ Hội An là Di sản Văn hóa Thế giới UNESCO từ năm 1999, nổi tiếng với những ngôi nhà gỗ cổ kính, đèn lồng rực rỡ và dòng sông Thu Bồn hiền hòa. Nơi đây lưu giữ hơn 1.000 công trình kiến trúc từ thế kỷ XV–XIX.',
      'Nhạc bài chòi Hội An',
      'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80&auto=format&fit=crop'),
 
 (2,  'Thánh Địa Mỹ Sơn',
-     'Duy Xuyên, Quảng Nam',      'quangnam', 'lich-su',     '🏛', 15.771000, 108.124000, 4.8, 1560,
+     'Duy Xuyên, Quảng Nam cũ',      'quangnam', 'lich-su',     '🏛', 15.771000, 108.124000, 4.8, 1560,
      '06:30 – 17:00', '150.000đ',
      'Quần thể tháp Chăm Mỹ Sơn được UNESCO công nhận năm 1999, là thánh địa Ấn Độ giáo tuyệt đẹp của vương quốc Champa cổ đại từ thế kỷ IV–XIII. Kiến trúc đá độc đáo giữa thung lũng xanh.',
      'Nhạc trống Chăm cổ',
@@ -243,7 +243,7 @@ INSERT IGNORE INTO places (id, name, loc, province, type, icon, lat, lng, rating
      'https://images.unsplash.com/photo-1562602833-0f4ab2fc46e5?w=800&q=80&auto=format&fit=crop'),
 
 (4,  'Làng Gốm Thanh Hà',
-     'Hội An, Quảng Nam',          'quangnam', 'lang-nghe',   '🏺', 15.892000, 108.310000, 4.6,  890,
+     'Hội An, Quảng Nam cũ',          'quangnam', 'lang-nghe',   '🏺', 15.892000, 108.310000, 4.6,  890,
      '07:00 – 18:00', 'Miễn phí',
      'Làng gốm Thanh Hà có lịch sử hơn 500 năm, là một trong những làng gốm lâu đời nhất Việt Nam. Du khách có thể trực tiếp ngồi bàn xoay và nặn gốm theo hướng dẫn của nghệ nhân.',
      'Tiếng bàn xoay gốm truyền thống',
@@ -264,7 +264,7 @@ INSERT IGNORE INTO places (id, name, loc, province, type, icon, lat, lng, rating
      'https://images.unsplash.com/photo-1609430199078-9b5c4baeff2a?w=800&q=80&auto=format&fit=crop'),
 
 (7,  'Làng Rau Trà Quế',
-     'Hội An, Quảng Nam',          'quangnam', 'lang-nghe',   '🌱', 15.902000, 108.351000, 4.5,  760,
+     'Hội An, Quảng Nam cũ',          'quangnam', 'lang-nghe',   '🌱', 15.902000, 108.351000, 4.5,  760,
      '06:00 – 18:00', 'Miễn phí',
      'Làng rau Trà Quế nằm bên cạnh hồ Trà Quế thơ mộng, nổi tiếng với hơn 20 loại rau thơm đặc biệt. Du khách có thể tham gia trải nghiệm trồng rau và chế biến món ăn truyền thống cùng dân làng.',
      'Tiếng gió qua đồng rau Trà Quế',
@@ -285,21 +285,21 @@ INSERT IGNORE INTO places (id, name, loc, province, type, icon, lat, lng, rating
      'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=800&q=80&auto=format&fit=crop'),
 
 (10, 'Phố Cổ Hội An ban đêm',
-     'Hội An, Quảng Nam',          'quangnam', 'lich-su',     '🏮', 15.876000, 108.336000, 4.9, 3100,
+     'Hội An, Quảng Nam cũ',          'quangnam', 'lich-su',     '🏮', 15.876000, 108.336000, 4.9, 3100,
      '18:00 – 23:00', 'Included',
      'Hội An về đêm lung linh hơn bao giờ hết với hàng ngàn đèn lồng đủ màu sắc phản chiếu xuống mặt sông Thu Bồn. Lễ hội đèn lồng vào ngày rằm hằng tháng là trải nghiệm không thể quên.',
      'Tiếng đàn bầu và hò khoan đêm phố cổ',
      'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80&auto=format&fit=crop'),
 
 (11, 'Bãi biển Cửa Đại',
-     'Hội An, Quảng Nam',          'quangnam', 'bien',        '🌊', 15.855000, 108.405000, 4.5, 1200,
+     'Hội An, Quảng Nam cũ',          'quangnam', 'bien',        '🌊', 15.855000, 108.405000, 4.5, 1200,
      'Cả ngày', 'Miễn phí',
      'Bãi biển Cửa Đại trải dài 7km với cát trắng mịn và nước biển xanh ngọc. Đây là điểm lý tưởng để tắm biển yên tĩnh, ngắm hoàng hôn và thưởng thức hải sản tươi ngay trên bãi.',
      'Tiếng sóng và gió biển Cửa Đại',
      'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80&auto=format&fit=crop'),
 
 (12, 'Làng Đúc Đồng Phước Kiều',
-     'Điện Bàn, Quảng Nam',       'quangnam', 'lang-nghe',   '⚒', 15.930000, 108.218000, 4.4,  420,
+     'Điện Bàn, Quảng Nam cũ',       'quangnam', 'lang-nghe',   '⚒', 15.930000, 108.218000, 4.4,  420,
      '07:00 – 17:00', 'Miễn phí',
      'Làng đúc đồng Phước Kiều hơn 400 năm tuổi, nổi tiếng với tiếng đúc cồng chiêng và nhạc cụ dân tộc. Du khách có thể trực tiếp quan sát nghệ nhân đúc đồng theo phương pháp truyền thống.',
      'Tiếng cồng chiêng làng Phước Kiều',
@@ -386,13 +386,13 @@ INSERT IGNORE INTO events (id, name, description, eventDate, location, attendees
 ('0',
  'Lễ Hội Đèn Lồng Hội An – Đêm Rằm Tháng 5',
  'Hàng nghìn đèn lồng rực rỡ phản chiếu trên sông Thu Bồn, âm nhạc dân gian, múa Chăm và nghi lễ thả đèn cầu nguyện trên sông. Lễ hội diễn ra mỗi tháng vào đêm rằm, tháng 6 có thêm biểu diễn nhạc cụ truyền thống đặc biệt.',
- '2026-06-11 18:00:00', 'Phố cổ Hội An, Quảng Nam', 0,
+ '2026-06-11 18:00:00', 'Phố cổ Hội An, Quảng Nam cũ', 0,
  'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Hoi_An_market.jpg/1280px-Hoi_An_market.jpg',
  'le-hoi', '18:00–23:00', 'Miễn phí', 3000, '["UNESCO","Truyền thống","Phố cổ"]', 1, 0),
 
 ('1',
  'Triển Lãm Nhiếp Ảnh Di Sản Miền Trung',
- 'Hơn 120 tác phẩm nhiếp ảnh ghi lại vẻ đẹp và giá trị văn hóa di sản Đà Nẵng – Quảng Nam từ thập niên 1970 đến nay. Triển lãm kết hợp công nghệ AR cho phép xem ảnh thực địa.',
+ 'Hơn 120 tác phẩm nhiếp ảnh ghi lại vẻ đẹp và giá trị văn hóa di sản Đà Nẵng – Quảng Nam cũ từ thập niên 1970 đến nay. Triển lãm kết hợp công nghệ AR cho phép xem ảnh thực địa.',
  '2026-06-15 09:00:00', 'Bảo tàng Đà Nẵng, 24 Trần Phú', 0,
  'https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800&q=80&auto=format&fit=crop',
  'nghe-thuat', '09:00–18:00', 'Miễn phí', 500, '["Nhiếp ảnh","Di sản","AR"]', 0, 0),
@@ -428,7 +428,7 @@ INSERT IGNORE INTO events (id, name, description, eventDate, location, attendees
 ('6',
  'Triển Lãm Điêu Khắc Champa – Mỹ Sơn',
  'Triển lãm ngoài trời 40 tác phẩm phục chế điêu khắc Champa thế kỷ VII–XIII. Hướng dẫn viên chuyên gia UNESCO, audio guide tiếng Việt và Anh, VR trải nghiệm Mỹ Sơn thời Champa.',
- '2026-07-10 08:00:00', 'Thánh địa Mỹ Sơn, Quảng Nam', 0,
+ '2026-07-10 08:00:00', 'Thánh địa Mỹ Sơn, Quảng Nam cũ', 0,
  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/My_Son_sanctuary.jpg/1280px-My_Son_sanctuary.jpg',
  'nghe-thuat', '08:00–17:00', 'Included với vé vào cửa', 800, '["Champa","UNESCO","Di tích"]', 0, 0),
 

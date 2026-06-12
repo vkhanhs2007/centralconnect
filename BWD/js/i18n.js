@@ -1,4 +1,4 @@
-// ══════════════════════════════════════════════════════
+﻿// ══════════════════════════════════════════════════════
 // I18N.JS — Hệ thống dịch toàn trang (Vi/En/Ko/Zh/Ja)
 // Central Connect · Di sản số Đà Nẵng
 // ══════════════════════════════════════════════════════
@@ -296,7 +296,7 @@
       // ── About page ──
       about_badge: 'Dự án BWD 2026 · VKU',
       about_title_part1: 'Bảo tồn di sản', about_title_em: 'trong thế giới số',
-      about_hero_p: 'Central Connect là nền tảng bản đồ di sản tương tác đầu tiên cho vùng Đà Nẵng – Quảng Nam, kết nối cộng đồng với văn hoá truyền thống qua công nghệ hiện đại.',
+      about_hero_p: 'Central Connect là nền tảng bản đồ di sản tương tác đầu tiên cho vùng Đà Nẵng – Quảng Nam cũ, kết nối cộng đồng với văn hoá truyền thống qua công nghệ hiện đại.',
       about_mission_title_main: 'Sứ mệnh của', about_mission_title_em: 'chúng tôi',
       about_mission_p1: 'Đà Nẵng và vùng lân cận là nơi sở hữu hai Di sản Văn hóa Thế giới UNESCO (Hội An, Mỹ Sơn) cùng hàng trăm di tích, làng nghề, ẩm thực độc đáo. Tuy nhiên, nhiều di sản đang đứng trước nguy cơ mai một do thiếu sự quan tâm, quảng bá và kết nối với thế hệ trẻ.',
       about_card_map_title: 'Bản đồ tương tác', about_card_map_p: 'Khám phá hơn 200 địa điểm di sản trên bản đồ số, với hình ảnh trước/sau, audio guide và câu chuyện văn hoá.',
