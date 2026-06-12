@@ -2,6 +2,8 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<script>try{if(localStorage.getItem('cc_theme')=='light')document.documentElement.classList.add('cc-light')}catch(e){}</script>
+<style>html.cc-light body{background:#F5F0E8!important;color:#1A1410!important}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gây Quỹ & Hạt Bàu – Central Connect</title>
 <meta name="description" content="Góp sức bảo tồn di sản văn hóa Đà Nẵng. Tích điểm Hải Âu khi check-in địa điểm, ủng hộ chiến dịch phục dựng di tích và nhận huy hiệu bảo tồn.">
@@ -264,7 +266,8 @@
     background: rgba(232,160,32,0.07);
     animation: fadeUp 0.7s ease forwards;
   }
-  .page-badge span { width: 5px; height: 5px; background: var(--orange); border-radius: 50%; }
+  .page-badge span:first-child { width: 5px; height: 5px; flex-shrink: 0; background: var(--orange); border-radius: 50%; }
+  .page-badge span[data-i18n] { white-space: nowrap; width: auto; height: auto; background: transparent; border-radius: 0; }
   .page-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(38px, 6vw, 68px); font-weight: 900;

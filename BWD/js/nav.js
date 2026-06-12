@@ -248,6 +248,8 @@
       }
       html.cc-light .nav-menu a { color: rgba(26,20,16,0.75) !important; }
       html.cc-light .nav-menu a:hover { background: rgba(26,79,140,0.07) !important; color: #4A90D9 !important; }
+      html.cc-light .nav-menu a.active,
+      html.cc-light .nav-menu a.nav-active { color: #1A4F8C !important; background: rgba(26,79,140,0.1) !important; }
       html.cc-light .nav-menu .fund-link { color: #B86000 !important; }
       html.cc-light .nav-menu .fund-link:hover { background: rgba(184,96,0,0.08) !important; color: #9A4E00 !important; }
       html.cc-light .nav-menu .fund-link.active,

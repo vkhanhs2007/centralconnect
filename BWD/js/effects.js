@@ -44,15 +44,17 @@
       background: #1A1410;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.25s ease;
+      will-change: opacity;
     }
     #page-transition.fade-out { opacity: 1; }
 
     /* ── REVEAL ON SCROLL (Animate on scroll) ── */
     .cc-reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: opacity, transform;
     }
     .cc-reveal.cc-visible {
       opacity: 1;
@@ -60,14 +62,16 @@
     }
     .cc-reveal-left {
       opacity: 0;
-      transform: translateX(-30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateX(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: opacity, transform;
     }
     .cc-reveal-left.cc-visible { opacity: 1; transform: translateX(0); }
     .cc-reveal-right {
       opacity: 0;
-      transform: translateX(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateX(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: opacity, transform;
     }
     .cc-reveal-right.cc-visible { opacity: 1; transform: translateX(0); }
 
@@ -200,13 +204,23 @@
     overlay.id = 'page-transition';
     document.body.appendChild(overlay);
 
-    // Bắt đầu đục (opacity 1) → fade to transparent = hiệu ứng "trang hiện ra"
+    // Trang hiện ra: overlay từ đục → trong suốt
     overlay.style.transition = 'none';
     overlay.style.opacity = '1';
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      overlay.style.transition = 'opacity 0.4s ease';
+      overlay.style.transition = 'opacity 0.3s ease';
       overlay.style.opacity = '0';
     }));
+
+    // Hàm navigate: overlay đục lên rồi chuyển trang
+    function navigateTo(href) {
+      overlay.style.transition = 'opacity 0.22s ease';
+      overlay.style.opacity = '1';
+      setTimeout(() => { window.location.href = href; }, 230);
+    }
+
+    // Expose để button onclick có thể dùng
+    window.__ccNavigate = navigateTo;
 
     // Fade to đục khi click link nội bộ → chuyển trang
     document.addEventListener('click', e => {
@@ -217,10 +231,22 @@
       if (a.hasAttribute('onclick') && !href.endsWith('.html')) return;
 
       e.preventDefault();
-      overlay.style.transition = 'opacity 0.3s ease';
-      overlay.style.opacity = '1';
-      setTimeout(() => { window.location.href = href; }, 320);
+      navigateTo(href);
     });
+
+    // Bắt onclick trên button/div chứa window.location.href
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[onclick]');
+      if (!btn || btn.tagName === 'A') return;
+      const oc = btn.getAttribute('onclick') || '';
+      const m = oc.match(/window\.location\.href\s*=\s*['"]([^'"]+\.html[^'"]*)['"]/);
+      if (!m) return;
+      const href = m[1];
+      if (href.startsWith('http')) return;
+      e.stopImmediatePropagation();
+      btn.setAttribute('onclick', '');
+      navigateTo(href);
+    }, true);
   }
 
   /* ── CURSOR GLOW ── */
@@ -309,18 +335,19 @@
   /* ── LAZY LOAD IMAGES ── */
   function initLazyImages() {
     const imgs = document.querySelectorAll('img:not([loading])');
-    imgs.forEach(img => { img.setAttribute('loading', 'lazy'); });
+    imgs.forEach(img => {
+      // Không lazy-load ảnh trong navbar và hero (above-the-fold)
+      if (img.closest('#navbar') || img.closest('.page-hero') || img.closest('.hero')) return;
+      img.setAttribute('loading', 'lazy');
+    });
   }
 
-  /* ── ACTIVE NAV LINK ── */
+  /* ── ACTIVE NAV LINK (chỉ mobile nav — desktop do nav.js xử lý) ── */
   function highlightActiveNav() {
     const page = location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-menu a[href], .mobile-nav-item[href]').forEach(a => {
+    document.querySelectorAll('.mobile-nav-item[href]').forEach(a => {
       const href = (a.getAttribute('href') || '').split('/').pop();
-      if (href === page) {
-        a.style.color = '#C9A84C';
-        a.style.background = 'rgba(201,168,76,0.08)';
-      }
+      if (href === page) a.classList.add('nav-active');
     });
   }
 

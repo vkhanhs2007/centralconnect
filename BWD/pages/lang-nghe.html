@@ -2,6 +2,8 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<script>try{if(localStorage.getItem('cc_theme')=='light')document.documentElement.classList.add('cc-light')}catch(e){}</script>
+<style>html.cc-light body{background:#F5F0E8!important;color:#1A1410!important}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Làng Nghề Truyền Thống – Central Connect</title>
 <meta name="description" content="Khám phá các làng nghề thủ công truyền thống Đà Nẵng: gốm Thanh Hà, mộc Kim Bồng, lụa Mã Châu, đèn lồng Hội An. Đặt tour trải nghiệm trực tiếp.">
@@ -403,16 +405,16 @@ footer { background: #0A0C10; border-top: 1px solid rgba(201,168,76,0.1); paddin
 
 <script>
 const VILLAGES = [
-  { id:0, name:'Gốm Thanh Hà', video:'../mp4/lang_gom_thanh_ha_hoi_an.mp4', location:'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:500, badge:'badge-gold', badgeText:'Di sản UNESCO', img:'../image/tra-que.jpg', desc:'Làng gốm 500 năm tuổi, một trong những làng gốm cổ nhất miền Trung. Nghệ nhân tạo hình đất sét bằng bàn xoay thủ công, nung bằng lửa củi để tạo ra màu nâu đỏ đặc trưng. Hiện còn khoảng 40 hộ gia đình giữ nghề.', products:['Bình hoa', 'Chậu gốm', 'Tượng gốm', 'Đồ gia dụng', 'Quà lưu niệm'], hours:'07:00–17:00', price:'Workshop 150.000đ/người', tags:['Gốm nung', 'Thủ công', 'Bàn xoay', 'Di sản'] },
-  { id:1, name:'Mộc Kim Bồng', video:'', location:'Cẩm Kim, Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:400, badge:'badge-alive', badgeText:'Đang hoạt động', img:'../image/moc_kim_bong.png', desc:'Làng mộc nổi tiếng với nghề chạm khắc gỗ tinh xảo. Nghệ nhân Kim Bồng đã góp phần kiến tạo nên những ngôi nhà cổ và hội quán trong khu phố cổ Hội An. Sản phẩm nổi tiếng với họa tiết Rồng-Phượng truyền thống.', products:['Đồ nội thất', 'Tượng gỗ', 'Tranh chạm khắc', 'Đồ trang trí', 'Nhà cổ'], hours:'07:30–17:30', price:'Workshop 200.000đ/người', tags:['Chạm khắc', 'Gỗ quý', 'Nội thất', 'Hội An'] },
-  { id:2, name:'Lụa Mã Châu', video:'', location:'Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:300, badge:'badge-rare', badgeText:'Nghề hiếm', img:'../image/lua_ma_chau.png', desc:'Làng dệt lụa 300 năm tuổi với kỹ thuật dệt thủ công truyền thống. Lụa Mã Châu nổi tiếng với độ bóng mịn, màu sắc tự nhiên từ cây cỏ địa phương. Hiện chỉ còn khoảng 15 hộ giữ nghề dệt thủ công hoàn toàn.', products:['Lụa tơ tằm', 'Áo dài', 'Khăn lụa', 'Vải thổ cẩm', 'Phụ kiện'], hours:'08:00–16:00', price:'Workshop 220.000đ/người', tags:['Lụa tơ tằm', 'Dệt thủ công', 'Màu tự nhiên', 'Hiếm'] },
+  { id:0, name:'Gốm Thanh Hà', video:'../mp4/lang_gom_thanh_ha_hoi_an.mp4', location:'Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:500, badge:'badge-gold', badgeText:'Di sản UNESCO', img:'../image/worshop_gom_thanh_ha.png', desc:'Làng gốm 500 năm tuổi, một trong những làng gốm cổ nhất miền Trung. Nghệ nhân tạo hình đất sét bằng bàn xoay thủ công, nung bằng lửa củi để tạo ra màu nâu đỏ đặc trưng. Hiện còn khoảng 40 hộ gia đình giữ nghề.', products:['Bình hoa', 'Chậu gốm', 'Tượng gốm', 'Đồ gia dụng', 'Quà lưu niệm'], hours:'07:00–17:00', price:'Workshop 150.000đ/người', tags:['Gốm nung', 'Thủ công', 'Bàn xoay', 'Di sản'] },
+  { id:1, name:'Mộc Kim Bồng', video:'../mp4/lang_nghe_phuoc_kieu.mp4', location:'Cẩm Kim, Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:400, badge:'badge-alive', badgeText:'Đang hoạt động', img:'../image/moc_kim_bong.png', desc:'Làng mộc nổi tiếng với nghề chạm khắc gỗ tinh xảo. Nghệ nhân Kim Bồng đã góp phần kiến tạo nên những ngôi nhà cổ và hội quán trong khu phố cổ Hội An. Sản phẩm nổi tiếng với họa tiết Rồng-Phượng truyền thống.', products:['Đồ nội thất', 'Tượng gỗ', 'Tranh chạm khắc', 'Đồ trang trí', 'Nhà cổ'], hours:'07:30–17:30', price:'Workshop 200.000đ/người', tags:['Chạm khắc', 'Gỗ quý', 'Nội thất', 'Hội An'] },
+  { id:2, name:'Lụa Mã Châu', video:'../mp4/lang_rau_tra_que.mp4', location:'Duy Xuyên, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:300, badge:'badge-rare', badgeText:'Nghề hiếm', img:'../image/lua_ma_chau.png', desc:'Làng dệt lụa 300 năm tuổi với kỹ thuật dệt thủ công truyền thống. Lụa Mã Châu nổi tiếng với độ bóng mịn, màu sắc tự nhiên từ cây cỏ địa phương. Hiện chỉ còn khoảng 15 hộ giữ nghề dệt thủ công hoàn toàn.', products:['Lụa tơ tằm', 'Áo dài', 'Khăn lụa', 'Vải thổ cẩm', 'Phụ kiện'], hours:'08:00–16:00', price:'Workshop 220.000đ/người', tags:['Lụa tơ tằm', 'Dệt thủ công', 'Màu tự nhiên', 'Hiếm'] },
   { id:3, name:'Đèn Lồng Hội An', video:'../mp4/pho_co_hoi_an.mp4', location:'Phố cổ Hội An, Đà Nẵng (thuộc tỉnh Quảng Nam cũ)', age:200, badge:'badge-gold', badgeText:'Biểu tượng Hội An', img:'../image/den_long_hoi_an.png', desc:'Nghề làm đèn lồng là biểu tượng văn hóa của Hội An. Mỗi chiếc đèn được làm từ khung tre và vải lụa, vẽ tay họa tiết truyền thống. Phố Nguyễn Thái Học tập trung nhiều xưởng làm đèn lồng nhất.', products:['Đèn lồng lụa', 'Đèn lồng giấy', 'Đèn ông sao', 'Đèn trang trí', 'Bộ DIY'], hours:'08:00–21:00', price:'Workshop 180.000đ/người', tags:['Đèn lồng', 'Lụa', 'Tre', 'Sơn tay'] },
 ];
 
 const PRODUCTS = [
-  { name:'Bình gốm Thanh Hà', village:'Gốm Thanh Hà', price:'180.000đ', img:'../image/tra-que.jpg' },
+  { name:'Bình gốm Thanh Hà', village:'Gốm Thanh Hà', price:'180.000đ', img:'../image/worshop_gom_thanh_ha.png' },
   { name:'Đèn lồng lụa Hội An', village:'Đèn Lồng Hội An', price:'95.000đ', img:'../image/den_long_hoi_an.png' },
-  { name:'Bộ gốm gia đình', village:'Gốm Thanh Hà', price:'680.000đ', img:'../image/tra-que-2.jpg' },
+  { name:'Bộ gốm gia đình', village:'Gốm Thanh Hà', price:'680.000đ', img:'../image/tuong_go_cham_khac.png' },
   { name:'Thủ công mỹ nghệ Hội An', village:'Mộc Kim Bồng', price:'350.000đ', img:'../image/moc_kim_bong.png' },
   { name:'Bộ đèn lồng DIY', village:'Đèn Lồng Hội An', price:'145.000đ', img:'../image/bo_den_long_diy.png' },
 ];

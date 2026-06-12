@@ -2,6 +2,8 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<script>try{if(localStorage.getItem('cc_theme')=='light')document.documentElement.classList.add('cc-light')}catch(e){}</script>
+<style>html.cc-light body{background:#F5F0E8!important;color:#1A1410!important}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Đối Tác – Central Connect</title>
 <meta name="description" content="Mạng lưới đối tác du lịch xanh Đà Nẵng: vận tải thân thiện, homestay sinh thái và doanh nghiệp bảo tồn. Kết nối đối tác tham gia bảo tồn di sản.">
@@ -275,7 +277,9 @@
     margin-bottom: 24px; background: rgba(74,144,217,0.06);
     animation: fadeUp 0.7s ease forwards;
   }
-  .page-badge span { width: 5px; height: 5px; background: var(--ocean-light); border-radius: 50%; }
+  .page-badge span:first-child,
+  .page-badge span:last-child { width: 5px; height: 5px; flex-shrink: 0; background: var(--ocean-light); border-radius: 50%; }
+  .page-badge span[data-i18n] { white-space: nowrap; width: auto; height: auto; }
   .page-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(40px, 6vw, 72px); font-weight: 900;
