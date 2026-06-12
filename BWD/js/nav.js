@@ -605,6 +605,74 @@
       html.cc-light .page-hero .page-title em { color: #4A90D9 !important; -webkit-text-fill-color: #4A90D9 !important; }
       html.cc-light .page-hero .page-sub { color: rgba(245,240,232,0.65) !important; }
       html.cc-light .page-hero .hero-grid-lines { opacity: 0.6; }
+
+      /* ══ kham-pha.html: sidebar danh sách + place modal ══ */
+      html.cc-light .sidebar-toggle-bar { background: #EDE8E0 !important; border-bottom-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .sidebar { background: #F5F0E8 !important; border-right-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .sidebar-header { border-bottom-color: rgba(26,79,140,0.08) !important; }
+      html.cc-light .sidebar-count { color: #7A6D5E !important; }
+      html.cc-light .sidebar-count strong { color: #1A4F8C !important; }
+      html.cc-light .place-list-item:hover { background: rgba(26,79,140,0.06) !important; }
+      html.cc-light .place-list-item.selected { background: rgba(26,79,140,0.1) !important; border-left-color: #4A90D9 !important; }
+      html.cc-light .pli-name { color: #1A1410 !important; }
+      html.cc-light .pli-loc { color: #7A6D5E !important; }
+      /* modal-box (kham-pha) — khác với .modal (login) đã fix ở trên */
+      html.cc-light .modal-box { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .modal-loc { color: #7A6D5E !important; }
+      html.cc-light .modal-desc { color: rgba(26,20,16,0.72) !important; }
+      html.cc-light .modal-info-card { background: rgba(26,79,140,0.05) !important; border-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .mic-label { color: #7A6D5E !important; }
+      html.cc-light .mic-val { color: #1A1410 !important; }
+
+      /* ══ am-thuc.html: tab lọc + sidebar thực đơn + food modal ══ */
+      html.cc-light .cat-tabs { background: rgba(245,240,232,0.97) !important; border-bottom-color: rgba(26,79,140,0.12) !important; }
+      html.cc-light .food-card { border-bottom-color: rgba(26,79,140,0.07) !important; }
+      html.cc-light .food-card:hover { background: rgba(26,79,140,0.05) !important; }
+      html.cc-light .food-card.selected { background: rgba(26,79,140,0.08) !important; border-left-color: #4A90D9 !important; }
+      html.cc-light .fc-name { color: #1A1410 !important; }
+      html.cc-light .sort-select { color: #1A1410 !important; background: rgba(245,240,232,0.7) !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .fmodal-box { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .fmodal-title { color: #1A1410 !important; }
+      html.cc-light .fmodal-shop { color: #7A6D5E !important; }
+      html.cc-light .menu-item { background: rgba(26,79,140,0.04) !important; border-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .menu-item-name { color: #1A1410 !important; }
+      html.cc-light .menu-item-price { color: #1A4F8C !important; }
+      html.cc-light .info-chip { background: rgba(26,79,140,0.04) !important; border-color: rgba(26,79,140,0.1) !important; }
+      html.cc-light .qr-section { background: linear-gradient(135deg,rgba(26,79,140,0.08),rgba(26,79,140,0.04)) !important; border-color: rgba(26,79,140,0.2) !important; }
+
+      /* ══ di-tich.html: story modal + checkin modal ══ */
+      html.cc-light .sm-box { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .sm-title { color: #1A1410 !important; }
+      html.cc-light .sm-meta { color: #7A6D5E !important; }
+      html.cc-light .sm-fact-lbl { color: #7A6D5E !important; }
+      html.cc-light .sm-close { background: rgba(26,79,140,0.06) !important; border-color: rgba(26,79,140,0.15) !important; color: #5A4D3E !important; }
+      html.cc-light .cm-box { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .cm-name { color: #1A1410 !important; }
+      html.cc-light .cm-close { background: rgba(26,79,140,0.06) !important; border-color: rgba(26,79,140,0.15) !important; color: #5A4D3E !important; }
+      html.cc-light .sc-checkin-badge { background: rgba(245,240,232,0.9) !important; color: #1A4F8C !important; border-color: rgba(26,79,140,0.3) !important; }
+
+      /* ══ lang-nghe.html: booking modal + video modal ══ */
+      html.cc-light .bm-box { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .bm-title { color: #1A1410 !important; }
+      html.cc-light .bm-sub { color: #7A6D5E !important; }
+      html.cc-light .bm-close { background: rgba(26,79,140,0.06) !important; border-color: rgba(26,79,140,0.15) !important; color: #5A4D3E !important; }
+      html.cc-light .vm-box { background: #fff !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .vm-name { color: #1A1410 !important; }
+      html.cc-light .vm-info-label { color: #7A6D5E !important; }
+      html.cc-light .vm-info-val { color: #1A1410 !important; }
+      html.cc-light .vm-close { background: rgba(26,79,140,0.06) !important; border-color: rgba(26,79,140,0.15) !important; color: #5A4D3E !important; }
+      html.cc-light .form-input,
+      html.cc-light .form-select { background: #F5F0E8 !important; border-color: rgba(26,79,140,0.2) !important; color: #1A1410 !important; }
+      html.cc-light .form-row label { color: #7A6D5E !important; }
+      html.cc-light .vm-map-btn { color: #1A1410 !important; border-color: rgba(26,79,140,0.3) !important; }
+
+      /* ══ lich-trinh.html: wizard card ══ */
+      html.cc-light .wizard-card { background: rgba(245,240,232,0.9) !important; border-color: rgba(26,79,140,0.2) !important; }
+      html.cc-light .wizard-title { color: #1A1410 !important; }
+      html.cc-light .form-label { color: #7A6D5E !important; }
+      html.cc-light .day-btn { color: #1A1410 !important; border-color: rgba(26,79,140,0.2) !important; background: rgba(245,240,232,0.5) !important; }
+      html.cc-light .day-btn:hover,
+      html.cc-light .day-btn.active { color: #1A4F8C !important; border-color: #4A90D9 !important; background: rgba(26,79,140,0.1) !important; }
     `;
     document.head.appendChild(s);
   }
