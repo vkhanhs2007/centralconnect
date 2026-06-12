@@ -1402,11 +1402,11 @@
     </div>
   </div>
 
-  <div class="weather-widget">
-    <div class="weather-city">Đà Nẵng</div>
-    <div class="weather-temp">☀ 33°C</div>
-    <div class="weather-desc">Nắng đẹp, gió nhẹ</div>
-    <div class="weather-suggest">✓ Thích hợp tắm biển Mỹ Khê hôm nay</div>
+  <div class="weather-widget" id="weatherWidget">
+    <div class="weather-city">📍 Đà Nẵng</div>
+    <div class="weather-temp" id="weatherTemp" style="opacity:0.5">⟳ Đang tải...</div>
+    <div class="weather-desc" id="weatherDesc"></div>
+    <div class="weather-suggest" id="weatherSuggest"></div>
   </div>
 
   <a class="scroll-arrow" href="#stats" style="text-decoration:none">▼</a>
@@ -2796,6 +2796,80 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// ── THỜI TIẾT THỰC — Open-Meteo (miễn phí, không cần API key) ──
+(async function loadWeather() {
+  const tempEl    = document.getElementById('weatherTemp');
+  const descEl    = document.getElementById('weatherDesc');
+  const suggestEl = document.getElementById('weatherSuggest');
+  if (!tempEl) return;
+
+  // Bảng mã thời tiết WMO → icon + mô tả tiếng Việt
+  const WMO = {
+    0:  ['☀',  'Trời quang'],
+    1:  ['⛅', 'Ít mây'],
+    2:  ['🌤', 'Mây rải rác'],
+    3:  ['☁',  'Nhiều mây'],
+    45: ['🌫', 'Sương mù'],
+    48: ['🌫', 'Sương giá'],
+    51: ['🌦', 'Mưa phùn nhẹ'],
+    53: ['🌦', 'Mưa phùn'],
+    55: ['🌧', 'Mưa phùn dày'],
+    61: ['🌧', 'Mưa nhẹ'],
+    63: ['🌧', 'Mưa vừa'],
+    65: ['🌧', 'Mưa to'],
+    80: ['🌦', 'Mưa rào nhẹ'],
+    81: ['🌦', 'Mưa rào'],
+    82: ['⛈',  'Mưa rào mạnh'],
+    95: ['⛈',  'Dông'],
+    96: ['⛈',  'Dông có mưa đá'],
+    99: ['⛈',  'Dông mạnh'],
+  };
+
+  // Gợi ý du lịch dựa theo thời tiết
+  function getSuggest(code, temp) {
+    if ([95, 96, 99].includes(code)) return '⚠ Tránh di chuyển xa — theo dõi cảnh báo thời tiết';
+    if ([61, 63, 65].includes(code)) return '☔ Nên thăm Bảo tàng Chăm hoặc làng nghề trong nhà';
+    if ([51, 53, 55, 80, 81, 82].includes(code)) return '☔ Phố Cổ Hội An có mái che tiện để khám phá';
+    if ([45, 48].includes(code)) return '🌫 Sương mù — Bà Nà Hills có thể đẹp huyền ảo hôm nay';
+    if (code === 3) return '✓ Trời mát dịu — lý tưởng leo Ngũ Hành Sơn';
+    if (code === 2) return '✓ Thời tiết dễ chịu — thích hợp tham quan di tích';
+    if (temp >= 35) return '🥵 Nắng rất gắt — nên ra biển Mỹ Khê từ chiều tối';
+    if (temp >= 32) return '⚡ Trời nóng — ghé biển Mỹ Khê buổi chiều mát hơn';
+    return '✓ Thời tiết đẹp — thích hợp khám phá di sản hôm nay';
+  }
+
+  try {
+    // Da Nang: lat=16.0544, lon=108.2022
+    const url = 'https://api.open-meteo.com/v1/forecast' +
+      '?latitude=16.0544&longitude=108.2022' +
+      '&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m' +
+      '&timezone=Asia%2FBangkok&forecast_days=1';
+
+    const res  = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const cur  = data.current;
+
+    const temp  = Math.round(cur.temperature_2m);
+    const code  = cur.weather_code;
+    const wind  = Math.round(cur.wind_speed_10m);
+    const humid = Math.round(cur.relative_humidity_2m);
+
+    const [icon, desc] = WMO[code] ?? ['🌡', 'Không xác định'];
+
+    tempEl.style.opacity   = '1';
+    tempEl.textContent     = `${icon} ${temp}°C`;
+    descEl.textContent     = `${desc} · Gió ${wind} km/h · Ẩm ${humid}%`;
+    suggestEl.textContent  = getSuggest(code, temp);
+  } catch (_) {
+    // Fallback khi không có internet
+    tempEl.style.opacity  = '0.6';
+    tempEl.textContent    = '🌡 —°C';
+    descEl.textContent    = 'Không tải được thời tiết';
+    suggestEl.textContent = '';
+  }
+})();
 
 </script>
 <!-- Firebase SDK -->
