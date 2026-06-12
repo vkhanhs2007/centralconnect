@@ -854,7 +854,7 @@ document.addEventListener('click', e => {
 
 function buildVideoBlock(p) {
   if (p.video) {
-    return '<video class="modal-video" controls preload="metadata"><source src="' + p.video + '" type="video/mp4"></video>';
+    return '<video class="modal-video" controls preload="auto" playsinline><source src="' + p.video + '" type="video/mp4"></video>';
   }
   return '<div class="video-placeholder" onclick="showToast(\'🎬 Video đang được sinh viên VKU thực hiện...\')">' +
     '<div class="video-play-btn">▶</div>' +
@@ -1006,7 +1006,7 @@ function toggleAudio(btn) {
       audioPlaying = false;
       btn.textContent = '▶';
     } else {
-      video.play().catch(() => {});
+      video.play().catch(() => showToast('⚠ Trình duyệt chặn phát video, hãy nhấn ▶ trên video'));
       audioPlaying = true;
       btn.textContent = '⏸';
     }

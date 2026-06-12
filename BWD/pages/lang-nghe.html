@@ -486,7 +486,7 @@ document.getElementById('workshopList').innerHTML = WORKSHOPS.map(w => `
 // ── Village Modal ──
 function buildVillageVideo(v) {
   if (v.video) {
-    return '<video class="modal-video" controls preload="metadata" style="width:100%;border-radius:12px;margin-bottom:16px;background:#000;max-height:260px;"><source src="' + v.video + '" type="video/mp4"></video>';
+    return '<video class="modal-video" controls preload="auto" playsinline style="width:100%;border-radius:12px;margin-bottom:16px;background:#000;max-height:260px;"><source src="' + v.video + '" type="video/mp4"></video>';
   }
   return '';
 }

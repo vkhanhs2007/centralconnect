@@ -831,7 +831,7 @@ function openSite(id) {
     heroArea.style.backgroundImage = '';
     heroArea.innerHTML = `<div style="font-size:80px;opacity:0.45">${s.emoji}</div><div class="sc-era-badge ${s.badgeClass}" style="position:absolute;top:16px;left:16px">${s.badge}</div>`;
   }
-  const videoHtml = s.video ? `<video controls preload="metadata" style="width:100%;border-radius:10px;margin-bottom:16px;background:#000;max-height:240px;display:block"><source src="${s.video}" type="video/mp4"></video>` : '';
+  const videoHtml = s.video ? `<video controls preload="auto" playsinline style="width:100%;border-radius:10px;margin-bottom:16px;background:#000;max-height:240px;display:block"><source src="${s.video}" type="video/mp4"></video>` : '';
   document.getElementById('smBody').innerHTML = `
     <div class="sm-title">${s.name}</div>
     <div class="sm-meta">${s.loc} · ${s.year}</div>
