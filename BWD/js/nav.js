@@ -580,12 +580,15 @@
       html.cc-light .amount-btn:hover, html.cc-light .amount-btn.selected { color: #1A4F8C !important; background: rgba(26,79,140,0.12) !important; border-color: #4A90D9 !important; }
 
       /* ══ HERO & PAGE-HERO: nền tối → giữ chữ sáng trong light mode ══ */
-      html.cc-light #hero { color: rgba(245,240,232,0.90) !important; }
+      /* index.html có rule #hero * { color: var(--cream) } → cần override toàn bộ */
+      html.cc-light #hero,
+      html.cc-light #hero * { color: rgba(245,240,232,0.88) !important; }
       html.cc-light #hero .hero-badge { color: #4A90D9 !important; border-color: rgba(74,144,217,0.5) !important; background: rgba(74,144,217,0.1) !important; }
       html.cc-light #hero .hero-badge span:first-child,
-      html.cc-light #hero .hero-badge span:last-child { background: #4A90D9 !important; }
+      html.cc-light #hero .hero-badge span:last-child { background: #4A90D9 !important; color: transparent !important; }
       html.cc-light #hero .hero-title .line1 { color: rgba(245,240,232,0.95) !important; -webkit-text-fill-color: rgba(245,240,232,0.95) !important; }
       html.cc-light #hero .hero-sub { color: rgba(245,240,232,0.65) !important; }
+      html.cc-light #hero .cta-primary { color: #fff !important; }
       html.cc-light #hero .cta-ghost { color: rgba(245,240,232,0.85) !important; border-color: rgba(74,144,217,0.4) !important; }
       html.cc-light #hero .scroll-arrow { color: rgba(245,240,232,0.45) !important; }
 
